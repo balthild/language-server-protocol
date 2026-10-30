@@ -8,6 +8,10 @@ use Phpactor\LanguageServerProtocol\Support\FromArray;
 
 /**
  * Text document specific client capabilities.
+ *
+ * @phpstan-type InlayHintClientCapabilities array{dynamicRegistration?: bool, resolveSupport?: array{properties: list<string>}}
+ *
+ * @phpstan-type DiagnosticClientCapabilities array{dynamicRegistration?: bool, relatedDocumentSupport?: bool}
  */
 class TextDocumentClientCapabilities implements ArrayDeserializable
 {
@@ -160,13 +164,13 @@ class TextDocumentClientCapabilities implements ArrayDeserializable
         /**
          * Capabilities specific to the `textDocument/inlayHint` request.
          *
-         * @var array{dynamicRegistration?: bool, resolveSupport?: array{properties: list<string>}}|null
+         * @var InlayHintClientCapabilities|null
          */
         public ?array $inlayHint = null,
         /**
          * Capabilities specific to the diagnostic pull model.
          *
-         * @var array{dynamicRegistration?: bool, relatedDocumentSupport?: bool}|null
+         * @var DiagnosticClientCapabilities|null
          */
         public ?array $diagnostic = null
     ) {}

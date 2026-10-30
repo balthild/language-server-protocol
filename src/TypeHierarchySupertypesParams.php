@@ -7,6 +7,8 @@ use Phpactor\LanguageServerProtocol\Support\FromArray;
 
 /**
  * Mixins (implemented TS interfaces): WorkDoneProgressParams, PartialResultParams
+ *
+ * @phpstan-type TypeHierarchyItem array{name: string, kind: SymbolKind::*, tags?: list<SymbolTag::*>, detail?: string, uri: string, range: Range, selectionRange: Range, data?: mixed}
  */
 class TypeHierarchySupertypesParams implements ArrayDeserializable
 {
@@ -14,7 +16,7 @@ class TypeHierarchySupertypesParams implements ArrayDeserializable
 
     public function __construct(
         /**
-         * @var array{name: string, kind: SymbolKind::*, tags?: list<SymbolTag::*>, detail?: string, uri: string, range: Range, selectionRange: Range, data?: mixed}
+         * @var TypeHierarchyItem
          */
         public array $item,
         /**

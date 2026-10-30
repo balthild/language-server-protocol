@@ -8,6 +8,8 @@ use Phpactor\LanguageServerProtocol\Support\FromArray;
 
 /**
  * Mixins (implemented TS interfaces): WorkDoneProgressParams
+ *
+ * @phpstan-type InlineValueContext array{frameId: int, stoppedLocation: Range}
  */
 class InlineValueParams implements ArrayDeserializable
 {
@@ -28,7 +30,7 @@ class InlineValueParams implements ArrayDeserializable
          * Additional information about the context in which inline values were
          * requested.
          *
-         * @var array{frameId: int, stoppedLocation: Range}
+         * @var InlineValueContext
          */
         public array $context,
         /**

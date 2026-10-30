@@ -1,7 +1,7 @@
 import ts from 'typescript';
 
 import type { NodeMap } from './nodeMap.ts';
-import type { PhpType, TypeConverter } from './typeConverter.ts';
+import type { AliasRef, PhpType, TypeConverter } from './typeConverter.ts';
 
 function forEachDescendant(node: ts.Node, callback: (node: ts.Node) => void): void {
 	callback(node);
@@ -117,6 +117,7 @@ export interface Property {
 	readonly nullable: boolean;
 	readonly docs: readonly string[];
 	readonly special: readonly string[];
+	readonly aliases: readonly AliasRef[];
 }
 
 export class PhpClassResolver {
@@ -238,12 +239,15 @@ export class PhpClassResolver {
 				special.push('uri');
 			}
 
+			const type = this.typeConverter.phpType(member.type);
+
 			const property: Property = {
 				docs: jsDocs(member),
 				name: member.name.text,
-				type: this.typeConverter.phpType(member.type),
+				type,
 				nullable: isNullable(member),
 				special,
+				aliases: type.aliases,
 			};
 
 			properties.set(property.name, property);

@@ -7,6 +7,8 @@ use Phpactor\LanguageServerProtocol\Support\FromArray;
 
 /**
  * Mixins (implemented TS interfaces): StaticRegistrationOptions
+ *
+ * @phpstan-type NotebookDocumentFilter array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}
  */
 class NotebookDocumentSyncRegistrationOptions implements ArrayDeserializable
 {
@@ -16,7 +18,7 @@ class NotebookDocumentSyncRegistrationOptions implements ArrayDeserializable
         /**
          * The notebooks to be synced
          *
-         * @var list<(array{notebook: string|array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}, cells?: list<array{language: string}>}|array{notebook?: string|array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}, cells: list<array{language: string}>})>
+         * @var list<(array{notebook: string|NotebookDocumentFilter, cells?: list<array{language: string}>}|array{notebook?: string|NotebookDocumentFilter, cells: list<array{language: string}>})>
          */
         public array $notebookSelector,
         /**

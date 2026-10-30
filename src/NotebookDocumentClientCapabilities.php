@@ -7,6 +7,8 @@ use Phpactor\LanguageServerProtocol\Support\FromArray;
 
 /**
  * Capabilities specific to the notebook document support.
+ *
+ * @phpstan-type NotebookDocumentSyncClientCapabilities array{dynamicRegistration?: bool, executionSummarySupport?: bool}
  */
 class NotebookDocumentClientCapabilities implements ArrayDeserializable
 {
@@ -16,7 +18,7 @@ class NotebookDocumentClientCapabilities implements ArrayDeserializable
         /**
          * Capabilities specific to notebook document synchronization
          *
-         * @var array{dynamicRegistration?: bool, executionSummarySupport?: bool}
+         * @var NotebookDocumentSyncClientCapabilities
          */
         public array $synchronization
     ) {}

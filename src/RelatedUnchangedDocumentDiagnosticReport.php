@@ -5,6 +5,11 @@ namespace Phpactor\LanguageServerProtocol;
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
 
+/**
+ * @phpstan-type FullDocumentDiagnosticReport array{kind: "full", resultId?: string, items: list<Diagnostic>}
+ *
+ * @phpstan-type UnchangedDocumentDiagnosticReport array{kind: "unchanged", resultId: string}
+ */
 class RelatedUnchangedDocumentDiagnosticReport implements ArrayDeserializable
 {
     use FromArray;
@@ -31,7 +36,7 @@ class RelatedUnchangedDocumentDiagnosticReport implements ArrayDeserializable
          * such a language is C/C++ where marco definitions in a file
          * a.cpp and result in errors in a header file b.hpp.
          *
-         * @var array<string, array{kind: "full", resultId?: string, items: list<Diagnostic>}|array{kind: "unchanged", resultId: string}>|null
+         * @var array<string, FullDocumentDiagnosticReport|UnchangedDocumentDiagnosticReport>|null
          */
         public ?array $relatedDocuments = null
     ) {}

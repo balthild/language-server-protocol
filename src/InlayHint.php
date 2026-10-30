@@ -6,6 +6,9 @@ use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
 
+/**
+ * @phpstan-type InlayHintLabelPart array{value: string, tooltip?: string|MarkupContent, location?: Location, command?: Command}
+ */
 class InlayHint implements ArrayDeserializable
 {
     use FromArray;
@@ -22,7 +25,7 @@ class InlayHint implements ArrayDeserializable
          *
          * *Note* that neither the string nor the label part can be empty.
          *
-         * @var string|list<array{value: string, tooltip?: string|MarkupContent, location?: Location, command?: Command}>
+         * @var string|list<InlayHintLabelPart>
          */
         public $label,
         /**

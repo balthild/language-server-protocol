@@ -5,6 +5,20 @@ import type { NodeMap } from './nodeMap.ts';
 export type ClassName = string;
 
 /**
+ * A named TypeScript type alias whose expansion is too long to repeat at every
+ * use site, so it is declared once per class as a `@phpstan-type`.
+ */
+export interface AliasRef {
+	readonly name: string;
+	readonly expansion: string;
+}
+
+/**
+ * Aliases shorter than this read better inlined than named.
+ */
+const ALIAS_THRESHOLD = 40;
+
+/**
  * An alias to `string`, `number` or `boolean` admits values the namespace
  * constants of the same name do not list, so `X::*` would be too narrow for it.
  */
@@ -16,27 +30,53 @@ function isOpenType(type: ts.TypeNode): boolean {
 	);
 }
 
+/**
+ * Merges alias references from several sub-types, keeping one entry per name.
+ */
+function mergeAliases(...groups: readonly (readonly AliasRef[])[]): AliasRef[] {
+	const merged = new Map<string, AliasRef>();
+
+	for (const group of groups) {
+		for (const alias of group) {
+			if (!merged.has(alias.name)) {
+				merged.set(alias.name, alias);
+			}
+		}
+	}
+
+	return [...merged.values()];
+}
+
 export class PhpType {
 	readonly real: string | undefined;
 	readonly documented: string;
 	readonly classNames: readonly ClassName[];
 	readonly iterable: boolean;
+	readonly aliases: readonly AliasRef[];
 
 	constructor(
 		real: string | undefined,
 		documented: string,
 		classNames: readonly ClassName[] = [],
 		iterable = false,
+		aliases: readonly AliasRef[] = [],
 	) {
 		this.real = real;
 		this.documented = documented;
 		this.classNames = classNames;
 		this.iterable = iterable;
+		this.aliases = aliases;
 	}
 }
 
 export class TypeConverter {
 	private readonly nodeMap: NodeMap;
+
+	/**
+	 * Aliases currently being expanded, so a recursive alias falls back to an
+	 * inline expansion instead of naming itself.
+	 */
+	private readonly expanding = new Set<string>();
 
 	constructor(nodeMap: NodeMap) {
 		this.nodeMap = nodeMap;
@@ -72,7 +112,9 @@ export class TypeConverter {
 		}
 
 		if (ts.isParenthesizedTypeNode(type)) {
-			return new PhpType(undefined, `(${this.phpType(type.type).documented})`);
+			const inner = this.phpType(type.type);
+
+			return new PhpType(undefined, `(${inner.documented})`, [], false, inner.aliases);
 		}
 
 		if (ts.isArrayTypeNode(type)) {
@@ -125,7 +167,7 @@ export class TypeConverter {
 		}
 
 		if (alias !== undefined) {
-			return this.phpType(alias);
+			return this.phpTypeAlias(typeName, alias);
 		}
 
 		if (this.nodeMap.hasIntersectionOrInterface(typeName)) {
@@ -147,11 +189,17 @@ export class TypeConverter {
 
 		// A TypeScript array is dense and zero-indexed, which is `list`, not
 		// `array`: the latter admits string keys.
-		return new PhpType('array', `list<${elementType.documented}>`, elementType.classNames, true);
+		return new PhpType(
+			'array',
+			`list<${elementType.documented}>`,
+			elementType.classNames,
+			true,
+			elementType.aliases,
+		);
 	}
 
 	private phpTypeUnion(type: ts.UnionTypeNode): PhpType {
-		const documented = type.types.map((member) => this.phpType(member).documented).join('|');
+		const members = type.types.map((member) => this.phpType(member));
 
 		const classNames = type.types
 			.filter(ts.isTypeReferenceNode)
@@ -160,13 +208,67 @@ export class TypeConverter {
 			.map((name) => name.text)
 			.filter((name) => this.nodeMap.hasIntersectionOrInterface(name));
 
-		return new PhpType(undefined, documented, classNames);
+		return new PhpType(
+			undefined,
+			members.map((member) => member.documented).join('|'),
+			classNames,
+			false,
+			mergeAliases(...members.map((member) => member.aliases)),
+		);
+	}
+
+	/**
+	 * A long alias keeps its name, declared once per class, so readers do not have
+	 * to trace the same expansion through every property. Its declaration may
+	 * itself name other aliases; those are declared alongside it.
+	 */
+	private phpTypeAlias(typeName: string, alias: ts.TypeNode): PhpType {
+		// Names that already denote a generated PHP type would shadow it, and a
+		// self-referential alias cannot be named inside its own declaration.
+		if (this.isPhpTypeName(typeName) || this.expanding.has(typeName)) {
+			return this.phpType(alias);
+		}
+
+		this.expanding.add(typeName);
+
+		let expansion: PhpType;
+		try {
+			expansion = this.phpType(alias);
+		} finally {
+			this.expanding.delete(typeName);
+		}
+
+		if (expansion.documented.length < ALIAS_THRESHOLD) {
+			return expansion;
+		}
+
+		// Naming the alias changes how the type reads, not what it is: the native
+		// type and the classes to hydrate still come from the expansion.
+		return new PhpType(expansion.real, typeName, expansion.classNames, expansion.iterable, [
+			...expansion.aliases,
+			{ name: typeName, expansion: expansion.documented },
+		]);
+	}
+
+	private isPhpTypeName(name: string): boolean {
+		return (
+			this.nodeMap.interfaces.has(name) ||
+			this.nodeMap.intersections.has(name) ||
+			this.nodeMap.typeLiterals.has(name) ||
+			this.nodeMap.modules.has(name)
+		);
 	}
 
 	private phpTypeIntersection(type: ts.IntersectionTypeNode): PhpType {
-		const documented = type.types.map((member) => this.phpType(member).documented).join('&');
+		const members = type.types.map((member) => this.phpType(member));
 
-		return new PhpType(undefined, documented);
+		return new PhpType(
+			undefined,
+			members.map((member) => member.documented).join('&'),
+			[],
+			false,
+			mergeAliases(...members.map((member) => member.aliases)),
+		);
 	}
 
 	/**
@@ -192,9 +294,15 @@ export class TypeConverter {
 	}
 
 	private phpTypeTuple(type: ts.TupleTypeNode): PhpType {
-		const elements = type.elements.map((element) => this.phpType(element).documented);
+		const elements = type.elements.map((element) => this.phpType(element));
 
-		return new PhpType('array', `array{${elements.join(', ')}}`);
+		return new PhpType(
+			'array',
+			`array{${elements.map((element) => element.documented).join(', ')}}`,
+			[],
+			false,
+			mergeAliases(...elements.map((element) => element.aliases)),
+		);
 	}
 
 	private phpTypeLiteral(type: ts.TypeLiteralNode): PhpType {
@@ -208,21 +316,29 @@ export class TypeConverter {
 			const signature = indexSignatures[0];
 			const keyType = signature.parameters[0]?.type;
 			const key = keyType === undefined ? 'string' : this.phpType(keyType).documented;
-			const value = this.phpType(signature.type).documented;
+			const value = this.phpType(signature.type);
 
 			// `classNames` is deliberately not carried over: the elements to
 			// hydrate sit one level deeper than `iterable` can express.
-			return new PhpType('array', `array<${key}, ${value}>`);
+			return new PhpType('array', `array<${key}, ${value.documented}>`, [], false, value.aliases);
 		}
 
-		const members = properties.map((member) => {
+		const members = properties.map((member) => this.phpType(member.type));
+
+		const rendered = properties.map((member, index) => {
 			// `?` marks an optional key. Dropping it would make every union variant
 			// of a shape render identically, and stricter than it really is.
 			const optional = member.questionToken === undefined ? '' : '?';
 
-			return `${member.name.getText()}${optional}: ${this.phpType(member.type).documented}`;
+			return `${member.name.getText()}${optional}: ${members[index].documented}`;
 		});
 
-		return new PhpType('array', `array{${members.join(', ')}}`);
+		return new PhpType(
+			'array',
+			`array{${rendered.join(', ')}}`,
+			[],
+			false,
+			mergeAliases(...members.map((member) => member.aliases)),
+		);
 	}
 }

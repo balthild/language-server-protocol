@@ -6,6 +6,14 @@ namespace Phpactor\LanguageServerProtocol;
  * Registration options for a [DocumentOnTypeFormattingRequest](#DocumentOnTypeFormattingRequest).
  *
  * Mixins (implemented TS interfaces): TextDocumentRegistrationOptions, DocumentOnTypeFormattingOptions
+ *
+ * @phpstan-type TextDocumentFilter array{language: string, scheme?: string, pattern?: string}|array{language?: string, scheme: string, pattern?: string}|array{language?: string, scheme?: string, pattern: string}
+ *
+ * @phpstan-type NotebookDocumentFilter array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}
+ *
+ * @phpstan-type NotebookCellTextDocumentFilter array{notebook: string|NotebookDocumentFilter, language?: string}
+ *
+ * @phpstan-type DocumentFilter TextDocumentFilter|NotebookCellTextDocumentFilter
  */
 class DocumentOnTypeFormattingRegistrationOptions extends TextDocumentRegistrationOptions
 {
@@ -18,7 +26,7 @@ class DocumentOnTypeFormattingRegistrationOptions extends TextDocumentRegistrati
          * A document selector to identify the scope of the registration. If set to null
          * the document selector provided on the client side will be used.
          *
-         * @var list<(string|array{language: string, scheme?: string, pattern?: string}|array{language?: string, scheme: string, pattern?: string}|array{language?: string, scheme?: string, pattern: string}|array{notebook: string|array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}, language?: string})>|null
+         * @var list<(string|DocumentFilter)>|null
          */
         public $documentSelector = null,
         /**

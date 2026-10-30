@@ -5,6 +5,9 @@ namespace Phpactor\LanguageServerProtocol;
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
 
+/**
+ * @phpstan-type FailureHandlingKind 'abort'|'transactional'|'undo'|'textOnlyTransactional'
+ */
 class WorkspaceEditClientCapabilities implements ArrayDeserializable
 {
     use FromArray;
@@ -25,7 +28,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          * The failure handling strategy of a client if applying the workspace edit
          * fails.
          *
-         * @var 'abort'|'transactional'|'undo'|'textOnlyTransactional'|null
+         * @var FailureHandlingKind|null
          */
         public $failureHandling = null,
         /**

@@ -9,6 +9,10 @@ use Phpactor\LanguageServerProtocol\Support\FromArray;
 /**
  * Defines the capabilities provided by a language
  * server.
+ *
+ * @phpstan-type NotebookDocumentFilter array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}
+ *
+ * @phpstan-type NotebookDocumentSyncOptions array{notebookSelector: list<(array{notebook: string|NotebookDocumentFilter, cells?: list<array{language: string}>}|array{notebook?: string|NotebookDocumentFilter, cells: list<array{language: string}>})>, save?: bool}
  */
 class ServerCapabilities implements ArrayDeserializable
 {
@@ -37,7 +41,7 @@ class ServerCapabilities implements ArrayDeserializable
         /**
          * Defines how notebook documents are synced.
          *
-         * @var array{notebookSelector: list<(array{notebook: string|array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}, cells?: list<array{language: string}>}|array{notebook?: string|array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}, cells: list<array{language: string}>})>, save?: bool}|NotebookDocumentSyncRegistrationOptions|null
+         * @var NotebookDocumentSyncOptions|NotebookDocumentSyncRegistrationOptions|null
          */
         #[Deserialize(NotebookDocumentSyncRegistrationOptions::class)]
         public $notebookDocumentSync = null,

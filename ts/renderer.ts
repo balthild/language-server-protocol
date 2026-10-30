@@ -2,6 +2,7 @@ import { constantCase } from 'change-case';
 
 import { PhpClass, PhpClassLike, PhpInterface } from './phpClass.ts';
 import type { PhpConstant, Property } from './phpClass.ts';
+import type { AliasRef } from './typeConverter.ts';
 
 /**
  * `class` is a reserved word in PHP, so a constant derived from it needs a
@@ -37,6 +38,23 @@ function needsVarAnnotation(property: Property): boolean {
 	const documented = property.type.documented;
 
 	return documented !== real && documented !== `${real}|null`;
+}
+
+/**
+ * Collects the alias declarations a class needs, one per distinct name.
+ */
+function collectAliases(properties: readonly Property[]): AliasRef[] {
+	const merged = new Map<string, AliasRef>();
+
+	for (const property of properties) {
+		for (const alias of property.aliases) {
+			if (!merged.has(alias.name)) {
+				merged.set(alias.name, alias);
+			}
+		}
+	}
+
+	return [...merged.values()];
 }
 
 function renderAttributes(property: Property): string[] {
@@ -117,19 +135,39 @@ export class Renderer {
 			source.push('');
 		}
 
-		if (phpClass.mixins.length > 0 || phpClass.docs.length > 0) {
+		const aliases = collectAliases(properties);
+		const hasDocblock =
+			phpClass.mixins.length > 0 || phpClass.docs.length > 0 || aliases.length > 0;
+
+		if (hasDocblock) {
 			source.push('/**');
+			let hasBody = false;
+
 			for (const doc of phpClass.docs) {
 				for (const line of doc.split('\n')) {
 					source.push(` * ${line}`);
 				}
+				hasBody = true;
 			}
-			if (phpClass.mixins.length > 0 && phpClass.docs.length > 0) {
-				source.push(' *');
-			}
+
 			if (phpClass.mixins.length > 0) {
+				if (hasBody) {
+					source.push(' *');
+				}
 				source.push(` * Mixins (implemented TS interfaces): ${phpClass.mixins.join(', ')}`);
+				hasBody = true;
 			}
+
+			// Declared locally so a reader never has to jump to another file to see
+			// what the type means.
+			for (const alias of aliases) {
+				if (hasBody) {
+					source.push(' *');
+				}
+				source.push(` * @phpstan-type ${alias.name} ${alias.expansion}`);
+				hasBody = true;
+			}
+
 			source.push(' */');
 		}
 
