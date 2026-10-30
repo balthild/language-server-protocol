@@ -75,12 +75,11 @@ export function createNodeMap(nodes: readonly ts.Node[], filter?: RegExp): NodeM
 			}
 
 			if (ts.isModuleDeclaration(child)) {
-				if (constantsFromModule(child).size === 0) {
-					return;
-				}
-
-				// A type alias shadows a module of the same name.
-				if (!map.aliases.has(child.name.text)) {
+				// A namespace carrying constants becomes a PHP interface even when a
+				// type alias shares its name: the alias only supplies the type, while
+				// the constants are API of their own. Which of the two declarations
+				// comes first in the source must not change the result.
+				if (constantsFromModule(child).size > 0) {
 					map.modules.set(child.name.text, child);
 				}
 

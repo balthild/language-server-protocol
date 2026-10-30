@@ -4,6 +4,18 @@ import type { NodeMap } from './nodeMap.ts';
 
 export type ClassName = string;
 
+/**
+ * An alias to `string`, `number` or `boolean` admits values the namespace
+ * constants of the same name do not list, so `X::*` would be too narrow for it.
+ */
+function isOpenType(type: ts.TypeNode): boolean {
+	return (
+		type.kind === ts.SyntaxKind.StringKeyword ||
+		type.kind === ts.SyntaxKind.NumberKeyword ||
+		type.kind === ts.SyntaxKind.BooleanKeyword
+	);
+}
+
 export class PhpType {
 	readonly real: string | undefined;
 	readonly documented: string;
@@ -91,6 +103,14 @@ export class TypeConverter {
 			return new PhpType('int', 'int');
 		}
 
+		const alias = this.nodeMap.aliases.get(typeName);
+
+		// A closed alias (a literal union) is exactly the set of namespace
+		// constants, which read better as `X::*`; an open one is not.
+		if (alias !== undefined && isOpenType(alias)) {
+			return this.phpType(alias);
+		}
+
 		if (this.nodeMap.modules.has(typeName)) {
 			return new PhpType(undefined, `${typeName}::*`);
 		}
@@ -100,7 +120,6 @@ export class TypeConverter {
 			return new PhpType(undefined, union.join('|'), union);
 		}
 
-		const alias = this.nodeMap.aliases.get(typeName);
 		if (alias !== undefined) {
 			return this.phpType(alias);
 		}

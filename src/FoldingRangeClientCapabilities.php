@@ -39,7 +39,7 @@ class FoldingRangeClientCapabilities
     /**
      * Specific options for the folding range kind.
      *
-     * @var array{valueSet:array<FoldingRangeKind::*>}|null
+     * @var array{valueSet:array<string>}|null
      */
     public $foldingRangeKind;
 
@@ -54,7 +54,7 @@ class FoldingRangeClientCapabilities
      * @param bool|null $dynamicRegistration
      * @param int|null $rangeLimit
      * @param bool|null $lineFoldingOnly
-     * @param array{valueSet:array<FoldingRangeKind::*>}|null $foldingRangeKind
+     * @param array{valueSet:array<string>}|null $foldingRangeKind
      * @param array{collapsedText:bool}|null $foldingRange
      */
     public function __construct(

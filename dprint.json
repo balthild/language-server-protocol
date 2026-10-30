@@ -1,7 +1,6 @@
 {
 	"excludes": [
 		"*.lock",
-		// "*.php", // TODO: remove this line to enable formatting PHP
 	],
 	"useTabs": true,
 	"indentWidth": 2,

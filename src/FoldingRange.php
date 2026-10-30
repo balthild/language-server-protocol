@@ -47,7 +47,7 @@ class FoldingRange
      * is used to categorize folding ranges and used by commands like 'Fold all comments'.
      * See [FoldingRangeKind](#FoldingRangeKind) for an enumeration of standardized kinds.
      *
-     * @var FoldingRangeKind::*|null
+     * @var string|null
      */
     public $kind;
 
@@ -65,7 +65,7 @@ class FoldingRange
      * @param int|null $startCharacter
      * @param int $endLine
      * @param int|null $endCharacter
-     * @param FoldingRangeKind::*|null $kind
+     * @param string|null $kind
      * @param string|null $collapsedText
      */
     public function __construct(
@@ -73,7 +73,7 @@ class FoldingRange
         int $endLine,
         ?int $startCharacter = null,
         ?int $endCharacter = null,
-        $kind = null,
+        ?string $kind = null,
         ?string $collapsedText = null
     ) {
         $this->startLine = $startLine;
