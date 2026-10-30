@@ -29,6 +29,18 @@ export class NodeMap {
 	hasIntersectionOrInterface(name: string): boolean {
 		return this.intersections.has(name) || this.interfaces.has(name);
 	}
+
+	/**
+	 * The literal value of a constant declared in a namespace, as in
+	 * `typeof DocumentDiagnosticReportKind.Full`.
+	 */
+	constantValue(moduleName: string, constantName: string): string | undefined {
+		const module = this.modules.get(moduleName);
+
+		return module === undefined
+			? undefined
+			: constantsFromModule(module).get(constantName)?.rawValue;
+	}
 }
 
 /**

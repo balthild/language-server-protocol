@@ -132,28 +132,25 @@ class TextDocumentClientCapabilities implements ArrayDeserializable
         public ?CallHierarchyClientCapabilities $callHierarchy = null,
         /**
          * Capabilities specific to the various semantic token request.
-         *
-         * @var mixed|null
          */
-        public $semanticTokens = null,
+        #[Deserialize(SemanticTokensClientCapabilities::class)]
+        public ?SemanticTokensClientCapabilities $semanticTokens = null,
         /**
          * Capabilities specific to the `textDocument/linkedEditingRange` request.
-         *
-         * @var mixed|null
          */
-        public $linkedEditingRange = null,
+        #[Deserialize(LinkedEditingRangeClientCapabilities::class)]
+        public ?LinkedEditingRangeClientCapabilities $linkedEditingRange = null,
         /**
          * Client capabilities specific to the `textDocument/moniker` request.
-         *
-         * @var mixed|null
          */
-        public $moniker = null,
+        #[Deserialize(MonikerClientCapabilities::class)]
+        public ?MonikerClientCapabilities $moniker = null,
         /**
          * Capabilities specific to the various type hierarchy requests.
          *
-         * @var mixed|null
+         * @var array{dynamicRegistration: bool}|null
          */
-        public $typeHierarchy = null,
+        public ?array $typeHierarchy = null,
         /**
          * Capabilities specific to the `textDocument/inlineValue` request.
          *
@@ -169,8 +166,8 @@ class TextDocumentClientCapabilities implements ArrayDeserializable
         /**
          * Capabilities specific to the diagnostic pull model.
          *
-         * @var mixed|null
+         * @var array{dynamicRegistration: bool, relatedDocumentSupport: bool}|null
          */
-        public $diagnostic = null
+        public ?array $diagnostic = null
     ) {}
 }

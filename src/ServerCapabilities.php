@@ -37,8 +37,9 @@ class ServerCapabilities implements ArrayDeserializable
         /**
          * Defines how notebook documents are synced.
          *
-         * @var mixed|mixed|null
+         * @var array{notebookSelector: list<(array{notebook: string|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}, cells: list<array{language: string}>}|array{notebook: string|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}, cells: list<array{language: string}>})>, save: bool}|NotebookDocumentSyncRegistrationOptions|null
          */
+        #[Deserialize(NotebookDocumentSyncRegistrationOptions::class)]
         public $notebookDocumentSync = null,
         /**
          * The server provides completion support.
@@ -196,26 +197,30 @@ class ServerCapabilities implements ArrayDeserializable
         /**
          * The server provides linked editing range support.
          *
-         * @var bool|mixed|mixed|null
+         * @var bool|LinkedEditingRangeOptions|LinkedEditingRangeRegistrationOptions|null
          */
+        #[Deserialize([LinkedEditingRangeOptions::class, LinkedEditingRangeRegistrationOptions::class])]
         public $linkedEditingRangeProvider = null,
         /**
          * The server provides semantic tokens support.
          *
-         * @var mixed|mixed|null
+         * @var SemanticTokensOptions|SemanticTokensRegistrationOptions|null
          */
+        #[Deserialize([SemanticTokensOptions::class, SemanticTokensRegistrationOptions::class])]
         public $semanticTokensProvider = null,
         /**
          * The server provides moniker support.
          *
-         * @var bool|mixed|mixed|null
+         * @var bool|MonikerOptions|MonikerRegistrationOptions|null
          */
+        #[Deserialize([MonikerOptions::class, MonikerRegistrationOptions::class])]
         public $monikerProvider = null,
         /**
          * The server provides type hierarchy support.
          *
-         * @var bool|mixed|mixed|null
+         * @var bool|WorkDoneProgressOptions|TypeHierarchyRegistrationOptions|null
          */
+        #[Deserialize(TypeHierarchyRegistrationOptions::class)]
         public $typeHierarchyProvider = null,
         /**
          * The server provides inline values.
@@ -234,8 +239,9 @@ class ServerCapabilities implements ArrayDeserializable
         /**
          * The server has support for pull model diagnostics.
          *
-         * @var mixed|mixed|null
+         * @var DiagnosticOptions|DiagnosticRegistrationOptions|null
          */
+        #[Deserialize([DiagnosticOptions::class, DiagnosticRegistrationOptions::class])]
         public $diagnosticProvider = null,
         /**
          * Workspace specific server capabilities.

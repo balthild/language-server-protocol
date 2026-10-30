@@ -28,9 +28,8 @@ class WindowClientCapabilities implements ArrayDeserializable
         public ?ShowMessageRequestClientCapabilities $showMessage = null,
         /**
          * Capabilities specific to the showDocument request.
-         *
-         * @var mixed|null
          */
-        public $showDocument = null
+        #[Deserialize(ShowDocumentClientCapabilities::class)]
+        public ?ShowDocumentClientCapabilities $showDocument = null
     ) {}
 }

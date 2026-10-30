@@ -56,10 +56,9 @@ class WorkspaceClientCapabilities implements ArrayDeserializable
         /**
          * Capabilities specific to the semantic token requests scoped to the
          * workspace.
-         *
-         * @var mixed|null
          */
-        public $semanticTokens = null,
+        #[Deserialize(SemanticTokensWorkspaceClientCapabilities::class)]
+        public ?SemanticTokensWorkspaceClientCapabilities $semanticTokens = null,
         /**
          * Capabilities specific to the code lens requests scoped to the
          * workspace.
@@ -91,8 +90,8 @@ class WorkspaceClientCapabilities implements ArrayDeserializable
          * Capabilities specific to the diagnostic requests scoped to the
          * workspace.
          *
-         * @var mixed|null
+         * @var array{refreshSupport: bool}|null
          */
-        public $diagnostics = null
+        public ?array $diagnostics = null
     ) {}
 }

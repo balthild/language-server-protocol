@@ -91,6 +91,10 @@ export class TypeConverter {
 			return this.phpTypeIntersection(type);
 		}
 
+		if (ts.isTypeQueryNode(type)) {
+			return this.phpTypeQuery(type);
+		}
+
 		if (ts.isTypeReferenceNode(type) && ts.isIdentifier(type.typeName)) {
 			return this.phpTypeReference(type.typeName.text);
 		}
@@ -163,6 +167,28 @@ export class TypeConverter {
 		const documented = type.types.map((member) => this.phpType(member).documented).join('&');
 
 		return new PhpType(undefined, documented);
+	}
+
+	/**
+	 * `typeof X.Y` is the type of a constant, so it resolves to that constant's
+	 * value when the namespace is known.
+	 */
+	private phpTypeQuery(type: ts.TypeQueryNode): PhpType {
+		if (!ts.isQualifiedName(type.exprName)) {
+			return new PhpType(undefined, 'mixed');
+		}
+
+		const { left, right } = type.exprName;
+		const value = ts.isIdentifier(left)
+			? this.nodeMap.constantValue(left.text, right.text)
+			: undefined;
+
+		if (value === undefined) {
+			console.warn(`Unknown constant ${type.getText()}`);
+			return new PhpType(undefined, 'mixed');
+		}
+
+		return new PhpType(undefined, value);
 	}
 
 	private phpTypeTuple(type: ts.TupleTypeNode): PhpType {

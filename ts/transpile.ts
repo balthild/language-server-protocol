@@ -37,6 +37,13 @@ const paths = [
 	protocolModule('protocol.inlayHint.d.ts'),
 	protocolModule('protocol.inlineValue.d.ts'),
 	protocolModule('protocol.callHierarchy.d.ts'),
+	protocolModule('protocol.diagnostic.d.ts'),
+	protocolModule('protocol.linkedEditingRange.d.ts'),
+	protocolModule('protocol.moniker.d.ts'),
+	protocolModule('protocol.notebook.d.ts'),
+	protocolModule('protocol.semanticTokens.d.ts'),
+	protocolModule('protocol.showDocument.d.ts'),
+	protocolModule('protocol.typeHierarchy.d.ts'),
 	// The protocol modules only import these; the generator does not follow imports.
 	path.resolve(typesLibDir, 'umd', 'main.d.ts'),
 	path.resolve(typesLibDir, 'esm', 'main.d.ts'),

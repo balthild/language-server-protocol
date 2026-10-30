@@ -165,10 +165,12 @@ export class PhpClassResolver {
 		const phpClass = new PhpClass(name);
 
 		for (const member of type.types) {
-			if (ts.isTypeLiteralNode(member)) {
+			const literal = this.resolveLiteral(member);
+
+			if (literal !== undefined) {
 				phpClass.properties = new Map([
 					...phpClass.properties,
-					...this.mapProperties(member.members),
+					...this.mapProperties(literal.members),
 				]);
 				continue;
 			}
@@ -180,6 +182,25 @@ export class PhpClassResolver {
 		}
 
 		return this.hydrateMixins(phpClass);
+	}
+
+	/**
+	 * An intersection member is either an inline literal or a reference to a type
+	 * alias for one. The latter has no PHP class of its own, so its properties are
+	 * merged in rather than treated as a mixin.
+	 */
+	private resolveLiteral(member: ts.TypeNode): ts.TypeLiteralNode | undefined {
+		if (ts.isTypeLiteralNode(member)) {
+			return member;
+		}
+
+		if (!ts.isTypeReferenceNode(member) || !ts.isIdentifier(member.typeName)) {
+			return undefined;
+		}
+
+		const alias = this.nodeMap.aliases.get(member.typeName.text);
+
+		return alias !== undefined && ts.isTypeLiteralNode(alias) ? alias : undefined;
 	}
 
 	private fromInterface(declaration: ts.InterfaceDeclaration): PhpClass {
