@@ -22,7 +22,7 @@ class InlayHint implements ArrayDeserializable
          *
          * *Note* that neither the string nor the label part can be empty.
          *
-         * @var string|list<array{value: string, tooltip: string|MarkupContent, location: Location, command: Command}>
+         * @var string|list<array{value: string, tooltip?: string|MarkupContent, location?: Location, command?: Command}>
          */
         public $label,
         /**

@@ -37,7 +37,7 @@ class RelatedFullDocumentDiagnosticReport implements ArrayDeserializable
          * such a language is C/C++ where marco definitions in a file
          * a.cpp and result in errors in a header file b.hpp.
          *
-         * @var array<string, array{kind: "full", resultId: string, items: list<Diagnostic>}|array{kind: "unchanged", resultId: string}>|null
+         * @var array<string, array{kind: "full", resultId?: string, items: list<Diagnostic>}|array{kind: "unchanged", resultId: string}>|null
          */
         public ?array $relatedDocuments = null
     ) {}

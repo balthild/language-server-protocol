@@ -19,7 +19,7 @@ class SemanticTokensRegistrationOptions extends TextDocumentRegistrationOptions
          * A document selector to identify the scope of the registration. If set to null
          * the document selector provided on the client side will be used.
          *
-         * @var list<(string|array{language: string, scheme: string, pattern: string}|array{language: string, scheme: string, pattern: string}|array{language: string, scheme: string, pattern: string}|array{notebook: string|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}, language: string})>|null
+         * @var list<(string|array{language: string, scheme?: string, pattern?: string}|array{language?: string, scheme: string, pattern?: string}|array{language?: string, scheme?: string, pattern: string}|array{notebook: string|array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}, language?: string})>|null
          */
         public $documentSelector = null,
         /**
@@ -32,7 +32,7 @@ class SemanticTokensRegistrationOptions extends TextDocumentRegistrationOptions
         /**
          * Server supports providing semantic tokens for a full document.
          *
-         * @var bool|array{delta: bool}|null
+         * @var bool|array{delta?: bool}|null
          */
         public $full = null,
         public ?bool $workDoneProgress = null,

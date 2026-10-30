@@ -20,7 +20,7 @@ class WorkspaceSymbolClientCapabilities implements ArrayDeserializable
         /**
          * Specific capabilities for the `SymbolKind` in the `workspace/symbol` request.
          *
-         * @var array{valueSet: list<SymbolKind::*>}|null
+         * @var array{valueSet?: list<SymbolKind::*>}|null
          */
         public ?array $symbolKind = null,
         /**

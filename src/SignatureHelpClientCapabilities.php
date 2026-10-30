@@ -21,7 +21,7 @@ class SignatureHelpClientCapabilities implements ArrayDeserializable
          * The client supports the following `SignatureInformation`
          * specific properties.
          *
-         * @var array{documentationFormat: list<MarkupKind::*>, parameterInformation: array{labelOffsetSupport: bool}, activeParameterSupport: bool}|null
+         * @var array{documentationFormat?: list<MarkupKind::*>, parameterInformation?: array{labelOffsetSupport?: bool}, activeParameterSupport?: bool}|null
          */
         public ?array $signatureInformation = null,
         /**

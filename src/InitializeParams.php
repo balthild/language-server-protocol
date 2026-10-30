@@ -32,7 +32,7 @@ class InitializeParams implements ArrayDeserializable
         /**
          * Information about the client
          *
-         * @var array{name: string, version: string}|null
+         * @var array{name: string, version?: string}|null
          */
         public ?array $clientInfo = null,
         /**

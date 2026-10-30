@@ -37,7 +37,7 @@ class ServerCapabilities implements ArrayDeserializable
         /**
          * Defines how notebook documents are synced.
          *
-         * @var array{notebookSelector: list<(array{notebook: string|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}, cells: list<array{language: string}>}|array{notebook: string|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}, cells: list<array{language: string}>})>, save: bool}|NotebookDocumentSyncRegistrationOptions|null
+         * @var array{notebookSelector: list<(array{notebook: string|array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}, cells?: list<array{language: string}>}|array{notebook?: string|array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}, cells: list<array{language: string}>})>, save?: bool}|NotebookDocumentSyncRegistrationOptions|null
          */
         #[Deserialize(NotebookDocumentSyncRegistrationOptions::class)]
         public $notebookDocumentSync = null,
@@ -246,7 +246,7 @@ class ServerCapabilities implements ArrayDeserializable
         /**
          * Workspace specific server capabilities.
          *
-         * @var array{workspaceFolders: WorkspaceFoldersServerCapabilities, fileOperations: FileOperationOptions}|null
+         * @var array{workspaceFolders?: WorkspaceFoldersServerCapabilities, fileOperations?: FileOperationOptions}|null
          */
         public ?array $workspace = null,
         /**

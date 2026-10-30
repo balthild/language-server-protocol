@@ -43,7 +43,7 @@ class CompletionOptions extends WorkDoneProgressOptions
          * The server supports the following `CompletionItem` specific
          * capabilities.
          *
-         * @var array{labelDetailsSupport: bool}|null
+         * @var array{labelDetailsSupport?: bool}|null
          */
         public ?array $completionItem = null,
         public ?bool $workDoneProgress = null

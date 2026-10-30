@@ -16,7 +16,7 @@ class NotebookDocumentClientCapabilities implements ArrayDeserializable
         /**
          * Capabilities specific to notebook document synchronization
          *
-         * @var array{dynamicRegistration: bool, executionSummarySupport: bool}
+         * @var array{dynamicRegistration?: bool, executionSummarySupport?: bool}
          */
         public array $synchronization
     ) {}

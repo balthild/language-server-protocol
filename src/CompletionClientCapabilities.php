@@ -21,11 +21,11 @@ class CompletionClientCapabilities implements ArrayDeserializable
          * The client supports the following `CompletionItem` specific
          * capabilities.
          *
-         * @var array{snippetSupport: bool, commitCharactersSupport: bool, documentationFormat: list<MarkupKind::*>, deprecatedSupport: bool, preselectSupport: bool, tagSupport: array{valueSet: list<CompletionItemTag::*>}, insertReplaceSupport: bool, resolveSupport: array{properties: list<string>}, insertTextModeSupport: array{valueSet: list<InsertTextMode::*>}, labelDetailsSupport: bool}|null
+         * @var array{snippetSupport?: bool, commitCharactersSupport?: bool, documentationFormat?: list<MarkupKind::*>, deprecatedSupport?: bool, preselectSupport?: bool, tagSupport?: array{valueSet: list<CompletionItemTag::*>}, insertReplaceSupport?: bool, resolveSupport?: array{properties: list<string>}, insertTextModeSupport?: array{valueSet: list<InsertTextMode::*>}, labelDetailsSupport?: bool}|null
          */
         public ?array $completionItem = null,
         /**
-         * @var array{valueSet: list<CompletionItemKind::*>}|null
+         * @var array{valueSet?: list<CompletionItemKind::*>}|null
          */
         public ?array $completionItemKind = null,
         /**
@@ -45,7 +45,7 @@ class CompletionClientCapabilities implements ArrayDeserializable
          * The client supports the following `CompletionList` specific
          * capabilities.
          *
-         * @var array{itemDefaults: list<string>}|null
+         * @var array{itemDefaults?: list<string>}|null
          */
         public ?array $completionList = null
     ) {}

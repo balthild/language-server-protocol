@@ -25,7 +25,7 @@ class SemanticTokensOptions extends WorkDoneProgressOptions
         /**
          * Server supports providing semantic tokens for a full document.
          *
-         * @var bool|array{delta: bool}|null
+         * @var bool|array{delta?: bool}|null
          */
         public $full = null,
         public ?bool $workDoneProgress = null

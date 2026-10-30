@@ -21,7 +21,7 @@ class DocumentSymbolClientCapabilities implements ArrayDeserializable
          * Specific capabilities for the `SymbolKind` in the
          * `textDocument/documentSymbol` request.
          *
-         * @var array{valueSet: list<SymbolKind::*>}|null
+         * @var array{valueSet?: list<SymbolKind::*>}|null
          */
         public ?array $symbolKind = null,
         /**

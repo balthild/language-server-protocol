@@ -20,7 +20,7 @@ class SemanticTokensClientCapabilities implements ArrayDeserializable
          * range provider the client might not render a minimap correctly or might
          * even decide to not show any semantic tokens at all.
          *
-         * @var array{range: bool|array{}, full: bool|array{delta: bool}}
+         * @var array{range?: bool|array{}, full?: bool|array{delta?: bool}}
          */
         public array $requests,
         /**

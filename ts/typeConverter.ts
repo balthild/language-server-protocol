@@ -215,9 +215,13 @@ export class TypeConverter {
 			return new PhpType('array', `array<${key}, ${value}>`);
 		}
 
-		const members = properties.map(
-			(member) => `${member.name.getText()}: ${this.phpType(member.type).documented}`,
-		);
+		const members = properties.map((member) => {
+			// `?` marks an optional key. Dropping it would make every union variant
+			// of a shape render identically, and stricter than it really is.
+			const optional = member.questionToken === undefined ? '' : '?';
+
+			return `${member.name.getText()}${optional}: ${this.phpType(member.type).documented}`;
+		});
 
 		return new PhpType('array', `array{${members.join(', ')}}`);
 	}

@@ -16,7 +16,7 @@ class NotebookDocumentSyncRegistrationOptions implements ArrayDeserializable
         /**
          * The notebooks to be synced
          *
-         * @var list<(array{notebook: string|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}, cells: list<array{language: string}>}|array{notebook: string|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}, cells: list<array{language: string}>})>
+         * @var list<(array{notebook: string|array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}, cells?: list<array{language: string}>}|array{notebook?: string|array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}, cells: list<array{language: string}>})>
          */
         public array $notebookSelector,
         /**

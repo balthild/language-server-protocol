@@ -30,7 +30,7 @@ class _InitializeParams extends WorkDoneProgressParams
         /**
          * Information about the client
          *
-         * @var array{name: string, version: string}|null
+         * @var array{name: string, version?: string}|null
          */
         public ?array $clientInfo = null,
         /**

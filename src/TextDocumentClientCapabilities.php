@@ -148,25 +148,25 @@ class TextDocumentClientCapabilities implements ArrayDeserializable
         /**
          * Capabilities specific to the various type hierarchy requests.
          *
-         * @var array{dynamicRegistration: bool}|null
+         * @var array{dynamicRegistration?: bool}|null
          */
         public ?array $typeHierarchy = null,
         /**
          * Capabilities specific to the `textDocument/inlineValue` request.
          *
-         * @var array{dynamicRegistration: bool}|null
+         * @var array{dynamicRegistration?: bool}|null
          */
         public ?array $inlineValue = null,
         /**
          * Capabilities specific to the `textDocument/inlayHint` request.
          *
-         * @var array{dynamicRegistration: bool, resolveSupport: array{properties: list<string>}}|null
+         * @var array{dynamicRegistration?: bool, resolveSupport?: array{properties: list<string>}}|null
          */
         public ?array $inlayHint = null,
         /**
          * Capabilities specific to the diagnostic pull model.
          *
-         * @var array{dynamicRegistration: bool, relatedDocumentSupport: bool}|null
+         * @var array{dynamicRegistration?: bool, relatedDocumentSupport?: bool}|null
          */
         public ?array $diagnostic = null
     ) {}

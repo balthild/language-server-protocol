@@ -14,7 +14,7 @@ class TypeHierarchySubtypesParams implements ArrayDeserializable
 
     public function __construct(
         /**
-         * @var array{name: string, kind: SymbolKind::*, tags: list<SymbolTag::*>, detail: string, uri: string, range: Range, selectionRange: Range, data: mixed}
+         * @var array{name: string, kind: SymbolKind::*, tags?: list<SymbolTag::*>, detail?: string, uri: string, range: Range, selectionRange: Range, data?: mixed}
          */
         public array $item,
         /**

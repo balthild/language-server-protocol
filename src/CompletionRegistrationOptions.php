@@ -14,7 +14,7 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
          * A document selector to identify the scope of the registration. If set to null
          * the document selector provided on the client side will be used.
          *
-         * @var list<(string|array{language: string, scheme: string, pattern: string}|array{language: string, scheme: string, pattern: string}|array{language: string, scheme: string, pattern: string}|array{notebook: string|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}, language: string})>|null
+         * @var list<(string|array{language: string, scheme?: string, pattern?: string}|array{language?: string, scheme: string, pattern?: string}|array{language?: string, scheme?: string, pattern: string}|array{notebook: string|array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}, language?: string})>|null
          */
         public $documentSelector = null,
         /**
@@ -50,7 +50,7 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
          * The server supports the following `CompletionItem` specific
          * capabilities.
          *
-         * @var array{labelDetailsSupport: bool}|null
+         * @var array{labelDetailsSupport?: bool}|null
          */
         public ?array $completionItem = null,
         public ?bool $workDoneProgress = null

@@ -40,7 +40,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          * Whether the client in general supports change annotations on text edits,
          * create file, rename file and delete file changes.
          *
-         * @var array{groupsOnLabel: bool}|null
+         * @var array{groupsOnLabel?: bool}|null
          */
         public ?array $changeAnnotationSupport = null
     ) {}

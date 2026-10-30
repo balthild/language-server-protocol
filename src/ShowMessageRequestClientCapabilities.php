@@ -16,7 +16,7 @@ class ShowMessageRequestClientCapabilities implements ArrayDeserializable
         /**
          * Capabilities specific to the `MessageActionItem` type.
          *
-         * @var array{additionalPropertiesSupport: bool}|null
+         * @var array{additionalPropertiesSupport?: bool}|null
          */
         public ?array $messageActionItem = null
     ) {}
