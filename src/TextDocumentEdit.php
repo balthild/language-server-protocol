@@ -27,6 +27,7 @@ class TextDocumentEdit implements ArrayDeserializable
          *
          * @var list<(TextEdit|AnnotatedTextEdit)>
          */
+        #[Deserialize([TextEdit::class, AnnotatedTextEdit::class], at: '[]')]
         public array $edits
     ) {}
 }

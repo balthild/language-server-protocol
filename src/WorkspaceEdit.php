@@ -3,6 +3,7 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
+use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
 
 /**
@@ -44,6 +45,7 @@ class WorkspaceEdit implements ArrayDeserializable
          *
          * @var list<(TextDocumentEdit|CreateFile|RenameFile|DeleteFile)>|null
          */
+        #[Deserialize([TextDocumentEdit::class, CreateFile::class, RenameFile::class, DeleteFile::class], at: '[]')]
         public ?array $documentChanges = null,
         /**
          * A map of change annotations that can be referenced in `AnnotatedTextEdit`s or create, rename and

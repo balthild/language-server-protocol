@@ -22,7 +22,7 @@ class WorkspaceFullDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var list<Diagnostic>
          */
-        #[Deserialize(Diagnostic::class, iterable: true)]
+        #[Deserialize(Diagnostic::class, at: '[]')]
         public array $items,
         /**
          * The URI for which diagnostic information is reported.

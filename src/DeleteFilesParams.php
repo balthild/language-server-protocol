@@ -20,7 +20,7 @@ class DeleteFilesParams implements ArrayDeserializable
          *
          * @var list<FileDelete>
          */
-        #[Deserialize(FileDelete::class, iterable: true)]
+        #[Deserialize(FileDelete::class, at: '[]')]
         public array $files
     ) {}
 }

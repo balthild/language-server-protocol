@@ -27,6 +27,9 @@ class InlayHint implements ArrayDeserializable
          *
          * @var string|list<InlayHintLabelPart>
          */
+        #[Deserialize(MarkupContent::class, at: '[].tooltip')]
+        #[Deserialize(Location::class, at: '[].location')]
+        #[Deserialize(Command::class, at: '[].command')]
         public $label,
         /**
          * The kind of this hint. Can be omitted in which case the client
@@ -44,7 +47,7 @@ class InlayHint implements ArrayDeserializable
          *
          * @var list<TextEdit>|null
          */
-        #[Deserialize(TextEdit::class, iterable: true)]
+        #[Deserialize(TextEdit::class, at: '[]')]
         public ?array $textEdits = null,
         /**
          * The tooltip text when you hover over this item.

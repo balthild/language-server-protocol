@@ -23,7 +23,7 @@ class PublishDiagnosticsParams implements ArrayDeserializable
          *
          * @var list<Diagnostic>
          */
-        #[Deserialize(Diagnostic::class, iterable: true)]
+        #[Deserialize(Diagnostic::class, at: '[]')]
         public array $diagnostics,
         /**
          * Optional the version number of the document the diagnostics are published for.

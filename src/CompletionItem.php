@@ -158,7 +158,7 @@ class CompletionItem implements ArrayDeserializable
          *
          * @var list<TextEdit>|null
          */
-        #[Deserialize(TextEdit::class, iterable: true)]
+        #[Deserialize(TextEdit::class, at: '[]')]
         public ?array $additionalTextEdits = null,
         /**
          * An optional set of characters that when pressed while this completion is active will accept it first and

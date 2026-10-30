@@ -58,19 +58,16 @@ function collectAliases(properties: readonly Property[]): AliasRef[] {
 }
 
 function renderAttributes(property: Property): string[] {
-	const classNames = property.type.classNames;
+	return property.type.hydrations.map((hydration) => {
+		const candidates =
+			hydration.candidates.length === 1
+				? `${hydration.candidates[0]}::class`
+				: `[${hydration.candidates.map((name) => `${name}::class`).join(', ')}]`;
 
-	if (classNames.length === 0) {
-		return [];
-	}
-
-	const candidates =
-		classNames.length === 1
-			? `${classNames[0]}::class`
-			: `[${classNames.map((name) => `${name}::class`).join(', ')}]`;
-	const iterable = property.type.iterable ? ', iterable: true' : '';
-
-	return [`#[Deserialize(${candidates}${iterable})]`];
+		return hydration.path === ''
+			? `#[Deserialize(${candidates})]`
+			: `#[Deserialize(${candidates}, at: '${hydration.path}')]`;
+	});
 }
 
 export class Renderer {
@@ -109,7 +106,7 @@ export class Renderer {
 	private renderClass(phpClass: PhpClass): string {
 		const properties = orderedProperties(phpClass);
 		const isRoot = phpClass.extends === undefined;
-		const usesDeserialize = properties.some((property) => property.type.classNames.length > 0);
+		const usesDeserialize = properties.some((property) => property.type.hydrations.length > 0);
 
 		const source = [
 			'<?php // Auto-generated from vscode-languageserver-protocol (typescript)',

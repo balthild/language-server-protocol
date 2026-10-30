@@ -5,6 +5,17 @@ import type { NodeMap } from './nodeMap.ts';
 export type ClassName = string;
 
 /**
+ * A location inside a property value that has to be rebuilt as an object.
+ *
+ * The path is relative to the value itself: `''` is the value, `[]` is every
+ * element of it, `a.b` is a nested key and `[].a` is a key of every element.
+ */
+export interface Hydration {
+	readonly path: string;
+	readonly candidates: readonly ClassName[];
+}
+
+/**
  * A named TypeScript type alias whose expansion is too long to repeat at every
  * use site, so it is declared once per class as a `@phpstan-type`.
  */
@@ -31,6 +42,57 @@ function isOpenType(type: ts.TypeNode): boolean {
 }
 
 /**
+ * Joins a path prefix with a path relative to it, as in `editRange` + `insert`.
+ */
+function prefixPath(prefix: string, child: string): string {
+	if (prefix === '') {
+		return child;
+	}
+
+	if (child === '') {
+		return prefix;
+	}
+
+	return child.startsWith('[') ? `${prefix}${child}` : `${prefix}.${child}`;
+}
+
+/**
+ * Re-anchors hydrations under a path, so a member's own paths stay relative to
+ * the member rather than to the enclosing shape.
+ */
+function under(prefix: string, hydrations: readonly Hydration[]): Hydration[] {
+	return hydrations.map((hydration) => ({
+		path: prefixPath(prefix, hydration.path),
+		candidates: hydration.candidates,
+	}));
+}
+
+/**
+ * Merges hydrations from several sub-types. Candidates at the same path are
+ * combined, because they describe alternative classes for one slot and must be
+ * tried in a single attribute rather than applied one after another.
+ */
+function mergeHydrations(...groups: readonly (readonly Hydration[])[]): Hydration[] {
+	const merged = new Map<string, ClassName[]>();
+
+	for (const group of groups) {
+		for (const hydration of group) {
+			const candidates = merged.get(hydration.path) ?? [];
+
+			for (const candidate of hydration.candidates) {
+				if (!candidates.includes(candidate)) {
+					candidates.push(candidate);
+				}
+			}
+
+			merged.set(hydration.path, candidates);
+		}
+	}
+
+	return [...merged.entries()].map(([path, candidates]) => ({ path, candidates }));
+}
+
+/**
  * Merges alias references from several sub-types, keeping one entry per name.
  */
 function mergeAliases(...groups: readonly (readonly AliasRef[])[]): AliasRef[] {
@@ -50,21 +112,18 @@ function mergeAliases(...groups: readonly (readonly AliasRef[])[]): AliasRef[] {
 export class PhpType {
 	readonly real: string | undefined;
 	readonly documented: string;
-	readonly classNames: readonly ClassName[];
-	readonly iterable: boolean;
+	readonly hydrations: readonly Hydration[];
 	readonly aliases: readonly AliasRef[];
 
 	constructor(
 		real: string | undefined,
 		documented: string,
-		classNames: readonly ClassName[] = [],
-		iterable = false,
+		hydrations: readonly Hydration[] = [],
 		aliases: readonly AliasRef[] = [],
 	) {
 		this.real = real;
 		this.documented = documented;
-		this.classNames = classNames;
-		this.iterable = iterable;
+		this.hydrations = hydrations;
 		this.aliases = aliases;
 	}
 }
@@ -114,7 +173,7 @@ export class TypeConverter {
 		if (ts.isParenthesizedTypeNode(type)) {
 			const inner = this.phpType(type.type);
 
-			return new PhpType(undefined, `(${inner.documented})`, [], false, inner.aliases);
+			return new PhpType(undefined, `(${inner.documented})`, inner.hydrations, inner.aliases);
 		}
 
 		if (ts.isArrayTypeNode(type)) {
@@ -163,7 +222,8 @@ export class TypeConverter {
 
 		const union = this.nodeMap.unions.get(typeName);
 		if (union !== undefined) {
-			return new PhpType(undefined, union.join('|'), union);
+			// The recorded union lists classes to try for this slot, in order.
+			return new PhpType(undefined, union.join('|'), [{ path: '', candidates: union }]);
 		}
 
 		if (alias !== undefined) {
@@ -171,7 +231,7 @@ export class TypeConverter {
 		}
 
 		if (this.nodeMap.hasIntersectionOrInterface(typeName)) {
-			return new PhpType(typeName, typeName, [typeName]);
+			return new PhpType(typeName, typeName, [{ path: '', candidates: [typeName] }]);
 		}
 
 		// A generic type parameter is erased: `InitializeResult<T = any>` keeps
@@ -192,8 +252,7 @@ export class TypeConverter {
 		return new PhpType(
 			'array',
 			`list<${elementType.documented}>`,
-			elementType.classNames,
-			true,
+			under('[]', elementType.hydrations),
 			elementType.aliases,
 		);
 	}
@@ -201,18 +260,10 @@ export class TypeConverter {
 	private phpTypeUnion(type: ts.UnionTypeNode): PhpType {
 		const members = type.types.map((member) => this.phpType(member));
 
-		const classNames = type.types
-			.filter(ts.isTypeReferenceNode)
-			.map((member) => member.typeName)
-			.filter(ts.isIdentifier)
-			.map((name) => name.text)
-			.filter((name) => this.nodeMap.hasIntersectionOrInterface(name));
-
 		return new PhpType(
 			undefined,
 			members.map((member) => member.documented).join('|'),
-			classNames,
-			false,
+			mergeHydrations(...members.map((member) => member.hydrations)),
 			mergeAliases(...members.map((member) => member.aliases)),
 		);
 	}
@@ -243,8 +294,8 @@ export class TypeConverter {
 		}
 
 		// Naming the alias changes how the type reads, not what it is: the native
-		// type and the classes to hydrate still come from the expansion.
-		return new PhpType(expansion.real, typeName, expansion.classNames, expansion.iterable, [
+		// type and the slots to hydrate still come from the expansion.
+		return new PhpType(expansion.real, typeName, expansion.hydrations, [
 			...expansion.aliases,
 			{ name: typeName, expansion: expansion.documented },
 		]);
@@ -265,8 +316,7 @@ export class TypeConverter {
 		return new PhpType(
 			undefined,
 			members.map((member) => member.documented).join('&'),
-			[],
-			false,
+			mergeHydrations(...members.map((member) => member.hydrations)),
 			mergeAliases(...members.map((member) => member.aliases)),
 		);
 	}
@@ -299,8 +349,9 @@ export class TypeConverter {
 		return new PhpType(
 			'array',
 			`array{${elements.map((element) => element.documented).join(', ')}}`,
-			[],
-			false,
+			mergeHydrations(
+				...type.elements.map((element, index) => under(String(index), elements[index].hydrations)),
+			),
 			mergeAliases(...elements.map((element) => element.aliases)),
 		);
 	}
@@ -318,9 +369,9 @@ export class TypeConverter {
 			const key = keyType === undefined ? 'string' : this.phpType(keyType).documented;
 			const value = this.phpType(signature.type);
 
-			// `classNames` is deliberately not carried over: the elements to
-			// hydrate sit one level deeper than `iterable` can express.
-			return new PhpType('array', `array<${key}, ${value.documented}>`, [], false, value.aliases);
+			// Map values are left as they are: a key of the map is a string, so
+			// there is no slot path that could address them.
+			return new PhpType('array', `array<${key}, ${value.documented}>`, [], value.aliases);
 		}
 
 		const members = properties.map((member) => this.phpType(member.type));
@@ -333,11 +384,16 @@ export class TypeConverter {
 			return `${member.name.getText()}${optional}: ${members[index].documented}`;
 		});
 
+		// A member typed as a class needs hydrating at that member's key, which is
+		// what makes `array{range: Range}` hold a Range and not a raw array.
 		return new PhpType(
 			'array',
 			`array{${rendered.join(', ')}}`,
-			[],
-			false,
+			mergeHydrations(
+				...properties.map((member, index) =>
+					under(member.name.getText(), members[index].hydrations),
+				),
+			),
 			mergeAliases(...members.map((member) => member.aliases)),
 		);
 	}

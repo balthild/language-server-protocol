@@ -21,7 +21,7 @@ class SignatureHelp implements ArrayDeserializable
          *
          * @var list<SignatureInformation>
          */
-        #[Deserialize(SignatureInformation::class, iterable: true)]
+        #[Deserialize(SignatureInformation::class, at: '[]')]
         public array $signatures,
         /**
          * The active signature. If omitted or the value lies outside the

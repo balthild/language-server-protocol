@@ -19,7 +19,7 @@ class FileOperationRegistrationOptions implements ArrayDeserializable
          *
          * @var list<FileOperationFilter>
          */
-        #[Deserialize(FileOperationFilter::class, iterable: true)]
+        #[Deserialize(FileOperationFilter::class, at: '[]')]
         public array $filters
     ) {}
 }

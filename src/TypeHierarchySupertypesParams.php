@@ -3,6 +3,7 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
+use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
 
 /**
@@ -18,6 +19,8 @@ class TypeHierarchySupertypesParams implements ArrayDeserializable
         /**
          * @var TypeHierarchyItem
          */
+        #[Deserialize(Range::class, at: 'range')]
+        #[Deserialize(Range::class, at: 'selectionRange')]
         public array $item,
         /**
          * An optional token that a server can use to report work done progress.

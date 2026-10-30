@@ -27,7 +27,7 @@ class RelatedFullDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var list<Diagnostic>
          */
-        #[Deserialize(Diagnostic::class, iterable: true)]
+        #[Deserialize(Diagnostic::class, at: '[]')]
         public array $items,
         /**
          * An optional result id. If provided it will

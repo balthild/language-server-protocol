@@ -22,7 +22,7 @@ class SelectionRangeParams extends WorkDoneProgressParams
          *
          * @var list<Position>
          */
-        #[Deserialize(Position::class, iterable: true)]
+        #[Deserialize(Position::class, at: '[]')]
         public array $positions,
         /**
          * An optional token that a server can use to report work done progress.

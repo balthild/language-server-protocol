@@ -32,7 +32,7 @@ class CodeAction implements ArrayDeserializable
          *
          * @var list<Diagnostic>|null
          */
-        #[Deserialize(Diagnostic::class, iterable: true)]
+        #[Deserialize(Diagnostic::class, at: '[]')]
         public ?array $diagnostics = null,
         /**
          * Marks this as a preferred action. Preferred actions are used by the `auto fix` command and can be targeted

@@ -21,7 +21,7 @@ class RenameFilesParams implements ArrayDeserializable
          *
          * @var list<FileRename>
          */
-        #[Deserialize(FileRename::class, iterable: true)]
+        #[Deserialize(FileRename::class, at: '[]')]
         public array $files
     ) {}
 }

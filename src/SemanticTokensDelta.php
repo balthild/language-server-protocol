@@ -16,7 +16,7 @@ class SemanticTokensDelta implements ArrayDeserializable
          *
          * @var list<SemanticTokensEdit>
          */
-        #[Deserialize(SemanticTokensEdit::class, iterable: true)]
+        #[Deserialize(SemanticTokensEdit::class, at: '[]')]
         public array $edits,
         public ?string $resultId = null
     ) {}

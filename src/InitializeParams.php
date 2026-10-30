@@ -86,6 +86,7 @@ class InitializeParams implements ArrayDeserializable
          *
          * @var list<WorkspaceFolder>|null
          */
+        #[Deserialize(WorkspaceFolder::class, at: '[]')]
         public $workspaceFolders = null
     ) {}
 }

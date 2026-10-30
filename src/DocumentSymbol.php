@@ -60,7 +60,7 @@ class DocumentSymbol implements ArrayDeserializable
          *
          * @var list<DocumentSymbol>|null
          */
-        #[Deserialize(DocumentSymbol::class, iterable: true)]
+        #[Deserialize(DocumentSymbol::class, at: '[]')]
         public ?array $children = null
     ) {}
 }

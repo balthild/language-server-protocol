@@ -224,14 +224,14 @@ class ServerCapabilities implements ArrayDeserializable
          *
          * @var bool|WorkDoneProgressOptions|TypeHierarchyRegistrationOptions|null
          */
-        #[Deserialize(TypeHierarchyRegistrationOptions::class)]
+        #[Deserialize([WorkDoneProgressOptions::class, TypeHierarchyRegistrationOptions::class])]
         public $typeHierarchyProvider = null,
         /**
          * The server provides inline values.
          *
          * @var bool|WorkDoneProgressOptions|InlineValueRegistrationOptions|null
          */
-        #[Deserialize(InlineValueRegistrationOptions::class)]
+        #[Deserialize([WorkDoneProgressOptions::class, InlineValueRegistrationOptions::class])]
         public $inlineValueProvider = null,
         /**
          * The server provides inlay hints.
@@ -252,6 +252,8 @@ class ServerCapabilities implements ArrayDeserializable
          *
          * @var array{workspaceFolders?: WorkspaceFoldersServerCapabilities, fileOperations?: FileOperationOptions}|null
          */
+        #[Deserialize(WorkspaceFoldersServerCapabilities::class, at: 'workspaceFolders')]
+        #[Deserialize(FileOperationOptions::class, at: 'fileOperations')]
         public ?array $workspace = null,
         /**
          * Experimental server capabilities.

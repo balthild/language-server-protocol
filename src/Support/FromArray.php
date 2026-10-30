@@ -2,10 +2,10 @@
 
 namespace Phpactor\LanguageServerProtocol\Support;
 
-use Exception;
 use ReflectionClass;
 use ReflectionParameter;
 use RuntimeException;
+use Throwable;
 
 /**
  * Provides {@see ArrayDeserializable::fromArray()} driven by the
@@ -70,50 +70,107 @@ trait FromArray
         mixed $value,
         bool $allowUnknownKeys
     ): mixed {
-        $attributes = $parameter->getAttributes(Deserialize::class);
+        foreach ($parameter->getAttributes(Deserialize::class) as $attribute) {
+            $deserialize = $attribute->newInstance();
 
-        // Scalars, nulls and already-built objects are taken as they are.
-        if ($attributes === [] || !is_array($value)) {
-            return $value;
+            $value = self::hydrateAt(
+                $deserialize->at,
+                $deserialize->candidates,
+                $value,
+                $allowUnknownKeys,
+            );
         }
 
-        $deserialize = $attributes[0]->newInstance();
-
-        if (!$deserialize->iterable) {
-            return self::hydrate($deserialize->candidates, $value, $allowUnknownKeys) ?? $value;
-        }
-
-        return array_map(
-            static fn (mixed $item): mixed => is_array($item)
-                ? self::hydrate($deserialize->candidates, $item, $allowUnknownKeys) ?? $item
-                : $item,
-            $value,
-        );
+        return $value;
     }
 
     /**
      * @param list<class-string<ArrayDeserializable>> $candidates
-     * @param array<string, mixed> $object
+     */
+    private static function hydrateAt(
+        string $path,
+        array $candidates,
+        mixed $value,
+        bool $allowUnknownKeys
+    ): mixed {
+        if ($path === '') {
+            return self::hydrate($candidates, $value, $allowUnknownKeys);
+        }
+
+        if (!is_array($value)) {
+            return $value;
+        }
+
+        return self::walk(explode('.', $path), $candidates, $value, $allowUnknownKeys);
+    }
+
+    /**
+     * @param list<string> $segments
+     * @param list<class-string<ArrayDeserializable>> $candidates
+     * @param array<array-key, mixed> $value
+     * @return array<array-key, mixed>
+     */
+    private static function walk(
+        array $segments,
+        array $candidates,
+        array $value,
+        bool $allowUnknownKeys
+    ): array {
+        $segment = array_shift($segments);
+
+        if ($segment === '[]') {
+            foreach ($value as $key => $item) {
+                if (!is_array($item)) {
+                    continue;
+                }
+
+                $value[$key] = $segments === []
+                    ? self::hydrate($candidates, $item, $allowUnknownKeys)
+                    : self::walk($segments, $candidates, $item, $allowUnknownKeys);
+            }
+
+            return $value;
+        }
+
+        if (!isset($value[$segment]) || !is_array($value[$segment])) {
+            return $value;
+        }
+
+        $value[$segment] = $segments === []
+            ? self::hydrate($candidates, $value[$segment], $allowUnknownKeys)
+            : self::walk($segments, $candidates, $value[$segment], $allowUnknownKeys);
+
+        return $value;
+    }
+
+    /**
+     * Replaces a slot with the first candidate that accepts it.
+     *
+     * Failure is tolerated and the slot is left untouched. A slot may describe
+     * only one branch of a union (`editRange` is either a `Range` or an object
+     * holding `insert` and `replace`), and a candidate that needs keys the data
+     * does not have raises `ArgumentCountError` — an `Error`, not an
+     * `Exception` — so this has to catch `Throwable` and move on.
+     *
+     * @param list<class-string<ArrayDeserializable>> $candidates
      */
     private static function hydrate(
         array $candidates,
-        array $object,
+        mixed $value,
         bool $allowUnknownKeys
-    ): ?object {
-        $lastException = null;
+    ): mixed {
+        if (!is_array($value)) {
+            return $value;
+        }
 
         foreach ($candidates as $candidate) {
             try {
-                return $candidate::fromArray($object, $allowUnknownKeys);
-            } catch (Exception $exception) {
-                $lastException = $exception;
+                return $candidate::fromArray($value, $allowUnknownKeys);
+            } catch (Throwable) {
+                continue;
             }
         }
 
-        if ($lastException === null) {
-            return null;
-        }
-
-        throw $lastException;
+        return $value;
     }
 }

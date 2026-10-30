@@ -17,7 +17,7 @@ class ConfigurationParams implements ArrayDeserializable
         /**
          * @var list<ConfigurationItem>
          */
-        #[Deserialize(ConfigurationItem::class, iterable: true)]
+        #[Deserialize(ConfigurationItem::class, at: '[]')]
         public array $items
     ) {}
 }

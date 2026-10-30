@@ -3,6 +3,7 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
+use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
 
 class WorkspaceFoldersInitializeParams implements ArrayDeserializable
@@ -19,6 +20,7 @@ class WorkspaceFoldersInitializeParams implements ArrayDeserializable
          *
          * @var list<WorkspaceFolder>|null
          */
+        #[Deserialize(WorkspaceFolder::class, at: '[]')]
         public $workspaceFolders = null
     ) {}
 }

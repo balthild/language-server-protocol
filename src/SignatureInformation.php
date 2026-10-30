@@ -34,7 +34,7 @@ class SignatureInformation implements ArrayDeserializable
          *
          * @var list<ParameterInformation>|null
          */
-        #[Deserialize(ParameterInformation::class, iterable: true)]
+        #[Deserialize(ParameterInformation::class, at: '[]')]
         public ?array $parameters = null,
         /**
          * The index of the active parameter.

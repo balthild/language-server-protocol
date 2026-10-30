@@ -32,6 +32,7 @@ class InlineValueParams implements ArrayDeserializable
          *
          * @var InlineValueContext
          */
+        #[Deserialize(Range::class, at: 'stoppedLocation')]
         public array $context,
         /**
          * An optional token that a server can use to report work done progress.

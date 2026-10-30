@@ -38,7 +38,7 @@ class DidChangeTextDocumentParams implements ArrayDeserializable
          */
         #[Deserialize(
             [TextDocumentContentChangeIncrementalEvent::class, TextDocumentContentChangeFullEvent::class],
-            iterable: true,
+            at: '[]',
         )]
         public array $contentChanges
     ) {}

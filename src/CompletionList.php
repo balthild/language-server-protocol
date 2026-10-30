@@ -27,7 +27,7 @@ class CompletionList implements ArrayDeserializable
          *
          * @var list<CompletionItem>
          */
-        #[Deserialize(CompletionItem::class, iterable: true)]
+        #[Deserialize(CompletionItem::class, at: '[]')]
         public array $items,
         /**
          * In many cases the items of an actual completion result share the same
@@ -44,6 +44,9 @@ class CompletionList implements ArrayDeserializable
          *
          * @var array{commitCharacters?: list<string>, editRange?: Range|array{insert: Range, replace: Range}, insertTextFormat?: InsertTextFormat::*, insertTextMode?: InsertTextMode::*, data?: mixed}|null
          */
+        #[Deserialize(Range::class, at: 'editRange')]
+        #[Deserialize(Range::class, at: 'editRange.insert')]
+        #[Deserialize(Range::class, at: 'editRange.replace')]
         public ?array $itemDefaults = null
     ) {}
 }

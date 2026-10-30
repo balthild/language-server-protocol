@@ -30,7 +30,7 @@ class ColorPresentation implements ArrayDeserializable
          *
          * @var list<TextEdit>|null
          */
-        #[Deserialize(TextEdit::class, iterable: true)]
+        #[Deserialize(TextEdit::class, at: '[]')]
         public ?array $additionalTextEdits = null
     ) {}
 }

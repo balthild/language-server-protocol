@@ -61,7 +61,7 @@ class Diagnostic implements ArrayDeserializable
          *
          * @var list<DiagnosticRelatedInformation>|null
          */
-        #[Deserialize(DiagnosticRelatedInformation::class, iterable: true)]
+        #[Deserialize(DiagnosticRelatedInformation::class, at: '[]')]
         public ?array $relatedInformation = null,
         /**
          * A data entry field that is preserved between a `textDocument/publishDiagnostics`

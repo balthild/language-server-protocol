@@ -20,7 +20,7 @@ class LinkedEditingRanges implements ArrayDeserializable
          *
          * @var list<Range>
          */
-        #[Deserialize(Range::class, iterable: true)]
+        #[Deserialize(Range::class, at: '[]')]
         public array $ranges,
         /**
          * An optional word pattern (regular expression) that describes valid contents for

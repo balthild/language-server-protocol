@@ -25,7 +25,7 @@ class CallHierarchyIncomingCall implements ArrayDeserializable
          *
          * @var list<Range>
          */
-        #[Deserialize(Range::class, iterable: true)]
+        #[Deserialize(Range::class, at: '[]')]
         public array $fromRanges
     ) {}
 }
