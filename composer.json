@@ -1,5 +1,5 @@
 {
-	"name": "phpactor/language-server-protocol",
+	"name": "balthild/language-server-protocol",
 	"type": "library",
 	"description": "Langauge Server Protocol for PHP (transpiled)",
 	"license": "MIT",
