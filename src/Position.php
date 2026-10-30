@@ -29,7 +29,7 @@ use RuntimeException;
  * conversion from one encoding into another requires the content of the
  * file / line the conversion is best done where the file is read which is
  * usually on the server side.
- * 
+ *
  * Positions are line end character agnostic. So you can not specify a position
  * that denotes `\r|\n` or `\n|` where `|` represents the character offset.
  */
@@ -37,7 +37,7 @@ class Position
 {
     /**
      * Line position in a document (zero-based).
-     * 
+     *
      * If a line number is greater than the number of lines in a document, it defaults back to the number of lines in the document.
      * If a line number is negative, it defaults to 0.
      *
@@ -47,10 +47,10 @@ class Position
 
     /**
      * Character offset on a line in a document (zero-based).
-     * 
+     *
      * The meaning of this offset is determined by the negotiated
      * `PositionEncodingKind`.
-     * 
+     *
      * If the character value is greater than the line length it defaults back to the
      * line length.
      *
@@ -88,9 +88,9 @@ class Position
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -118,7 +118,7 @@ class Position
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -141,5 +141,4 @@ class Position
 
         throw $lastException;
     }
-        
 }

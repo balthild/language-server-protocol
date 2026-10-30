@@ -8,14 +8,12 @@ use RuntimeException;
 
 class InitializedParams
 {
-
     /**
      * @param array<string,mixed> $array
      * @return self
      */
     public static function fromArray(array $array, bool $allowUnknownKeys = false)
     {
-        
         return Invoke::new(self::class, $array);
     }
 
@@ -38,5 +36,4 @@ class InitializedParams
 
         throw $lastException;
     }
-        
 }

@@ -14,7 +14,7 @@ class InitializeParams
     /**
      * The process Id of the parent process that started
      * the server.
-     * 
+     *
      * Is `null` if the process has not been started by another process.
      * If the parent process is not alive then the server should exit.
      *
@@ -33,7 +33,7 @@ class InitializeParams
      * The locale the client is currently showing the user interface
      * in. This must not necessarily be the locale of the operating
      * system.
-     * 
+     *
      * Uses IETF language tags as the value's syntax
      * (See https://en.wikipedia.org/wiki/IETF_language_tag)
      *
@@ -88,7 +88,7 @@ class InitializeParams
 
     /**
      * The workspace folders configured in the client when the server starts.
-     * 
+     *
      * This property is only available if the client supports workspace folders.
      * It can be `null` if the client supports workspace folders but none are
      * configured.
@@ -109,8 +109,18 @@ class InitializeParams
      * @param int|string|null $workDoneToken
      * @param array<WorkspaceFolder>|null $workspaceFolders
      */
-    public function __construct(ClientCapabilities $capabilities, $processId = null, ?array $clientInfo = null, ?string $locale = null, $rootPath = null, $rootUri = null, $initializationOptions = null, $trace = null, $workDoneToken = null, $workspaceFolders = null)
-    {
+    public function __construct(
+        ClientCapabilities $capabilities,
+        $processId = null,
+        ?array $clientInfo = null,
+        ?string $locale = null,
+        $rootPath = null,
+        $rootUri = null,
+        $initializationOptions = null,
+        $trace = null,
+        $workDoneToken = null,
+        $workspaceFolders = null
+    ) {
         $this->processId = $processId;
         $this->clientInfo = $clientInfo;
         $this->locale = $locale;
@@ -151,9 +161,9 @@ class InitializeParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -181,7 +191,7 @@ class InitializeParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -204,5 +214,4 @@ class InitializeParams
 
         throw $lastException;
     }
-        
 }

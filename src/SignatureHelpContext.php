@@ -20,7 +20,7 @@ class SignatureHelpContext
 
     /**
      * Character that caused signature help to be triggered.
-     * 
+     *
      * This is undefined when `triggerKind !== SignatureHelpTriggerKind.TriggerCharacter`
      *
      * @var string|null
@@ -29,7 +29,7 @@ class SignatureHelpContext
 
     /**
      * `true` if signature help was already showing when it was triggered.
-     * 
+     *
      * Retriggers occurs when the signature help is already active and can be caused by actions such as
      * typing a trigger character, a cursor move, or document content changes.
      *
@@ -39,7 +39,7 @@ class SignatureHelpContext
 
     /**
      * The currently active `SignatureHelp`.
-     * 
+     *
      * The `activeSignatureHelp` has its `SignatureHelp.activeSignature` field updated based on
      * the user navigating through available signatures.
      *
@@ -53,8 +53,12 @@ class SignatureHelpContext
      * @param bool $isRetrigger
      * @param SignatureHelp|null $activeSignatureHelp
      */
-    public function __construct($triggerKind, bool $isRetrigger, ?string $triggerCharacter = null, ?SignatureHelp $activeSignatureHelp = null)
-    {
+    public function __construct(
+        $triggerKind,
+        bool $isRetrigger,
+        ?string $triggerCharacter = null,
+        ?SignatureHelp $activeSignatureHelp = null
+    ) {
         $this->triggerKind = $triggerKind;
         $this->triggerCharacter = $triggerCharacter;
         $this->isRetrigger = $isRetrigger;
@@ -83,9 +87,9 @@ class SignatureHelpContext
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -113,7 +117,7 @@ class SignatureHelpContext
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -136,5 +140,4 @@ class SignatureHelpContext
 
         throw $lastException;
     }
-        
 }

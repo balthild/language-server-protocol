@@ -47,8 +47,12 @@ class DocumentRangeFormattingParams extends WorkDoneProgressParams
      * @param FormattingOptions $options
      * @param int|string|null $workDoneToken
      */
-    public function __construct(TextDocumentIdentifier $textDocument, Range $range, FormattingOptions $options, $workDoneToken = null)
-    {
+    public function __construct(
+        TextDocumentIdentifier $textDocument,
+        Range $range,
+        FormattingOptions $options,
+        $workDoneToken = null
+    ) {
         $this->textDocument = $textDocument;
         $this->range = $range;
         $this->options = $options;
@@ -77,9 +81,9 @@ class DocumentRangeFormattingParams extends WorkDoneProgressParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -107,7 +111,7 @@ class DocumentRangeFormattingParams extends WorkDoneProgressParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -130,5 +134,4 @@ class DocumentRangeFormattingParams extends WorkDoneProgressParams
 
         throw $lastException;
     }
-        
 }

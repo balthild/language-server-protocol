@@ -40,8 +40,11 @@ class DocumentOnTypeFormattingRegistrationOptions extends TextDocumentRegistrati
      * @param string $firstTriggerCharacter
      * @param array<string>|null $moreTriggerCharacter
      */
-    public function __construct(string $firstTriggerCharacter, $documentSelector = null, ?array $moreTriggerCharacter = null)
-    {
+    public function __construct(
+        string $firstTriggerCharacter,
+        $documentSelector = null,
+        ?array $moreTriggerCharacter = null
+    ) {
         $this->documentSelector = $documentSelector;
         $this->firstTriggerCharacter = $firstTriggerCharacter;
         $this->moreTriggerCharacter = $moreTriggerCharacter;
@@ -68,9 +71,9 @@ class DocumentOnTypeFormattingRegistrationOptions extends TextDocumentRegistrati
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -98,7 +101,7 @@ class DocumentOnTypeFormattingRegistrationOptions extends TextDocumentRegistrati
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -121,5 +124,4 @@ class DocumentOnTypeFormattingRegistrationOptions extends TextDocumentRegistrati
 
         throw $lastException;
     }
-        
 }

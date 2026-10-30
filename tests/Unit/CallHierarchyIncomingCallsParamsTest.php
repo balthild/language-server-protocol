@@ -2,12 +2,12 @@
 
 namespace Phpactor\LanguageServerProtocol\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use Phpactor\LanguageServerProtocol\CallHierarchyIncomingCallsParams;
 use Phpactor\LanguageServerProtocol\CallHierarchyItem;
 use Phpactor\LanguageServerProtocol\Position;
 use Phpactor\LanguageServerProtocol\Range;
 use Phpactor\LanguageServerProtocol\SymbolKind;
+use PHPUnit\Framework\TestCase;
 
 class CallHierarchyIncomingCallsParamsTest extends TestCase
 {
@@ -15,11 +15,11 @@ class CallHierarchyIncomingCallsParamsTest extends TestCase
     {
         $range = new Range(
             new Position(10, 4),
-            new Position(12, 0)
+            new Position(12, 0),
         );
         $selectionRange = new Range(
             new Position(10, 4),
-            new Position(10, 20)
+            new Position(10, 20),
         );
 
         $item = new CallHierarchyItem(
@@ -30,7 +30,7 @@ class CallHierarchyIncomingCallsParamsTest extends TestCase
             $selectionRange,
             null,
             'MyClass',
-            null
+            null,
         );
 
         $expected = new CallHierarchyIncomingCallsParams($item);

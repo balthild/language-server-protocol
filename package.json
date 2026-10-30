@@ -1,24 +1,29 @@
 {
-    "name": "php-lanaguage-server-protocol",
-    "version": "1.0.0",
-    "description": "Generate PHP protocol classes from typescript protocol",
-    "main": "ts/transpile.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "clean": "rimraf lib",
-        "build": "tsc -p tsconfig.json",
-        "watch": "tsc -w -p tsconfig.json",
-        "generate": "tsc -p tsconfig.json && node build/transpile.js"
-    },
-    "author": "Daniel Leech",
-    "license": "MIT",
-    "dependencies": {
-        "@types/node": "^14.0.13",
-        "inflect": "^0.4.1",
-        "typescript-parser": "^2.6.1",
-        "vscode-languageserver-protocol": "^3.17"
-    },
-    "devDependencies": {
-        "typescript": "^3.9.5"
-    }
+	"name": "php-lanaguage-server-protocol",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Generate PHP protocol classes from typescript protocol",
+	"license": "MIT",
+	"contributors": [
+		"Balthild <ibalthild@gmail.com>",
+		"Daniel Leech"
+	],
+	"type": "module",
+	"scripts": {
+		"build": "node ts/transpile.ts",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
+		"format": "dprint fmt"
+	},
+	"devDependencies": {
+		"@types/node": "^24",
+		"change-case": "^5.4.4",
+		"dprint": "^0.64.3",
+		"oxlint": "^1.90.0",
+		"oxlint-tsgolint": "^7.0.2005",
+		"typescript": "^6.0.3",
+		"typescript-parser": "^2.6.1",
+		"vscode-languageserver-protocol": "^3.17"
+	},
+	"packageManager": "yarn@4.18.1"
 }

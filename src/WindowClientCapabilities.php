@@ -11,7 +11,7 @@ class WindowClientCapabilities
     /**
      * It indicates whether the client supports server initiated
      * progress using the `window/workDoneProgress/create` request.
-     * 
+     *
      * The capability also controls Whether client supports handling
      * of progress notifications. If set servers are allowed to report a
      * `workDoneProgress` property in the request specific server
@@ -40,8 +40,11 @@ class WindowClientCapabilities
      * @param ShowMessageRequestClientCapabilities|null $showMessage
      * @param mixed|null $showDocument
      */
-    public function __construct(?bool $workDoneProgress = null, ?ShowMessageRequestClientCapabilities $showMessage = null, $showDocument = null)
-    {
+    public function __construct(
+        ?bool $workDoneProgress = null,
+        ?ShowMessageRequestClientCapabilities $showMessage = null,
+        $showDocument = null
+    ) {
         $this->workDoneProgress = $workDoneProgress;
         $this->showMessage = $showMessage;
         $this->showDocument = $showDocument;
@@ -68,9 +71,9 @@ class WindowClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -98,7 +101,7 @@ class WindowClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -121,5 +124,4 @@ class WindowClientCapabilities
 
         throw $lastException;
     }
-        
 }

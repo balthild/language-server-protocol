@@ -18,7 +18,7 @@ class DidChangeWatchedFilesClientCapabilities
     public $dynamicRegistration;
 
     /**
-     * Whether the client has support for {@link  RelativePattern relative pattern}
+     * Whether the client has support for {@link RelativePattern relative pattern}
      * or not.
      *
      * @var bool|null
@@ -55,9 +55,9 @@ class DidChangeWatchedFilesClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -85,7 +85,7 @@ class DidChangeWatchedFilesClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -108,5 +108,4 @@ class DidChangeWatchedFilesClientCapabilities
 
         throw $lastException;
     }
-        
 }

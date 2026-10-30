@@ -2,9 +2,9 @@
 
 namespace Phpactor\LanguageServerProtocol\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use Phpactor\LanguageServerProtocol\CompletionItem;
 use Phpactor\LanguageServerProtocol\CompletionList;
+use PHPUnit\Framework\TestCase;
 
 class CompletionListTest extends TestCase
 {
@@ -14,16 +14,19 @@ class CompletionListTest extends TestCase
             'isIncomplete' => true,
             'items' => [
                 [
-                    'label' => 'Foobar'
-                ]
-            ]
+                    'label' => 'Foobar',
+                ],
+            ],
         ]);
 
-        self::assertEquals(new CompletionList(
-            true,
-            [
-                new CompletionItem('Foobar'),
-            ]
-        ), $list);
+        self::assertEquals(
+            new CompletionList(
+                true,
+                [
+                    new CompletionItem('Foobar'),
+                ],
+            ),
+            $list,
+        );
     }
 }

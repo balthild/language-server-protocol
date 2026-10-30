@@ -1,220 +1,154 @@
-import {
-    SyntaxKind,
-    TypeNode,
-    ArrayTypeNode,
-    UnionTypeNode,
-    TupleTypeNode,
-    ParenthesizedTypeNode,
-    TypeReferenceNode,
-    isTypeReferenceNode,
-    isIdentifier,
-    isIntersectionTypeNode,
-    IntersectionTypeNode,
-    isTypeLiteralNode,
-    TypeLiteralNode,
-    isPropertySignature,
-} from 'typescript';
+import ts from 'typescript';
 
-import {NodeMap} from './nodeMap';
-
-export class PhpType
-{
-    real: string|null;
-    documented: string;
-    classNames: ClassName[] = [];
-    iterable: boolean = false;
-
-    constructor (real: string, documented: string, classNames: ClassName[] = [], iterable: boolean = false)
-    {
-        this.real = real;
-        this.documented = documented;
-        this.classNames = classNames;
-        this.iterable = iterable;
-    }
-}
+import type { NodeMap } from './nodeMap.ts';
 
 export type ClassName = string;
 
-export class TypeConverter
-{
-    nodeMap: NodeMap;
+export class PhpType {
+	readonly real: string | undefined;
+	readonly documented: string;
+	readonly classNames: readonly ClassName[];
+	readonly iterable: boolean;
 
-    constructor(nodeMap: NodeMap)
-    {
-        this.nodeMap = nodeMap;
-    }
-
-    phpType(type: TypeNode|TypeReferenceNode|null): PhpType {
-        if (null === type) {
-            return new PhpType(null,'');
-        }
-
-        if (SyntaxKind[type.kind] == 'StringKeyword') {
-            return new PhpType('string', 'string');
-        }
-
-        if (SyntaxKind[type.kind] == 'BooleanKeyword') {
-            return new PhpType('bool','bool');
-        }
-
-        if (SyntaxKind[type.kind] == 'AnyKeyword') {
-            return new PhpType(null, 'mixed');
-        }
-
-        if (SyntaxKind[type.kind] == 'NullKeyword') {
-            return new PhpType(null, 'null');
-        }
-
-        if (SyntaxKind[type.kind] == 'NumberKeyword') {
-            return new PhpType('int', 'int');
-        }
-
-        if (SyntaxKind[type.kind] == 'ObjectKeyword') {
-            // just leave undefined objects as arrays
-            return new PhpType('array', 'array<mixed>');
-        }
-
-        if (SyntaxKind[type.kind] == 'TupleType') {
-            return this.phpTypeTuple(type as TupleTypeNode);
-        }
-
-        if (isTypeLiteralNode(type)) {
-            return this.phpTypeLiteral(type);
-        }
-
-        if (SyntaxKind[type.kind] == 'ParenthesizedType') {
-            return this.phpTypeParenthesis(type as ParenthesizedTypeNode);
-        }
-
-        if (SyntaxKind[type.kind] == 'ArrayType') {
-            return this.phpTypeArray(type as ArrayTypeNode);
-        }
-
-        if (SyntaxKind[type.kind] == 'LiteralType') {
-            return new PhpType(null, type.getText());
-        }
-
-        if (SyntaxKind[type.kind] == 'UnionType') {
-            return this.phpTypeUnion(type as UnionTypeNode);
-        }
-
-        if (isIntersectionTypeNode(type)) {
-            return this.phpTypeIntersection(type);
-        }
-
-        if (isTypeReferenceNode(type) && isIdentifier(type.typeName)) {
-            const typeName = type.typeName.escapedText.toString();
-
-            if (typeName === 'uinteger' || typeName === 'integer') {
-                return new PhpType('int', 'int');
-            }
-
-            if (this.nodeMap.modules.has(typeName)) {
-                return new PhpType(null, typeName + '::*');
-            }
-
-            if (this.nodeMap.unions.has(typeName)) {
-                const classNames = this.nodeMap.unions.get(typeName);
-                const phpTypes = classNames.map(name => {
-                    return this.phpType(this.nodeMap.typeLiterals.get(name));
-                });
-                return new PhpType(
-                    null,
-                    classNames.map((type: string) => { return type; }).join('|'),
-                    classNames as ClassName[]
-                );
-            }
-
-            if (this.nodeMap.aliases.has(typeName)) {
-                return this.phpType(this.nodeMap.aliases.get(typeName));
-            }
-
-            if (this.nodeMap.interfaces.has(typeName)) {
-                return new PhpType(typeName, typeName, [ typeName ]);
-            }
-
-            if (this.nodeMap.intersections.has(typeName)) {
-                return new PhpType(typeName, typeName, [ typeName ]);
-            }
-
-            console.warn(`Unknown type ${typeName}`);
-            return new PhpType(null, 'mixed');
-        }
-
-        return new PhpType(null,'');
-    }
-
-    private phpTypeParenthesis(type: ParenthesizedTypeNode): PhpType {
-        return new PhpType(null, `(${this.phpType(type.type).documented})`);
-    }
-
-    private phpTypeArray(type: ArrayTypeNode): PhpType {
-        return new PhpType('array', `array<${this.phpType(type.elementType).documented}>`, this.phpType(type.elementType).classNames, true);
-    }
-
-    private phpTypeUnion(type: UnionTypeNode): PhpType {
-        const phpTypes = type.types.map((type: TypeNode) => {
-            return this.phpType(type);
-        });
-
-        const classNames = type.types.map((type: TypeNode) => {
-            if (!isTypeReferenceNode(type) || !isIdentifier(type.typeName)) {
-                return null;
-            }
-
-            const name = type.typeName.escapedText.toString();
-
-            if (!this.nodeMap.hasIntersectionOrInterface(name)) {
-                //console.warn(`Could not find type ${name}`);
-                return null;
-            }
-
-            return name;
-        }).filter((type) => {
-            return type !== null;
-        });
-
-        return new PhpType(
-            null,
-            phpTypes.map((type: PhpType) => { return type.documented; }).join('|'),
-            classNames as ClassName[]
-        );
-    }
-
-    private phpTypeIntersection(type: IntersectionTypeNode): PhpType {
-        const phpTypes = type.types.map((type: TypeNode) => {
-            return this.phpType(type);
-        });
-
-        return new PhpType(
-            null,
-            phpTypes.map((type: PhpType) => { return type.documented; }).join('&')
-        );
-    }
-
-    private phpTypeTuple(type: TupleTypeNode): PhpType {
-        const types = type.elementTypes.map((type: TypeNode) => {
-            return this.phpType(type).documented;
-        }).join(',');
-
-        return new PhpType(
-            'array',
-            `array{${types}}`
-        );
-    }
-
-    private phpTypeLiteral(type: TypeLiteralNode): PhpType {
-        const children: {[name: string]:PhpType} = {};
-        type.forEachChild((child) => {
-            if (!isPropertySignature(child)) {
-                return
-            }
-            children[child.name.getText()] = this.phpType(child.type)
-        })
-
-        return new PhpType('array', `array{${Object.keys(children).map((key) => {
-            return `${key}:${children[key].documented}`
-        }).join(',')}}`);
-    }
+	constructor(
+		real: string | undefined,
+		documented: string,
+		classNames: readonly ClassName[] = [],
+		iterable = false,
+	) {
+		this.real = real;
+		this.documented = documented;
+		this.classNames = classNames;
+		this.iterable = iterable;
+	}
 }
 
+export class TypeConverter {
+	private readonly nodeMap: NodeMap;
+
+	constructor(nodeMap: NodeMap) {
+		this.nodeMap = nodeMap;
+	}
+
+	phpType(type?: ts.TypeNode): PhpType {
+		if (type === undefined) {
+			return new PhpType(undefined, '');
+		}
+
+		switch (type.kind) {
+			case ts.SyntaxKind.StringKeyword:
+				return new PhpType('string', 'string');
+			case ts.SyntaxKind.BooleanKeyword:
+				return new PhpType('bool', 'bool');
+			case ts.SyntaxKind.AnyKeyword:
+				return new PhpType(undefined, 'mixed');
+			case ts.SyntaxKind.NullKeyword:
+				return new PhpType(undefined, 'null');
+			case ts.SyntaxKind.NumberKeyword:
+				return new PhpType('int', 'int');
+			case ts.SyntaxKind.ObjectKeyword:
+				// Objects without a declared shape are represented as arrays.
+				return new PhpType('array', 'array<mixed>');
+		}
+
+		if (ts.isTupleTypeNode(type)) {
+			return this.phpTypeTuple(type);
+		}
+
+		if (ts.isTypeLiteralNode(type)) {
+			return this.phpTypeLiteral(type);
+		}
+
+		if (ts.isParenthesizedTypeNode(type)) {
+			return new PhpType(undefined, `(${this.phpType(type.type).documented})`);
+		}
+
+		if (ts.isArrayTypeNode(type)) {
+			return this.phpTypeArray(type);
+		}
+
+		if (ts.isLiteralTypeNode(type)) {
+			return new PhpType(undefined, type.getText());
+		}
+
+		if (ts.isUnionTypeNode(type)) {
+			return this.phpTypeUnion(type);
+		}
+
+		if (ts.isIntersectionTypeNode(type)) {
+			return this.phpTypeIntersection(type);
+		}
+
+		if (ts.isTypeReferenceNode(type) && ts.isIdentifier(type.typeName)) {
+			return this.phpTypeReference(type.typeName.text);
+		}
+
+		return new PhpType(undefined, '');
+	}
+
+	private phpTypeReference(typeName: string): PhpType {
+		if (typeName === 'uinteger' || typeName === 'integer') {
+			return new PhpType('int', 'int');
+		}
+
+		if (this.nodeMap.modules.has(typeName)) {
+			return new PhpType(undefined, `${typeName}::*`);
+		}
+
+		const union = this.nodeMap.unions.get(typeName);
+		if (union !== undefined) {
+			return new PhpType(undefined, union.join('|'), union);
+		}
+
+		const alias = this.nodeMap.aliases.get(typeName);
+		if (alias !== undefined) {
+			return this.phpType(alias);
+		}
+
+		if (this.nodeMap.hasIntersectionOrInterface(typeName)) {
+			return new PhpType(typeName, typeName, [typeName]);
+		}
+
+		console.warn(`Unknown type ${typeName}`);
+		return new PhpType(undefined, 'mixed');
+	}
+
+	private phpTypeArray(type: ts.ArrayTypeNode): PhpType {
+		const elementType = this.phpType(type.elementType);
+
+		return new PhpType('array', `array<${elementType.documented}>`, elementType.classNames, true);
+	}
+
+	private phpTypeUnion(type: ts.UnionTypeNode): PhpType {
+		const documented = type.types.map((member) => this.phpType(member).documented).join('|');
+
+		const classNames = type.types
+			.filter(ts.isTypeReferenceNode)
+			.map((member) => member.typeName)
+			.filter(ts.isIdentifier)
+			.map((name) => name.text)
+			.filter((name) => this.nodeMap.hasIntersectionOrInterface(name));
+
+		return new PhpType(undefined, documented, classNames);
+	}
+
+	private phpTypeIntersection(type: ts.IntersectionTypeNode): PhpType {
+		const documented = type.types.map((member) => this.phpType(member).documented).join('&');
+
+		return new PhpType(undefined, documented);
+	}
+
+	private phpTypeTuple(type: ts.TupleTypeNode): PhpType {
+		const elements = type.elements.map((element) => this.phpType(element).documented).join(',');
+
+		return new PhpType('array', `array{${elements}}`);
+	}
+
+	private phpTypeLiteral(type: ts.TypeLiteralNode): PhpType {
+		const members = type.members
+			.filter(ts.isPropertySignature)
+			.map((member) => `${member.name.getText()}:${this.phpType(member.type).documented}`);
+
+		return new PhpType('array', `array{${members.join(',')}}`);
+	}
+}

@@ -14,7 +14,7 @@ class CompletionList
 {
     /**
      * This list it not complete. Further typing results in recomputing this list.
-     * 
+     *
      * Recomputed lists have all their items replaced (not appended) in the
      * incomplete completion sessions.
      *
@@ -27,10 +27,10 @@ class CompletionList
      * value for properties like `commitCharacters` or the range of a text
      * edit. A completion list can therefore define item defaults which will
      * be used if a completion item itself doesn't specify the value.
-     * 
+     *
      * If a completion list specifies a default value and a completion item
      * also specifies a corresponding value the one from the item is used.
-     * 
+     *
      * Servers are only allowed to return default values if the client
      * signals support for this via the `completionList.itemDefaults`
      * capability.
@@ -79,9 +79,9 @@ class CompletionList
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -109,7 +109,7 @@ class CompletionList
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -132,5 +132,4 @@ class CompletionList
 
         throw $lastException;
     }
-        
 }

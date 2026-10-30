@@ -15,7 +15,7 @@ class CodeActionOptions extends WorkDoneProgressOptions
 {
     /**
      * CodeActionKinds that this server may return.
-     * 
+     *
      * The list of kinds may be generic, such as `CodeActionKind.Refactor`, or the server
      * may list out every specific kind they provide.
      *
@@ -42,8 +42,11 @@ class CodeActionOptions extends WorkDoneProgressOptions
      * @param bool|null $resolveProvider
      * @param bool|null $workDoneProgress
      */
-    public function __construct(?array $codeActionKinds = null, ?bool $resolveProvider = null, ?bool $workDoneProgress = null)
-    {
+    public function __construct(
+        ?array $codeActionKinds = null,
+        ?bool $resolveProvider = null,
+        ?bool $workDoneProgress = null
+    ) {
         $this->codeActionKinds = $codeActionKinds;
         $this->resolveProvider = $resolveProvider;
         $this->workDoneProgress = $workDoneProgress;
@@ -70,9 +73,9 @@ class CodeActionOptions extends WorkDoneProgressOptions
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -100,7 +103,7 @@ class CodeActionOptions extends WorkDoneProgressOptions
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -123,5 +126,4 @@ class CodeActionOptions extends WorkDoneProgressOptions
 
         throw $lastException;
     }
-        
 }

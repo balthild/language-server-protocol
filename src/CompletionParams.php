@@ -57,8 +57,13 @@ class CompletionParams extends TextDocumentPositionParams
      * @param int|string|null $workDoneToken
      * @param int|string|null $partialResultToken
      */
-    public function __construct(TextDocumentIdentifier $textDocument, Position $position, ?CompletionContext $context = null, $workDoneToken = null, $partialResultToken = null)
-    {
+    public function __construct(
+        TextDocumentIdentifier $textDocument,
+        Position $position,
+        ?CompletionContext $context = null,
+        $workDoneToken = null,
+        $partialResultToken = null
+    ) {
         $this->context = $context;
         $this->textDocument = $textDocument;
         $this->position = $position;
@@ -89,9 +94,9 @@ class CompletionParams extends TextDocumentPositionParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -119,7 +124,7 @@ class CompletionParams extends TextDocumentPositionParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -142,5 +147,4 @@ class CompletionParams extends TextDocumentPositionParams
 
         throw $lastException;
     }
-        
 }

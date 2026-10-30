@@ -41,8 +41,11 @@ class SignatureHelpClientCapabilities
      * @param array{documentationFormat:array<MarkupKind::*>,parameterInformation:array{labelOffsetSupport:bool},activeParameterSupport:bool}|null $signatureInformation
      * @param bool|null $contextSupport
      */
-    public function __construct(?bool $dynamicRegistration = null, ?array $signatureInformation = null, ?bool $contextSupport = null)
-    {
+    public function __construct(
+        ?bool $dynamicRegistration = null,
+        ?array $signatureInformation = null,
+        ?bool $contextSupport = null
+    ) {
         $this->dynamicRegistration = $dynamicRegistration;
         $this->signatureInformation = $signatureInformation;
         $this->contextSupport = $contextSupport;
@@ -69,9 +72,9 @@ class SignatureHelpClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -99,7 +102,7 @@ class SignatureHelpClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -122,5 +125,4 @@ class SignatureHelpClientCapabilities
 
         throw $lastException;
     }
-        
 }

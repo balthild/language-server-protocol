@@ -57,8 +57,13 @@ class DocumentSymbolClientCapabilities
      * @param array{valueSet:array<SymbolTag::*>}|null $tagSupport
      * @param bool|null $labelSupport
      */
-    public function __construct(?bool $dynamicRegistration = null, ?array $symbolKind = null, ?bool $hierarchicalDocumentSymbolSupport = null, ?array $tagSupport = null, ?bool $labelSupport = null)
-    {
+    public function __construct(
+        ?bool $dynamicRegistration = null,
+        ?array $symbolKind = null,
+        ?bool $hierarchicalDocumentSymbolSupport = null,
+        ?array $tagSupport = null,
+        ?bool $labelSupport = null
+    ) {
         $this->dynamicRegistration = $dynamicRegistration;
         $this->symbolKind = $symbolKind;
         $this->hierarchicalDocumentSymbolSupport = $hierarchicalDocumentSymbolSupport;
@@ -89,9 +94,9 @@ class DocumentSymbolClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -119,7 +124,7 @@ class DocumentSymbolClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -142,5 +147,4 @@ class DocumentSymbolClientCapabilities
 
         throw $lastException;
     }
-        
 }

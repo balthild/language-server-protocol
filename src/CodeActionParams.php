@@ -56,8 +56,13 @@ class CodeActionParams extends WorkDoneProgressParams
      * @param int|string|null $workDoneToken
      * @param int|string|null $partialResultToken
      */
-    public function __construct(TextDocumentIdentifier $textDocument, Range $range, CodeActionContext $context, $workDoneToken = null, $partialResultToken = null)
-    {
+    public function __construct(
+        TextDocumentIdentifier $textDocument,
+        Range $range,
+        CodeActionContext $context,
+        $workDoneToken = null,
+        $partialResultToken = null
+    ) {
         $this->textDocument = $textDocument;
         $this->range = $range;
         $this->context = $context;
@@ -88,9 +93,9 @@ class CodeActionParams extends WorkDoneProgressParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -118,7 +123,7 @@ class CodeActionParams extends WorkDoneProgressParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -141,5 +146,4 @@ class CodeActionParams extends WorkDoneProgressParams
 
         throw $lastException;
     }
-        
 }

@@ -40,14 +40,14 @@ class GeneralClientCapabilities
      * have to agree on the same position encoding to ensure that offsets
      * (e.g. character position in a line) are interpreted the same on both
      * sides.
-     * 
+     *
      * To keep the protocol backwards compatible the following applies: if
      * the value 'utf-16' is missing from the array of position encodings
      * servers can assume that the client supports UTF-16. UTF-16 is
      * therefore a mandatory encoding.
-     * 
+     *
      * If omitted it defaults to ['utf-16'].
-     * 
+     *
      * Implementation considerations: since the conversion from one encoding
      * into another requires the content of the file / line the conversion
      * is best done where the file is read which is usually on the server
@@ -63,8 +63,12 @@ class GeneralClientCapabilities
      * @param MarkdownClientCapabilities|null $markdown
      * @param array<string>|null $positionEncodings
      */
-    public function __construct(?array $staleRequestSupport = null, ?RegularExpressionsClientCapabilities $regularExpressions = null, ?MarkdownClientCapabilities $markdown = null, ?array $positionEncodings = null)
-    {
+    public function __construct(
+        ?array $staleRequestSupport = null,
+        ?RegularExpressionsClientCapabilities $regularExpressions = null,
+        ?MarkdownClientCapabilities $markdown = null,
+        ?array $positionEncodings = null
+    ) {
         $this->staleRequestSupport = $staleRequestSupport;
         $this->regularExpressions = $regularExpressions;
         $this->markdown = $markdown;
@@ -93,9 +97,9 @@ class GeneralClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -123,7 +127,7 @@ class GeneralClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -146,5 +150,4 @@ class GeneralClientCapabilities
 
         throw $lastException;
     }
-        
 }

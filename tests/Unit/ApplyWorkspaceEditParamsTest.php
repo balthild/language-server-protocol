@@ -3,9 +3,9 @@
 namespace Phpactor\LanguageServerProtocol\Tests\Unit;
 
 use LanguageServerProtocol\WorkspaceEdit as LanguageServerProtocolWorkspaceEdit;
-use PHPUnit\Framework\TestCase;
-use Phpactor\LanguageServerProtocol\WorkspaceEdit;
 use Phpactor\LanguageServerProtocol\ApplyWorkspaceEditParams;
+use Phpactor\LanguageServerProtocol\WorkspaceEdit;
+use PHPUnit\Framework\TestCase;
 
 class ApplyWorkspaceEditParamsTest extends TestCase
 {
@@ -16,10 +16,13 @@ class ApplyWorkspaceEditParamsTest extends TestCase
             'label' => 'foobar',
         ]);
 
-        self::assertEquals(new ApplyWorkspaceEditParams(
-            new WorkspaceEdit(),
-            'foobar'
-        ), $workspaceParams);
+        self::assertEquals(
+            new ApplyWorkspaceEditParams(
+                new WorkspaceEdit(),
+                'foobar',
+            ),
+            $workspaceParams,
+        );
     }
 
     public function testIgnoresObjects(): void
@@ -29,9 +32,12 @@ class ApplyWorkspaceEditParamsTest extends TestCase
             'label' => 'foobar',
         ]);
 
-        self::assertEquals(new ApplyWorkspaceEditParams(
-            new WorkspaceEdit(),
-            'foobar'
-        ), $workspaceParams);
+        self::assertEquals(
+            new ApplyWorkspaceEditParams(
+                new WorkspaceEdit(),
+                'foobar',
+            ),
+            $workspaceParams,
+        );
     }
 }

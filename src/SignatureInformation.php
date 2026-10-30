@@ -38,7 +38,7 @@ class SignatureInformation
 
     /**
      * The index of the active parameter.
-     * 
+     *
      * If provided, this is used in place of `SignatureHelp.activeParameter`.
      *
      * @var int|null
@@ -51,8 +51,12 @@ class SignatureInformation
      * @param array<ParameterInformation>|null $parameters
      * @param int|null $activeParameter
      */
-    public function __construct(string $label, $documentation = null, ?array $parameters = null, ?int $activeParameter = null)
-    {
+    public function __construct(
+        string $label,
+        $documentation = null,
+        ?array $parameters = null,
+        ?int $activeParameter = null
+    ) {
         $this->label = $label;
         $this->documentation = $documentation;
         $this->parameters = $parameters;
@@ -81,9 +85,9 @@ class SignatureInformation
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -111,7 +115,7 @@ class SignatureInformation
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -134,5 +138,4 @@ class SignatureInformation
 
         throw $lastException;
     }
-        
 }

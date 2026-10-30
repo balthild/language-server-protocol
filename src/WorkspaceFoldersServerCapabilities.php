@@ -18,7 +18,7 @@ class WorkspaceFoldersServerCapabilities
     /**
      * Whether the server wants to receive workspace folder
      * change notifications.
-     * 
+     *
      * If a string is provided the string is treated as an ID
      * under which the notification is registered on the client
      * side. The ID can be used to unregister for these events
@@ -58,9 +58,9 @@ class WorkspaceFoldersServerCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -88,7 +88,7 @@ class WorkspaceFoldersServerCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -111,5 +111,4 @@ class WorkspaceFoldersServerCapabilities
 
         throw $lastException;
     }
-        
 }

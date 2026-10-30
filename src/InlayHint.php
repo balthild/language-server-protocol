@@ -18,7 +18,7 @@ class InlayHint
     /**
      * The label of this hint. A human readable string or an array of
      * InlayHintLabelPart label parts.
-     * 
+     *
      * *Note* that neither the string nor the label part can be empty.
      *
      * @var string|array<array{value:string,tooltip:string|MarkupContent,location:Location,command:Command}>
@@ -35,7 +35,7 @@ class InlayHint
 
     /**
      * Optional text edits that are performed when accepting this inlay hint.
-     * 
+     *
      * *Note* that edits are expected to change the document so that the inlay
      * hint (or its nearest variant) is now part of the document and the inlay
      * hint itself is now obsolete.
@@ -53,7 +53,7 @@ class InlayHint
 
     /**
      * Render padding before the hint.
-     * 
+     *
      * Note: Padding should use the editor's background color, not the
      * background color of the hint itself. That means padding can be used
      * to visually align/separate an inlay hint.
@@ -64,7 +64,7 @@ class InlayHint
 
     /**
      * Render padding after the hint.
-     * 
+     *
      * Note: Padding should use the editor's background color, not the
      * background color of the hint itself. That means padding can be used
      * to visually align/separate an inlay hint.
@@ -91,8 +91,16 @@ class InlayHint
      * @param bool|null $paddingRight
      * @param mixed|null $data
      */
-    public function __construct(Position $position, $label, $kind = null, ?array $textEdits = null, $tooltip = null, ?bool $paddingLeft = null, ?bool $paddingRight = null, $data = null)
-    {
+    public function __construct(
+        Position $position,
+        $label,
+        $kind = null,
+        ?array $textEdits = null,
+        $tooltip = null,
+        ?bool $paddingLeft = null,
+        ?bool $paddingRight = null,
+        $data = null
+    ) {
         $this->position = $position;
         $this->label = $label;
         $this->kind = $kind;
@@ -129,9 +137,9 @@ class InlayHint
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -159,7 +167,7 @@ class InlayHint
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -182,5 +190,4 @@ class InlayHint
 
         throw $lastException;
     }
-        
 }

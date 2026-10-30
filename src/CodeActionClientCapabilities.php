@@ -78,8 +78,15 @@ class CodeActionClientCapabilities
      * @param array{properties:array<string>}|null $resolveSupport
      * @param bool|null $honorsChangeAnnotations
      */
-    public function __construct(?bool $dynamicRegistration = null, ?array $codeActionLiteralSupport = null, ?bool $isPreferredSupport = null, ?bool $disabledSupport = null, ?bool $dataSupport = null, ?array $resolveSupport = null, ?bool $honorsChangeAnnotations = null)
-    {
+    public function __construct(
+        ?bool $dynamicRegistration = null,
+        ?array $codeActionLiteralSupport = null,
+        ?bool $isPreferredSupport = null,
+        ?bool $disabledSupport = null,
+        ?bool $dataSupport = null,
+        ?array $resolveSupport = null,
+        ?bool $honorsChangeAnnotations = null
+    ) {
         $this->dynamicRegistration = $dynamicRegistration;
         $this->codeActionLiteralSupport = $codeActionLiteralSupport;
         $this->isPreferredSupport = $isPreferredSupport;
@@ -114,9 +121,9 @@ class CodeActionClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -144,7 +151,7 @@ class CodeActionClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -167,5 +174,4 @@ class CodeActionClientCapabilities
 
         throw $lastException;
     }
-        
 }

@@ -46,8 +46,12 @@ class InlineValueParams
      * @param array{frameId:int,stoppedLocation:Range} $context
      * @param int|string|null $workDoneToken
      */
-    public function __construct(TextDocumentIdentifier $textDocument, Range $range, array $context, $workDoneToken = null)
-    {
+    public function __construct(
+        TextDocumentIdentifier $textDocument,
+        Range $range,
+        array $context,
+        $workDoneToken = null
+    ) {
         $this->textDocument = $textDocument;
         $this->range = $range;
         $this->context = $context;
@@ -76,9 +80,9 @@ class InlineValueParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -106,7 +110,7 @@ class InlineValueParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -129,5 +133,4 @@ class InlineValueParams
 
         throw $lastException;
     }
-        
 }

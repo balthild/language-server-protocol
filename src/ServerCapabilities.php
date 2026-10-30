@@ -15,10 +15,10 @@ class ServerCapabilities
     /**
      * The position encoding the server picked from the encodings offered
      * by the client via the client capability `general.positionEncodings`.
-     * 
+     *
      * If the client didn't provide any position encodings the only valid
      * value that a server can return is 'utf-16'.
-     * 
+     *
      * If omitted it defaults to 'utf-16'.
      *
      * @var string|null
@@ -306,8 +306,43 @@ class ServerCapabilities
      * @param array{workspaceFolders:WorkspaceFoldersServerCapabilities,fileOperations:FileOperationOptions}|null $workspace
      * @param mixed|null $experimental
      */
-    public function __construct(?string $positionEncoding = null, $textDocumentSync = null, $notebookDocumentSync = null, ?CompletionOptions $completionProvider = null, $hoverProvider = null, ?SignatureHelpOptions $signatureHelpProvider = null, $declarationProvider = null, $definitionProvider = null, $typeDefinitionProvider = null, $implementationProvider = null, $referencesProvider = null, $documentHighlightProvider = null, $documentSymbolProvider = null, $codeActionProvider = null, ?CodeLensOptions $codeLensProvider = null, ?DocumentLinkOptions $documentLinkProvider = null, $colorProvider = null, $workspaceSymbolProvider = null, $documentFormattingProvider = null, $documentRangeFormattingProvider = null, ?DocumentOnTypeFormattingOptions $documentOnTypeFormattingProvider = null, $renameProvider = null, $foldingRangeProvider = null, $selectionRangeProvider = null, ?ExecuteCommandOptions $executeCommandProvider = null, $callHierarchyProvider = null, $linkedEditingRangeProvider = null, $semanticTokensProvider = null, $monikerProvider = null, $typeHierarchyProvider = null, $inlineValueProvider = null, $inlayHintProvider = null, $diagnosticProvider = null, ?array $workspace = null, $experimental = null)
-    {
+    public function __construct(
+        ?string $positionEncoding = null,
+        $textDocumentSync = null,
+        $notebookDocumentSync = null,
+        ?CompletionOptions $completionProvider = null,
+        $hoverProvider = null,
+        ?SignatureHelpOptions $signatureHelpProvider = null,
+        $declarationProvider = null,
+        $definitionProvider = null,
+        $typeDefinitionProvider = null,
+        $implementationProvider = null,
+        $referencesProvider = null,
+        $documentHighlightProvider = null,
+        $documentSymbolProvider = null,
+        $codeActionProvider = null,
+        ?CodeLensOptions $codeLensProvider = null,
+        ?DocumentLinkOptions $documentLinkProvider = null,
+        $colorProvider = null,
+        $workspaceSymbolProvider = null,
+        $documentFormattingProvider = null,
+        $documentRangeFormattingProvider = null,
+        ?DocumentOnTypeFormattingOptions $documentOnTypeFormattingProvider = null,
+        $renameProvider = null,
+        $foldingRangeProvider = null,
+        $selectionRangeProvider = null,
+        ?ExecuteCommandOptions $executeCommandProvider = null,
+        $callHierarchyProvider = null,
+        $linkedEditingRangeProvider = null,
+        $semanticTokensProvider = null,
+        $monikerProvider = null,
+        $typeHierarchyProvider = null,
+        $inlineValueProvider = null,
+        $inlayHintProvider = null,
+        $diagnosticProvider = null,
+        ?array $workspace = null,
+        $experimental = null
+    ) {
         $this->positionEncoding = $positionEncoding;
         $this->textDocumentSync = $textDocumentSync;
         $this->notebookDocumentSync = $notebookDocumentSync;
@@ -358,32 +393,62 @@ class ServerCapabilities
             'completionProvider' => ['names' => [CompletionOptions::class], 'iterable' => false],
             'hoverProvider' => ['names' => [HoverOptions::class], 'iterable' => false],
             'signatureHelpProvider' => ['names' => [SignatureHelpOptions::class], 'iterable' => false],
-            'declarationProvider' => ['names' => [DeclarationOptions::class, DeclarationRegistrationOptions::class], 'iterable' => false],
+            'declarationProvider' => [
+                'names' => [DeclarationOptions::class, DeclarationRegistrationOptions::class],
+                'iterable' => false,
+            ],
             'definitionProvider' => ['names' => [DefinitionOptions::class], 'iterable' => false],
-            'typeDefinitionProvider' => ['names' => [TypeDefinitionOptions::class, TypeDefinitionRegistrationOptions::class], 'iterable' => false],
-            'implementationProvider' => ['names' => [ImplementationOptions::class, ImplementationRegistrationOptions::class], 'iterable' => false],
+            'typeDefinitionProvider' => [
+                'names' => [TypeDefinitionOptions::class, TypeDefinitionRegistrationOptions::class],
+                'iterable' => false,
+            ],
+            'implementationProvider' => [
+                'names' => [ImplementationOptions::class, ImplementationRegistrationOptions::class],
+                'iterable' => false,
+            ],
             'referencesProvider' => ['names' => [ReferenceOptions::class], 'iterable' => false],
             'documentHighlightProvider' => ['names' => [DocumentHighlightOptions::class], 'iterable' => false],
             'documentSymbolProvider' => ['names' => [DocumentSymbolOptions::class], 'iterable' => false],
             'codeActionProvider' => ['names' => [CodeActionOptions::class], 'iterable' => false],
             'codeLensProvider' => ['names' => [CodeLensOptions::class], 'iterable' => false],
             'documentLinkProvider' => ['names' => [DocumentLinkOptions::class], 'iterable' => false],
-            'colorProvider' => ['names' => [DocumentColorOptions::class, DocumentColorRegistrationOptions::class], 'iterable' => false],
+            'colorProvider' => [
+                'names' => [DocumentColorOptions::class, DocumentColorRegistrationOptions::class],
+                'iterable' => false,
+            ],
             'workspaceSymbolProvider' => ['names' => [WorkspaceSymbolOptions::class], 'iterable' => false],
             'documentFormattingProvider' => ['names' => [DocumentFormattingOptions::class], 'iterable' => false],
-            'documentRangeFormattingProvider' => ['names' => [DocumentRangeFormattingOptions::class], 'iterable' => false],
-            'documentOnTypeFormattingProvider' => ['names' => [DocumentOnTypeFormattingOptions::class], 'iterable' => false],
+            'documentRangeFormattingProvider' => [
+                'names' => [DocumentRangeFormattingOptions::class],
+                'iterable' => false,
+            ],
+            'documentOnTypeFormattingProvider' => [
+                'names' => [DocumentOnTypeFormattingOptions::class],
+                'iterable' => false,
+            ],
             'renameProvider' => ['names' => [RenameOptions::class], 'iterable' => false],
-            'foldingRangeProvider' => ['names' => [FoldingRangeOptions::class, FoldingRangeRegistrationOptions::class], 'iterable' => false],
-            'selectionRangeProvider' => ['names' => [SelectionRangeOptions::class, SelectionRangeRegistrationOptions::class], 'iterable' => false],
+            'foldingRangeProvider' => [
+                'names' => [FoldingRangeOptions::class, FoldingRangeRegistrationOptions::class],
+                'iterable' => false,
+            ],
+            'selectionRangeProvider' => [
+                'names' => [SelectionRangeOptions::class, SelectionRangeRegistrationOptions::class],
+                'iterable' => false,
+            ],
             'executeCommandProvider' => ['names' => [ExecuteCommandOptions::class], 'iterable' => false],
-            'callHierarchyProvider' => ['names' => [CallHierarchyOptions::class, CallHierarchyRegistrationOptions::class], 'iterable' => false],
+            'callHierarchyProvider' => [
+                'names' => [CallHierarchyOptions::class, CallHierarchyRegistrationOptions::class],
+                'iterable' => false,
+            ],
             'linkedEditingRangeProvider' => ['names' => [], 'iterable' => false],
             'semanticTokensProvider' => ['names' => [], 'iterable' => false],
             'monikerProvider' => ['names' => [], 'iterable' => false],
             'typeHierarchyProvider' => ['names' => [], 'iterable' => false],
             'inlineValueProvider' => ['names' => [InlineValueRegistrationOptions::class], 'iterable' => false],
-            'inlayHintProvider' => ['names' => [InlayHintOptions::class, InlayHintRegistrationOptions::class], 'iterable' => false],
+            'inlayHintProvider' => [
+                'names' => [InlayHintOptions::class, InlayHintRegistrationOptions::class],
+                'iterable' => false,
+            ],
             'diagnosticProvider' => ['names' => [], 'iterable' => false],
             'workspace' => ['names' => [], 'iterable' => false],
             'experimental' => ['names' => [], 'iterable' => false],
@@ -398,9 +463,9 @@ class ServerCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -428,7 +493,7 @@ class ServerCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -451,5 +516,4 @@ class ServerCapabilities
 
         throw $lastException;
     }
-        
 }

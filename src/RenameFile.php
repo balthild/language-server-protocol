@@ -55,8 +55,13 @@ class RenameFile extends ResourceOperation
      * @param RenameFileOptions|null $options
      * @param string|null $annotationId
      */
-    public function __construct(string $kind, string $oldUri, string $newUri, ?RenameFileOptions $options = null, ?string $annotationId = null)
-    {
+    public function __construct(
+        string $kind,
+        string $oldUri,
+        string $newUri,
+        ?RenameFileOptions $options = null,
+        ?string $annotationId = null
+    ) {
         $this->kind = $kind;
         $this->oldUri = urldecode($oldUri);
         $this->newUri = urldecode($newUri);
@@ -87,9 +92,9 @@ class RenameFile extends ResourceOperation
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -117,7 +122,7 @@ class RenameFile extends ResourceOperation
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -140,5 +145,4 @@ class RenameFile extends ResourceOperation
 
         throw $lastException;
     }
-        
 }

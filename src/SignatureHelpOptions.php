@@ -22,7 +22,7 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
 
     /**
      * List of characters that re-trigger signature help.
-     * 
+     *
      * These trigger characters are only active when signature help is already showing. All trigger characters
      * are also counted as re-trigger characters.
      *
@@ -41,8 +41,11 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
      * @param array<string>|null $retriggerCharacters
      * @param bool|null $workDoneProgress
      */
-    public function __construct(?array $triggerCharacters = null, ?array $retriggerCharacters = null, ?bool $workDoneProgress = null)
-    {
+    public function __construct(
+        ?array $triggerCharacters = null,
+        ?array $retriggerCharacters = null,
+        ?bool $workDoneProgress = null
+    ) {
         $this->triggerCharacters = $triggerCharacters;
         $this->retriggerCharacters = $retriggerCharacters;
         $this->workDoneProgress = $workDoneProgress;
@@ -69,9 +72,9 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -99,7 +102,7 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -122,5 +125,4 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
 
         throw $lastException;
     }
-        
 }

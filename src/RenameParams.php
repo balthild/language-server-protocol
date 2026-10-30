@@ -49,8 +49,12 @@ class RenameParams extends WorkDoneProgressParams
      * @param string $newName
      * @param int|string|null $workDoneToken
      */
-    public function __construct(TextDocumentIdentifier $textDocument, Position $position, string $newName, $workDoneToken = null)
-    {
+    public function __construct(
+        TextDocumentIdentifier $textDocument,
+        Position $position,
+        string $newName,
+        $workDoneToken = null
+    ) {
         $this->textDocument = $textDocument;
         $this->position = $position;
         $this->newName = $newName;
@@ -79,9 +83,9 @@ class RenameParams extends WorkDoneProgressParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -109,7 +113,7 @@ class RenameParams extends WorkDoneProgressParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -132,5 +136,4 @@ class RenameParams extends WorkDoneProgressParams
 
         throw $lastException;
     }
-        
 }

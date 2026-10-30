@@ -55,8 +55,13 @@ class TextDocumentSyncOptions
      * @param bool|null $willSaveWaitUntil
      * @param bool|SaveOptions|null $save
      */
-    public function __construct(?bool $openClose = null, $change = null, ?bool $willSave = null, ?bool $willSaveWaitUntil = null, $save = null)
-    {
+    public function __construct(
+        ?bool $openClose = null,
+        $change = null,
+        ?bool $willSave = null,
+        ?bool $willSaveWaitUntil = null,
+        $save = null
+    ) {
         $this->openClose = $openClose;
         $this->change = $change;
         $this->willSave = $willSave;
@@ -87,9 +92,9 @@ class TextDocumentSyncOptions
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -117,7 +122,7 @@ class TextDocumentSyncOptions
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -140,5 +145,4 @@ class TextDocumentSyncOptions
 
         throw $lastException;
     }
-        
 }

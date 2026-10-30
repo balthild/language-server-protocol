@@ -26,12 +26,12 @@ class DidChangeTextDocumentParams
      * c2 (at array index 1) for a document in state S then c1 moves the document from
      * S to S' and c2 from S' to S''. So c1 is computed on the state S and c2 is computed
      * on the state S'.
-     * 
+     *
      * To mirror the content of a document using change events use the following approach:
      * - start with the same initial content
      * - apply the 'textDocument/didChange' notifications in the order you receive them.
      * - apply the `TextDocumentContentChangeEvent`s in a single notification in the order
-     *    you receive them.
+     *   you receive them.
      *
      * @var array<TextDocumentContentChangeIncrementalEvent|TextDocumentContentChangeFullEvent>
      */
@@ -55,7 +55,13 @@ class DidChangeTextDocumentParams
     {
         $map = [
             'textDocument' => ['names' => [VersionedTextDocumentIdentifier::class], 'iterable' => false],
-            'contentChanges' => ['names' => [TextDocumentContentChangeIncrementalEvent::class, TextDocumentContentChangeFullEvent::class], 'iterable' => true],
+            'contentChanges' => [
+                'names' => [
+                    TextDocumentContentChangeIncrementalEvent::class,
+                    TextDocumentContentChangeFullEvent::class,
+                ],
+                'iterable' => true,
+            ],
         ];
 
         foreach ($array as $key => &$value) {
@@ -67,9 +73,9 @@ class DidChangeTextDocumentParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -97,7 +103,7 @@ class DidChangeTextDocumentParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -120,5 +126,4 @@ class DidChangeTextDocumentParams
 
         throw $lastException;
     }
-        
 }

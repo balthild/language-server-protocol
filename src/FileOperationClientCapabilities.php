@@ -8,7 +8,7 @@ use RuntimeException;
 
 /**
  * Capabilities relating to events from file operations by the user in the client.
- * 
+ *
  * These events do not come from the file system, they come from user operations
  * like renaming a file in the UI.
  */
@@ -72,8 +72,15 @@ class FileOperationClientCapabilities
      * @param bool|null $didDelete
      * @param bool|null $willDelete
      */
-    public function __construct(?bool $dynamicRegistration = null, ?bool $didCreate = null, ?bool $willCreate = null, ?bool $didRename = null, ?bool $willRename = null, ?bool $didDelete = null, ?bool $willDelete = null)
-    {
+    public function __construct(
+        ?bool $dynamicRegistration = null,
+        ?bool $didCreate = null,
+        ?bool $willCreate = null,
+        ?bool $didRename = null,
+        ?bool $willRename = null,
+        ?bool $didDelete = null,
+        ?bool $willDelete = null
+    ) {
         $this->dynamicRegistration = $dynamicRegistration;
         $this->didCreate = $didCreate;
         $this->willCreate = $willCreate;
@@ -108,9 +115,9 @@ class FileOperationClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -138,7 +145,7 @@ class FileOperationClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -161,5 +168,4 @@ class FileOperationClientCapabilities
 
         throw $lastException;
     }
-        
 }

@@ -46,8 +46,12 @@ class ImplementationParams extends TextDocumentPositionParams
      * @param int|string|null $workDoneToken
      * @param int|string|null $partialResultToken
      */
-    public function __construct(TextDocumentIdentifier $textDocument, Position $position, $workDoneToken = null, $partialResultToken = null)
-    {
+    public function __construct(
+        TextDocumentIdentifier $textDocument,
+        Position $position,
+        $workDoneToken = null,
+        $partialResultToken = null
+    ) {
         $this->textDocument = $textDocument;
         $this->position = $position;
         $this->workDoneToken = $workDoneToken;
@@ -76,9 +80,9 @@ class ImplementationParams extends TextDocumentPositionParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -106,7 +110,7 @@ class ImplementationParams extends TextDocumentPositionParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -129,5 +133,4 @@ class ImplementationParams extends TextDocumentPositionParams
 
         throw $lastException;
     }
-        
 }

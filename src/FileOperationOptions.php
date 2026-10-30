@@ -61,8 +61,14 @@ class FileOperationOptions
      * @param FileOperationRegistrationOptions|null $didDelete
      * @param FileOperationRegistrationOptions|null $willDelete
      */
-    public function __construct(?FileOperationRegistrationOptions $didCreate = null, ?FileOperationRegistrationOptions $willCreate = null, ?FileOperationRegistrationOptions $didRename = null, ?FileOperationRegistrationOptions $willRename = null, ?FileOperationRegistrationOptions $didDelete = null, ?FileOperationRegistrationOptions $willDelete = null)
-    {
+    public function __construct(
+        ?FileOperationRegistrationOptions $didCreate = null,
+        ?FileOperationRegistrationOptions $willCreate = null,
+        ?FileOperationRegistrationOptions $didRename = null,
+        ?FileOperationRegistrationOptions $willRename = null,
+        ?FileOperationRegistrationOptions $didDelete = null,
+        ?FileOperationRegistrationOptions $willDelete = null
+    ) {
         $this->didCreate = $didCreate;
         $this->willCreate = $willCreate;
         $this->didRename = $didRename;
@@ -95,9 +101,9 @@ class FileOperationOptions
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -125,7 +131,7 @@ class FileOperationOptions
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -148,5 +154,4 @@ class FileOperationOptions
 
         throw $lastException;
     }
-        
 }

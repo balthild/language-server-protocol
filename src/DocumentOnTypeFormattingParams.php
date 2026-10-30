@@ -50,8 +50,12 @@ class DocumentOnTypeFormattingParams
      * @param string $ch
      * @param FormattingOptions $options
      */
-    public function __construct(TextDocumentIdentifier $textDocument, Position $position, string $ch, FormattingOptions $options)
-    {
+    public function __construct(
+        TextDocumentIdentifier $textDocument,
+        Position $position,
+        string $ch,
+        FormattingOptions $options
+    ) {
         $this->textDocument = $textDocument;
         $this->position = $position;
         $this->ch = $ch;
@@ -80,9 +84,9 @@ class DocumentOnTypeFormattingParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -110,7 +114,7 @@ class DocumentOnTypeFormattingParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -133,5 +137,4 @@ class DocumentOnTypeFormattingParams
 
         throw $lastException;
     }
-        
 }

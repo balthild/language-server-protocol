@@ -14,7 +14,7 @@ class LocationLink
 {
     /**
      * Span of the origin of this link.
-     * 
+     *
      * Used as the underlined span for mouse interaction. Defaults to the word range at
      * the definition position.
      *
@@ -52,8 +52,12 @@ class LocationLink
      * @param Range $targetRange
      * @param Range $targetSelectionRange
      */
-    public function __construct(string $targetUri, Range $targetRange, Range $targetSelectionRange, ?Range $originSelectionRange = null)
-    {
+    public function __construct(
+        string $targetUri,
+        Range $targetRange,
+        Range $targetSelectionRange,
+        ?Range $originSelectionRange = null
+    ) {
         $this->originSelectionRange = $originSelectionRange;
         $this->targetUri = urldecode($targetUri);
         $this->targetRange = $targetRange;
@@ -82,9 +86,9 @@ class LocationLink
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -112,7 +116,7 @@ class LocationLink
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -135,5 +139,4 @@ class LocationLink
 
         throw $lastException;
     }
-        
 }

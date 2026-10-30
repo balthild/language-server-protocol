@@ -61,8 +61,14 @@ class ClientCapabilities
      * @param GeneralClientCapabilities|null $general
      * @param mixed|null $experimental
      */
-    public function __construct(?WorkspaceClientCapabilities $workspace = null, ?TextDocumentClientCapabilities $textDocument = null, ?NotebookDocumentClientCapabilities $notebookDocument = null, ?WindowClientCapabilities $window = null, ?GeneralClientCapabilities $general = null, $experimental = null)
-    {
+    public function __construct(
+        ?WorkspaceClientCapabilities $workspace = null,
+        ?TextDocumentClientCapabilities $textDocument = null,
+        ?NotebookDocumentClientCapabilities $notebookDocument = null,
+        ?WindowClientCapabilities $window = null,
+        ?GeneralClientCapabilities $general = null,
+        $experimental = null
+    ) {
         $this->workspace = $workspace;
         $this->textDocument = $textDocument;
         $this->notebookDocument = $notebookDocument;
@@ -95,9 +101,9 @@ class ClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -125,7 +131,7 @@ class ClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -148,5 +154,4 @@ class ClientCapabilities
 
         throw $lastException;
     }
-        
 }

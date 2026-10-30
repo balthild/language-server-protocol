@@ -16,7 +16,7 @@ class _InitializeParams extends WorkDoneProgressParams
     /**
      * The process Id of the parent process that started
      * the server.
-     * 
+     *
      * Is `null` if the process has not been started by another process.
      * If the parent process is not alive then the server should exit.
      *
@@ -35,7 +35,7 @@ class _InitializeParams extends WorkDoneProgressParams
      * The locale the client is currently showing the user interface
      * in. This must not necessarily be the locale of the operating
      * system.
-     * 
+     *
      * Uses IETF language tags as the value's syntax
      * (See https://en.wikipedia.org/wiki/IETF_language_tag)
      *
@@ -99,8 +99,17 @@ class _InitializeParams extends WorkDoneProgressParams
      * @param 'off'|'messages'|'compact'|'verbose'|null $trace
      * @param int|string|null $workDoneToken
      */
-    public function __construct(ClientCapabilities $capabilities, $processId = null, ?array $clientInfo = null, ?string $locale = null, $rootPath = null, $rootUri = null, $initializationOptions = null, $trace = null, $workDoneToken = null)
-    {
+    public function __construct(
+        ClientCapabilities $capabilities,
+        $processId = null,
+        ?array $clientInfo = null,
+        ?string $locale = null,
+        $rootPath = null,
+        $rootUri = null,
+        $initializationOptions = null,
+        $trace = null,
+        $workDoneToken = null
+    ) {
         $this->processId = $processId;
         $this->clientInfo = $clientInfo;
         $this->locale = $locale;
@@ -139,9 +148,9 @@ class _InitializeParams extends WorkDoneProgressParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -169,7 +178,7 @@ class _InitializeParams extends WorkDoneProgressParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -192,5 +201,4 @@ class _InitializeParams extends WorkDoneProgressParams
 
         throw $lastException;
     }
-        
 }

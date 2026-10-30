@@ -57,8 +57,13 @@ class FoldingRangeClientCapabilities
      * @param array{valueSet:array<FoldingRangeKind::*>}|null $foldingRangeKind
      * @param array{collapsedText:bool}|null $foldingRange
      */
-    public function __construct(?bool $dynamicRegistration = null, ?int $rangeLimit = null, ?bool $lineFoldingOnly = null, ?array $foldingRangeKind = null, ?array $foldingRange = null)
-    {
+    public function __construct(
+        ?bool $dynamicRegistration = null,
+        ?int $rangeLimit = null,
+        ?bool $lineFoldingOnly = null,
+        ?array $foldingRangeKind = null,
+        ?array $foldingRange = null
+    ) {
         $this->dynamicRegistration = $dynamicRegistration;
         $this->rangeLimit = $rangeLimit;
         $this->lineFoldingOnly = $lineFoldingOnly;
@@ -89,9 +94,9 @@ class FoldingRangeClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -119,7 +124,7 @@ class FoldingRangeClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -142,5 +147,4 @@ class FoldingRangeClientCapabilities
 
         throw $lastException;
     }
-        
 }

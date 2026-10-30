@@ -10,7 +10,7 @@ class WorkspaceFoldersInitializeParams
 {
     /**
      * The workspace folders configured in the client when the server starts.
-     * 
+     *
      * This property is only available if the client supports workspace folders.
      * It can be `null` if the client supports workspace folders but none are
      * configured.
@@ -46,9 +46,9 @@ class WorkspaceFoldersInitializeParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -76,7 +76,7 @@ class WorkspaceFoldersInitializeParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -99,5 +99,4 @@ class WorkspaceFoldersInitializeParams
 
         throw $lastException;
     }
-        
 }

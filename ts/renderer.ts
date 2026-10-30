@@ -1,181 +1,175 @@
-import {PhpClass, Property, PhpClassLike, isPhpClass, isPhpInterface, PhpInterface, PhpConstant} from './phpClass';
-import * as inflect from 'inflect';
+import { constantCase } from 'change-case';
 
-export class Renderer
-{
-    render(phpClass: PhpClassLike): string {
-        if (isPhpClass(phpClass)) {
-            return this.renderClass(phpClass);
-        }
+import { PhpClass, PhpClassLike, PhpInterface } from './phpClass.ts';
+import type { PhpConstant, Property } from './phpClass.ts';
 
-        if (isPhpInterface(phpClass)) {
-            return this.renderInterface(phpClass);
-        }
+/**
+ * `class` is a reserved word in PHP, so a constant derived from it needs a
+ * trailing underscore.
+ */
+function constantName(constant: PhpConstant): string {
+	const name = constantCase(constant.name).toUpperCase();
 
-        throw `Do not know how to render php class like`
-    }
-    
-    private renderInterface(phpClass: PhpInterface): string {
-        const source: Array<string> = ['<?php // Auto-generated from vscode-languageserver-protocol (typescript)'];
-        source.push(``);
-        source.push(`namespace Phpactor\\LanguageServerProtocol;`);
-        source.push(``);
-        source.push(`interface ${phpClass.name}`);
-        source.push(`{`);
+	return name === 'CLASS' ? 'CLASS_' : name;
+}
 
-        phpClass.constants.forEach((constant: PhpConstant) => {
-            const constName = inflect.underscore(constant.name) as string;
-            source.push(
-                `    public const ${constName.toUpperCase()} = ${constant.rawValue.replace(/`/g,"'")};`
-            );
-        });
+export class Renderer {
+	render(phpClass: PhpClassLike): string {
+		if (phpClass instanceof PhpClass) {
+			return this.renderClass(phpClass);
+		}
 
-        source.push(`}`);
+		if (phpClass instanceof PhpInterface) {
+			return this.renderInterface(phpClass);
+		}
 
-        return source.join("\n");
-    }
+		throw new Error('Cannot render unknown PHP class-like');
+	}
 
-    private renderClass(phpClass: PhpClass): string {
-        const source: Array<string> = ['<?php // Auto-generated from vscode-languageserver-protocol (typescript)'];
+	private renderInterface(phpClass: PhpInterface): string {
+		const source = [
+			'<?php // Auto-generated from vscode-languageserver-protocol (typescript)',
+			'',
+			'namespace Phpactor\\LanguageServerProtocol;',
+			'',
+			`interface ${phpClass.name}`,
+			'{',
+		];
 
-        source.push(``);
-        source.push(`namespace Phpactor\\LanguageServerProtocol;`);
-        source.push(``);
-        source.push(`use DTL\\Invoke\\Invoke;`);
-        source.push(`use Exception;`);
-        source.push(`use RuntimeException;`);
-        source.push(``);
+		for (const constant of phpClass.constants.values()) {
+			const value = constant.rawValue.replace(/`/g, "'");
+			source.push(`    public const ${constantName(constant)} = ${value};`);
+		}
 
-        if (phpClass.mixins.length > 0 || phpClass.docs.length > 0) {
-            source.push(`/**`);
-            phpClass.docs.forEach((line: string) => {
-                if (typeof line === 'undefined') {
-                    return;
-                }
-                for (const docLine of line.split("\n")) {
-                    source.push(` * ${docLine}`);
-                }
-            });
-            if (phpClass.mixins.length > 0 && phpClass.docs.length > 0) {
-                source.push(` *`);
-            }
-            if (phpClass.mixins.length > 0) {
-                source.push(' * Mixins (implemented TS interfaces): ' + phpClass.mixins.join(', '));
-            }
-            source.push(` */`);
-        }
+		source.push('}');
 
-        let extendsClause = '';
-        if (phpClass.extends) {
-            extendsClause = ` extends ${phpClass.extends}`
-        }
+		return source.join('\n');
+	}
 
-        source.push(`class ${phpClass.name}${extendsClause}`);
-        source.push(`{`);
+	private renderClass(phpClass: PhpClass): string {
+		const source = [
+			'<?php // Auto-generated from vscode-languageserver-protocol (typescript)',
+			'',
+			'namespace Phpactor\\LanguageServerProtocol;',
+			'',
+			'use DTL\\Invoke\\Invoke;',
+			'use Exception;',
+			'use RuntimeException;',
+			'',
+		];
 
-        this.buildProperties(phpClass, source);
-        this.buildConstructorDefinition(phpClass, source);
-        this.buildArrayConstructor(phpClass, source);
+		if (phpClass.mixins.length > 0 || phpClass.docs.length > 0) {
+			source.push('/**');
+			for (const doc of phpClass.docs) {
+				for (const line of doc.split('\n')) {
+					source.push(` * ${line}`);
+				}
+			}
+			if (phpClass.mixins.length > 0 && phpClass.docs.length > 0) {
+				source.push(' *');
+			}
+			if (phpClass.mixins.length > 0) {
+				source.push(` * Mixins (implemented TS interfaces): ${phpClass.mixins.join(', ')}`);
+			}
+			source.push(' */');
+		}
 
-        source.push(`}`);
+		const extendsClause = phpClass.extends ? ` extends ${phpClass.extends}` : '';
 
-        return source.join("\n");
-    }
+		source.push(`class ${phpClass.name}${extendsClause}`);
+		source.push('{');
 
-    buildProperties(declaration: PhpClass, source: string[]): void {
-        declaration.properties.forEach((property: Property) => {
-            source.push(`    /**`);
-            for (const docLine of property.docs) {
-                for (const docLineLine of docLine.split("\n")) {
-                    source.push(`     * ${docLineLine}`);
-                }
-            }
-            source.push(`     *`);
-            source.push(`     * @var ${this.renderPropertyType(property)}`);
-            source.push(`     */`);
-            source.push(`    public $${property.name};`);
-            source.push(``);
-        });
-    }
+		this.buildProperties(phpClass, source);
+		this.buildConstructorDefinition(phpClass, source);
+		this.buildArrayConstructor(phpClass, source);
 
-    buildConstructorDefinition(declaration: PhpClass, source: string[]): void {
-        const args: string[] = [];
+		source.push('}');
 
-        const properties: Property[] = Array.from(declaration.properties.values()).sort((property1: Property, property2: Property) => {
-            if (property1.nullable === property2.nullable) {
-                return 0;
-            }
+		return source.join('\n');
+	}
 
-            if (property1.nullable) {
-                return 1;
-            }
+	private buildProperties(declaration: PhpClass, source: string[]): void {
+		for (const property of declaration.properties.values()) {
+			source.push('    /**');
+			for (const doc of property.docs) {
+				for (const line of doc.split('\n')) {
+					source.push(`     * ${line}`);
+				}
+			}
+			source.push('     *');
+			source.push(`     * @var ${this.renderPropertyType(property)}`);
+			source.push('     */');
+			source.push(`    public $${property.name};`);
+			source.push('');
+		}
+	}
 
-            return -1;
-        });
+	private buildConstructorDefinition(declaration: PhpClass, source: string[]): void {
+		const properties = [...declaration.properties.values()].sort(
+			(property1, property2) => Number(property1.nullable) - Number(property2.nullable),
+		);
 
-        properties.forEach((property: Property) => {
-            const arg = [];
+		const args = properties.map((property) => {
+			const arg: string[] = [];
 
-            if (property.type.real && property.nullable) {
-                arg.push('?');
-            }
+			if (property.type.real) {
+				if (property.nullable) {
+					arg.push('?');
+				}
 
-            if (property.type.real) {
-                arg.push(`${property.type.real} `);
-            }
+				arg.push(`${property.type.real} `);
+			}
 
-            arg.push(`$${property.name}`);
+			arg.push(`$${property.name}`);
 
-            if (property.nullable) {
-                arg.push(' = null');
-            }
+			if (property.nullable) {
+				arg.push(' = null');
+			}
 
-            args.push(arg.join(''));
-        });
+			return arg.join('');
+		});
 
-        if (args.length === 0) {
-            return;
-        }
+		if (args.length === 0) {
+			return;
+		}
 
-        source.push('    /**');
-        declaration.properties.forEach((property: Property) => {
-            source.push(`     * @param ${this.renderPropertyType(property)} $${property.name}`);
-        });
-        source.push('     */');
+		source.push('    /**');
+		for (const property of declaration.properties.values()) {
+			source.push(`     * @param ${this.renderPropertyType(property)} $${property.name}`);
+		}
+		source.push('     */');
 
-        const argsString = args.join(', ');
-        source.push(`    public function __construct(${argsString})`);
-        source.push('    {');
+		source.push(`    public function __construct(${args.join(', ')})`);
+		source.push('    {');
 
-        declaration.properties.forEach((property: Property) => {
-            // special handling for URIs
-            if (-1 !== property.special.indexOf('uri')) {
-                source.push(`        $this->${property.name} = urldecode($${property.name});`);
-                return;
-            }
-            source.push(`        $this->${property.name} = $${property.name};`);
-        });
-        source.push('    }');
-    }
+		for (const property of declaration.properties.values()) {
+			// URIs are decoded so that generated objects hold the plain path.
+			if (property.special.includes('uri')) {
+				source.push(`        $this->${property.name} = urldecode($${property.name});`);
+				continue;
+			}
 
-    renderPropertyType(property: Property): string {
-        let documentedType = property.type.documented;
+			source.push(`        $this->${property.name} = $${property.name};`);
+		}
 
-        if (!documentedType.match(/null/) && property.nullable) {
-            documentedType = documentedType + '|null';
-        }
+		source.push('    }');
+	}
 
-        return documentedType;
-    }
+	private renderPropertyType(property: Property): string {
+		if (!property.type.documented.includes('null') && property.nullable) {
+			return `${property.type.documented}|null`;
+		}
 
-    buildArrayConstructor(declaration: PhpClass, source: string[]): void {
+		return property.type.documented;
+	}
 
-        let normalizerSource = ""
-        if (declaration.properties.size > 0) {
-            normalizerSource = this.buildClassNormalizer(declaration, source).join("\n");
-        }
+	private buildArrayConstructor(declaration: PhpClass, source: string[]): void {
+		let normalizerSource = '';
+		if (declaration.properties.size > 0) {
+			normalizerSource = this.buildClassNormalizer(declaration).join('\n');
+		}
 
-        source.push(`
+		source.push(`
     /**
      * @param array<string,mixed> $array
      * @return self
@@ -206,64 +200,66 @@ export class Renderer
         throw $lastException;
     }
         `);
-    }
+	}
 
-    buildClassNormalizer(declaration: PhpClass, source: string[]): string[] {
-        const classResolutionSource = [
-            '$map = [',
-        ];
+	private buildClassNormalizer(declaration: PhpClass): string[] {
+		const classResolutionSource = ['$map = ['];
 
-        declaration.properties.forEach((property: Property) => {
-            const classNames = property.type.classNames.map((name) => {
-                return name + '::class';
-            }).join(', ');
+		for (const property of declaration.properties.values()) {
+			const classNames = property.type.classNames
+				.map((name) => {
+					return name + '::class';
+				})
+				.join(', ');
 
-            classResolutionSource.push(`            '${property.name}' => ['names' => [${classNames}], 'iterable' => ${property.type.iterable ? 'true':'false'}],`);
-        });
+			classResolutionSource.push(
+				`            '${property.name}' => ['names' => [${classNames}], 'iterable' => ${property.type.iterable ? 'true' : 'false'}],`,
+			);
+		}
 
-        classResolutionSource.push('        ];'),
-        classResolutionSource.push(`
-        foreach ($array as $key => &$value) {
-            if (!isset($map[$key])) {
-                if ($allowUnknownKeys) {
-                    unset($array[$key]);
-                    continue;
-                }
+		classResolutionSource.push('        ];');
+		classResolutionSource.push(`
+			foreach ($array as $key => &$value) {
+					if (!isset($map[$key])) {
+							if ($allowUnknownKeys) {
+									unset($array[$key]);
+									continue;
+							}
 
-                throw new RuntimeException(sprintf(
-                    'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
-                    self::class,
-                    implode('", "', array_keys($map))
-                ));
-            }
+							throw new RuntimeException(sprintf(
+									'Parameter "%s" on class "%s" not known, known parameters: "%s"',
+									$key,
+									self::class,
+									implode('", "', array_keys($map))
+							));
+					}
 
-            // from here we only care about arrays that can be transformed into
-            // objects
-            if (!is_array($value)) {
-                continue;
-            }
+					// from here we only care about arrays that can be transformed into
+					// objects
+					if (!is_array($value)) {
+							continue;
+					}
 
-            if (empty($map[$key]['names'])) {
-                continue;
-            }
+					if (empty($map[$key]['names'])) {
+							continue;
+					}
 
-            if ($map[$key]['iterable']) {
-                $value = array_map(function ($object) use ($map, $key, $allowUnknownKeys) {
-                    if (!is_array($object)) {
-                        return $object;
-                    }
+					if ($map[$key]['iterable']) {
+							$value = array_map(function ($object) use ($map, $key, $allowUnknownKeys) {
+									if (!is_array($object)) {
+											return $object;
+									}
 
-                    return self::invokeFromNames($map[$key]['names'], $object, $allowUnknownKeys) ?: $object;
-                }, $value);
-                continue;
-            }
+									return self::invokeFromNames($map[$key]['names'], $object, $allowUnknownKeys) ?: $object;
+							}, $value);
+							continue;
+					}
 
-            $names = $map[$key]['names'];
-            $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
-        }
-        `);
+					$names = $map[$key]['names'];
+					$value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
+			}
+			`);
 
-        return classResolutionSource;
-    }
+		return classResolutionSource;
+	}
 }

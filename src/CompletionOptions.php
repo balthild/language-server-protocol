@@ -19,7 +19,7 @@ class CompletionOptions extends WorkDoneProgressOptions
      * starts to type an identifier. For example if the user types `c` in a JavaScript file
      * code complete will automatically pop up present `console` besides others as a
      * completion item. Characters that make up identifiers don't need to be listed here.
-     * 
+     *
      * If code complete should automatically be trigger on characters not being valid inside
      * an identifier (for example `.` in JavaScript) list them in `triggerCharacters`.
      *
@@ -31,7 +31,7 @@ class CompletionOptions extends WorkDoneProgressOptions
      * The list of all possible characters that commit a completion. This field can be used
      * if clients don't support individual commit characters per completion item. See
      * `ClientCapabilities.textDocument.completion.completionItem.commitCharactersSupport`
-     * 
+     *
      * If a server provides both `allCommitCharacters` and commit characters on an individual
      * completion item the ones on the completion item win.
      *
@@ -68,8 +68,13 @@ class CompletionOptions extends WorkDoneProgressOptions
      * @param array{labelDetailsSupport:bool}|null $completionItem
      * @param bool|null $workDoneProgress
      */
-    public function __construct(?array $triggerCharacters = null, ?array $allCommitCharacters = null, ?bool $resolveProvider = null, ?array $completionItem = null, ?bool $workDoneProgress = null)
-    {
+    public function __construct(
+        ?array $triggerCharacters = null,
+        ?array $allCommitCharacters = null,
+        ?bool $resolveProvider = null,
+        ?array $completionItem = null,
+        ?bool $workDoneProgress = null
+    ) {
         $this->triggerCharacters = $triggerCharacters;
         $this->allCommitCharacters = $allCommitCharacters;
         $this->resolveProvider = $resolveProvider;
@@ -100,9 +105,9 @@ class CompletionOptions extends WorkDoneProgressOptions
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -130,7 +135,7 @@ class CompletionOptions extends WorkDoneProgressOptions
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -153,5 +158,4 @@ class CompletionOptions extends WorkDoneProgressOptions
 
         throw $lastException;
     }
-        
 }

@@ -92,8 +92,17 @@ class Diagnostic
      * @param array<DiagnosticRelatedInformation>|null $relatedInformation
      * @param mixed|null $data
      */
-    public function __construct(Range $range, string $message, $severity = null, $code = null, ?CodeDescription $codeDescription = null, ?string $source = null, ?array $tags = null, ?array $relatedInformation = null, $data = null)
-    {
+    public function __construct(
+        Range $range,
+        string $message,
+        $severity = null,
+        $code = null,
+        ?CodeDescription $codeDescription = null,
+        ?string $source = null,
+        ?array $tags = null,
+        ?array $relatedInformation = null,
+        $data = null
+    ) {
         $this->range = $range;
         $this->severity = $severity;
         $this->code = $code;
@@ -132,9 +141,9 @@ class Diagnostic
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -162,7 +171,7 @@ class Diagnostic
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -185,5 +194,4 @@ class Diagnostic
 
         throw $lastException;
     }
-        
 }

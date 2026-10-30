@@ -84,8 +84,16 @@ class DocumentSymbol
      * @param Range $selectionRange
      * @param array<DocumentSymbol>|null $children
      */
-    public function __construct(string $name, $kind, Range $range, Range $selectionRange, ?string $detail = null, ?array $tags = null, ?bool $deprecated = null, ?array $children = null)
-    {
+    public function __construct(
+        string $name,
+        $kind,
+        Range $range,
+        Range $selectionRange,
+        ?string $detail = null,
+        ?array $tags = null,
+        ?bool $deprecated = null,
+        ?array $children = null
+    ) {
         $this->name = $name;
         $this->detail = $detail;
         $this->kind = $kind;
@@ -122,9 +130,9 @@ class DocumentSymbol
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -152,7 +160,7 @@ class DocumentSymbol
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -175,5 +183,4 @@ class DocumentSymbol
 
         throw $lastException;
     }
-        
 }

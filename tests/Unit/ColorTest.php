@@ -2,8 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use Phpactor\LanguageServerProtocol\Color;
+use PHPUnit\Framework\TestCase;
 
 class ColorTest extends TestCase
 {

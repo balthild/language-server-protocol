@@ -27,7 +27,7 @@ class SymbolInformation extends BaseSymbolInformation
      * tool the range's start information is used to position the cursor. So
      * the range usually spans more than the actual symbol's name and does
      * normally include things like visibility modifiers.
-     * 
+     *
      * The range doesn't have to denote a node range in the sense of an abstract
      * syntax tree. It can therefore not be used to re-construct a hierarchy of
      * the symbols.
@@ -75,8 +75,14 @@ class SymbolInformation extends BaseSymbolInformation
      * @param array<SymbolTag::*>|null $tags
      * @param string|null $containerName
      */
-    public function __construct(Location $location, string $name, $kind, ?bool $deprecated = null, ?array $tags = null, ?string $containerName = null)
-    {
+    public function __construct(
+        Location $location,
+        string $name,
+        $kind,
+        ?bool $deprecated = null,
+        ?array $tags = null,
+        ?string $containerName = null
+    ) {
         $this->deprecated = $deprecated;
         $this->location = $location;
         $this->name = $name;
@@ -109,9 +115,9 @@ class SymbolInformation extends BaseSymbolInformation
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -139,7 +145,7 @@ class SymbolInformation extends BaseSymbolInformation
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -162,5 +168,4 @@ class SymbolInformation extends BaseSymbolInformation
 
         throw $lastException;
     }
-        
 }

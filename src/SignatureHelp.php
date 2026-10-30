@@ -24,10 +24,10 @@ class SignatureHelp
      * The active signature. If omitted or the value lies outside the
      * range of `signatures` the value defaults to zero or is ignored if
      * the `SignatureHelp` has no signatures.
-     * 
+     *
      * Whenever possible implementors should make an active decision about
      * the active signature and shouldn't rely on a default value.
-     * 
+     *
      * In future version of the protocol this property might become
      * mandatory to better express this.
      *
@@ -81,9 +81,9 @@ class SignatureHelp
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -111,7 +111,7 @@ class SignatureHelp
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -134,5 +134,4 @@ class SignatureHelp
 
         throw $lastException;
     }
-        
 }

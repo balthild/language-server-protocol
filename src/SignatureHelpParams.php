@@ -48,8 +48,12 @@ class SignatureHelpParams extends TextDocumentPositionParams
      * @param Position $position
      * @param int|string|null $workDoneToken
      */
-    public function __construct(TextDocumentIdentifier $textDocument, Position $position, ?SignatureHelpContext $context = null, $workDoneToken = null)
-    {
+    public function __construct(
+        TextDocumentIdentifier $textDocument,
+        Position $position,
+        ?SignatureHelpContext $context = null,
+        $workDoneToken = null
+    ) {
         $this->context = $context;
         $this->textDocument = $textDocument;
         $this->position = $position;
@@ -78,9 +82,9 @@ class SignatureHelpParams extends TextDocumentPositionParams
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -108,7 +112,7 @@ class SignatureHelpParams extends TextDocumentPositionParams
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -131,5 +135,4 @@ class SignatureHelpParams extends TextDocumentPositionParams
 
         throw $lastException;
     }
-        
 }

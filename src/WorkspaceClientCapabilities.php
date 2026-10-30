@@ -87,7 +87,7 @@ class WorkspaceClientCapabilities
 
     /**
      * The client has support for file notifications/requests for user operations on files.
-     * 
+     *
      * Since 3.16.0
      *
      * @var FileOperationClientCapabilities|null
@@ -134,8 +134,22 @@ class WorkspaceClientCapabilities
      * @param array{refreshSupport:bool}|null $inlayHint
      * @param mixed|null $diagnostics
      */
-    public function __construct(?bool $applyEdit = null, ?WorkspaceEditClientCapabilities $workspaceEdit = null, ?DidChangeConfigurationClientCapabilities $didChangeConfiguration = null, ?DidChangeWatchedFilesClientCapabilities $didChangeWatchedFiles = null, ?WorkspaceSymbolClientCapabilities $symbol = null, ?ExecuteCommandClientCapabilities $executeCommand = null, ?bool $workspaceFolders = null, ?bool $configuration = null, $semanticTokens = null, ?CodeLensWorkspaceClientCapabilities $codeLens = null, ?FileOperationClientCapabilities $fileOperations = null, ?array $inlineValue = null, ?array $inlayHint = null, $diagnostics = null)
-    {
+    public function __construct(
+        ?bool $applyEdit = null,
+        ?WorkspaceEditClientCapabilities $workspaceEdit = null,
+        ?DidChangeConfigurationClientCapabilities $didChangeConfiguration = null,
+        ?DidChangeWatchedFilesClientCapabilities $didChangeWatchedFiles = null,
+        ?WorkspaceSymbolClientCapabilities $symbol = null,
+        ?ExecuteCommandClientCapabilities $executeCommand = null,
+        ?bool $workspaceFolders = null,
+        ?bool $configuration = null,
+        $semanticTokens = null,
+        ?CodeLensWorkspaceClientCapabilities $codeLens = null,
+        ?FileOperationClientCapabilities $fileOperations = null,
+        ?array $inlineValue = null,
+        ?array $inlayHint = null,
+        $diagnostics = null
+    ) {
         $this->applyEdit = $applyEdit;
         $this->workspaceEdit = $workspaceEdit;
         $this->didChangeConfiguration = $didChangeConfiguration;
@@ -161,8 +175,14 @@ class WorkspaceClientCapabilities
         $map = [
             'applyEdit' => ['names' => [], 'iterable' => false],
             'workspaceEdit' => ['names' => [WorkspaceEditClientCapabilities::class], 'iterable' => false],
-            'didChangeConfiguration' => ['names' => [DidChangeConfigurationClientCapabilities::class], 'iterable' => false],
-            'didChangeWatchedFiles' => ['names' => [DidChangeWatchedFilesClientCapabilities::class], 'iterable' => false],
+            'didChangeConfiguration' => [
+                'names' => [DidChangeConfigurationClientCapabilities::class],
+                'iterable' => false,
+            ],
+            'didChangeWatchedFiles' => [
+                'names' => [DidChangeWatchedFilesClientCapabilities::class],
+                'iterable' => false,
+            ],
             'symbol' => ['names' => [WorkspaceSymbolClientCapabilities::class], 'iterable' => false],
             'executeCommand' => ['names' => [ExecuteCommandClientCapabilities::class], 'iterable' => false],
             'workspaceFolders' => ['names' => [], 'iterable' => false],
@@ -184,9 +204,9 @@ class WorkspaceClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -214,7 +234,7 @@ class WorkspaceClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -237,5 +257,4 @@ class WorkspaceClientCapabilities
 
         throw $lastException;
     }
-        
 }

@@ -23,7 +23,7 @@ class CodeActionRegistrationOptions extends TextDocumentRegistrationOptions
 
     /**
      * CodeActionKinds that this server may return.
-     * 
+     *
      * The list of kinds may be generic, such as `CodeActionKind.Refactor`, or the server
      * may list out every specific kind they provide.
      *
@@ -51,8 +51,12 @@ class CodeActionRegistrationOptions extends TextDocumentRegistrationOptions
      * @param bool|null $resolveProvider
      * @param bool|null $workDoneProgress
      */
-    public function __construct($documentSelector = null, ?array $codeActionKinds = null, ?bool $resolveProvider = null, ?bool $workDoneProgress = null)
-    {
+    public function __construct(
+        $documentSelector = null,
+        ?array $codeActionKinds = null,
+        ?bool $resolveProvider = null,
+        ?bool $workDoneProgress = null
+    ) {
         $this->documentSelector = $documentSelector;
         $this->codeActionKinds = $codeActionKinds;
         $this->resolveProvider = $resolveProvider;
@@ -81,9 +85,9 @@ class CodeActionRegistrationOptions extends TextDocumentRegistrationOptions
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -111,7 +115,7 @@ class CodeActionRegistrationOptions extends TextDocumentRegistrationOptions
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -134,5 +138,4 @@ class CodeActionRegistrationOptions extends TextDocumentRegistrationOptions
 
         throw $lastException;
     }
-        
 }

@@ -8,7 +8,7 @@ use RuntimeException;
 
 /**
  * A special workspace symbol that supports locations without a range.
- * 
+ *
  * See also SymbolInformation.
  *
  * Mixins (implemented TS interfaces): BaseSymbolInformation
@@ -19,7 +19,7 @@ class WorkspaceSymbol extends BaseSymbolInformation
      * The location of the symbol. Whether a server is allowed to
      * return a location without a range depends on the client
      * capability `workspace.symbol.resolveSupport`.
-     * 
+     *
      * See SymbolInformation#location for more details.
      *
      * @var Location|array{uri:string}
@@ -73,8 +73,14 @@ class WorkspaceSymbol extends BaseSymbolInformation
      * @param array<SymbolTag::*>|null $tags
      * @param string|null $containerName
      */
-    public function __construct($location, string $name, $kind, $data = null, ?array $tags = null, ?string $containerName = null)
-    {
+    public function __construct(
+        $location,
+        string $name,
+        $kind,
+        $data = null,
+        ?array $tags = null,
+        ?string $containerName = null
+    ) {
         $this->location = $location;
         $this->data = $data;
         $this->name = $name;
@@ -107,9 +113,9 @@ class WorkspaceSymbol extends BaseSymbolInformation
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -137,7 +143,7 @@ class WorkspaceSymbol extends BaseSymbolInformation
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -160,5 +166,4 @@ class WorkspaceSymbol extends BaseSymbolInformation
 
         throw $lastException;
     }
-        
 }

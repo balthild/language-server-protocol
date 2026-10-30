@@ -2,13 +2,13 @@
 
 namespace Phpactor\LanguageServerProtocol\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use Phpactor\LanguageServerProtocol\Command;
+use Phpactor\LanguageServerProtocol\CompletionItem;
+use Phpactor\LanguageServerProtocol\MarkupContent;
 use Phpactor\LanguageServerProtocol\Position;
 use Phpactor\LanguageServerProtocol\Range;
 use Phpactor\LanguageServerProtocol\TextEdit;
-use Phpactor\LanguageServerProtocol\MarkupContent;
-use Phpactor\LanguageServerProtocol\CompletionItem;
+use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
 class CompletionItemTest extends TestCase
@@ -19,7 +19,7 @@ class CompletionItemTest extends TestCase
         $this->expectExceptionMessage('Parameter "foobar"');
         CompletionItem::fromArray([
             'label' => 'Barfoo',
-            'foobar' => 'barfoo'
+            'foobar' => 'barfoo',
         ]);
     }
 
@@ -27,7 +27,7 @@ class CompletionItemTest extends TestCase
     {
         $item = CompletionItem::fromArray([
             'label' => 'Barfoo',
-            'foobar' => 'barfoo'
+            'foobar' => 'barfoo',
         ], true);
 
         self::assertEquals('Barfoo', $item->label);
@@ -38,7 +38,7 @@ class CompletionItemTest extends TestCase
         $item = CompletionItem::fromArray([
             'tags' => null,
             'label' => 'Barfoo',
-            'foobar' => 'barfoo'
+            'foobar' => 'barfoo',
         ], true);
 
         self::assertEquals('Barfoo', $item->label);
@@ -49,12 +49,11 @@ class CompletionItemTest extends TestCase
         $item = CompletionItem::fromArray([
             'additionalTextEdits' => null,
             'label' => 'Barfoo',
-            'foobar' => 'barfoo'
+            'foobar' => 'barfoo',
         ], true);
 
         self::assertEquals('Barfoo', $item->label);
     }
-
 
     public function testFromArray(): void
     {
@@ -87,30 +86,33 @@ class CompletionItemTest extends TestCase
             ],
         ]);
 
-        self::assertEquals(new CompletionItem(
-            label: 'Foobar',
-            kind: 1,
-            tags: null,
-            detail: 'This is foobar',
-            documentation: new MarkupContent('markdown', 'Foobar'),
-            deprecated: null,
-            preselect: null,
-            sortText: null,
-            filterText: null,
-            insertText: null,
-            insertTextFormat:null,
-            textEdit: null,
-            additionalTextEdits: [
-                new TextEdit(
-                    new Range(
-                        new Position(5, 10),
-                        new Position(10, 10),
+        self::assertEquals(
+            new CompletionItem(
+                label: 'Foobar',
+                kind: 1,
+                tags: null,
+                detail: 'This is foobar',
+                documentation: new MarkupContent('markdown', 'Foobar'),
+                deprecated: null,
+                preselect: null,
+                sortText: null,
+                filterText: null,
+                insertText: null,
+                insertTextFormat: null,
+                textEdit: null,
+                additionalTextEdits: [
+                    new TextEdit(
+                        new Range(
+                            new Position(5, 10),
+                            new Position(10, 10),
+                        ),
+                        'Foobar',
                     ),
-                    'Foobar'
-                )
-            ],
-            commitCharacters: null,
-            command: new Command('Foobar', 'my.command')
-        ), $item);
+                ],
+                commitCharacters: null,
+                command: new Command('Foobar', 'my.command'),
+            ),
+            $item,
+        );
     }
 }

@@ -8,14 +8,14 @@ use RuntimeException;
 
 /**
  * A range in a text document expressed as (zero-based) start and end positions.
- * 
+ *
  * If you want to specify a range that contains a line including the line ending
  * character(s) then use an end position denoting the start of the next line.
  * For example:
  * ```ts
  * {
- *      start: { line: 5, character: 23 }
- *      end : { line 6, character : 0 }
+ *     start: { line: 5, character: 23 }
+ *     end : { line 6, character : 0 }
  * }
  * ```
  */
@@ -65,9 +65,9 @@ class Range
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -95,7 +95,7 @@ class Range
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -118,5 +118,4 @@ class Range
 
         throw $lastException;
     }
-        
 }

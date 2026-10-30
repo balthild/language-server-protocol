@@ -28,7 +28,7 @@ class DocumentLink
 
     /**
      * The tooltip text when you hover over this link.
-     * 
+     *
      * If a tooltip is provided, is will be displayed in a string that includes instructions on how to
      * trigger the link, such as `{0} (ctrl + click)`. The specific instructions vary depending on OS,
      * user settings, and localization.
@@ -81,9 +81,9 @@ class DocumentLink
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -111,7 +111,7 @@ class DocumentLink
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -134,5 +134,4 @@ class DocumentLink
 
         throw $lastException;
     }
-        
 }

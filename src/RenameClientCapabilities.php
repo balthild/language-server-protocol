@@ -25,7 +25,7 @@ class RenameClientCapabilities
 
     /**
      * Client supports the default behavior result.
-     * 
+     *
      * The value indicates the default behavior used by the
      * client.
      *
@@ -50,8 +50,12 @@ class RenameClientCapabilities
      * @param PrepareSupportDefaultBehavior::*|null $prepareSupportDefaultBehavior
      * @param bool|null $honorsChangeAnnotations
      */
-    public function __construct(?bool $dynamicRegistration = null, ?bool $prepareSupport = null, $prepareSupportDefaultBehavior = null, ?bool $honorsChangeAnnotations = null)
-    {
+    public function __construct(
+        ?bool $dynamicRegistration = null,
+        ?bool $prepareSupport = null,
+        $prepareSupportDefaultBehavior = null,
+        ?bool $honorsChangeAnnotations = null
+    ) {
         $this->dynamicRegistration = $dynamicRegistration;
         $this->prepareSupport = $prepareSupport;
         $this->prepareSupportDefaultBehavior = $prepareSupportDefaultBehavior;
@@ -80,9 +84,9 @@ class RenameClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -110,7 +114,7 @@ class RenameClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -133,5 +137,4 @@ class RenameClientCapabilities
 
         throw $lastException;
     }
-        
 }

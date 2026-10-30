@@ -80,8 +80,16 @@ class CallHierarchyItem
      * @param Range $selectionRange
      * @param mixed|null $data
      */
-    public function __construct(string $name, $kind, string $uri, Range $range, Range $selectionRange, ?array $tags = null, ?string $detail = null, $data = null)
-    {
+    public function __construct(
+        string $name,
+        $kind,
+        string $uri,
+        Range $range,
+        Range $selectionRange,
+        ?array $tags = null,
+        ?string $detail = null,
+        $data = null
+    ) {
         $this->name = $name;
         $this->kind = $kind;
         $this->tags = $tags;
@@ -118,9 +126,9 @@ class CallHierarchyItem
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -148,7 +156,7 @@ class CallHierarchyItem
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -171,5 +179,4 @@ class CallHierarchyItem
 
         throw $lastException;
     }
-        
 }

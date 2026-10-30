@@ -2,8 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use Phpactor\LanguageServerProtocol\ClientCapabilities;
+use PHPUnit\Framework\TestCase;
 
 class ClientCapabiltitiesTest extends TestCase
 {

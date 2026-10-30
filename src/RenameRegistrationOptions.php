@@ -67,9 +67,9 @@ class RenameRegistrationOptions extends TextDocumentRegistrationOptions
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -97,7 +97,7 @@ class RenameRegistrationOptions extends TextDocumentRegistrationOptions
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -120,5 +120,4 @@ class RenameRegistrationOptions extends TextDocumentRegistrationOptions
 
         throw $lastException;
     }
-        
 }

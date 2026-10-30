@@ -57,8 +57,13 @@ class PublishDiagnosticsClientCapabilities
      * @param bool|null $codeDescriptionSupport
      * @param bool|null $dataSupport
      */
-    public function __construct(?bool $relatedInformation = null, ?array $tagSupport = null, ?bool $versionSupport = null, ?bool $codeDescriptionSupport = null, ?bool $dataSupport = null)
-    {
+    public function __construct(
+        ?bool $relatedInformation = null,
+        ?array $tagSupport = null,
+        ?bool $versionSupport = null,
+        ?bool $codeDescriptionSupport = null,
+        ?bool $dataSupport = null
+    ) {
         $this->relatedInformation = $relatedInformation;
         $this->tagSupport = $tagSupport;
         $this->versionSupport = $versionSupport;
@@ -89,9 +94,9 @@ class PublishDiagnosticsClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -119,7 +124,7 @@ class PublishDiagnosticsClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -142,5 +147,4 @@ class PublishDiagnosticsClientCapabilities
 
         throw $lastException;
     }
-        
 }

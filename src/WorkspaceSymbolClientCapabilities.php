@@ -48,8 +48,12 @@ class WorkspaceSymbolClientCapabilities
      * @param array{valueSet:array<SymbolTag::*>}|null $tagSupport
      * @param array{properties:array<string>}|null $resolveSupport
      */
-    public function __construct(?bool $dynamicRegistration = null, ?array $symbolKind = null, ?array $tagSupport = null, ?array $resolveSupport = null)
-    {
+    public function __construct(
+        ?bool $dynamicRegistration = null,
+        ?array $symbolKind = null,
+        ?array $tagSupport = null,
+        ?array $resolveSupport = null
+    ) {
         $this->dynamicRegistration = $dynamicRegistration;
         $this->symbolKind = $symbolKind;
         $this->tagSupport = $tagSupport;
@@ -78,9 +82,9 @@ class WorkspaceSymbolClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -108,7 +112,7 @@ class WorkspaceSymbolClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -131,5 +135,4 @@ class WorkspaceSymbolClientCapabilities
 
         throw $lastException;
     }
-        
 }

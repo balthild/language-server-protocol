@@ -14,10 +14,10 @@ class CompletionItem
 {
     /**
      * The label of this completion item.
-     * 
+     *
      * The label property is also by default the text that
      * is inserted when selecting this completion.
-     * 
+     *
      * If label details are provided the label itself should
      * be an unqualified name of the completion item.
      *
@@ -71,7 +71,7 @@ class CompletionItem
 
     /**
      * Select this item when showing.
-     * 
+     *
      * *Note* that only one completion item can be selected and that the
      * tool / client decides which item that is. The rule is that the *first*
      * item of those that match best is selected.
@@ -102,7 +102,7 @@ class CompletionItem
      * A string that should be inserted into a document when selecting
      * this completion. When `falsy` the [label](#CompletionItem.label)
      * is used.
-     * 
+     *
      * The `insertText` is subject to interpretation by the client side.
      * Some tools might not take the string literally. For example
      * VS Code when code complete is requested in this example
@@ -119,7 +119,7 @@ class CompletionItem
      * The format of the insert text. The format applies to both the
      * `insertText` property and the `newText` property of a provided
      * `textEdit`. If omitted defaults to `InsertTextFormat.PlainText`.
-     * 
+     *
      * Please note that the insertTextFormat doesn't apply to
      * `additionalTextEdits`.
      *
@@ -140,7 +140,7 @@ class CompletionItem
      * An [edit](#TextEdit) which is applied to a document when selecting
      * this completion. When an edit is provided the value of
      * [insertText](#CompletionItem.insertText) is ignored.
-     * 
+     *
      * Most editors support two different operations when accepting a completion
      * item. One is to insert a completion text and the other is to replace an
      * existing text with a completion text. Since this can usually not be
@@ -148,7 +148,7 @@ class CompletionItem
      * signal support for `InsertReplaceEdits` via the
      * `textDocument.completion.insertReplaceSupport` client capability
      * property.
-     * 
+     *
      * *Note 1:* The text edit's range as well as both ranges from an insert
      * replace edit must be a [single line] and they must contain the position
      * at which completion has been requested.
@@ -163,10 +163,10 @@ class CompletionItem
     /**
      * The edit text used if the completion item is part of a CompletionList and
      * CompletionList defines an item default for the text edit range.
-     * 
+     *
      * Clients will only honor this property if they opt into completion list
      * item defaults using the capability `completionList.itemDefaults`.
-     * 
+     *
      * If not provided and a list's default range is provided the label
      * property is used as a text.
      *
@@ -178,7 +178,7 @@ class CompletionItem
      * An optional array of additional [text edits](#TextEdit) that are applied when
      * selecting this completion. Edits must not overlap (including the same insert position)
      * with the main [edit](#CompletionItem.textEdit) nor with themselves.
-     * 
+     *
      * Additional text edits should be used to change text unrelated to the current cursor position
      * (for example adding an import statement at the top of the file if the completion item will
      * insert an unqualified type).
@@ -234,8 +234,27 @@ class CompletionItem
      * @param Command|null $command
      * @param mixed|null $data
      */
-    public function __construct(string $label, ?CompletionItemLabelDetails $labelDetails = null, $kind = null, ?array $tags = null, ?string $detail = null, $documentation = null, ?bool $deprecated = null, ?bool $preselect = null, ?string $sortText = null, ?string $filterText = null, ?string $insertText = null, $insertTextFormat = null, $insertTextMode = null, $textEdit = null, ?string $textEditText = null, ?array $additionalTextEdits = null, ?array $commitCharacters = null, ?Command $command = null, $data = null)
-    {
+    public function __construct(
+        string $label,
+        ?CompletionItemLabelDetails $labelDetails = null,
+        $kind = null,
+        ?array $tags = null,
+        ?string $detail = null,
+        $documentation = null,
+        ?bool $deprecated = null,
+        ?bool $preselect = null,
+        ?string $sortText = null,
+        ?string $filterText = null,
+        ?string $insertText = null,
+        $insertTextFormat = null,
+        $insertTextMode = null,
+        $textEdit = null,
+        ?string $textEditText = null,
+        ?array $additionalTextEdits = null,
+        ?array $commitCharacters = null,
+        ?Command $command = null,
+        $data = null
+    ) {
         $this->label = $label;
         $this->labelDetails = $labelDetails;
         $this->kind = $kind;
@@ -294,9 +313,9 @@ class CompletionItem
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -324,7 +343,7 @@ class CompletionItem
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -347,5 +366,4 @@ class CompletionItem
 
         throw $lastException;
     }
-        
 }

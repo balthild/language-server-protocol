@@ -14,11 +14,11 @@ class ParameterInformation
 {
     /**
      * The label of this parameter information.
-     * 
+     *
      * Either a string or an inclusive start and exclusive end offsets within its containing
      * signature label. (see SignatureInformation.label). The offsets are based on a UTF-16
      * string representation as `Position` and `Range` does.
-     * 
+     *
      * *Note*: a label of type string should be a substring of its containing signature label.
      * Its intended use case is to highlight the parameter label part in the `SignatureInformation.label`.
      *
@@ -64,9 +64,9 @@ class ParameterInformation
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -94,7 +94,7 @@ class ParameterInformation
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -117,5 +117,4 @@ class ParameterInformation
 
         throw $lastException;
     }
-        
 }

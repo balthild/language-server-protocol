@@ -44,9 +44,9 @@ class FoldingRangeOptions extends WorkDoneProgressOptions
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -74,7 +74,7 @@ class FoldingRangeOptions extends WorkDoneProgressOptions
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -97,5 +97,4 @@ class FoldingRangeOptions extends WorkDoneProgressOptions
 
         throw $lastException;
     }
-        
 }

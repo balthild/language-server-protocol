@@ -1,335 +1,262 @@
-import {
-    InterfaceDeclaration,
-    isPropertySignature,
-    PropertySignature,
-    JSDoc,
-    isIdentifier,
-    TypeNode,
-    IntersectionTypeNode,
-    isUnionTypeNode,
-    SyntaxKind,
-    ModuleDeclaration,
-    Node,
-    isModuleBlock,
-    isVariableDeclarationList,
-    isVariableDeclaration,
-    isTypeLiteralNode,
-    isLiteralTypeNode,
-    isTypeNode,
-    forEachChild,
-    isExportDeclaration,
-    isExportSpecifier,
-    HeritageClause,
-    isExpressionWithTypeArguments,
-    TypeLiteralNode,
-    NodeArray,
-    TypeElement,
-    UnionTypeNode
-} from 'typescript';
+import ts from 'typescript';
 
-import { PhpType, TypeConverter } from './typeConverter';
-import { NodeMap } from './nodeMap';
+import type { NodeMap } from './nodeMap.ts';
+import type { PhpType, TypeConverter } from './typeConverter.ts';
 
-function forEachDescendant(node, callback) {
-    callback(node);
-    forEachChild(node, (childNode: Node) => {
-        forEachDescendant(childNode, callback);
-    });
+function forEachDescendant(node: ts.Node, callback: (node: ts.Node) => void): void {
+	callback(node);
+	ts.forEachChild(node, (child) => {
+		forEachDescendant(child, callback);
+	});
 }
 
-export function constantsFromModule(module: ModuleDeclaration): PhpConstants {
-    const constants = new PhpConstants();
+function jsDocs(node: ts.Node): string[] {
+	return ts
+		.getJSDocCommentsAndTags(node)
+		.filter(ts.isJSDoc)
+		.flatMap((doc) => {
+			const comment = ts.getTextOfJSDocComment(doc.comment);
 
-    forEachDescendant(module, (node: Node) => {
-        if (!isVariableDeclaration(node)) {
-            return false;
-        }
-        if (!isIdentifier(node.name)) {
-            return false;
-        }
-        if (node.type && isLiteralTypeNode(node.type)) {
-            constants.set(node.name.escapedText.toString(), new PhpConstant(
-                node.name.escapedText.toString(),
-                node.type.literal.getText()
-            ));
-            return false;
-        }
-        if (node.initializer) {
-            constants.set(node.name.escapedText.toString(), new PhpConstant(
-                node.name.escapedText.toString(),
-                node.initializer.getText()
-            ));
-            return false;
-        }
-    });
-
-    return constants;
+			return comment ? comment.split('\r\n') : [];
+		});
 }
 
+/**
+ * `null` in a type position is either a `NullKeyword` directly or a
+ * `LiteralType` wrapping a `NullLiteral`, depending on the parser version.
+ */
+function isNullType(type: ts.TypeNode): boolean {
+	if (type.kind === ts.SyntaxKind.NullKeyword) {
+		return true;
+	}
+
+	return ts.isLiteralTypeNode(type) && type.literal.kind === ts.SyntaxKind.NullKeyword;
+}
+
+function isNullable(property: ts.PropertySignature): boolean {
+	if (property.questionToken) {
+		return true;
+	}
+
+	if (property.type === undefined || !ts.isUnionTypeNode(property.type)) {
+		return false;
+	}
+
+	return property.type.types.some(isNullType);
+}
+
+function resolveClassParent(extendsClause: ts.HeritageClause): string | undefined {
+	return extendsClause.types[0]?.getText();
+}
+
+export function constantsFromModule(module: ts.ModuleDeclaration): PhpConstants {
+	const constants: PhpConstants = new Map();
+
+	forEachDescendant(module, (node) => {
+		if (!ts.isVariableDeclaration(node) || !ts.isIdentifier(node.name)) {
+			return;
+		}
+
+		const name = node.name.text;
+
+		if (node.type !== undefined && ts.isLiteralTypeNode(node.type)) {
+			constants.set(name, new PhpConstant(name, node.type.literal.getText()));
+			return;
+		}
+
+		if (node.initializer !== undefined) {
+			constants.set(name, new PhpConstant(name, node.initializer.getText()));
+		}
+	});
+
+	return constants;
+}
 
 export abstract class PhpClassLike {
-    kind: string;
-    name: string;
-    docs: string[] = [];
+	readonly name: string;
+	readonly docs: readonly string[];
 
-    constructor(name: string, docs: string[] = []) {
-        this.name = name;
-        this.docs = docs;
-    }
+	constructor(name: string, docs: readonly string[] = []) {
+		this.name = name;
+		this.docs = docs;
+	}
 }
 
 export class PhpInterface extends PhpClassLike {
-    kind: string = 'interface';
-    constants: PhpConstants
+	readonly constants: PhpConstants;
 
-    constructor(name: string, docs: string[] = [], phpConstants: PhpConstants = new Map()) {
-        super(name);
-        this.constants = phpConstants;
-    }
+	constructor(name: string, docs: readonly string[] = [], constants: PhpConstants = new Map()) {
+		super(name, docs);
+		this.constants = constants;
+	}
 }
 
 export class PhpConstant {
-    name: string;
-    rawValue: string;
+	readonly name: string;
+	readonly rawValue: string;
 
-    constructor(name: string, rawValue: string) {
-        if (name.toLowerCase() === 'class') {
-            name = 'class_';
-        }
-        this.name = name;
-        this.rawValue = rawValue;
-    }
-}
-
-export function isPhpInterface(phpClass: PhpClassLike): phpClass is PhpInterface {
-    return phpClass.kind === 'interface';
-}
-
-export function isPhpClass(phpClass: PhpClassLike): phpClass is PhpClass {
-    return phpClass.kind === 'class';
+	constructor(name: string, rawValue: string) {
+		this.name = name;
+		this.rawValue = rawValue;
+	}
 }
 
 export class PhpClass extends PhpClassLike {
-    kind: string = 'class';
-    properties: Properties = new Properties();
-    extends: string | null = null;
-    mixins: string[] = [];
+	properties: Properties = new Map();
+	mixins: string[] = [];
+	extends?: string;
 }
 
-export class Properties extends Map<string, Property> {
-}
+export type Properties = Map<string, Property>;
+export type PhpConstants = Map<string, PhpConstant>;
+export type PhpClasses = Map<string, PhpClassLike>;
 
-export class PhpConstants extends Map<string, PhpConstant> {
-}
-export class PhpClasses extends Map<string, PhpClassLike> {
-}
-
-export class Property {
-    name: string;
-    type: PhpType;
-    nullable: boolean;
-    docs: string[] = [];
-    special: string[] = [];
+export interface Property {
+	readonly name: string;
+	readonly type: PhpType;
+	readonly nullable: boolean;
+	readonly docs: readonly string[];
+	readonly special: readonly string[];
 }
 
 export class PhpClassResolver {
-    nodeMap: NodeMap;
-    typeConverter: TypeConverter;
+	private readonly nodeMap: NodeMap;
+	private readonly typeConverter: TypeConverter;
 
-    constructor(nodeMap: NodeMap, typeConverter: TypeConverter) {
-        this.nodeMap = nodeMap;
-        this.typeConverter = typeConverter;
-    }
+	constructor(nodeMap: NodeMap, typeConverter: TypeConverter) {
+		this.nodeMap = nodeMap;
+		this.typeConverter = typeConverter;
+	}
 
-    public fromNodeMap(nodeMap: NodeMap): PhpClasses {
-        const classes = new PhpClasses();
+	fromNodeMap(): PhpClasses {
+		const classes: PhpClasses = new Map();
 
-        nodeMap.modules.forEach((module: ModuleDeclaration, name: string) => {
-            const phpInterface = this.interfaceFromModule(name, module);
-            if (null === phpInterface) {
-                return;
-            }
-            classes.set(name, phpInterface);
-        });
+		for (const [name, module] of this.nodeMap.modules) {
+			const phpInterface = this.interfaceFromModule(name, module);
+			if (phpInterface !== undefined) {
+				classes.set(name, phpInterface);
+			}
+		}
 
-        nodeMap.interfaces.forEach((interfaceDeclaration: InterfaceDeclaration) => {
-            const phpClass = this.fromInterface(interfaceDeclaration);
-            classes.set(phpClass.name, this.hydateMixins(phpClass));
-        });
+		for (const declaration of this.nodeMap.interfaces.values()) {
+			const phpClass = this.fromInterface(declaration);
+			classes.set(phpClass.name, this.hydrateMixins(phpClass));
+		}
 
-        nodeMap.intersections.forEach((type: IntersectionTypeNode, name: string) => {
-            classes.set(name, this.fromIntersectionTypeNode(name, type));
-        });
+		for (const [name, type] of this.nodeMap.intersections) {
+			classes.set(name, this.fromIntersectionTypeNode(name, type));
+		}
 
-        nodeMap.typeLiterals.forEach((type, name: string) => {
-            classes.set(name, this.fromTypeLiteral(name, type));
-        });
+		for (const [name, type] of this.nodeMap.typeLiterals) {
+			classes.set(name, this.fromTypeLiteral(name, type));
+		}
 
-        return classes;
-    }
+		return classes;
+	}
 
-    private fromTypeLiteral(name: string, type: TypeLiteralNode): PhpClass {
-        const phpClass = new PhpClass(name);
-        const properties = this.mapProperties(type.members);
-        phpClass.properties = properties;
+	private fromTypeLiteral(name: string, type: ts.TypeLiteralNode): PhpClass {
+		const phpClass = new PhpClass(name);
+		phpClass.properties = this.mapProperties(type.members);
 
-        return phpClass;
-    }
+		return phpClass;
+	}
 
-    private fromIntersectionTypeNode(name: string, type: IntersectionTypeNode): PhpClass {
-        const phpClass = new PhpClass(name);
+	private fromIntersectionTypeNode(name: string, type: ts.IntersectionTypeNode): PhpClass {
+		const phpClass = new PhpClass(name);
 
-        type.types.forEach((type: TypeNode) => {
-            if (isTypeLiteralNode(type)) {
-                let properties = phpClass.properties;
-                properties = new Map([...properties, ... this.mapProperties(type.members)]);
-                phpClass.properties = properties;
-                return;
-            }
-            phpClass.mixins.push(this.typeConverter.phpType(type).real);
-        });
+		for (const member of type.types) {
+			if (ts.isTypeLiteralNode(member)) {
+				phpClass.properties = new Map([
+					...phpClass.properties,
+					...this.mapProperties(member.members),
+				]);
+				continue;
+			}
 
-        return this.hydateMixins(phpClass);
-    }
+			const mixin = this.typeConverter.phpType(member).real;
+			if (mixin !== undefined) {
+				phpClass.mixins.push(mixin);
+			}
+		}
 
-    private fromInterface(declaration: InterfaceDeclaration): PhpClass {
+		return this.hydrateMixins(phpClass);
+	}
 
-        const docs = this.jsDocs(declaration);
-        let phpClass = new PhpClass(declaration.name.escapedText.toString(), docs);
+	private fromInterface(declaration: ts.InterfaceDeclaration): PhpClass {
+		const phpClass = new PhpClass(declaration.name.text, jsDocs(declaration));
+		const mixins: string[] = [];
 
-        // change to Set
-        const mixins = Array<string>();
+		for (const clause of declaration.heritageClauses ?? []) {
+			if (clause.token === ts.SyntaxKind.ExtendsKeyword) {
+				phpClass.extends = resolveClassParent(clause);
+			}
 
-        for (const heritageClause of declaration.heritageClauses ?? []) {
-            if (SyntaxKind[heritageClause.token] === 'ExtendsKeyword') {
-                phpClass.extends = this.resolveClassParent(heritageClause);
-            }
-        }
+			for (const type of clause.types) {
+				if (ts.isIdentifier(type.expression)) {
+					mixins.push(type.expression.text);
+				}
+			}
+		}
 
-        const properties = this.mapProperties(declaration.members);
+		phpClass.properties = this.mapProperties(declaration.members);
+		phpClass.mixins = mixins;
 
-        if (declaration.heritageClauses) {
-            for (const clause of declaration.heritageClauses) {
-                for (const type of clause.types) {
-                    if (!isIdentifier(type.expression)) {
-                        continue;
-                    }
+		return phpClass;
+	}
 
-                    const mixinName = type.expression.escapedText.toString();
-                    mixins.push(mixinName);
-                }
-            }
-        }
+	private mapProperties(members: ts.NodeArray<ts.TypeElement>): Properties {
+		const properties: Properties = new Map();
 
-        phpClass.properties = properties;
-        phpClass.mixins = mixins;
+		for (const member of members) {
+			if (!ts.isPropertySignature(member) || !ts.isIdentifier(member.name)) {
+				continue;
+			}
 
-        return phpClass;
-    }
+			const special: string[] = [];
+			if (member.type?.getText() === 'DocumentUri') {
+				special.push('uri');
+			}
 
-    private mapProperties(members: NodeArray<TypeElement>): Map<string,Property> {
-        var properties = new Map<string, Property>();
-        for (const property of members) {
-            let special = [];
-            if (!isPropertySignature(property)) {
-                continue;
-            }
+			const property: Property = {
+				docs: jsDocs(member),
+				name: member.name.text,
+				type: this.typeConverter.phpType(member.type),
+				nullable: isNullable(member),
+				special,
+			};
 
-            if (!isIdentifier(property.name)) {
-                continue;
-            }
+			properties.set(property.name, property);
+		}
 
-            if (property.type.getText().match(/^DocumentUri$/)) {
-                special.push('uri');
-            }
+		return properties;
+	}
 
-            const classProperty: Property = {
-                docs: this.jsDocs(property),
-                name: property.name.escapedText.toString(),
-                type: this.typeConverter.phpType(property.type),
-                nullable: this.isNullable(property),
-                special
-            };
+	private interfaceFromModule(
+		name: string,
+		module: ts.ModuleDeclaration,
+	): PhpInterface | undefined {
+		const constants = constantsFromModule(module);
 
-            properties.set(classProperty.name, classProperty);
-        }
+		if (constants.size === 0) {
+			return undefined;
+		}
 
-        return properties;
-    }
+		return new PhpInterface(name, jsDocs(module), constants);
+	}
 
-    private interfaceFromModule(name: string, module: ModuleDeclaration): PhpInterface | null {
-        const constants = constantsFromModule(module);
+	private hydrateMixins(phpClass: PhpClass): PhpClass {
+		for (const mixinName of phpClass.mixins) {
+			const mixin = this.nodeMap.interfaces.get(mixinName);
 
-        if (constants.size === 0) {
-            return null;
-        }
+			if (mixin === undefined) {
+				console.warn(`MixIn ${mixinName} is not a mapped interface`);
+				continue;
+			}
 
-        return new PhpInterface(name, this.jsDocs(module), constants);
-    }
+			const mixinProperties = this.hydrateMixins(this.fromInterface(mixin)).properties;
+			phpClass.properties = new Map([...phpClass.properties, ...mixinProperties]);
+		}
 
-    private hydateMixins(phpClass: PhpClass): PhpClass {
-        var properties = phpClass.properties;
-        phpClass.mixins.forEach((mixinName: string) => {
-            if (!this.nodeMap.interfaces.has(mixinName)) {
-                console.warn(`MixIn ${mixinName} is not a mapped interface`);
-                return;
-            }
-            const mixinClass = this.fromInterface(this.nodeMap.interfaces.get(mixinName));
-
-            properties = new Map([...properties, ... this.hydateMixins(mixinClass).properties]);
-        });
-        phpClass.properties = properties;
-        return phpClass;
-    }
-
-    private jsDocs(property: PropertySignature | InterfaceDeclaration | ModuleDeclaration): string[] {
-        const jsDocs: JSDoc[] = property['jsDoc'];
-        if (!jsDocs) {
-            return [];
-        }
-
-        return [].concat.apply([], jsDocs.map((doc: JSDoc) => {
-            if (!doc.comment) {
-                return;
-            }
-            return doc.comment.split("\r\n");
-        }));
-    }
-
-    private isNullable(property: PropertySignature): boolean {
-        if (property.questionToken) {
-            return true;
-        }
-
-        if (!property.type) {
-            return false;
-        }
-
-        if (!isUnionTypeNode(property.type)) {
-            return false;
-        }
-
-        for (const type of property.type.types) {
-            if (SyntaxKind[type.kind] == 'NullKeyword') {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private resolveClassParent(extendsClause: HeritageClause): string | null {
-        const types = extendsClause.types.filter((element) => {
-            return isExpressionWithTypeArguments(element);
-        }).map((element) => {
-            return element.getText();
-        });
-
-        if (types.length === 0) {
-            return null;
-        }
-
-        return types[0];
-    }
+		return phpClass;
+	}
 }
-

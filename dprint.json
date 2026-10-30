@@ -1,0 +1,52 @@
+{
+	"excludes": [
+		"*.lock",
+		// "*.php", // TODO: remove this line to enable formatting PHP
+	],
+	"useTabs": true,
+	"indentWidth": 2,
+	"lineWidth": 100,
+	"oxc": {
+		"quoteStyle": "single",
+		"quoteProperties": "consistent",
+		"experimentalSortImports": {
+			"groups": [
+				["builtin"],
+				["external"],
+				["internal", "subpath"],
+				["parent", "sibling", "index"],
+				["style", "side_effect_style"],
+				["unknown"],
+			],
+		},
+	},
+	"json": {
+		"trailingCommas": "jsonc",
+		"jsonTrailingCommaFiles": ["tsconfig.json", "dprint.json", ".vscode/*.json"],
+	},
+	"mago": {
+		"useTabs": false,
+		"tabWidth": 4,
+		"printWidth": 120,
+		"phpVersionMajor": 7,
+		"phpVersionMinor": 3,
+		"nullTypeHint": "question",
+		"inlineEmptyClasslikeBraces": true,
+		"inlineSingleBreakingValueArgument": true,
+		"arrayTableStyleAlignment": false,
+		"spaceBeforeArrowFunctionParameterListParenthesis": true,
+		"preserveBreakingMemberAccessChain": true,
+		"preserveBreakingArgumentList": true,
+		"preserveBreakingArrayLike": true,
+		"preserveBreakingParameterList": true,
+		"preserveBreakingAttributeList": true,
+		"preserveBreakingConditionalExpression": true,
+		"breakPromotedPropertiesList": false,
+		"alwaysBreakNamedArgumentsList": false,
+	},
+	"plugins": [
+		"npm:@dprint/json@0.25.2",
+		"npm:@dprint/oxc@0.48.0",
+		"npm:@dprint/mago@0.37.0",
+	],
+}

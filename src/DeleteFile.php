@@ -47,8 +47,12 @@ class DeleteFile extends ResourceOperation
      * @param DeleteFileOptions|null $options
      * @param string|null $annotationId
      */
-    public function __construct(string $kind, string $uri, ?DeleteFileOptions $options = null, ?string $annotationId = null)
-    {
+    public function __construct(
+        string $kind,
+        string $uri,
+        ?DeleteFileOptions $options = null,
+        ?string $annotationId = null
+    ) {
         $this->kind = $kind;
         $this->uri = urldecode($uri);
         $this->options = $options;
@@ -77,9 +81,9 @@ class DeleteFile extends ResourceOperation
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -107,7 +111,7 @@ class DeleteFile extends ResourceOperation
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -130,5 +134,4 @@ class DeleteFile extends ResourceOperation
 
         throw $lastException;
     }
-        
 }

@@ -30,7 +30,7 @@ class SignatureHelpRegistrationOptions extends TextDocumentRegistrationOptions
 
     /**
      * List of characters that re-trigger signature help.
-     * 
+     *
      * These trigger characters are only active when signature help is already showing. All trigger characters
      * are also counted as re-trigger characters.
      *
@@ -50,8 +50,12 @@ class SignatureHelpRegistrationOptions extends TextDocumentRegistrationOptions
      * @param array<string>|null $retriggerCharacters
      * @param bool|null $workDoneProgress
      */
-    public function __construct($documentSelector = null, ?array $triggerCharacters = null, ?array $retriggerCharacters = null, ?bool $workDoneProgress = null)
-    {
+    public function __construct(
+        $documentSelector = null,
+        ?array $triggerCharacters = null,
+        ?array $retriggerCharacters = null,
+        ?bool $workDoneProgress = null
+    ) {
         $this->documentSelector = $documentSelector;
         $this->triggerCharacters = $triggerCharacters;
         $this->retriggerCharacters = $retriggerCharacters;
@@ -80,9 +84,9 @@ class SignatureHelpRegistrationOptions extends TextDocumentRegistrationOptions
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -110,7 +114,7 @@ class SignatureHelpRegistrationOptions extends TextDocumentRegistrationOptions
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -133,5 +137,4 @@ class SignatureHelpRegistrationOptions extends TextDocumentRegistrationOptions
 
         throw $lastException;
     }
-        
 }

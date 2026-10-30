@@ -254,8 +254,38 @@ class TextDocumentClientCapabilities
      * @param array{dynamicRegistration:bool,resolveSupport:array{properties:array<string>}}|null $inlayHint
      * @param mixed|null $diagnostic
      */
-    public function __construct(?TextDocumentSyncClientCapabilities $synchronization = null, ?CompletionClientCapabilities $completion = null, ?HoverClientCapabilities $hover = null, ?SignatureHelpClientCapabilities $signatureHelp = null, ?DeclarationClientCapabilities $declaration = null, ?DefinitionClientCapabilities $definition = null, ?TypeDefinitionClientCapabilities $typeDefinition = null, ?ImplementationClientCapabilities $implementation = null, ?ReferenceClientCapabilities $references = null, ?DocumentHighlightClientCapabilities $documentHighlight = null, ?DocumentSymbolClientCapabilities $documentSymbol = null, ?CodeActionClientCapabilities $codeAction = null, ?CodeLensClientCapabilities $codeLens = null, ?DocumentLinkClientCapabilities $documentLink = null, ?DocumentColorClientCapabilities $colorProvider = null, ?DocumentFormattingClientCapabilities $formatting = null, ?DocumentRangeFormattingClientCapabilities $rangeFormatting = null, ?DocumentOnTypeFormattingClientCapabilities $onTypeFormatting = null, ?RenameClientCapabilities $rename = null, ?FoldingRangeClientCapabilities $foldingRange = null, ?SelectionRangeClientCapabilities $selectionRange = null, ?PublishDiagnosticsClientCapabilities $publishDiagnostics = null, ?CallHierarchyClientCapabilities $callHierarchy = null, $semanticTokens = null, $linkedEditingRange = null, $moniker = null, $typeHierarchy = null, ?array $inlineValue = null, ?array $inlayHint = null, $diagnostic = null)
-    {
+    public function __construct(
+        ?TextDocumentSyncClientCapabilities $synchronization = null,
+        ?CompletionClientCapabilities $completion = null,
+        ?HoverClientCapabilities $hover = null,
+        ?SignatureHelpClientCapabilities $signatureHelp = null,
+        ?DeclarationClientCapabilities $declaration = null,
+        ?DefinitionClientCapabilities $definition = null,
+        ?TypeDefinitionClientCapabilities $typeDefinition = null,
+        ?ImplementationClientCapabilities $implementation = null,
+        ?ReferenceClientCapabilities $references = null,
+        ?DocumentHighlightClientCapabilities $documentHighlight = null,
+        ?DocumentSymbolClientCapabilities $documentSymbol = null,
+        ?CodeActionClientCapabilities $codeAction = null,
+        ?CodeLensClientCapabilities $codeLens = null,
+        ?DocumentLinkClientCapabilities $documentLink = null,
+        ?DocumentColorClientCapabilities $colorProvider = null,
+        ?DocumentFormattingClientCapabilities $formatting = null,
+        ?DocumentRangeFormattingClientCapabilities $rangeFormatting = null,
+        ?DocumentOnTypeFormattingClientCapabilities $onTypeFormatting = null,
+        ?RenameClientCapabilities $rename = null,
+        ?FoldingRangeClientCapabilities $foldingRange = null,
+        ?SelectionRangeClientCapabilities $selectionRange = null,
+        ?PublishDiagnosticsClientCapabilities $publishDiagnostics = null,
+        ?CallHierarchyClientCapabilities $callHierarchy = null,
+        $semanticTokens = null,
+        $linkedEditingRange = null,
+        $moniker = null,
+        $typeHierarchy = null,
+        ?array $inlineValue = null,
+        ?array $inlayHint = null,
+        $diagnostic = null
+    ) {
         $this->synchronization = $synchronization;
         $this->completion = $completion;
         $this->hover = $hover;
@@ -336,9 +366,9 @@ class TextDocumentClientCapabilities
 
                 throw new RuntimeException(sprintf(
                     'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key, 
+                    $key,
                     self::class,
-                    implode('", "', array_keys($map))
+                    implode('", "', array_keys($map)),
                 ));
             }
 
@@ -366,7 +396,7 @@ class TextDocumentClientCapabilities
             $names = $map[$key]['names'];
             $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
         }
-        
+
         return Invoke::new(self::class, $array);
     }
 
@@ -389,5 +419,4 @@ class TextDocumentClientCapabilities
 
         throw $lastException;
     }
-        
 }
