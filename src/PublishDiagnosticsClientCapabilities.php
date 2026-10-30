@@ -26,7 +26,7 @@ class PublishDiagnosticsClientCapabilities implements ArrayDeserializable
          *
          * @var array{valueSet: list<DiagnosticTag::*>}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $tagSupport = null,
 
         /**

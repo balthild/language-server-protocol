@@ -12,6 +12,7 @@ export type ClassName = string;
  */
 export type ShapeNode =
 	| { readonly kind: 'any' }
+	| { readonly kind: 'mixed' }
 	| { readonly kind: 'class'; readonly name: ClassName }
 	| { readonly kind: 'scalar'; readonly name: string }
 	| { readonly kind: 'literal'; readonly value: string }
@@ -166,7 +167,7 @@ export class TypeConverter {
 			case ts.SyntaxKind.BooleanKeyword:
 				return new PhpType('bool', 'bool', { kind: 'scalar', name: 'bool' });
 			case ts.SyntaxKind.AnyKeyword:
-				return new PhpType(undefined, 'mixed', { kind: 'scalar', name: 'mixed' });
+				return new PhpType(undefined, 'mixed', { kind: 'mixed' });
 			case ts.SyntaxKind.NullKeyword:
 				return new PhpType(undefined, 'null', { kind: 'scalar', name: 'null' });
 			case ts.SyntaxKind.NumberKeyword:
@@ -176,7 +177,7 @@ export class TypeConverter {
 				return new PhpType('array', 'array<mixed>', {
 					kind: 'map',
 					key: { kind: 'scalar', name: 'string' },
-					value: { kind: 'scalar', name: 'mixed' },
+					value: { kind: 'mixed' },
 				});
 		}
 
@@ -269,11 +270,11 @@ export class TypeConverter {
 		// A generic type parameter is erased: `InitializeResult<T = any>` keeps
 		// `T` where PHP would need `mixed`.
 		if (this.nodeMap.typeParameters.has(typeName)) {
-			return new PhpType(undefined, 'mixed', { kind: 'scalar', name: 'mixed' });
+			return new PhpType(undefined, 'mixed', { kind: 'mixed' });
 		}
 
 		console.warn(`Unknown type ${typeName}`);
-		return new PhpType(undefined, 'mixed', { kind: 'scalar', name: 'mixed' });
+		return new PhpType(undefined, 'mixed', { kind: 'mixed' });
 	}
 
 	private phpTypeArray(type: ts.ArrayTypeNode): PhpType {
@@ -377,7 +378,7 @@ export class TypeConverter {
 
 		if (value === undefined) {
 			console.warn(`Unknown constant ${type.getText()}`);
-			return new PhpType(undefined, 'mixed', { kind: 'scalar', name: 'mixed' });
+			return new PhpType(undefined, 'mixed', { kind: 'mixed' });
 		}
 
 		return new PhpType(undefined, value, { kind: 'literal', value });

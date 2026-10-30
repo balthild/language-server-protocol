@@ -23,7 +23,7 @@ class SemanticTokensClientCapabilities implements ArrayDeserializable
          *
          * @var array{range?: bool|array{}, full?: bool|array{delta?: bool}}
          */
-        #[Shape(new Shape\Any())]
+        #[Shape(new Shape\Record())]
         public array $requests,
 
         /**

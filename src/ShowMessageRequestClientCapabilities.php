@@ -19,7 +19,7 @@ class ShowMessageRequestClientCapabilities implements ArrayDeserializable
          *
          * @var array{additionalPropertiesSupport?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $messageActionItem = null
     ) {}
 }

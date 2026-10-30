@@ -31,10 +31,10 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
                 new Shape\Sequence(
                     new Shape\Union(
                         new Shape\Scalar('string'),
-                        new Shape\Any(),
-                        new Shape\Any(),
-                        new Shape\Any(),
-                        new Shape\Any(),
+                        new Shape\Record(),
+                        new Shape\Record(),
+                        new Shape\Record(),
+                        new Shape\Record(),
                     ),
                 ),
                 new Shape\Scalar('null'),
@@ -83,7 +83,7 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
          *
          * @var array{labelDetailsSupport?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $completionItem = null,
 
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]

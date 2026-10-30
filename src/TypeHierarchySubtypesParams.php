@@ -54,7 +54,7 @@ class TypeHierarchySubtypesParams implements ArrayDeserializable
             'uri' => new Shape\Scalar('string'),
             'range' => Range::class,
             'selectionRange' => Range::class,
-            'data?' => new Shape\Scalar('mixed'),
+            'data?' => new Shape\Unknown(),
         ]))]
         public array $item,
 

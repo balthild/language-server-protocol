@@ -75,7 +75,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          *
          * @var array{groupsOnLabel?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $changeAnnotationSupport = null
     ) {}
 }

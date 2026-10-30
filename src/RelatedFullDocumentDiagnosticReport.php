@@ -57,7 +57,7 @@ class RelatedFullDocumentDiagnosticReport implements ArrayDeserializable
                         'kind' => new Shape\Literal('full'),
                         'resultId?' => new Shape\Scalar('string'),
                         'items' => new Shape\Sequence(Diagnostic::class),
-                    ]), new Shape\Any()),
+                    ]), new Shape\Record()),
                 ),
                 new Shape\Scalar('null'),
             ),

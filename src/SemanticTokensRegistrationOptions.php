@@ -35,10 +35,10 @@ class SemanticTokensRegistrationOptions extends TextDocumentRegistrationOptions
                 new Shape\Sequence(
                     new Shape\Union(
                         new Shape\Scalar('string'),
-                        new Shape\Any(),
-                        new Shape\Any(),
-                        new Shape\Any(),
-                        new Shape\Any(),
+                        new Shape\Record(),
+                        new Shape\Record(),
+                        new Shape\Record(),
+                        new Shape\Record(),
                     ),
                 ),
                 new Shape\Scalar('null'),
@@ -52,7 +52,9 @@ class SemanticTokensRegistrationOptions extends TextDocumentRegistrationOptions
          *
          * @var bool|array{}|null
          */
-        #[Shape(new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Any()), new Shape\Scalar('null')))]
+        #[Shape(
+            new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Record()), new Shape\Scalar('null')),
+        )]
         public $range = null,
 
         /**
@@ -60,7 +62,9 @@ class SemanticTokensRegistrationOptions extends TextDocumentRegistrationOptions
          *
          * @var bool|array{delta?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Any()), new Shape\Scalar('null')))]
+        #[Shape(
+            new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Record()), new Shape\Scalar('null')),
+        )]
         public $full = null,
 
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]

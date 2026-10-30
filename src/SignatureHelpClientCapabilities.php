@@ -26,7 +26,7 @@ class SignatureHelpClientCapabilities implements ArrayDeserializable
          *
          * @var array{documentationFormat?: list<MarkupKind::*>, parameterInformation?: array{labelOffsetSupport?: bool}, activeParameterSupport?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $signatureInformation = null,
 
         /**

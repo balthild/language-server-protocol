@@ -22,7 +22,7 @@ class GeneralClientCapabilities implements ArrayDeserializable
          *
          * @var array{cancel: bool, retryOnContentModified: list<string>}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $staleRequestSupport = null,
 
         /**

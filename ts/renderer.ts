@@ -63,7 +63,9 @@ function collectAliases(properties: readonly Property[]): AliasRef[] {
 function renderShape(node: ShapeNode): string {
 	switch (node.kind) {
 		case 'any':
-			return 'new Shape\\Any()';
+			return 'new Shape\\Record()';
+		case 'mixed':
+			return 'new Shape\\Unknown()';
 		case 'class':
 			return `${node.name}::class`;
 		case 'scalar':

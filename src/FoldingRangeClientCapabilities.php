@@ -41,7 +41,7 @@ class FoldingRangeClientCapabilities implements ArrayDeserializable
          *
          * @var array{valueSet?: list<string>}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $foldingRangeKind = null,
 
         /**
@@ -49,7 +49,7 @@ class FoldingRangeClientCapabilities implements ArrayDeserializable
          *
          * @var array{collapsedText?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $foldingRange = null
     ) {}
 }

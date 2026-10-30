@@ -25,7 +25,7 @@ class WorkspaceSymbolClientCapabilities implements ArrayDeserializable
          *
          * @var array{valueSet?: list<SymbolKind::*>}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $symbolKind = null,
 
         /**
@@ -34,7 +34,7 @@ class WorkspaceSymbolClientCapabilities implements ArrayDeserializable
          *
          * @var array{valueSet: list<SymbolTag::*>}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $tagSupport = null,
 
         /**
@@ -44,7 +44,7 @@ class WorkspaceSymbolClientCapabilities implements ArrayDeserializable
          *
          * @var array{properties: list<string>}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $resolveSupport = null
     ) {}
 }

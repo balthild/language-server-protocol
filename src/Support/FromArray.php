@@ -98,7 +98,8 @@ trait FromArray
         }
 
         return match (true) {
-            $node instanceof Shape\Any => $value,
+            $node instanceof Shape\Unknown => $value,
+            $node instanceof Shape\Record => self::conformRecord($value),
             $node instanceof Shape\Scalar => self::conformScalar($node->name, $value),
             $node instanceof Shape\Literal => self::conformLiteral($node->value, $value),
             $node instanceof Shape\Sequence => self::conformSequence(
@@ -137,10 +138,22 @@ trait FromArray
         return $class::fromArray($value, $allowUnknownKeys);
     }
 
+    /**
+     * An anonymous object shape is still an array in PHP, so anything else in
+     * that position is a mismatch even though the contents are not described.
+     */
+    private static function conformRecord(mixed $value): mixed
+    {
+        if (!is_array($value)) {
+            throw self::mismatch('array', $value);
+        }
+
+        return $value;
+    }
+
     private static function conformScalar(string $scalar, mixed $value): mixed
     {
         $matches = match ($scalar) {
-            'mixed' => true,
             'null' => $value === null,
             'string' => is_string($value),
             'int' => is_int($value),

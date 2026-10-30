@@ -32,10 +32,10 @@ class DeclarationRegistrationOptions extends DeclarationOptions
                 new Shape\Sequence(
                     new Shape\Union(
                         new Shape\Scalar('string'),
-                        new Shape\Any(),
-                        new Shape\Any(),
-                        new Shape\Any(),
-                        new Shape\Any(),
+                        new Shape\Record(),
+                        new Shape\Record(),
+                        new Shape\Record(),
+                        new Shape\Record(),
                     ),
                 ),
                 new Shape\Scalar('null'),

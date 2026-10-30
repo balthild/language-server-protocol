@@ -55,7 +55,7 @@ class CompletionList implements ArrayDeserializable
             ])),
             'insertTextFormat?' => new Shape\Union(new Shape\Literal(1), new Shape\Literal(2)),
             'insertTextMode?' => new Shape\Union(new Shape\Literal(1), new Shape\Literal(2)),
-            'data?' => new Shape\Scalar('mixed'),
+            'data?' => new Shape\Unknown(),
         ]), new Shape\Scalar('null')))]
         public ?array $itemDefaults = null
     ) {}

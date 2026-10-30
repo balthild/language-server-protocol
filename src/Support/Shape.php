@@ -16,10 +16,11 @@ use Attribute;
  *   new Shape\Sequence($node)        a list whose every element is $node
  *   new Shape\Map($key, $value)      an array of $value keyed by $key
  *   new Shape\Struct(['k' => $node]) an array with these keys, `k?` optional
- *   new Shape\Any()                  any array, described no further
+ *   new Shape\Record()               an array whose contents are not described
+ *   new Shape\Unknown()              any value at all, as in `LSPAny`
  *   new Shape\Union($node, ...)      the first branch that accepts the value
  *
- * The tree stops at `Any` wherever the protocol describes an anonymous
+ * The tree stops at `Record` wherever the protocol describes an anonymous
  * associative array: there is no class to hydrate there, so describing its keys
  * further would buy nothing.
  */

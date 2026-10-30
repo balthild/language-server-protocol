@@ -26,7 +26,7 @@ class DocumentSymbolClientCapabilities implements ArrayDeserializable
          *
          * @var array{valueSet?: list<SymbolKind::*>}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $symbolKind = null,
 
         /**
@@ -42,7 +42,7 @@ class DocumentSymbolClientCapabilities implements ArrayDeserializable
          *
          * @var array{valueSet: list<SymbolTag::*>}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $tagSupport = null,
 
         /**

@@ -23,7 +23,7 @@ class WorkspaceSymbol extends BaseSymbolInformation
          *
          * @var Location|array{uri: string}
          */
-        #[Shape(new Shape\Union(Location::class, new Shape\Any()))]
+        #[Shape(new Shape\Union(Location::class, new Shape\Record()))]
         public $location,
 
         /**
@@ -75,7 +75,7 @@ class WorkspaceSymbol extends BaseSymbolInformation
          *
          * @var mixed|null
          */
-        #[Shape(new Shape\Union(new Shape\Scalar('mixed'), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Unknown(), new Shape\Scalar('null')))]
         public $data = null,
 
         /**

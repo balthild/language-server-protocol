@@ -20,7 +20,7 @@ class WorkspaceDiagnosticParams implements ArrayDeserializable
          *
          * @var list<array{uri: string, value: string}>
          */
-        #[Shape(new Shape\Sequence(new Shape\Any()))]
+        #[Shape(new Shape\Sequence(new Shape\Record()))]
         public array $previousResultIds,
 
         /**

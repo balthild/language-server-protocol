@@ -26,13 +26,13 @@ class CompletionClientCapabilities implements ArrayDeserializable
          *
          * @var array{snippetSupport?: bool, commitCharactersSupport?: bool, documentationFormat?: list<MarkupKind::*>, deprecatedSupport?: bool, preselectSupport?: bool, tagSupport?: array{valueSet: list<CompletionItemTag::*>}, insertReplaceSupport?: bool, resolveSupport?: array{properties: list<string>}, insertTextModeSupport?: array{valueSet: list<InsertTextMode::*>}, labelDetailsSupport?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $completionItem = null,
 
         /**
          * @var array{valueSet?: list<CompletionItemKind::*>}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $completionItemKind = null,
 
         /**
@@ -58,7 +58,7 @@ class CompletionClientCapabilities implements ArrayDeserializable
          *
          * @var array{itemDefaults?: list<string>}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $completionList = null
     ) {}
 }

@@ -92,7 +92,7 @@ class WorkspaceClientCapabilities implements ArrayDeserializable
          *
          * @var array{refreshSupport?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $inlineValue = null,
 
         /**
@@ -101,7 +101,7 @@ class WorkspaceClientCapabilities implements ArrayDeserializable
          *
          * @var array{refreshSupport?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $inlayHint = null,
 
         /**
@@ -110,7 +110,7 @@ class WorkspaceClientCapabilities implements ArrayDeserializable
          *
          * @var array{refreshSupport?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $diagnostics = null
     ) {}
 }

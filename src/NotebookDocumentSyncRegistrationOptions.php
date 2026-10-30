@@ -21,7 +21,7 @@ class NotebookDocumentSyncRegistrationOptions implements ArrayDeserializable
          *
          * @var list<(array{notebook: string|NotebookDocumentFilter, cells?: list<array{language: string}>}|array{notebook?: string|NotebookDocumentFilter, cells: list<array{language: string}>})>
          */
-        #[Shape(new Shape\Sequence(new Shape\Union(new Shape\Any(), new Shape\Any())))]
+        #[Shape(new Shape\Sequence(new Shape\Union(new Shape\Record(), new Shape\Record())))]
         public array $notebookSelector,
 
         /**

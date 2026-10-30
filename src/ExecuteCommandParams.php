@@ -23,7 +23,7 @@ class ExecuteCommandParams extends WorkDoneProgressParams
          *
          * @var list<mixed>|null
          */
-        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('mixed')), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Unknown()), new Shape\Scalar('null')))]
         public ?array $arguments = null,
 
         /**

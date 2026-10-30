@@ -19,7 +19,7 @@ class DidChangeConfigurationParams implements ArrayDeserializable
          *
          * @var mixed
          */
-        #[Shape(new Shape\Scalar('mixed'))]
+        #[Shape(new Shape\Unknown())]
         public $settings
     ) {}
 }

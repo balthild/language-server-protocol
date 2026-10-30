@@ -43,7 +43,7 @@ class DocumentLink implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        #[Shape(new Shape\Union(new Shape\Scalar('mixed'), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Unknown(), new Shape\Scalar('null')))]
         public $data = null
     ) {}
 }

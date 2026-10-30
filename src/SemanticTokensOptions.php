@@ -22,7 +22,9 @@ class SemanticTokensOptions extends WorkDoneProgressOptions
          *
          * @var bool|array{}|null
          */
-        #[Shape(new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Any()), new Shape\Scalar('null')))]
+        #[Shape(
+            new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Record()), new Shape\Scalar('null')),
+        )]
         public $range = null,
 
         /**
@@ -30,7 +32,9 @@ class SemanticTokensOptions extends WorkDoneProgressOptions
          *
          * @var bool|array{delta?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Any()), new Shape\Scalar('null')))]
+        #[Shape(
+            new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Record()), new Shape\Scalar('null')),
+        )]
         public $full = null,
 
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]

@@ -180,7 +180,7 @@ class TextDocumentClientCapabilities implements ArrayDeserializable
          *
          * @var array{dynamicRegistration?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $typeHierarchy = null,
 
         /**
@@ -188,7 +188,7 @@ class TextDocumentClientCapabilities implements ArrayDeserializable
          *
          * @var array{dynamicRegistration?: bool}|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $inlineValue = null,
 
         /**
@@ -196,7 +196,7 @@ class TextDocumentClientCapabilities implements ArrayDeserializable
          *
          * @var InlayHintClientCapabilities|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $inlayHint = null,
 
         /**
@@ -204,7 +204,7 @@ class TextDocumentClientCapabilities implements ArrayDeserializable
          *
          * @var DiagnosticClientCapabilities|null
          */
-        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Record(), new Shape\Scalar('null')))]
         public ?array $diagnostic = null
     ) {}
 }

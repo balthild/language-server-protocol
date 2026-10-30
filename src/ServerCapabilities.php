@@ -58,7 +58,7 @@ class ServerCapabilities implements ArrayDeserializable
          */
         #[Shape(
             new Shape\Union(
-                new Shape\Union(new Shape\Any(), NotebookDocumentSyncRegistrationOptions::class),
+                new Shape\Union(new Shape\Record(), NotebookDocumentSyncRegistrationOptions::class),
                 new Shape\Scalar('null'),
             ),
         )]
@@ -466,7 +466,7 @@ class ServerCapabilities implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        #[Shape(new Shape\Union(new Shape\Scalar('mixed'), new Shape\Scalar('null')))]
+        #[Shape(new Shape\Union(new Shape\Unknown(), new Shape\Scalar('null')))]
         public $experimental = null
     ) {}
 }
