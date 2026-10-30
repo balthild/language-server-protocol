@@ -2,9 +2,7 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
-use DTL\Invoke\Invoke;
-use Exception;
-use RuntimeException;
+use Phpactor\LanguageServerProtocol\Support\Deserialize;
 
 /**
  * Create file operation.
@@ -13,125 +11,25 @@ use RuntimeException;
  */
 class CreateFile extends ResourceOperation
 {
-    /**
-     * The resource operation kind.
-     *
-     * @var string
-     */
-    public $kind;
-
-    /**
-     * The resource to create.
-     *
-     * @var string
-     */
-    public $uri;
-
-    /**
-     * Additional options
-     *
-     * @var CreateFileOptions|null
-     */
-    public $options;
-
-    /**
-     * An optional annotation identifier describing the operation.
-     *
-     * @var string|null
-     */
-    public $annotationId;
-
-    /**
-     * @param string $kind
-     * @param string $uri
-     * @param CreateFileOptions|null $options
-     * @param string|null $annotationId
-     */
     public function __construct(
-        string $kind,
-        string $uri,
-        ?CreateFileOptions $options = null,
-        ?string $annotationId = null
+        /**
+         * The resource operation kind.
+         */
+        public string $kind,
+        /**
+         * The resource to create.
+         */
+        public string $uri,
+        /**
+         * Additional options
+         */
+        #[Deserialize(CreateFileOptions::class)]
+        public ?CreateFileOptions $options = null,
+        /**
+         * An optional annotation identifier describing the operation.
+         */
+        public ?string $annotationId = null,
     ) {
-        $this->kind = $kind;
         $this->uri = urldecode($uri);
-        $this->options = $options;
-        $this->annotationId = $annotationId;
-    }
-
-    /**
-     * @param array<string,mixed> $array
-     * @return self
-     */
-    public static function fromArray(array $array, bool $allowUnknownKeys = false)
-    {
-        $map = [
-            'kind' => ['names' => [], 'iterable' => false],
-            'uri' => ['names' => [], 'iterable' => false],
-            'options' => ['names' => [CreateFileOptions::class], 'iterable' => false],
-            'annotationId' => ['names' => [], 'iterable' => false],
-        ];
-
-        foreach ($array as $key => &$value) {
-            if (!isset($map[$key])) {
-                if ($allowUnknownKeys) {
-                    unset($array[$key]);
-                    continue;
-                }
-
-                throw new RuntimeException(sprintf(
-                    'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key,
-                    self::class,
-                    implode('", "', array_keys($map)),
-                ));
-            }
-
-            // from here we only care about arrays that can be transformed into
-            // objects
-            if (!is_array($value)) {
-                continue;
-            }
-
-            if (empty($map[$key]['names'])) {
-                continue;
-            }
-
-            if ($map[$key]['iterable']) {
-                $value = array_map(function ($object) use ($map, $key, $allowUnknownKeys) {
-                    if (!is_array($object)) {
-                        return $object;
-                    }
-
-                    return self::invokeFromNames($map[$key]['names'], $object, $allowUnknownKeys) ?: $object;
-                }, $value);
-                continue;
-            }
-
-            $names = $map[$key]['names'];
-            $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
-        }
-
-        return Invoke::new(self::class, $array);
-    }
-
-    /**
-     * @param array<string> $classNames
-     * @param array<string,mixed> $object
-     */
-    private static function invokeFromNames(array $classNames, array $object, bool $allowUnknownKeys): ?object
-    {
-        $lastException = null;
-        foreach ($classNames as $className) {
-            try {
-                // @phpstan-ignore-next-line
-                return call_user_func_array($className . '::fromArray', [$object, $allowUnknownKeys]);
-            } catch (Exception $exception) {
-                $lastException = $exception;
-                continue;
-            }
-        }
-
-        throw $lastException;
     }
 }

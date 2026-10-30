@@ -5,13 +5,16 @@
 	"license": "MIT",
 	"authors": [
 		{
+			"name": "Balthild",
+			"email": "ibalthild@gmail.com"
+		},
+		{
 			"name": "Daniel Leech",
 			"email": "daniel@dantleech.com"
 		}
 	],
 	"require": {
-		"dantleech/invoke": "^2.0",
-		"php": "^7.3 || ^8.0"
+		"php": "^8.1"
 	},
 	"require-dev": {
 		"ergebnis/composer-normalize": "^2.0",

@@ -2,117 +2,28 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
-use DTL\Invoke\Invoke;
-use Exception;
-use RuntimeException;
+use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
+use Phpactor\LanguageServerProtocol\Support\Deserialize;
+use Phpactor\LanguageServerProtocol\Support\FromArray;
 
-class TextDocumentContentChangeIncrementalEvent
+class TextDocumentContentChangeIncrementalEvent implements ArrayDeserializable
 {
-    /**
-     * The range of the document that changed.
-     *
-     * @var Range
-     */
-    public $range;
+    use FromArray;
 
-    /**
-     * The optional length of the range that got replaced.
-     *
-     * @var int|null
-     */
-    public $rangeLength;
-
-    /**
-     * The new text for the provided range.
-     *
-     * @var string
-     */
-    public $text;
-
-    /**
-     * @param Range $range
-     * @param int|null $rangeLength
-     * @param string $text
-     */
-    public function __construct(Range $range, string $text, ?int $rangeLength = null)
-    {
-        $this->range = $range;
-        $this->rangeLength = $rangeLength;
-        $this->text = $text;
-    }
-
-    /**
-     * @param array<string,mixed> $array
-     * @return self
-     */
-    public static function fromArray(array $array, bool $allowUnknownKeys = false)
-    {
-        $map = [
-            'range' => ['names' => [Range::class], 'iterable' => false],
-            'rangeLength' => ['names' => [], 'iterable' => false],
-            'text' => ['names' => [], 'iterable' => false],
-        ];
-
-        foreach ($array as $key => &$value) {
-            if (!isset($map[$key])) {
-                if ($allowUnknownKeys) {
-                    unset($array[$key]);
-                    continue;
-                }
-
-                throw new RuntimeException(sprintf(
-                    'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-                    $key,
-                    self::class,
-                    implode('", "', array_keys($map)),
-                ));
-            }
-
-            // from here we only care about arrays that can be transformed into
-            // objects
-            if (!is_array($value)) {
-                continue;
-            }
-
-            if (empty($map[$key]['names'])) {
-                continue;
-            }
-
-            if ($map[$key]['iterable']) {
-                $value = array_map(function ($object) use ($map, $key, $allowUnknownKeys) {
-                    if (!is_array($object)) {
-                        return $object;
-                    }
-
-                    return self::invokeFromNames($map[$key]['names'], $object, $allowUnknownKeys) ?: $object;
-                }, $value);
-                continue;
-            }
-
-            $names = $map[$key]['names'];
-            $value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
-        }
-
-        return Invoke::new(self::class, $array);
-    }
-
-    /**
-     * @param array<string> $classNames
-     * @param array<string,mixed> $object
-     */
-    private static function invokeFromNames(array $classNames, array $object, bool $allowUnknownKeys): ?object
-    {
-        $lastException = null;
-        foreach ($classNames as $className) {
-            try {
-                // @phpstan-ignore-next-line
-                return call_user_func_array($className . '::fromArray', [$object, $allowUnknownKeys]);
-            } catch (Exception $exception) {
-                $lastException = $exception;
-                continue;
-            }
-        }
-
-        throw $lastException;
+    public function __construct(
+        /**
+         * The range of the document that changed.
+         */
+        #[Deserialize(Range::class)]
+        public Range $range,
+        /**
+         * The new text for the provided range.
+         */
+        public string $text,
+        /**
+         * The optional length of the range that got replaced.
+         */
+        public ?int $rangeLength = null,
+    ) {
     }
 }

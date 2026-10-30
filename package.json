@@ -6,7 +6,7 @@
 	"license": "MIT",
 	"contributors": [
 		"Balthild <ibalthild@gmail.com>",
-		"Daniel Leech"
+		"Daniel Leech <daniel@dantleech.com>"
 	],
 	"type": "module",
 	"scripts": {

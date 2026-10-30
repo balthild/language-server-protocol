@@ -13,6 +13,48 @@ function constantName(constant: PhpConstant): string {
 	return name === 'CLASS' ? 'CLASS_' : name;
 }
 
+/**
+ * PHP requires parameters without defaults before those with one, so nullable
+ * properties must come last.
+ */
+function orderedProperties(phpClass: PhpClass): Property[] {
+	return [...phpClass.properties.values()].sort(
+		(property1, property2) => Number(property1.nullable) - Number(property2.nullable),
+	);
+}
+
+/**
+ * The `@var` tag is only needed when the native type cannot express the
+ * documented one, or when there is no native type at all.
+ */
+function needsVarAnnotation(property: Property): boolean {
+	const real = property.type.real;
+
+	if (real === undefined) {
+		return true;
+	}
+
+	const documented = property.type.documented;
+
+	return documented !== real && documented !== `${real}|null`;
+}
+
+function renderAttributes(property: Property): string[] {
+	const classNames = property.type.classNames;
+
+	if (classNames.length === 0) {
+		return [];
+	}
+
+	const candidates =
+		classNames.length === 1
+			? `${classNames[0]}::class`
+			: `[${classNames.map((name) => `${name}::class`).join(', ')}]`;
+	const iterable = property.type.iterable ? ', iterable: true' : '';
+
+	return [`#[Deserialize(${candidates}${iterable})]`];
+}
+
 export class Renderer {
 	render(phpClass: PhpClassLike): string {
 		if (phpClass instanceof PhpClass) {
@@ -47,16 +89,33 @@ export class Renderer {
 	}
 
 	private renderClass(phpClass: PhpClass): string {
+		const properties = orderedProperties(phpClass);
+		const isRoot = phpClass.extends === undefined;
+		const usesDeserialize = properties.some((property) => property.type.classNames.length > 0);
+
 		const source = [
 			'<?php // Auto-generated from vscode-languageserver-protocol (typescript)',
 			'',
 			'namespace Phpactor\\LanguageServerProtocol;',
 			'',
-			'use DTL\\Invoke\\Invoke;',
-			'use Exception;',
-			'use RuntimeException;',
-			'',
 		];
+
+		const imports: string[] = [];
+		if (isRoot) {
+			imports.push('ArrayDeserializable');
+		}
+		if (usesDeserialize) {
+			imports.push('Deserialize');
+		}
+		if (isRoot) {
+			imports.push('FromArray');
+		}
+		for (const imported of imports) {
+			source.push(`use Phpactor\\LanguageServerProtocol\\Support\\${imported};`);
+		}
+		if (imports.length > 0) {
+			source.push('');
+		}
 
 		if (phpClass.mixins.length > 0 || phpClass.docs.length > 0) {
 			source.push('/**');
@@ -75,84 +134,76 @@ export class Renderer {
 		}
 
 		const extendsClause = phpClass.extends ? ` extends ${phpClass.extends}` : '';
+		const implementsClause = isRoot ? ' implements ArrayDeserializable' : '';
 
-		source.push(`class ${phpClass.name}${extendsClause}`);
+		source.push(`class ${phpClass.name}${extendsClause}${implementsClause}`);
 		source.push('{');
 
-		this.buildProperties(phpClass, source);
-		this.buildConstructorDefinition(phpClass, source);
-		this.buildArrayConstructor(phpClass, source);
+		if (isRoot) {
+			source.push('    use FromArray;');
+		}
+
+		if (properties.length > 0) {
+			if (isRoot) {
+				source.push('');
+			}
+
+			source.push('    public function __construct(');
+			for (const property of properties) {
+				this.renderParameter(property, source);
+			}
+			source.push('    ) {');
+
+			for (const property of properties) {
+				// URIs are percent-decoded so the object holds the plain path.
+				// The property cannot be `readonly` because of this assignment.
+				if (property.special.includes('uri')) {
+					source.push(`        $this->${property.name} = urldecode($${property.name});`);
+				}
+			}
+
+			source.push('    }');
+		}
 
 		source.push('}');
 
 		return source.join('\n');
 	}
 
-	private buildProperties(declaration: PhpClass, source: string[]): void {
-		for (const property of declaration.properties.values()) {
-			source.push('    /**');
+	private renderParameter(property: Property, source: string[]): void {
+		const varType = needsVarAnnotation(property)
+			? this.renderPropertyType(property) || 'mixed'
+			: undefined;
+
+		if (property.docs.length > 0 || varType !== undefined) {
+			source.push('        /**');
 			for (const doc of property.docs) {
 				for (const line of doc.split('\n')) {
-					source.push(`     * ${line}`);
+					source.push(`         * ${line}`);
 				}
 			}
-			source.push('     *');
-			source.push(`     * @var ${this.renderPropertyType(property)}`);
-			source.push('     */');
-			source.push(`    public $${property.name};`);
-			source.push('');
-		}
-	}
-
-	private buildConstructorDefinition(declaration: PhpClass, source: string[]): void {
-		const properties = [...declaration.properties.values()].sort(
-			(property1, property2) => Number(property1.nullable) - Number(property2.nullable),
-		);
-
-		const args = properties.map((property) => {
-			const arg: string[] = [];
-
-			if (property.type.real) {
-				if (property.nullable) {
-					arg.push('?');
+			if (varType !== undefined) {
+				if (property.docs.length > 0) {
+					source.push('         *');
 				}
-
-				arg.push(`${property.type.real} `);
+				source.push(`         * @var ${varType}`);
 			}
-
-			arg.push(`$${property.name}`);
-
-			if (property.nullable) {
-				arg.push(' = null');
-			}
-
-			return arg.join('');
-		});
-
-		if (args.length === 0) {
-			return;
+			source.push('         */');
 		}
 
-		source.push('    /**');
-		for (const property of declaration.properties.values()) {
-			source.push(`     * @param ${this.renderPropertyType(property)} $${property.name}`);
-		}
-		source.push('     */');
-
-		source.push(`    public function __construct(${args.join(', ')})`);
-		source.push('    {');
-
-		for (const property of declaration.properties.values()) {
-			// URIs are decoded so that generated objects hold the plain path.
-			if (property.special.includes('uri')) {
-				source.push(`        $this->${property.name} = urldecode($${property.name});`);
-				continue;
-			}
-
-			source.push(`        $this->${property.name} = $${property.name};`);
+		for (const attribute of renderAttributes(property)) {
+			source.push(`        ${attribute}`);
 		}
 
-		source.push('    }');
+		const nativeType =
+			property.type.real === undefined
+				? ''
+				: property.nullable
+					? `?${property.type.real} `
+					: `${property.type.real} `;
+		const defaultValue = property.nullable ? ' = null' : '';
+
+		source.push(`        public ${nativeType}$${property.name}${defaultValue},`);
 	}
 
 	private renderPropertyType(property: Property): string {
@@ -161,105 +212,5 @@ export class Renderer {
 		}
 
 		return property.type.documented;
-	}
-
-	private buildArrayConstructor(declaration: PhpClass, source: string[]): void {
-		let normalizerSource = '';
-		if (declaration.properties.size > 0) {
-			normalizerSource = this.buildClassNormalizer(declaration).join('\n');
-		}
-
-		source.push(`
-    /**
-     * @param array<string,mixed> $array
-     * @return self
-     */
-    public static function fromArray(array $array, bool $allowUnknownKeys = false)
-    {
-        ${normalizerSource}
-        return Invoke::new(self::class, $array);
-    }
-
-    /**
-     * @param array<string> $classNames
-     * @param array<string,mixed> $object
-     */
-    private static function invokeFromNames(array $classNames, array $object, bool $allowUnknownKeys): ?object
-    {
-        $lastException = null;
-        foreach ($classNames as $className) {
-            try {
-                // @phpstan-ignore-next-line
-                return call_user_func_array($className . '::fromArray', [$object, $allowUnknownKeys]);
-            } catch (Exception $exception) {
-                $lastException = $exception;
-                continue;
-            }
-        }
-
-        throw $lastException;
-    }
-        `);
-	}
-
-	private buildClassNormalizer(declaration: PhpClass): string[] {
-		const classResolutionSource = ['$map = ['];
-
-		for (const property of declaration.properties.values()) {
-			const classNames = property.type.classNames
-				.map((name) => {
-					return name + '::class';
-				})
-				.join(', ');
-
-			classResolutionSource.push(
-				`            '${property.name}' => ['names' => [${classNames}], 'iterable' => ${property.type.iterable ? 'true' : 'false'}],`,
-			);
-		}
-
-		classResolutionSource.push('        ];');
-		classResolutionSource.push(`
-			foreach ($array as $key => &$value) {
-					if (!isset($map[$key])) {
-							if ($allowUnknownKeys) {
-									unset($array[$key]);
-									continue;
-							}
-
-							throw new RuntimeException(sprintf(
-									'Parameter "%s" on class "%s" not known, known parameters: "%s"',
-									$key,
-									self::class,
-									implode('", "', array_keys($map))
-							));
-					}
-
-					// from here we only care about arrays that can be transformed into
-					// objects
-					if (!is_array($value)) {
-							continue;
-					}
-
-					if (empty($map[$key]['names'])) {
-							continue;
-					}
-
-					if ($map[$key]['iterable']) {
-							$value = array_map(function ($object) use ($map, $key, $allowUnknownKeys) {
-									if (!is_array($object)) {
-											return $object;
-									}
-
-									return self::invokeFromNames($map[$key]['names'], $object, $allowUnknownKeys) ?: $object;
-							}, $value);
-							continue;
-					}
-
-					$names = $map[$key]['names'];
-					$value = self::invokeFromNames($names, $value, $allowUnknownKeys) ?: $value;
-			}
-			`);
-
-		return classResolutionSource;
 	}
 }
