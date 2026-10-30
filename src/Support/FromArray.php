@@ -70,18 +70,73 @@ trait FromArray
         mixed $value,
         bool $allowUnknownKeys
     ): mixed {
-        foreach ($parameter->getAttributes(Deserialize::class) as $attribute) {
-            $deserialize = $attribute->newInstance();
+        $attributes = $parameter->getAttributes(Deserialize::class);
 
-            $value = self::hydrateAt(
-                $deserialize->at,
-                $deserialize->candidates,
-                $value,
-                $allowUnknownKeys,
-            );
+        // Scalars, nulls and already-built objects are taken as they are.
+        if ($attributes === [] || !is_array($value)) {
+            return $value;
+        }
+
+        /** @var array<string, Throwable> $failures */
+        $failures = [];
+        /** @var list<string> $hydrated */
+        $hydrated = [];
+
+        foreach ($attributes as $attribute) {
+            $deserialize = $attribute->newInstance();
+            $didHydrate = false;
+
+            try {
+                $value = self::hydrateAt(
+                    $deserialize->at,
+                    $deserialize->candidates,
+                    $value,
+                    $allowUnknownKeys,
+                    $didHydrate,
+                );
+            } catch (Throwable $exception) {
+                $failures[$deserialize->at] = $exception;
+            }
+
+            if ($didHydrate) {
+                $hydrated[] = $deserialize->at;
+            }
+        }
+
+        foreach ($failures as $path => $failure) {
+            // Paths that nest inside one another describe the same slot: a
+            // `Range | {insert, replace}` union is written as `editRange`,
+            // `editRange.insert` and `editRange.replace`, and only one of them
+            // can match. Unrelated paths are separate slots, so a failure there
+            // is a real one.
+            if (self::isSameSlot($path, $hydrated)) {
+                continue;
+            }
+
+            throw $failure;
         }
 
         return $value;
+    }
+
+    /**
+     * @param list<string> $hydrated
+     */
+    private static function isSameSlot(string $path, array $hydrated): bool
+    {
+        foreach ($hydrated as $other) {
+            if (
+                $path === $other ||
+                $path === '' ||
+                $other === '' ||
+                str_starts_with($path, $other . '.') ||
+                str_starts_with($other, $path . '.')
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -91,17 +146,18 @@ trait FromArray
         string $path,
         array $candidates,
         mixed $value,
-        bool $allowUnknownKeys
+        bool $allowUnknownKeys,
+        bool &$hydrated
     ): mixed {
         if ($path === '') {
-            return self::hydrate($candidates, $value, $allowUnknownKeys);
+            return self::hydrate($candidates, $value, $allowUnknownKeys, $hydrated);
         }
 
         if (!is_array($value)) {
             return $value;
         }
 
-        return self::walk(explode('.', $path), $candidates, $value, $allowUnknownKeys);
+        return self::walk(explode('.', $path), $candidates, $value, $allowUnknownKeys, $hydrated);
     }
 
     /**
@@ -114,7 +170,8 @@ trait FromArray
         array $segments,
         array $candidates,
         array $value,
-        bool $allowUnknownKeys
+        bool $allowUnknownKeys,
+        bool &$hydrated
     ): array {
         $segment = array_shift($segments);
 
@@ -125,20 +182,22 @@ trait FromArray
                 }
 
                 $value[$key] = $segments === []
-                    ? self::hydrate($candidates, $item, $allowUnknownKeys)
-                    : self::walk($segments, $candidates, $item, $allowUnknownKeys);
+                    ? self::hydrate($candidates, $item, $allowUnknownKeys, $hydrated)
+                    : self::walk($segments, $candidates, $item, $allowUnknownKeys, $hydrated);
             }
 
             return $value;
         }
 
+        // A missing or non-array location is not an error: it is how a union
+        // branch announces that the data belongs to a different branch.
         if (!isset($value[$segment]) || !is_array($value[$segment])) {
             return $value;
         }
 
         $value[$segment] = $segments === []
-            ? self::hydrate($candidates, $value[$segment], $allowUnknownKeys)
-            : self::walk($segments, $candidates, $value[$segment], $allowUnknownKeys);
+            ? self::hydrate($candidates, $value[$segment], $allowUnknownKeys, $hydrated)
+            : self::walk($segments, $candidates, $value[$segment], $allowUnknownKeys, $hydrated);
 
         return $value;
     }
@@ -146,31 +205,42 @@ trait FromArray
     /**
      * Replaces a slot with the first candidate that accepts it.
      *
-     * Failure is tolerated and the slot is left untouched. A slot may describe
-     * only one branch of a union (`editRange` is either a `Range` or an object
-     * holding `insert` and `replace`), and a candidate that needs keys the data
-     * does not have raises `ArgumentCountError` — an `Error`, not an
-     * `Exception` — so this has to catch `Throwable` and move on.
+     * All candidates are alternative classes for one slot, so a slot that none
+     * of them accepts is malformed and the last failure is rethrown. Callers that
+     * merely probe a location catch that and try their next branch.
+     *
+     * A candidate that needs keys the data does not have raises
+     * `ArgumentCountError`, which is an `Error` rather than an `Exception`.
      *
      * @param list<class-string<ArrayDeserializable>> $candidates
      */
     private static function hydrate(
         array $candidates,
         mixed $value,
-        bool $allowUnknownKeys
+        bool $allowUnknownKeys,
+        bool &$hydrated
     ): mixed {
         if (!is_array($value)) {
             return $value;
         }
 
+        $failure = null;
+
         foreach ($candidates as $candidate) {
             try {
-                return $candidate::fromArray($value, $allowUnknownKeys);
-            } catch (Throwable) {
-                continue;
+                $object = $candidate::fromArray($value, $allowUnknownKeys);
+                $hydrated = true;
+
+                return $object;
+            } catch (Throwable $exception) {
+                $failure = $exception;
             }
         }
 
-        return $value;
+        throw $failure ?? new RuntimeException(sprintf(
+            'Cannot deserialize %s into any of "%s"',
+            json_encode($value),
+            implode('", "', $candidates),
+        ));
     }
 }
