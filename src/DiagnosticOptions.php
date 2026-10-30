@@ -22,17 +22,20 @@ class DiagnosticOptions implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('bool'))]
         public bool $interFileDependencies,
+
         /**
          * The server provides support for workspace diagnostics as well.
          */
         #[Shape(new Shape\Scalar('bool'))]
         public bool $workspaceDiagnostics,
+
         /**
          * An optional identifier under which the diagnostics are
          * managed by the client.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $identifier = null,
+
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}

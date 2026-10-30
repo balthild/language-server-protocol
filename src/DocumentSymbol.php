@@ -23,6 +23,7 @@ class DocumentSymbol implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $name,
+
         /**
          * The kind of this symbol.
          *
@@ -59,6 +60,7 @@ class DocumentSymbol implements ArrayDeserializable
             ),
         )]
         public $kind,
+
         /**
          * The range enclosing this symbol not including leading/trailing whitespace but everything else
          * like comments. This information is typically used to determine if the clients cursor is
@@ -66,17 +68,20 @@ class DocumentSymbol implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The range that should be selected and revealed when this symbol is being picked, e.g the name of a function.
          * Must be contained by the `range`.
          */
         #[Shape(Range::class)]
         public Range $selectionRange,
+
         /**
          * More detail for this symbol, e.g the signature of a function.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $detail = null,
+
         /**
          * Tags for this document symbol.
          *
@@ -84,11 +89,13 @@ class DocumentSymbol implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Literal(1)), new Shape\Scalar('null')))]
         public ?array $tags = null,
+
         /**
          * Indicates if this symbol is deprecated.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $deprecated = null,
+
         /**
          * Children of this symbol, e.g. properties of a class.
          *

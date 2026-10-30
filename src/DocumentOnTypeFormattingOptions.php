@@ -19,6 +19,7 @@ class DocumentOnTypeFormattingOptions implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $firstTriggerCharacter,
+
         /**
          * More trigger characters.
          *

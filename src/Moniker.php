@@ -19,12 +19,14 @@ class Moniker implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $scheme,
+
         /**
          * The identifier of the moniker. The value is opaque in LSIF however
          * schema owners are allowed to define the structure if they want.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $identifier,
+
         /**
          * The scope in which the moniker is unique
          *
@@ -40,6 +42,7 @@ class Moniker implements ArrayDeserializable
             ),
         )]
         public $unique,
+
         /**
          * The moniker kind if known.
          *

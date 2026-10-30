@@ -23,6 +23,7 @@ class ShowMessageParams implements ArrayDeserializable
             new Shape\Union(new Shape\Literal(1), new Shape\Literal(2), new Shape\Literal(3), new Shape\Literal(4)),
         )]
         public $type,
+
         /**
          * The actual message.
          */

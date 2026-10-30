@@ -16,11 +16,13 @@ class TextDocumentSyncClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * The client supports sending will save notifications.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $willSave = null,
+
         /**
          * The client supports sending a will save request and
          * waits for a response providing text edits which will
@@ -28,6 +30,7 @@ class TextDocumentSyncClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $willSaveWaitUntil = null,
+
         /**
          * The client supports did save notifications.
          */

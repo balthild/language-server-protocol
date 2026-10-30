@@ -22,6 +22,7 @@ class TextDocumentEdit implements ArrayDeserializable
          */
         #[Shape(OptionalVersionedTextDocumentIdentifier::class)]
         public OptionalVersionedTextDocumentIdentifier $textDocument,
+
         /**
          * The edits to be applied.
          *

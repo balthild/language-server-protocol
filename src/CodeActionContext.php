@@ -26,6 +26,7 @@ class CodeActionContext implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(Diagnostic::class))]
         public array $diagnostics,
+
         /**
          * Requested kind of actions to return.
          *
@@ -36,6 +37,7 @@ class CodeActionContext implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $only = null,
+
         /**
          * The reason why code actions were requested.
          *

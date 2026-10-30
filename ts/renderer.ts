@@ -208,9 +208,15 @@ export class Renderer {
 			}
 
 			source.push('    public function __construct(');
-			for (const property of properties) {
+			properties.forEach((property, index) => {
+				// A blank line keeps each property's docblock, attribute and
+				// declaration readable as one unit.
+				if (index > 0) {
+					source.push('');
+				}
+
 				this.renderParameter(property, source);
-			}
+			});
 			source.push('    ) {');
 
 			for (const property of properties) {

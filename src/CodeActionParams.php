@@ -17,16 +17,19 @@ class CodeActionParams extends WorkDoneProgressParams
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The range for which the command was invoked.
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * Context carrying additional information.
          */
         #[Shape(CodeActionContext::class)]
         public CodeActionContext $context,
+
         /**
          * An optional token that a server can use to report work done progress.
          *
@@ -39,6 +42,7 @@ class CodeActionParams extends WorkDoneProgressParams
             ),
         )]
         public $workDoneToken = null,
+
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
          * the client.

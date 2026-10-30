@@ -19,6 +19,7 @@ class ColorInformation implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The actual color value for this color range.
          */

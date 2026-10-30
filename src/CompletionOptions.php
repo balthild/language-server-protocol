@@ -26,6 +26,7 @@ class CompletionOptions extends WorkDoneProgressOptions
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $triggerCharacters = null,
+
         /**
          * The list of all possible characters that commit a completion. This field can be used
          * if clients don't support individual commit characters per completion item. See
@@ -38,12 +39,14 @@ class CompletionOptions extends WorkDoneProgressOptions
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $allCommitCharacters = null,
+
         /**
          * The server provides support to resolve additional
          * information for a completion item.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $resolveProvider = null,
+
         /**
          * The server supports the following `CompletionItem` specific
          * capabilities.
@@ -52,6 +55,7 @@ class CompletionOptions extends WorkDoneProgressOptions
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $completionItem = null,
+
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}

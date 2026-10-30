@@ -20,6 +20,7 @@ class CompletionItemLabelDetails implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $detail = null,
+
         /**
          * An optional string which is rendered less prominently after {@link CompletionItem.detail}. Should be used
          * for fully qualified names and file paths.

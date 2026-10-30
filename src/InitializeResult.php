@@ -19,6 +19,7 @@ class InitializeResult implements ArrayDeserializable
          */
         #[Shape(ServerCapabilities::class)]
         public ServerCapabilities $capabilities,
+
         /**
          * Information about the server.
          *

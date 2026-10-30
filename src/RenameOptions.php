@@ -17,6 +17,7 @@ class RenameOptions extends WorkDoneProgressOptions
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $prepareProvider = null,
+
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}

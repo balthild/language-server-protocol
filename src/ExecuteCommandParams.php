@@ -17,6 +17,7 @@ class ExecuteCommandParams extends WorkDoneProgressParams
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $command,
+
         /**
          * Arguments that the command should be invoked with.
          *
@@ -24,6 +25,7 @@ class ExecuteCommandParams extends WorkDoneProgressParams
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('mixed')), new Shape\Scalar('null')))]
         public ?array $arguments = null,
+
         /**
          * An optional token that a server can use to report work done progress.
          *

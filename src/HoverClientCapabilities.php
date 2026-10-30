@@ -16,6 +16,7 @@ class HoverClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * Client supports the following content formats for the content
          * property. The order describes the preferred format of the client.

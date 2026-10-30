@@ -41,12 +41,14 @@ class DocumentSymbolRegistrationOptions extends TextDocumentRegistrationOptions
             ),
         )]
         public $documentSelector = null,
+
         /**
          * A human-readable string that is shown when multiple outlines trees
          * are shown for the same document.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $label = null,
+
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}

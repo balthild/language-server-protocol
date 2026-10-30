@@ -20,6 +20,7 @@ class LocationLink implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $targetUri,
+
         /**
          * The full target range of this link. If the target for example is a symbol then target range is the
          * range enclosing this symbol not including leading/trailing whitespace but everything else
@@ -27,12 +28,14 @@ class LocationLink implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $targetRange,
+
         /**
          * The range that should be selected and revealed when this link is being followed, e.g the name of a function.
          * Must be contained by the `targetRange`. See also `DocumentSymbol#range`
          */
         #[Shape(Range::class)]
         public Range $targetSelectionRange,
+
         /**
          * Span of the origin of this link.
          *

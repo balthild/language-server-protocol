@@ -17,16 +17,19 @@ class DocumentRangeFormattingParams extends WorkDoneProgressParams
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The range to format
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The format options
          */
         #[Shape(FormattingOptions::class)]
         public FormattingOptions $options,
+
         /**
          * An optional token that a server can use to report work done progress.
          *

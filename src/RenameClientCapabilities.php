@@ -16,12 +16,14 @@ class RenameClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * Client supports testing for validity of rename operations
          * before execution.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $prepareSupport = null,
+
         /**
          * Client supports the default behavior result.
          *
@@ -32,6 +34,7 @@ class RenameClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Literal(1), new Shape\Scalar('null')))]
         public $prepareSupportDefaultBehavior = null,
+
         /**
          * Whether the client honors the change annotations in
          * text edits and resource operations returned via the

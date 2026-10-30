@@ -17,6 +17,7 @@ class TextDocumentSyncOptions implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $openClose = null,
+
         /**
          * Change notifications are sent to the server. See TextDocumentSyncKind.None, TextDocumentSyncKind.Full
          * and TextDocumentSyncKind.Incremental. If omitted it defaults to TextDocumentSyncKind.None.
@@ -30,18 +31,21 @@ class TextDocumentSyncOptions implements ArrayDeserializable
             ),
         )]
         public $change = null,
+
         /**
          * If present will save notifications are sent to the server. If omitted the notification should not be
          * sent.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $willSave = null,
+
         /**
          * If present will save wait until requests are sent to the server. If omitted the request should not be
          * sent.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $willSaveWaitUntil = null,
+
         /**
          * If present save notifications are sent to the server. If omitted the notification should not be
          * sent.

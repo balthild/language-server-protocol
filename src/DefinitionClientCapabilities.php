@@ -19,6 +19,7 @@ class DefinitionClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * The client supports additional metadata in the form of definition links.
          */

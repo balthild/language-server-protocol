@@ -30,6 +30,7 @@ class ServerCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $positionEncoding = null,
+
         /**
          * Defines how text documents are synced. Is either a detailed structure
          * defining each notification or for backwards compatibility the
@@ -49,6 +50,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $textDocumentSync = null,
+
         /**
          * Defines how notebook documents are synced.
          *
@@ -61,11 +63,13 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $notebookDocumentSync = null,
+
         /**
          * The server provides completion support.
          */
         #[Shape(new Shape\Union(CompletionOptions::class, new Shape\Scalar('null')))]
         public ?CompletionOptions $completionProvider = null,
+
         /**
          * The server provides hover support.
          *
@@ -75,11 +79,13 @@ class ServerCapabilities implements ArrayDeserializable
             new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), HoverOptions::class), new Shape\Scalar('null')),
         )]
         public $hoverProvider = null,
+
         /**
          * The server provides signature help support.
          */
         #[Shape(new Shape\Union(SignatureHelpOptions::class, new Shape\Scalar('null')))]
         public ?SignatureHelpOptions $signatureHelpProvider = null,
+
         /**
          * The server provides Goto Declaration support.
          *
@@ -96,6 +102,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $declarationProvider = null,
+
         /**
          * The server provides goto definition support.
          *
@@ -108,6 +115,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $definitionProvider = null,
+
         /**
          * The server provides Goto Type Definition support.
          *
@@ -124,6 +132,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $typeDefinitionProvider = null,
+
         /**
          * The server provides Goto Implementation support.
          *
@@ -140,6 +149,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $implementationProvider = null,
+
         /**
          * The server provides find references support.
          *
@@ -152,6 +162,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $referencesProvider = null,
+
         /**
          * The server provides document highlight support.
          *
@@ -164,6 +175,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $documentHighlightProvider = null,
+
         /**
          * The server provides document symbol support.
          *
@@ -176,6 +188,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $documentSymbolProvider = null,
+
         /**
          * The server provides code actions. CodeActionOptions may only be
          * specified if the client states that it supports
@@ -190,16 +203,19 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $codeActionProvider = null,
+
         /**
          * The server provides code lens.
          */
         #[Shape(new Shape\Union(CodeLensOptions::class, new Shape\Scalar('null')))]
         public ?CodeLensOptions $codeLensProvider = null,
+
         /**
          * The server provides document link support.
          */
         #[Shape(new Shape\Union(DocumentLinkOptions::class, new Shape\Scalar('null')))]
         public ?DocumentLinkOptions $documentLinkProvider = null,
+
         /**
          * The server provides color provider support.
          *
@@ -216,6 +232,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $colorProvider = null,
+
         /**
          * The server provides workspace symbol support.
          *
@@ -228,6 +245,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $workspaceSymbolProvider = null,
+
         /**
          * The server provides document formatting.
          *
@@ -240,6 +258,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $documentFormattingProvider = null,
+
         /**
          * The server provides document range formatting.
          *
@@ -252,11 +271,13 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $documentRangeFormattingProvider = null,
+
         /**
          * The server provides document formatting on typing.
          */
         #[Shape(new Shape\Union(DocumentOnTypeFormattingOptions::class, new Shape\Scalar('null')))]
         public ?DocumentOnTypeFormattingOptions $documentOnTypeFormattingProvider = null,
+
         /**
          * The server provides rename support. RenameOptions may only be
          * specified if the client states that it supports
@@ -268,6 +289,7 @@ class ServerCapabilities implements ArrayDeserializable
             new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), RenameOptions::class), new Shape\Scalar('null')),
         )]
         public $renameProvider = null,
+
         /**
          * The server provides folding provider support.
          *
@@ -284,6 +306,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $foldingRangeProvider = null,
+
         /**
          * The server provides selection range support.
          *
@@ -300,11 +323,13 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $selectionRangeProvider = null,
+
         /**
          * The server provides execute command support.
          */
         #[Shape(new Shape\Union(ExecuteCommandOptions::class, new Shape\Scalar('null')))]
         public ?ExecuteCommandOptions $executeCommandProvider = null,
+
         /**
          * The server provides call hierarchy support.
          *
@@ -321,6 +346,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $callHierarchyProvider = null,
+
         /**
          * The server provides linked editing range support.
          *
@@ -337,6 +363,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $linkedEditingRangeProvider = null,
+
         /**
          * The server provides semantic tokens support.
          *
@@ -349,6 +376,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $semanticTokensProvider = null,
+
         /**
          * The server provides moniker support.
          *
@@ -361,6 +389,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $monikerProvider = null,
+
         /**
          * The server provides type hierarchy support.
          *
@@ -377,6 +406,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $typeHierarchyProvider = null,
+
         /**
          * The server provides inline values.
          *
@@ -393,6 +423,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $inlineValueProvider = null,
+
         /**
          * The server provides inlay hints.
          *
@@ -405,6 +436,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $inlayHintProvider = null,
+
         /**
          * The server has support for pull model diagnostics.
          *
@@ -417,6 +449,7 @@ class ServerCapabilities implements ArrayDeserializable
             ),
         )]
         public $diagnosticProvider = null,
+
         /**
          * Workspace specific server capabilities.
          *
@@ -427,6 +460,7 @@ class ServerCapabilities implements ArrayDeserializable
             'fileOperations?' => FileOperationOptions::class,
         ]), new Shape\Scalar('null')))]
         public ?array $workspace = null,
+
         /**
          * Experimental server capabilities.
          *

@@ -23,6 +23,7 @@ class SemanticTokensRegistrationOptions extends TextDocumentRegistrationOptions
          */
         #[Shape(SemanticTokensLegend::class)]
         public SemanticTokensLegend $legend,
+
         /**
          * A document selector to identify the scope of the registration. If set to null
          * the document selector provided on the client side will be used.
@@ -44,6 +45,7 @@ class SemanticTokensRegistrationOptions extends TextDocumentRegistrationOptions
             ),
         )]
         public $documentSelector = null,
+
         /**
          * Server supports providing semantic tokens for a specific range
          * of a document.
@@ -52,6 +54,7 @@ class SemanticTokensRegistrationOptions extends TextDocumentRegistrationOptions
          */
         #[Shape(new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Any()), new Shape\Scalar('null')))]
         public $range = null,
+
         /**
          * Server supports providing semantic tokens for a full document.
          *
@@ -59,8 +62,10 @@ class SemanticTokensRegistrationOptions extends TextDocumentRegistrationOptions
          */
         #[Shape(new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Any()), new Shape\Scalar('null')))]
         public $full = null,
+
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null,
+
         /**
          * The id used to register the request. The id can be used to deregister
          * the request again. See also Registration#id.

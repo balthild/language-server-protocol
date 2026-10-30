@@ -17,17 +17,20 @@ class SignatureHelpParams extends TextDocumentPositionParams
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The position inside the text document.
          */
         #[Shape(Position::class)]
         public Position $position,
+
         /**
          * The signature help context. This is only available if the client specifies
          * to send this using the client capability `textDocument.signatureHelp.contextSupport === true`
          */
         #[Shape(new Shape\Union(SignatureHelpContext::class, new Shape\Scalar('null')))]
         public ?SignatureHelpContext $context = null,
+
         /**
          * An optional token that a server can use to report work done progress.
          *

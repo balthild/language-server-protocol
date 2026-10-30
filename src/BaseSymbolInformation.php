@@ -19,6 +19,7 @@ class BaseSymbolInformation implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $name,
+
         /**
          * The kind of this symbol.
          *
@@ -55,6 +56,7 @@ class BaseSymbolInformation implements ArrayDeserializable
             ),
         )]
         public $kind,
+
         /**
          * Tags for this symbol.
          *
@@ -62,6 +64,7 @@ class BaseSymbolInformation implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Literal(1)), new Shape\Scalar('null')))]
         public ?array $tags = null,
+
         /**
          * The name of the symbol containing this symbol. This information is for
          * user interface purposes (e.g. to render a qualifier in the user interface

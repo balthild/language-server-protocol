@@ -16,6 +16,7 @@ class WorkDoneProgressBegin implements ArrayDeserializable
          */
         #[Shape(new Shape\Literal('begin'))]
         public $kind,
+
         /**
          * Mandatory title of the progress operation. Used to briefly inform about
          * the kind of operation being performed.
@@ -24,6 +25,7 @@ class WorkDoneProgressBegin implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $title,
+
         /**
          * Controls if a cancel button should show to allow the user to cancel the
          * long running operation. Clients that don't support cancellation are allowed
@@ -31,6 +33,7 @@ class WorkDoneProgressBegin implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $cancellable = null,
+
         /**
          * Optional, more detailed associated progress message. Contains
          * complementary information to the `title`.
@@ -40,6 +43,7 @@ class WorkDoneProgressBegin implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $message = null,
+
         /**
          * Optional progress percentage to display (value 100 is considered 100%).
          * If not provided infinite progress is assumed and clients are allowed

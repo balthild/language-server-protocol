@@ -34,6 +34,7 @@ class ParameterInformation implements ArrayDeserializable
             ),
         )]
         public $label,
+
         /**
          * The human-readable doc-comment of this parameter. Will be shown
          * in the UI but can be omitted.

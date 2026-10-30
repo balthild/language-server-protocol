@@ -19,6 +19,7 @@ class FileEvent implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * The change type.
          *

@@ -17,16 +17,19 @@ class ColorPresentationParams extends WorkDoneProgressParams
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The color to request presentations for.
          */
         #[Shape(Color::class)]
         public Color $color,
+
         /**
          * The range where the color would be inserted. Serves as a context.
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * An optional token that a server can use to report work done progress.
          *
@@ -39,6 +42,7 @@ class ColorPresentationParams extends WorkDoneProgressParams
             ),
         )]
         public $workDoneToken = null,
+
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
          * the client.

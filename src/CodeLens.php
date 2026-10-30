@@ -23,11 +23,13 @@ class CodeLens implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The command this code lens represents.
          */
         #[Shape(new Shape\Union(Command::class, new Shape\Scalar('null')))]
         public ?Command $command = null,
+
         /**
          * A data entry field that is preserved on a code lens item between
          * a [CodeLensRequest](#CodeLensRequest) and a [CodeLensResolveRequest]

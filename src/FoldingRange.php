@@ -21,22 +21,26 @@ class FoldingRange implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('int'))]
         public int $startLine,
+
         /**
          * The zero-based end line of the range to fold. The folded area ends with the line's last character.
          * To be valid, the end must be zero or larger and smaller than the number of lines in the document.
          */
         #[Shape(new Shape\Scalar('int'))]
         public int $endLine,
+
         /**
          * The zero-based character offset from where the folded range starts. If not defined, defaults to the length of the start line.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public ?int $startCharacter = null,
+
         /**
          * The zero-based character offset before the folded range ends. If not defined, defaults to the length of the end line.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public ?int $endCharacter = null,
+
         /**
          * Describes the kind of the folding range such as `comment' or 'region'. The kind
          * is used to categorize folding ranges and used by commands like 'Fold all comments'.
@@ -44,6 +48,7 @@ class FoldingRange implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $kind = null,
+
         /**
          * The text that the client should show when the specified range is
          * collapsed. If not defined or not supported by the client, a default

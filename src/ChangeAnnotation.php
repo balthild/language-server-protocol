@@ -20,12 +20,14 @@ class ChangeAnnotation implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $label,
+
         /**
          * A flag which indicates that user confirmation is needed
          * before applying the change.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $needsConfirmation = null,
+
         /**
          * A human-readable string which is rendered less prominent in
          * the user interface.

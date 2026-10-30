@@ -41,6 +41,7 @@ class CodeActionRegistrationOptions extends TextDocumentRegistrationOptions
             ),
         )]
         public $documentSelector = null,
+
         /**
          * CodeActionKinds that this server may return.
          *
@@ -51,12 +52,14 @@ class CodeActionRegistrationOptions extends TextDocumentRegistrationOptions
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $codeActionKinds = null,
+
         /**
          * The server provides support to resolve additional
          * information for a code action.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $resolveProvider = null,
+
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}

@@ -22,6 +22,7 @@ class SignatureInformation implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $label,
+
         /**
          * The human-readable doc-comment of this signature. Will be shown
          * in the UI but can be omitted.
@@ -35,6 +36,7 @@ class SignatureInformation implements ArrayDeserializable
             ),
         )]
         public $documentation = null,
+
         /**
          * The parameters of this signature.
          *
@@ -42,6 +44,7 @@ class SignatureInformation implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Sequence(ParameterInformation::class), new Shape\Scalar('null')))]
         public ?array $parameters = null,
+
         /**
          * The index of the active parameter.
          *

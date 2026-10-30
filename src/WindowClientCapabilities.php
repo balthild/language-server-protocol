@@ -22,11 +22,13 @@ class WindowClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null,
+
         /**
          * Capabilities specific to the showMessage request.
          */
         #[Shape(new Shape\Union(ShowMessageRequestClientCapabilities::class, new Shape\Scalar('null')))]
         public ?ShowMessageRequestClientCapabilities $showMessage = null,
+
         /**
          * Capabilities specific to the showDocument request.
          */

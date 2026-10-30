@@ -23,6 +23,7 @@ class RelatedFullDocumentDiagnosticReport implements ArrayDeserializable
          */
         #[Shape(new Shape\Literal('full'))]
         public $kind,
+
         /**
          * The actual items.
          *
@@ -30,6 +31,7 @@ class RelatedFullDocumentDiagnosticReport implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(Diagnostic::class))]
         public array $items,
+
         /**
          * An optional result id. If provided it will
          * be sent on the next diagnostic request for the
@@ -37,6 +39,7 @@ class RelatedFullDocumentDiagnosticReport implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $resultId = null,
+
         /**
          * Diagnostics of related documents. This information is useful
          * in programming languages where code in a file A can generate

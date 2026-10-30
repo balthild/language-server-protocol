@@ -17,6 +17,7 @@ class Location implements ArrayDeserializable
     public function __construct(
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         #[Shape(Range::class)]
         public Range $range
     ) {

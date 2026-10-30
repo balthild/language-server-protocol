@@ -15,6 +15,7 @@ class SemanticTokensOptions extends WorkDoneProgressOptions
          */
         #[Shape(SemanticTokensLegend::class)]
         public SemanticTokensLegend $legend,
+
         /**
          * Server supports providing semantic tokens for a specific range
          * of a document.
@@ -23,6 +24,7 @@ class SemanticTokensOptions extends WorkDoneProgressOptions
          */
         #[Shape(new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Any()), new Shape\Scalar('null')))]
         public $range = null,
+
         /**
          * Server supports providing semantic tokens for a full document.
          *
@@ -30,6 +32,7 @@ class SemanticTokensOptions extends WorkDoneProgressOptions
          */
         #[Shape(new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Any()), new Shape\Scalar('null')))]
         public $full = null,
+
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}

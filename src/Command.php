@@ -22,11 +22,13 @@ class Command implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $title,
+
         /**
          * The identifier of the actual command handler.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $command,
+
         /**
          * Arguments that the command handler should be
          * invoked with.

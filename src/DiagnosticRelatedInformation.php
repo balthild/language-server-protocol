@@ -21,6 +21,7 @@ class DiagnosticRelatedInformation implements ArrayDeserializable
          */
         #[Shape(Location::class)]
         public Location $location,
+
         /**
          * The message of this related diagnostic information.
          */

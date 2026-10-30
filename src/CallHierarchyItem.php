@@ -20,6 +20,7 @@ class CallHierarchyItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $name,
+
         /**
          * The kind of this item.
          *
@@ -56,22 +57,26 @@ class CallHierarchyItem implements ArrayDeserializable
             ),
         )]
         public $kind,
+
         /**
          * The resource identifier of this item.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * The range enclosing this symbol not including leading/trailing whitespace but everything else, e.g. comments and code.
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The range that should be selected and revealed when this symbol is being picked, e.g. the name of a function.
          * Must be contained by the [`range`](#CallHierarchyItem.range).
          */
         #[Shape(Range::class)]
         public Range $selectionRange,
+
         /**
          * Tags for this item.
          *
@@ -79,11 +84,13 @@ class CallHierarchyItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Literal(1)), new Shape\Scalar('null')))]
         public ?array $tags = null,
+
         /**
          * More detail for this item, e.g. the signature of a function.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $detail = null,
+
         /**
          * A data entry field that is preserved between a call hierarchy prepare and
          * incoming calls or outgoing calls requests.

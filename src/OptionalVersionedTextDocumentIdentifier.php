@@ -17,6 +17,7 @@ class OptionalVersionedTextDocumentIdentifier extends TextDocumentIdentifier
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * The version number of this document. If a versioned text document identifier
          * is sent from the server to the client and the file is not open in the editor

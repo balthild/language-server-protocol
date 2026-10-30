@@ -27,6 +27,7 @@ class TextDocumentChangeRegistrationOptions extends TextDocumentRegistrationOpti
          */
         #[Shape(new Shape\Union(new Shape\Literal(0), new Shape\Literal(1), new Shape\Literal(2)))]
         public $syncKind,
+
         /**
          * A document selector to identify the scope of the registration. If set to null
          * the document selector provided on the client side will be used.

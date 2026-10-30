@@ -18,6 +18,7 @@ class WorkspaceFullDocumentDiagnosticReport implements ArrayDeserializable
          */
         #[Shape(new Shape\Literal('full'))]
         public $kind,
+
         /**
          * The actual items.
          *
@@ -25,11 +26,13 @@ class WorkspaceFullDocumentDiagnosticReport implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(Diagnostic::class))]
         public array $items,
+
         /**
          * The URI for which diagnostic information is reported.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * An optional result id. If provided it will
          * be sent on the next diagnostic request for the
@@ -37,6 +40,7 @@ class WorkspaceFullDocumentDiagnosticReport implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $resultId = null,
+
         /**
          * The version number for which the diagnostics are reported.
          * If the document is not marked as open `null` can be provided.

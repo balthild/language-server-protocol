@@ -19,6 +19,7 @@ class FoldingRangeClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * The maximum number of folding ranges that the client prefers to receive
          * per document. The value serves as a hint, servers are free to follow the
@@ -26,6 +27,7 @@ class FoldingRangeClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public ?int $rangeLimit = null,
+
         /**
          * If set, the client signals that it only supports folding complete lines.
          * If set, client will ignore specified `startCharacter` and `endCharacter`
@@ -33,6 +35,7 @@ class FoldingRangeClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $lineFoldingOnly = null,
+
         /**
          * Specific options for the folding range kind.
          *
@@ -40,6 +43,7 @@ class FoldingRangeClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $foldingRangeKind = null,
+
         /**
          * Specific options for the folding range.
          *

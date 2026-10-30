@@ -21,6 +21,7 @@ class DidChangeTextDocumentParams implements ArrayDeserializable
          */
         #[Shape(VersionedTextDocumentIdentifier::class)]
         public VersionedTextDocumentIdentifier $textDocument,
+
         /**
          * The actual content changes. The content changes describe single state changes
          * to the document. So if there are two content changes c1 (at array index 0) and

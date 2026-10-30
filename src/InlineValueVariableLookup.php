@@ -17,11 +17,13 @@ class InlineValueVariableLookup implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * How to perform the lookup.
          */
         #[Shape(new Shape\Scalar('bool'))]
         public bool $caseSensitiveLookup,
+
         /**
          * If specified the name of the variable to look up.
          */

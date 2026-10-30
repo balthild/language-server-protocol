@@ -24,16 +24,19 @@ class GeneralClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $staleRequestSupport = null,
+
         /**
          * Client capabilities specific to regular expressions.
          */
         #[Shape(new Shape\Union(RegularExpressionsClientCapabilities::class, new Shape\Scalar('null')))]
         public ?RegularExpressionsClientCapabilities $regularExpressions = null,
+
         /**
          * Client capabilities specific to the client's markdown parser.
          */
         #[Shape(new Shape\Union(MarkdownClientCapabilities::class, new Shape\Scalar('null')))]
         public ?MarkdownClientCapabilities $markdown = null,
+
         /**
          * The position encodings supported by the client. Client and server
          * have to agree on the same position encoding to ensure that offsets

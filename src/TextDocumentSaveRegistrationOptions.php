@@ -41,6 +41,7 @@ class TextDocumentSaveRegistrationOptions extends TextDocumentRegistrationOption
             ),
         )]
         public $documentSelector = null,
+
         /**
          * The client is supposed to include the content on save.
          */

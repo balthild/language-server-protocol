@@ -26,6 +26,7 @@ class FileOperationPattern implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $glob,
+
         /**
          * Whether to match files or folders with this pattern.
          *
@@ -40,6 +41,7 @@ class FileOperationPattern implements ArrayDeserializable
             ),
         )]
         public $matches = null,
+
         /**
          * Additional options used during matching.
          */

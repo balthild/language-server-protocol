@@ -19,6 +19,7 @@ class PublishDiagnosticsClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $relatedInformation = null,
+
         /**
          * Client supports the tag property to provide meta data about a diagnostic.
          * Clients supporting tags have to handle unknown tags gracefully.
@@ -27,17 +28,20 @@ class PublishDiagnosticsClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $tagSupport = null,
+
         /**
          * Whether the client interprets the version property of the
          * `textDocument/publishDiagnostics` notification's parameter.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $versionSupport = null,
+
         /**
          * Client supports a codeDescription property
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $codeDescriptionSupport = null,
+
         /**
          * Whether code action supports the `data` property which is
          * preserved between a `textDocument/publishDiagnostics` and

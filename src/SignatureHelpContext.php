@@ -21,6 +21,7 @@ class SignatureHelpContext implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2), new Shape\Literal(3)))]
         public $triggerKind,
+
         /**
          * `true` if signature help was already showing when it was triggered.
          *
@@ -29,6 +30,7 @@ class SignatureHelpContext implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('bool'))]
         public bool $isRetrigger,
+
         /**
          * Character that caused signature help to be triggered.
          *
@@ -36,6 +38,7 @@ class SignatureHelpContext implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $triggerCharacter = null,
+
         /**
          * The currently active `SignatureHelp`.
          *

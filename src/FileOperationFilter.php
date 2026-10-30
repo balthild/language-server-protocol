@@ -20,6 +20,7 @@ class FileOperationFilter implements ArrayDeserializable
          */
         #[Shape(FileOperationPattern::class)]
         public FileOperationPattern $pattern,
+
         /**
          * A Uri scheme like `file` or `untitled`.
          */

@@ -19,6 +19,7 @@ class CompletionClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * The client supports the following `CompletionItem` specific
          * capabilities.
@@ -27,11 +28,13 @@ class CompletionClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $completionItem = null,
+
         /**
          * @var array{valueSet?: list<CompletionItemKind::*>}|null
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $completionItemKind = null,
+
         /**
          * Defines how the client handles whitespace and indentation
          * when accepting a completion item that uses multi line
@@ -41,12 +44,14 @@ class CompletionClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2)), new Shape\Scalar('null')))]
         public $insertTextMode = null,
+
         /**
          * The client supports to send additional context information for a
          * `textDocument/completion` request.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $contextSupport = null,
+
         /**
          * The client supports the following `CompletionList` specific
          * capabilities.

@@ -22,6 +22,7 @@ class LinkedEditingRanges implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(Range::class))]
         public array $ranges,
+
         /**
          * An optional word pattern (regular expression) that describes valid contents for
          * the given ranges. If no pattern is provided, the client configuration's word

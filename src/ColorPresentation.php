@@ -18,6 +18,7 @@ class ColorPresentation implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $label,
+
         /**
          * An [edit](#TextEdit) which is applied to a document when selecting
          * this presentation for the color.  When `falsy` the [label](#ColorPresentation.label)
@@ -25,6 +26,7 @@ class ColorPresentation implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(TextEdit::class, new Shape\Scalar('null')))]
         public ?TextEdit $textEdit = null,
+
         /**
          * An optional array of additional [text edits](#TextEdit) that are applied when
          * selecting this color presentation. Edits must not overlap with the main [edit](#ColorPresentation.textEdit) nor with themselves.

@@ -25,6 +25,7 @@ class SemanticTokensClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Any())]
         public array $requests,
+
         /**
          * The token types that the client supports.
          *
@@ -32,6 +33,7 @@ class SemanticTokensClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(new Shape\Scalar('string')))]
         public array $tokenTypes,
+
         /**
          * The token modifiers that the client supports.
          *
@@ -39,6 +41,7 @@ class SemanticTokensClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(new Shape\Scalar('string')))]
         public array $tokenModifiers,
+
         /**
          * The token formats the clients supports.
          *
@@ -46,6 +49,7 @@ class SemanticTokensClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(new Shape\Literal('relative')))]
         public array $formats,
+
         /**
          * Whether implementation supports dynamic registration. If this is set to `true`
          * the client supports the new `(TextDocumentRegistrationOptions & StaticRegistrationOptions)`
@@ -53,16 +57,19 @@ class SemanticTokensClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * Whether the client supports tokens that can overlap each other.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $overlappingTokenSupport = null,
+
         /**
          * Whether the client supports tokens that can span multiple lines.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $multilineTokenSupport = null,
+
         /**
          * Whether the client allows the server to actively cancel a
          * semantic token request, e.g. supports returning
@@ -71,6 +78,7 @@ class SemanticTokensClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $serverCancelSupport = null,
+
         /**
          * Whether the client uses semantic tokens to augment existing
          * syntax tokens. If set to `true` client side created syntax

@@ -25,6 +25,7 @@ class DocumentOnTypeFormattingRegistrationOptions extends TextDocumentRegistrati
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $firstTriggerCharacter,
+
         /**
          * A document selector to identify the scope of the registration. If set to null
          * the document selector provided on the client side will be used.
@@ -46,6 +47,7 @@ class DocumentOnTypeFormattingRegistrationOptions extends TextDocumentRegistrati
             ),
         )]
         public $documentSelector = null,
+
         /**
          * More trigger characters.
          *

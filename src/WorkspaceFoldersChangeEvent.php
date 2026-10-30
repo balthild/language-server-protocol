@@ -21,6 +21,7 @@ class WorkspaceFoldersChangeEvent implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(WorkspaceFolder::class))]
         public array $added,
+
         /**
          * The array of the removed workspace folders
          *

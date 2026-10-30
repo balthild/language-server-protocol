@@ -17,11 +17,13 @@ class RenameParams extends WorkDoneProgressParams
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The position at which this request was sent.
          */
         #[Shape(Position::class)]
         public Position $position,
+
         /**
          * The new name of the symbol. If the given name is not valid the
          * request must return a [ResponseError](#ResponseError) with an
@@ -29,6 +31,7 @@ class RenameParams extends WorkDoneProgressParams
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $newName,
+
         /**
          * An optional token that a server can use to report work done progress.
          *

@@ -19,11 +19,13 @@ class InlayHintParams implements ArrayDeserializable
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The document range for which inlay hints should be computed.
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * An optional token that a server can use to report work done progress.
          *

@@ -14,6 +14,7 @@ class CallHierarchyOutgoingCallsParams extends WorkDoneProgressParams
     public function __construct(
         #[Shape(CallHierarchyItem::class)]
         public CallHierarchyItem $item,
+
         /**
          * An optional token that a server can use to report work done progress.
          *
@@ -26,6 +27,7 @@ class CallHierarchyOutgoingCallsParams extends WorkDoneProgressParams
             ),
         )]
         public $workDoneToken = null,
+
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
          * the client.

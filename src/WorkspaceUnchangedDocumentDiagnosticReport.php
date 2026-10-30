@@ -21,17 +21,20 @@ class WorkspaceUnchangedDocumentDiagnosticReport implements ArrayDeserializable
          */
         #[Shape(new Shape\Literal('unchanged'))]
         public $kind,
+
         /**
          * A result id which will be sent on the next
          * diagnostic request for the same document.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $resultId,
+
         /**
          * The URI for which diagnostic information is reported.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * The version number for which the diagnostics are reported.
          * If the document is not marked as open `null` can be provided.

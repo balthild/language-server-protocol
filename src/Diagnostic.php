@@ -20,11 +20,13 @@ class Diagnostic implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The diagnostic's message. It usually appears in the user interface
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $message,
+
         /**
          * The diagnostic's severity. Can be omitted. If omitted it is up to the
          * client to interpret diagnostics as error, warning, info or hint.
@@ -38,6 +40,7 @@ class Diagnostic implements ArrayDeserializable
             ),
         )]
         public $severity = null,
+
         /**
          * The diagnostic's code, which usually appear in the user interface.
          *
@@ -50,12 +53,14 @@ class Diagnostic implements ArrayDeserializable
             ),
         )]
         public $code = null,
+
         /**
          * An optional property to describe the error code.
          * Requires the code field (above) to be present/not null.
          */
         #[Shape(new Shape\Union(CodeDescription::class, new Shape\Scalar('null')))]
         public ?CodeDescription $codeDescription = null,
+
         /**
          * A human-readable string describing the source of this
          * diagnostic, e.g. 'typescript' or 'super lint'. It usually
@@ -63,6 +68,7 @@ class Diagnostic implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $source = null,
+
         /**
          * Additional metadata about the diagnostic.
          *
@@ -75,6 +81,7 @@ class Diagnostic implements ArrayDeserializable
             ),
         )]
         public ?array $tags = null,
+
         /**
          * An array of related diagnostic information, e.g. when symbol-names within
          * a scope collide all definitions can be marked via this property.
@@ -83,6 +90,7 @@ class Diagnostic implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Sequence(DiagnosticRelatedInformation::class), new Shape\Scalar('null')))]
         public ?array $relatedInformation = null,
+
         /**
          * A data entry field that is preserved between a `textDocument/publishDiagnostics`
          * notification and `textDocument/codeAction` request.

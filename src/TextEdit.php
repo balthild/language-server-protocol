@@ -20,6 +20,7 @@ class TextEdit implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The string to be inserted. For delete operations use an
          * empty string.

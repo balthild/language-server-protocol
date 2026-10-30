@@ -41,6 +41,7 @@ class SignatureHelpRegistrationOptions extends TextDocumentRegistrationOptions
             ),
         )]
         public $documentSelector = null,
+
         /**
          * List of characters that trigger signature help automatically.
          *
@@ -48,6 +49,7 @@ class SignatureHelpRegistrationOptions extends TextDocumentRegistrationOptions
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $triggerCharacters = null,
+
         /**
          * List of characters that re-trigger signature help.
          *
@@ -58,6 +60,7 @@ class SignatureHelpRegistrationOptions extends TextDocumentRegistrationOptions
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $retriggerCharacters = null,
+
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}

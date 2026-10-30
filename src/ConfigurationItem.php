@@ -16,6 +16,7 @@ class ConfigurationItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $scopeUri = null,
+
         /**
          * The configuration section asked for.
          */

@@ -22,6 +22,7 @@ class CodeAction implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $title,
+
         /**
          * The kind of the code action.
          *
@@ -29,6 +30,7 @@ class CodeAction implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $kind = null,
+
         /**
          * The diagnostics that this code action resolves.
          *
@@ -36,6 +38,7 @@ class CodeAction implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Sequence(Diagnostic::class), new Shape\Scalar('null')))]
         public ?array $diagnostics = null,
+
         /**
          * Marks this as a preferred action. Preferred actions are used by the `auto fix` command and can be targeted
          * by keybindings.
@@ -45,6 +48,7 @@ class CodeAction implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $isPreferred = null,
+
         /**
          * Marks that the code action cannot currently be applied.
          *
@@ -64,11 +68,13 @@ class CodeAction implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $disabled = null,
+
         /**
          * The workspace edit this code action performs.
          */
         #[Shape(new Shape\Union(WorkspaceEdit::class, new Shape\Scalar('null')))]
         public ?WorkspaceEdit $edit = null,
+
         /**
          * A command this code action executes. If a code action
          * provides an edit and a command, first the edit is
@@ -76,6 +82,7 @@ class CodeAction implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(Command::class, new Shape\Scalar('null')))]
         public ?Command $command = null,
+
         /**
          * A data entry field that is preserved on a code action between
          * a `textDocument/codeAction` and a `codeAction/resolve` request.

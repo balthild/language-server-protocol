@@ -19,6 +19,7 @@ class ApplyWorkspaceEditResult implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('bool'))]
         public bool $applied,
+
         /**
          * An optional textual description for why the edit was not applied.
          * This may be used by the server for diagnostic logging or to provide
@@ -26,6 +27,7 @@ class ApplyWorkspaceEditResult implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $failureReason = null,
+
         /**
          * Depending on the client's failure handling strategy `failedChange` might
          * contain the index of the change that failed. This property is only available

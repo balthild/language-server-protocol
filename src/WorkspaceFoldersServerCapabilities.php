@@ -16,6 +16,7 @@ class WorkspaceFoldersServerCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $supported = null,
+
         /**
          * Whether the server wants to receive workspace folder
          * change notifications.

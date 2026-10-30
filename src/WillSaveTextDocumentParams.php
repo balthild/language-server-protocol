@@ -19,6 +19,7 @@ class WillSaveTextDocumentParams implements ArrayDeserializable
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The 'TextDocumentSaveReason'.
          *

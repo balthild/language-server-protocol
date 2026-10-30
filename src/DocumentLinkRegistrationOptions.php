@@ -41,11 +41,13 @@ class DocumentLinkRegistrationOptions extends TextDocumentRegistrationOptions
             ),
         )]
         public $documentSelector = null,
+
         /**
          * Document links have a resolve provider as well.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $resolveProvider = null,
+
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}

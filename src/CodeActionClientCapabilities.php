@@ -19,6 +19,7 @@ class CodeActionClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * The client support code action literals of type `CodeAction` as a valid
          * response of the `textDocument/codeAction` request. If the property is not
@@ -28,16 +29,19 @@ class CodeActionClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $codeActionLiteralSupport = null,
+
         /**
          * Whether code action supports the `isPreferred` property.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $isPreferredSupport = null,
+
         /**
          * Whether code action supports the `disabled` property.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $disabledSupport = null,
+
         /**
          * Whether code action supports the `data` property which is
          * preserved between a `textDocument/codeAction` and a
@@ -45,6 +49,7 @@ class CodeActionClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dataSupport = null,
+
         /**
          * Whether the client supports resolving additional code action
          * properties via a separate `codeAction/resolve` request.
@@ -53,6 +58,7 @@ class CodeActionClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $resolveSupport = null,
+
         /**
          * Whether the client honors the change annotations in
          * text edits and resource operations returned via the

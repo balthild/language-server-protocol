@@ -15,11 +15,13 @@ class SemanticTokensRangeParams extends WorkDoneProgressParams
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The range the semantic tokens are requested for.
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * An optional token that a server can use to report work done progress.
          *
@@ -32,6 +34,7 @@ class SemanticTokensRangeParams extends WorkDoneProgressParams
             ),
         )]
         public $workDoneToken = null,
+
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
          * the client.

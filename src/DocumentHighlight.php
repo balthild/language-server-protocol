@@ -21,6 +21,7 @@ class DocumentHighlight implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The highlight kind, default is [text](#DocumentHighlightKind.Text).
          *

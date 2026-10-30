@@ -19,6 +19,7 @@ class WorkspaceFolder implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * The name of the workspace folder. Used to refer to this
          * workspace folder in the user interface.

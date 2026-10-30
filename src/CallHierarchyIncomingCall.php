@@ -19,6 +19,7 @@ class CallHierarchyIncomingCall implements ArrayDeserializable
          */
         #[Shape(CallHierarchyItem::class)]
         public CallHierarchyItem $from,
+
         /**
          * The ranges at which the calls appear. This is relative to the caller
          * denoted by [`this.from`](#CallHierarchyIncomingCall.from).

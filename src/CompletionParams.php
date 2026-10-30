@@ -17,17 +17,20 @@ class CompletionParams extends TextDocumentPositionParams
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The position inside the text document.
          */
         #[Shape(Position::class)]
         public Position $position,
+
         /**
          * The completion context. This is only available it the client specifies
          * to send this using the client capability `textDocument.completion.contextSupport === true`
          */
         #[Shape(new Shape\Union(CompletionContext::class, new Shape\Scalar('null')))]
         public ?CompletionContext $context = null,
+
         /**
          * An optional token that a server can use to report work done progress.
          *
@@ -40,6 +43,7 @@ class CompletionParams extends TextDocumentPositionParams
             ),
         )]
         public $workDoneToken = null,
+
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
          * the client.

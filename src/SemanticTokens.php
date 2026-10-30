@@ -18,6 +18,7 @@ class SemanticTokens implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(new Shape\Scalar('int')))]
         public array $data,
+
         /**
          * An optional result id. If provided and clients support delta updating
          * the client will include the result id in the next semantic token request.

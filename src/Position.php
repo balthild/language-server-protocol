@@ -46,6 +46,7 @@ class Position implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('int'))]
         public int $line,
+
         /**
          * Character offset on a line in a document (zero-based).
          *

@@ -17,16 +17,19 @@ class DeleteFile extends ResourceOperation
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $kind,
+
         /**
          * The file to delete.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * Delete options.
          */
         #[Shape(new Shape\Union(DeleteFileOptions::class, new Shape\Scalar('null')))]
         public ?DeleteFileOptions $options = null,
+
         /**
          * An optional annotation identifier describing the operation.
          */

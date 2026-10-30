@@ -21,6 +21,7 @@ class CompletionContext implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2), new Shape\Literal(3)))]
         public $triggerKind,
+
         /**
          * The trigger character (a single character) that has trigger code complete.
          * Is undefined if `triggerKind !== CompletionTriggerKind.TriggerCharacter`

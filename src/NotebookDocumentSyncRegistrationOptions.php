@@ -23,12 +23,14 @@ class NotebookDocumentSyncRegistrationOptions implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(new Shape\Union(new Shape\Any(), new Shape\Any())))]
         public array $notebookSelector,
+
         /**
          * Whether save notification should be forwarded to
          * the server. Will only be honored if mode === `notebook`.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $save = null,
+
         /**
          * The id used to register the request. The id can be used to deregister
          * the request again. See also Registration#id.

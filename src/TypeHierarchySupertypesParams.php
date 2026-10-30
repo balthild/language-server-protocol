@@ -57,6 +57,7 @@ class TypeHierarchySupertypesParams implements ArrayDeserializable
             'data?' => new Shape\Scalar('mixed'),
         ]))]
         public array $item,
+
         /**
          * An optional token that a server can use to report work done progress.
          *
@@ -69,6 +70,7 @@ class TypeHierarchySupertypesParams implements ArrayDeserializable
             ),
         )]
         public $workDoneToken = null,
+
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
          * the client.

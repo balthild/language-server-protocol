@@ -19,6 +19,7 @@ class WorkspaceSymbolClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * Specific capabilities for the `SymbolKind` in the `workspace/symbol` request.
          *
@@ -26,6 +27,7 @@ class WorkspaceSymbolClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $symbolKind = null,
+
         /**
          * The client supports tags on `SymbolInformation`.
          * Clients supporting tags have to handle unknown tags gracefully.
@@ -34,6 +36,7 @@ class WorkspaceSymbolClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $tagSupport = null,
+
         /**
          * The client support partial workspace symbols. The client will send the
          * request `workspaceSymbol/resolve` to the server to resolve additional

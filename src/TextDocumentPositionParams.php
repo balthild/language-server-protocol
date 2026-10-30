@@ -20,6 +20,7 @@ class TextDocumentPositionParams implements ArrayDeserializable
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The position inside the text document.
          */

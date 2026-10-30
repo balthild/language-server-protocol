@@ -20,11 +20,13 @@ class DocumentLink implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The uri this link points to. If missing a resolve request is sent later.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $target = null,
+
         /**
          * The tooltip text when you hover over this link.
          *
@@ -34,6 +36,7 @@ class DocumentLink implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $tooltip = null,
+
         /**
          * A data entry field that is preserved on a document link between a
          * DocumentLinkRequest and a DocumentLinkResolveRequest.

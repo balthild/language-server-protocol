@@ -16,11 +16,13 @@ class TextDocumentContentChangeIncrementalEvent implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The new text for the provided range.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $text,
+
         /**
          * The optional length of the range that got replaced.
          */

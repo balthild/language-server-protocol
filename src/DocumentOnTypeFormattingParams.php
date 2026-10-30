@@ -19,6 +19,7 @@ class DocumentOnTypeFormattingParams implements ArrayDeserializable
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The position around which the on type formatting should happen.
          * This is not necessarily the exact position where the character denoted
@@ -26,6 +27,7 @@ class DocumentOnTypeFormattingParams implements ArrayDeserializable
          */
         #[Shape(Position::class)]
         public Position $position,
+
         /**
          * The character that has been typed that triggered the formatting
          * on type request. That is not necessarily the last character that
@@ -34,6 +36,7 @@ class DocumentOnTypeFormattingParams implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $ch,
+
         /**
          * The formatting options.
          */

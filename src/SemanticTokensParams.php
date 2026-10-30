@@ -15,6 +15,7 @@ class SemanticTokensParams extends WorkDoneProgressParams
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * An optional token that a server can use to report work done progress.
          *
@@ -27,6 +28,7 @@ class SemanticTokensParams extends WorkDoneProgressParams
             ),
         )]
         public $workDoneToken = null,
+
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
          * the client.

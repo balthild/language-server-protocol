@@ -17,6 +17,7 @@ class VersionedTextDocumentIdentifier extends TextDocumentIdentifier
          */
         #[Shape(new Shape\Scalar('int'))]
         public int $version,
+
         /**
          * The text document's uri.
          */

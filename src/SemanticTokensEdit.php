@@ -16,11 +16,13 @@ class SemanticTokensEdit implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('int'))]
         public int $start,
+
         /**
          * The count of elements to remove.
          */
         #[Shape(new Shape\Scalar('int'))]
         public int $deleteCount,
+
         /**
          * The elements to insert.
          *

@@ -43,6 +43,7 @@ class DiagnosticRegistrationOptions implements ArrayDeserializable
             ),
         )]
         public $documentSelector = null,
+
         /**
          * The id used to register the request. The id can be used to deregister
          * the request again. See also Registration#id.

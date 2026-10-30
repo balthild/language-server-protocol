@@ -17,11 +17,13 @@ class DocumentFormattingParams extends WorkDoneProgressParams
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The format options.
          */
         #[Shape(FormattingOptions::class)]
         public FormattingOptions $options,
+
         /**
          * An optional token that a server can use to report work done progress.
          *

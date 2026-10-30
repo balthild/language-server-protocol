@@ -19,6 +19,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $documentChanges = null,
+
         /**
          * The resource operations the client supports. Clients should at least
          * support 'create', 'rename' and 'delete' files and folders.
@@ -38,6 +39,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
             ),
         )]
         public ?array $resourceOperations = null,
+
         /**
          * The failure handling strategy of a client if applying the workspace edit
          * fails.
@@ -56,6 +58,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
             ),
         )]
         public $failureHandling = null,
+
         /**
          * Whether the client normalizes line endings to the client specific
          * setting.
@@ -65,6 +68,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $normalizesLineEndings = null,
+
         /**
          * Whether the client in general supports change annotations on text edits,
          * create file, rename file and delete file changes.

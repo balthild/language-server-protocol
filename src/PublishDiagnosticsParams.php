@@ -19,6 +19,7 @@ class PublishDiagnosticsParams implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * An array of diagnostic information items.
          *
@@ -26,6 +27,7 @@ class PublishDiagnosticsParams implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(Diagnostic::class))]
         public array $diagnostics,
+
         /**
          * Optional the version number of the document the diagnostics are published for.
          */

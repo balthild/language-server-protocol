@@ -42,6 +42,7 @@ class MarkupContent implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Literal('plaintext'), new Shape\Literal('markdown')))]
         public $kind,
+
         /**
          * The content itself
          */

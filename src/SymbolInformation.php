@@ -26,11 +26,13 @@ class SymbolInformation extends BaseSymbolInformation
          */
         #[Shape(Location::class)]
         public Location $location,
+
         /**
          * The name of this symbol.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $name,
+
         /**
          * The kind of this symbol.
          *
@@ -67,11 +69,13 @@ class SymbolInformation extends BaseSymbolInformation
             ),
         )]
         public $kind,
+
         /**
          * Indicates if this symbol is deprecated.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $deprecated = null,
+
         /**
          * Tags for this symbol.
          *
@@ -79,6 +83,7 @@ class SymbolInformation extends BaseSymbolInformation
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Literal(1)), new Shape\Scalar('null')))]
         public ?array $tags = null,
+
         /**
          * The name of the symbol containing this symbol. This information is for
          * user interface purposes (e.g. to render a qualifier in the user interface

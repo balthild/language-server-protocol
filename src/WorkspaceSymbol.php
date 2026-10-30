@@ -25,11 +25,13 @@ class WorkspaceSymbol extends BaseSymbolInformation
          */
         #[Shape(new Shape\Union(Location::class, new Shape\Any()))]
         public $location,
+
         /**
          * The name of this symbol.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $name,
+
         /**
          * The kind of this symbol.
          *
@@ -66,6 +68,7 @@ class WorkspaceSymbol extends BaseSymbolInformation
             ),
         )]
         public $kind,
+
         /**
          * A data entry field that is preserved on a workspace symbol between a
          * workspace symbol request and a workspace symbol resolve request.
@@ -74,6 +77,7 @@ class WorkspaceSymbol extends BaseSymbolInformation
          */
         #[Shape(new Shape\Union(new Shape\Scalar('mixed'), new Shape\Scalar('null')))]
         public $data = null,
+
         /**
          * Tags for this symbol.
          *
@@ -81,6 +85,7 @@ class WorkspaceSymbol extends BaseSymbolInformation
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Literal(1)), new Shape\Scalar('null')))]
         public ?array $tags = null,
+
         /**
          * The name of the symbol containing this symbol. This information is for
          * user interface purposes (e.g. to render a qualifier in the user interface

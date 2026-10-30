@@ -14,16 +14,19 @@ class ReferenceParams extends TextDocumentPositionParams
     public function __construct(
         #[Shape(ReferenceContext::class)]
         public ReferenceContext $context,
+
         /**
          * The text document.
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The position inside the text document.
          */
         #[Shape(Position::class)]
         public Position $position,
+
         /**
          * An optional token that a server can use to report work done progress.
          *
@@ -36,6 +39,7 @@ class ReferenceParams extends TextDocumentPositionParams
             ),
         )]
         public $workDoneToken = null,
+
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
          * the client.

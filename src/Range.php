@@ -29,6 +29,7 @@ class Range implements ArrayDeserializable
          */
         #[Shape(Position::class)]
         public Position $start,
+
         /**
          * The range's end position.
          */

@@ -19,6 +19,7 @@ class ShowDocumentParams implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * Indicates to show the resource in an external program.
          * To show for example `https://code.visualstudio.com/`
@@ -26,6 +27,7 @@ class ShowDocumentParams implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $external = null,
+
         /**
          * An optional property to indicate whether the editor
          * showing the document should take focus or not.
@@ -34,6 +36,7 @@ class ShowDocumentParams implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $takeFocus = null,
+
         /**
          * An optional selection range if the document is a text
          * document. Clients might ignore the property if an

@@ -26,11 +26,13 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $label,
+
         /**
          * Additional details for the label
          */
         #[Shape(new Shape\Union(CompletionItemLabelDetails::class, new Shape\Scalar('null')))]
         public ?CompletionItemLabelDetails $labelDetails = null,
+
         /**
          * The kind of this completion item. Based of the kind
          * an icon is chosen by the editor.
@@ -70,6 +72,7 @@ class CompletionItem implements ArrayDeserializable
             ),
         )]
         public $kind = null,
+
         /**
          * Tags for this completion item.
          *
@@ -77,12 +80,14 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Literal(1)), new Shape\Scalar('null')))]
         public ?array $tags = null,
+
         /**
          * A human-readable string with additional information
          * about this item, like type or symbol information.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $detail = null,
+
         /**
          * A human-readable string that represents a doc-comment.
          *
@@ -95,11 +100,13 @@ class CompletionItem implements ArrayDeserializable
             ),
         )]
         public $documentation = null,
+
         /**
          * Indicates if this item is deprecated.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $deprecated = null,
+
         /**
          * Select this item when showing.
          *
@@ -109,6 +116,7 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $preselect = null,
+
         /**
          * A string that should be used when comparing this item
          * with other items. When `falsy` the [label](#CompletionItem.label)
@@ -116,6 +124,7 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $sortText = null,
+
         /**
          * A string that should be used when filtering a set of
          * completion items. When `falsy` the [label](#CompletionItem.label)
@@ -123,6 +132,7 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $filterText = null,
+
         /**
          * A string that should be inserted into a document when selecting
          * this completion. When `falsy` the [label](#CompletionItem.label)
@@ -138,6 +148,7 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $insertText = null,
+
         /**
          * The format of the insert text. The format applies to both the
          * `insertText` property and the `newText` property of a provided
@@ -150,6 +161,7 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2)), new Shape\Scalar('null')))]
         public $insertTextFormat = null,
+
         /**
          * How whitespace and indentation is handled during completion
          * item insertion. If not provided the clients default value depends on
@@ -159,6 +171,7 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2)), new Shape\Scalar('null')))]
         public $insertTextMode = null,
+
         /**
          * An [edit](#TextEdit) which is applied to a document when selecting
          * this completion. When an edit is provided the value of
@@ -183,6 +196,7 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Union(TextEdit::class, InsertReplaceEdit::class), new Shape\Scalar('null')))]
         public $textEdit = null,
+
         /**
          * The edit text used if the completion item is part of a CompletionList and
          * CompletionList defines an item default for the text edit range.
@@ -195,6 +209,7 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $textEditText = null,
+
         /**
          * An optional array of additional [text edits](#TextEdit) that are applied when
          * selecting this completion. Edits must not overlap (including the same insert position)
@@ -208,6 +223,7 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Sequence(TextEdit::class), new Shape\Scalar('null')))]
         public ?array $additionalTextEdits = null,
+
         /**
          * An optional set of characters that when pressed while this completion is active will accept it first and
          * then type that character. *Note* that all commit characters should have `length=1` and that superfluous
@@ -217,6 +233,7 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $commitCharacters = null,
+
         /**
          * An optional [command](#Command) that is executed *after* inserting this completion. *Note* that
          * additional modifications to the current document should be described with the
@@ -224,6 +241,7 @@ class CompletionItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(Command::class, new Shape\Scalar('null')))]
         public ?Command $command = null,
+
         /**
          * A data entry field that is preserved on a completion item between a
          * [CompletionRequest](#CompletionRequest) and a [CompletionResolveRequest](#CompletionResolveRequest).

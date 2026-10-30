@@ -37,6 +37,7 @@ class WorkspaceEdit implements ArrayDeserializable
             ),
         )]
         public ?array $changes = null,
+
         /**
          * Depending on the client capability `workspace.workspaceEdit.resourceOperations` document changes
          * are either an array of `TextDocumentEdit`s to express changes to n different text documents
@@ -60,6 +61,7 @@ class WorkspaceEdit implements ArrayDeserializable
             ),
         )]
         public ?array $documentChanges = null,
+
         /**
          * A map of change annotations that can be referenced in `AnnotatedTextEdit`s or create, rename and
          * delete file / folder operations.

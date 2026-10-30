@@ -19,6 +19,7 @@ class DocumentSymbolClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * Specific capabilities for the `SymbolKind` in the
          * `textDocument/documentSymbol` request.
@@ -27,11 +28,13 @@ class DocumentSymbolClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $symbolKind = null,
+
         /**
          * The client supports hierarchical document symbols.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $hierarchicalDocumentSymbolSupport = null,
+
         /**
          * The client supports tags on `SymbolInformation`. Tags are supported on
          * `DocumentSymbol` if `hierarchicalDocumentSymbolSupport` is set to true.
@@ -41,6 +44,7 @@ class DocumentSymbolClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $tagSupport = null,
+
         /**
          * The client supports an additional label presented in the UI when
          * registering a document symbol provider.

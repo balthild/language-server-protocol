@@ -19,11 +19,13 @@ class InsertReplaceEdit implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $newText,
+
         /**
          * The range if the insert is requested
          */
         #[Shape(Range::class)]
         public Range $insert,
+
         /**
          * The range if the replace is requested.
          */

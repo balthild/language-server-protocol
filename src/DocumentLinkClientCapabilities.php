@@ -19,6 +19,7 @@ class DocumentLinkClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * Whether the client supports the `tooltip` property on `DocumentLink`.
          */

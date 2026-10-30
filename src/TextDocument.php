@@ -22,17 +22,20 @@ class TextDocument implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * The identifier of the language associated with this document.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $languageId,
+
         /**
          * The version number of this document (it will increase after each
          * change, including undo/redo).
          */
         #[Shape(new Shape\Scalar('int'))]
         public int $version,
+
         /**
          * The number of lines in this document.
          */

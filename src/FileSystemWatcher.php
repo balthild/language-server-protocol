@@ -18,6 +18,7 @@ class FileSystemWatcher implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), RelativePattern::class))]
         public $globPattern,
+
         /**
          * The kind of events of interest. If omitted it defaults
          * to WatchKind.Create | WatchKind.Change | WatchKind.Delete

@@ -17,21 +17,25 @@ class RenameFile extends ResourceOperation
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $kind,
+
         /**
          * The old (existing) location.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $oldUri,
+
         /**
          * The new location.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $newUri,
+
         /**
          * Rename options.
          */
         #[Shape(new Shape\Union(RenameFileOptions::class, new Shape\Scalar('null')))]
         public ?RenameFileOptions $options = null,
+
         /**
          * An optional annotation identifier describing the operation.
          */

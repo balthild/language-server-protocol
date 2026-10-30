@@ -19,6 +19,7 @@ class DeleteFileOptions implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $recursive = null,
+
         /**
          * Ignore the operation if the file doesn't exist.
          */

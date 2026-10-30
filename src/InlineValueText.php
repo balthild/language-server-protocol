@@ -16,6 +16,7 @@ class InlineValueText implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The text of the inline value.
          */

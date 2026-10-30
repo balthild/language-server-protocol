@@ -16,6 +16,7 @@ class WorkDoneProgressEnd implements ArrayDeserializable
          */
         #[Shape(new Shape\Literal('end'))]
         public $kind,
+
         /**
          * Optional, a final message indicating to for example indicate the outcome
          * of the operation.

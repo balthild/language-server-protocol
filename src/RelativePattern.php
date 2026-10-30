@@ -24,6 +24,7 @@ class RelativePattern implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(WorkspaceFolder::class, new Shape\Scalar('string')))]
         public $baseUri,
+
         /**
          * The actual glob pattern;
          */

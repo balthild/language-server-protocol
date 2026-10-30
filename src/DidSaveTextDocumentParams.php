@@ -19,6 +19,7 @@ class DidSaveTextDocumentParams implements ArrayDeserializable
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * Optional the content when saved. Depends on the includeText value
          * when the save notification was requested.

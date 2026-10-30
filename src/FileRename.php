@@ -19,6 +19,7 @@ class FileRename implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $oldUri,
+
         /**
          * A file:// URI for the new location of the file/folder being renamed.
          */

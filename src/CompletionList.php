@@ -23,6 +23,7 @@ class CompletionList implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('bool'))]
         public bool $isIncomplete,
+
         /**
          * The completion items.
          *
@@ -30,6 +31,7 @@ class CompletionList implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(CompletionItem::class))]
         public array $items,
+
         /**
          * In many cases the items of an actual completion result share the same
          * value for properties like `commitCharacters` or the range of a text

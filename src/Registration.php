@@ -20,11 +20,13 @@ class Registration implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $id,
+
         /**
          * The method / capability to register for.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $method,
+
         /**
          * Options necessary for the registration.
          *

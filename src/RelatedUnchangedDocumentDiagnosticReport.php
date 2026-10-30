@@ -26,12 +26,14 @@ class RelatedUnchangedDocumentDiagnosticReport implements ArrayDeserializable
          */
         #[Shape(new Shape\Literal('unchanged'))]
         public $kind,
+
         /**
          * A result id which will be sent on the next
          * diagnostic request for the same document.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $resultId,
+
         /**
          * Diagnostics of related documents. This information is useful
          * in programming languages where code in a file A can generate

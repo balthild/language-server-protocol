@@ -18,6 +18,7 @@ class SemanticTokensLegend implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(new Shape\Scalar('string')))]
         public array $tokenTypes,
+
         /**
          * The token modifiers a server uses.
          *

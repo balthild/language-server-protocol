@@ -17,6 +17,7 @@ class _InitializeParams extends WorkDoneProgressParams
          */
         #[Shape(ClientCapabilities::class)]
         public ClientCapabilities $capabilities,
+
         /**
          * The process Id of the parent process that started
          * the server.
@@ -28,6 +29,7 @@ class _InitializeParams extends WorkDoneProgressParams
          */
         #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public $processId = null,
+
         /**
          * Information about the client
          *
@@ -35,6 +37,7 @@ class _InitializeParams extends WorkDoneProgressParams
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $clientInfo = null,
+
         /**
          * The locale the client is currently showing the user interface
          * in. This must not necessarily be the locale of the operating
@@ -45,6 +48,7 @@ class _InitializeParams extends WorkDoneProgressParams
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $locale = null,
+
         /**
          * The rootPath of the workspace. Is null
          * if no folder is open.
@@ -53,6 +57,7 @@ class _InitializeParams extends WorkDoneProgressParams
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public $rootPath = null,
+
         /**
          * The rootUri of the workspace. Is null if no
          * folder is open. If both `rootPath` and `rootUri` are set
@@ -62,6 +67,7 @@ class _InitializeParams extends WorkDoneProgressParams
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public $rootUri = null,
+
         /**
          * User provided initialization options.
          *
@@ -69,6 +75,7 @@ class _InitializeParams extends WorkDoneProgressParams
          */
         #[Shape(new Shape\Union(new Shape\Scalar('mixed'), new Shape\Scalar('null')))]
         public $initializationOptions = null,
+
         /**
          * The initial trace setting. If omitted trace is disabled ('off').
          *
@@ -86,6 +93,7 @@ class _InitializeParams extends WorkDoneProgressParams
             ),
         )]
         public $trace = null,
+
         /**
          * An optional token that a server can use to report work done progress.
          *

@@ -17,6 +17,7 @@ class InlineValueEvaluatableExpression implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * If specified the expression overrides the extracted expression.
          */

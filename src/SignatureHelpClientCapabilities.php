@@ -19,6 +19,7 @@ class SignatureHelpClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * The client supports the following `SignatureInformation`
          * specific properties.
@@ -27,6 +28,7 @@ class SignatureHelpClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $signatureInformation = null,
+
         /**
          * The client supports to send additional context information for a
          * `textDocument/signatureHelp` request. A client that opts into

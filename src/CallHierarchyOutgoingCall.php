@@ -19,6 +19,7 @@ class CallHierarchyOutgoingCall implements ArrayDeserializable
          */
         #[Shape(CallHierarchyItem::class)]
         public CallHierarchyItem $to,
+
         /**
          * The range at which this item is called. This is the range relative to the caller, e.g the item
          * passed to [`provideCallHierarchyOutgoingCalls`](#CallHierarchyItemProvider.provideCallHierarchyOutgoingCalls)

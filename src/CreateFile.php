@@ -17,16 +17,19 @@ class CreateFile extends ResourceOperation
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $kind,
+
         /**
          * The resource to create.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * Additional options
          */
         #[Shape(new Shape\Union(CreateFileOptions::class, new Shape\Scalar('null')))]
         public ?CreateFileOptions $options = null,
+
         /**
          * An optional annotation identifier describing the operation.
          */

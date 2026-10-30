@@ -20,17 +20,20 @@ class TextDocumentItem implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $uri,
+
         /**
          * The text document's language identifier.
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $languageId,
+
         /**
          * The version number of this document (it will increase after each
          * change, including undo/redo).
          */
         #[Shape(new Shape\Scalar('int'))]
         public int $version,
+
         /**
          * The content of the opened text document.
          */

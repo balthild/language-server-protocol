@@ -19,6 +19,7 @@ class InlayHint implements ArrayDeserializable
          */
         #[Shape(Position::class)]
         public Position $position,
+
         /**
          * The label of this hint. A human readable string or an array of
          * InlayHintLabelPart label parts.
@@ -39,6 +40,7 @@ class InlayHint implements ArrayDeserializable
             ),
         )]
         public $label,
+
         /**
          * The kind of this hint. Can be omitted in which case the client
          * should fall back to a reasonable default.
@@ -47,6 +49,7 @@ class InlayHint implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2)), new Shape\Scalar('null')))]
         public $kind = null,
+
         /**
          * Optional text edits that are performed when accepting this inlay hint.
          *
@@ -58,6 +61,7 @@ class InlayHint implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Sequence(TextEdit::class), new Shape\Scalar('null')))]
         public ?array $textEdits = null,
+
         /**
          * The tooltip text when you hover over this item.
          *
@@ -70,6 +74,7 @@ class InlayHint implements ArrayDeserializable
             ),
         )]
         public $tooltip = null,
+
         /**
          * Render padding before the hint.
          *
@@ -79,6 +84,7 @@ class InlayHint implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $paddingLeft = null,
+
         /**
          * Render padding after the hint.
          *
@@ -88,6 +94,7 @@ class InlayHint implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $paddingRight = null,
+
         /**
          * A data entry field that is preserved on an inlay hint between
          * a `textDocument/inlayHint` and a `inlayHint/resolve` request.

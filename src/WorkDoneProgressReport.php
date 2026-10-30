@@ -16,6 +16,7 @@ class WorkDoneProgressReport implements ArrayDeserializable
          */
         #[Shape(new Shape\Literal('report'))]
         public $kind,
+
         /**
          * Controls enablement state of a cancel button.
          *
@@ -24,6 +25,7 @@ class WorkDoneProgressReport implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $cancellable = null,
+
         /**
          * Optional, more detailed associated progress message. Contains
          * complementary information to the `title`.
@@ -33,6 +35,7 @@ class WorkDoneProgressReport implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $message = null,
+
         /**
          * Optional progress percentage to display (value 100 is considered 100%).
          * If not provided infinite progress is assumed and clients are allowed

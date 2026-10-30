@@ -19,6 +19,7 @@ class ExecuteCommandRegistrationOptions extends ExecuteCommandOptions
          */
         #[Shape(new Shape\Sequence(new Shape\Scalar('string')))]
         public array $commands,
+
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}

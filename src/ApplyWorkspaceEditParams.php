@@ -19,6 +19,7 @@ class ApplyWorkspaceEditParams implements ArrayDeserializable
          */
         #[Shape(WorkspaceEdit::class)]
         public WorkspaceEdit $edit,
+
         /**
          * An optional label of the workspace edit. This label is
          * presented in the user interface for example on an undo

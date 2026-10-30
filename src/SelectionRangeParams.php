@@ -17,6 +17,7 @@ class SelectionRangeParams extends WorkDoneProgressParams
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The positions inside the text document.
          *
@@ -24,6 +25,7 @@ class SelectionRangeParams extends WorkDoneProgressParams
          */
         #[Shape(new Shape\Sequence(Position::class))]
         public array $positions,
+
         /**
          * An optional token that a server can use to report work done progress.
          *
@@ -36,6 +38,7 @@ class SelectionRangeParams extends WorkDoneProgressParams
             ),
         )]
         public $workDoneToken = null,
+
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
          * the client.

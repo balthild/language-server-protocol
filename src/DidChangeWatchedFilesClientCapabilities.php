@@ -18,6 +18,7 @@ class DidChangeWatchedFilesClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
+
         /**
          * Whether the client has support for {@link RelativePattern relative pattern}
          * or not.

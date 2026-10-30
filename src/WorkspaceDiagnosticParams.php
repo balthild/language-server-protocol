@@ -22,11 +22,13 @@ class WorkspaceDiagnosticParams implements ArrayDeserializable
          */
         #[Shape(new Shape\Sequence(new Shape\Any()))]
         public array $previousResultIds,
+
         /**
          * The additional identifier provided during registration.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $identifier = null,
+
         /**
          * An optional token that a server can use to report work done progress.
          *
@@ -39,6 +41,7 @@ class WorkspaceDiagnosticParams implements ArrayDeserializable
             ),
         )]
         public $workDoneToken = null,
+
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
          * the client.

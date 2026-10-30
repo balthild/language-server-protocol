@@ -24,6 +24,7 @@ class InlineValueRegistrationOptions implements ArrayDeserializable
     public function __construct(
         #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null,
+
         /**
          * A document selector to identify the scope of the registration. If set to null
          * the document selector provided on the client side will be used.
@@ -45,6 +46,7 @@ class InlineValueRegistrationOptions implements ArrayDeserializable
             ),
         )]
         public $documentSelector = null,
+
         /**
          * The id used to register the request. The id can be used to deregister
          * the request again. See also Registration#id.

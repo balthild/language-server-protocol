@@ -20,6 +20,7 @@ class SelectionRange implements ArrayDeserializable
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * The parent selection range containing this range. Therefore `parent.range` must contain `this.range`.
          */

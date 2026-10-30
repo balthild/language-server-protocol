@@ -21,11 +21,13 @@ class InlineValueParams implements ArrayDeserializable
          */
         #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
+
         /**
          * The document range for which inline values should be computed.
          */
         #[Shape(Range::class)]
         public Range $range,
+
         /**
          * Additional information about the context in which inline values were
          * requested.
@@ -34,6 +36,7 @@ class InlineValueParams implements ArrayDeserializable
          */
         #[Shape(new Shape\Struct(['frameId' => new Shape\Scalar('int'), 'stoppedLocation' => Range::class]))]
         public array $context,
+
         /**
          * An optional token that a server can use to report work done progress.
          *

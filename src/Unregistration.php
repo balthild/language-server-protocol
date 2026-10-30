@@ -20,6 +20,7 @@ class Unregistration implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $id,
+
         /**
          * The method to unregister for.
          */

@@ -19,6 +19,7 @@ class ResourceOperation implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $kind,
+
         /**
          * An optional annotation identifier describing the operation.
          */

@@ -19,11 +19,13 @@ class MarkdownClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $parser,
+
         /**
          * The version of the parser.
          */
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $version = null,
+
         /**
          * A list of HTML tags that the client allows / supports in
          * Markdown.

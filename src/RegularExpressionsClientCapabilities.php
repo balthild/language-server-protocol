@@ -19,6 +19,7 @@ class RegularExpressionsClientCapabilities implements ArrayDeserializable
          */
         #[Shape(new Shape\Scalar('string'))]
         public string $engine,
+
         /**
          * The engine's version.
          */
