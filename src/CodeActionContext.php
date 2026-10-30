@@ -22,7 +22,7 @@ class CodeActionContext implements ArrayDeserializable
          * that these accurately reflect the error state of the resource. The primary parameter
          * to compute code actions is the provided range.
          *
-         * @var array<Diagnostic>
+         * @var list<Diagnostic>
          */
         #[Deserialize(Diagnostic::class, iterable: true)]
         public array $diagnostics,
@@ -32,7 +32,7 @@ class CodeActionContext implements ArrayDeserializable
          * Actions not of this kind are filtered out by the client before being shown. So servers
          * can omit computing them.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $only = null,
         /**

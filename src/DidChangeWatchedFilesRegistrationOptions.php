@@ -17,7 +17,7 @@ class DidChangeWatchedFilesRegistrationOptions implements ArrayDeserializable
         /**
          * The watchers to register.
          *
-         * @var array<FileSystemWatcher>
+         * @var list<FileSystemWatcher>
          */
         #[Deserialize(FileSystemWatcher::class, iterable: true)]
         public array $watchers

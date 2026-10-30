@@ -20,7 +20,7 @@ class CompletionOptions extends WorkDoneProgressOptions
          * If code complete should automatically be trigger on characters not being valid inside
          * an identifier (for example `.` in JavaScript) list them in `triggerCharacters`.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $triggerCharacters = null,
         /**
@@ -31,7 +31,7 @@ class CompletionOptions extends WorkDoneProgressOptions
          * If a server provides both `allCommitCharacters` and commit characters on an individual
          * completion item the ones on the completion item win.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $allCommitCharacters = null,
         /**
@@ -43,7 +43,7 @@ class CompletionOptions extends WorkDoneProgressOptions
          * The server supports the following `CompletionItem` specific
          * capabilities.
          *
-         * @var array{labelDetailsSupport:bool}|null
+         * @var array{labelDetailsSupport: bool}|null
          */
         public ?array $completionItem = null,
         public ?bool $workDoneProgress = null

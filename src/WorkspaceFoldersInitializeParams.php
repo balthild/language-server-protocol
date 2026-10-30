@@ -17,7 +17,7 @@ class WorkspaceFoldersInitializeParams implements ArrayDeserializable
          * It can be `null` if the client supports workspace folders but none are
          * configured.
          *
-         * @var array<WorkspaceFolder>|null
+         * @var list<WorkspaceFolder>|null
          */
         public $workspaceFolders = null
     ) {}

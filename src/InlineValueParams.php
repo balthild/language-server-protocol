@@ -28,7 +28,7 @@ class InlineValueParams implements ArrayDeserializable
          * Additional information about the context in which inline values were
          * requested.
          *
-         * @var array{frameId:int,stoppedLocation:Range}
+         * @var array{frameId: int, stoppedLocation: Range}
          */
         public array $context,
         /**

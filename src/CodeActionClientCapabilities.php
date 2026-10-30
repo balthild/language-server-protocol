@@ -22,7 +22,7 @@ class CodeActionClientCapabilities implements ArrayDeserializable
          * response of the `textDocument/codeAction` request. If the property is not
          * set the request can only return `Command` literals.
          *
-         * @var array{codeActionKind:array{valueSet:array<string>}}|null
+         * @var array{codeActionKind: array{valueSet: list<string>}}|null
          */
         public ?array $codeActionLiteralSupport = null,
         /**
@@ -43,7 +43,7 @@ class CodeActionClientCapabilities implements ArrayDeserializable
          * Whether the client supports resolving additional code action
          * properties via a separate `codeAction/resolve` request.
          *
-         * @var array{properties:array<string>}|null
+         * @var array{properties: list<string>}|null
          */
         public ?array $resolveSupport = null,
         /**

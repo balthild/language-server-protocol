@@ -13,7 +13,7 @@ class SemanticTokens implements ArrayDeserializable
         /**
          * The actual tokens.
          *
-         * @var array<int>
+         * @var list<int>
          */
         public array $data,
         /**

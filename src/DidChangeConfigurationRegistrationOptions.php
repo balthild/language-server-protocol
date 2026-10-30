@@ -11,7 +11,7 @@ class DidChangeConfigurationRegistrationOptions implements ArrayDeserializable
 
     public function __construct(
         /**
-         * @var string|array<string>|null
+         * @var string|list<string>|null
          */
         public $section = null
     ) {}

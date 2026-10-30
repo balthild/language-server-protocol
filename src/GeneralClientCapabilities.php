@@ -20,7 +20,7 @@ class GeneralClientCapabilities implements ArrayDeserializable
          * for which the client will not process the response
          * anymore since the information is outdated).
          *
-         * @var array{cancel:bool,retryOnContentModified:array<string>}|null
+         * @var array{cancel: bool, retryOnContentModified: list<string>}|null
          */
         public ?array $staleRequestSupport = null,
         /**
@@ -51,7 +51,7 @@ class GeneralClientCapabilities implements ArrayDeserializable
          * is best done where the file is read which is usually on the server
          * side.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $positionEncodings = null
     ) {}

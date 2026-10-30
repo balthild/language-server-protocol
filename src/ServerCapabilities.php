@@ -240,7 +240,7 @@ class ServerCapabilities implements ArrayDeserializable
         /**
          * Workspace specific server capabilities.
          *
-         * @var array{workspaceFolders:WorkspaceFoldersServerCapabilities,fileOperations:FileOperationOptions}|null
+         * @var array{workspaceFolders: WorkspaceFoldersServerCapabilities, fileOperations: FileOperationOptions}|null
          */
         public ?array $workspace = null,
         /**

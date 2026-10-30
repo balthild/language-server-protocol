@@ -17,7 +17,7 @@ class ExecuteCommandParams extends WorkDoneProgressParams
         /**
          * Arguments that the command should be invoked with.
          *
-         * @var array<mixed>|null
+         * @var list<mixed>|null
          */
         public ?array $arguments = null,
         /**

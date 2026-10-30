@@ -43,7 +43,7 @@ class CallHierarchyItem implements ArrayDeserializable
         /**
          * Tags for this item.
          *
-         * @var array<SymbolTag::*>|null
+         * @var list<SymbolTag::*>|null
          */
         public ?array $tags = null,
         /**

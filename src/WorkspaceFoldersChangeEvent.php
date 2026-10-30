@@ -17,14 +17,14 @@ class WorkspaceFoldersChangeEvent implements ArrayDeserializable
         /**
          * The array of added workspace folders
          *
-         * @var array<WorkspaceFolder>
+         * @var list<WorkspaceFolder>
          */
         #[Deserialize(WorkspaceFolder::class, iterable: true)]
         public array $added,
         /**
          * The array of the removed workspace folders
          *
-         * @var array<WorkspaceFolder>
+         * @var list<WorkspaceFolder>
          */
         #[Deserialize(WorkspaceFolder::class, iterable: true)]
         public array $removed

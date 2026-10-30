@@ -18,7 +18,7 @@ class CreateFilesParams implements ArrayDeserializable
         /**
          * An array of all files/folders created in this operation.
          *
-         * @var array<FileCreate>
+         * @var list<FileCreate>
          */
         #[Deserialize(FileCreate::class, iterable: true)]
         public array $files

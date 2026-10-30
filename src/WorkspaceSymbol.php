@@ -21,7 +21,7 @@ class WorkspaceSymbol extends BaseSymbolInformation
          *
          * See SymbolInformation#location for more details.
          *
-         * @var Location|array{uri:string}
+         * @var Location|array{uri: string}
          */
         #[Deserialize(Location::class)]
         public $location,
@@ -45,7 +45,7 @@ class WorkspaceSymbol extends BaseSymbolInformation
         /**
          * Tags for this symbol.
          *
-         * @var array<SymbolTag::*>|null
+         * @var list<SymbolTag::*>|null
          */
         public ?array $tags = null,
         /**

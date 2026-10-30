@@ -22,7 +22,7 @@ class InlayHint implements ArrayDeserializable
          *
          * *Note* that neither the string nor the label part can be empty.
          *
-         * @var string|array<array{value:string,tooltip:string|MarkupContent,location:Location,command:Command}>
+         * @var string|list<array{value: string, tooltip: string|MarkupContent, location: Location, command: Command}>
          */
         public $label,
         /**
@@ -39,7 +39,7 @@ class InlayHint implements ArrayDeserializable
          * hint (or its nearest variant) is now part of the document and the inlay
          * hint itself is now obsolete.
          *
-         * @var array<TextEdit>|null
+         * @var list<TextEdit>|null
          */
         #[Deserialize(TextEdit::class, iterable: true)]
         public ?array $textEdits = null,

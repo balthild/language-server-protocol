@@ -52,14 +52,14 @@ class Diagnostic implements ArrayDeserializable
         /**
          * Additional metadata about the diagnostic.
          *
-         * @var array<DiagnosticTag::*>|null
+         * @var list<DiagnosticTag::*>|null
          */
         public ?array $tags = null,
         /**
          * An array of related diagnostic information, e.g. when symbol-names within
          * a scope collide all definitions can be marked via this property.
          *
-         * @var array<DiagnosticRelatedInformation>|null
+         * @var list<DiagnosticRelatedInformation>|null
          */
         #[Deserialize(DiagnosticRelatedInformation::class, iterable: true)]
         public ?array $relatedInformation = null,

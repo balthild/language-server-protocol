@@ -28,7 +28,7 @@ class Command implements ArrayDeserializable
          * Arguments that the command handler should be
          * invoked with.
          *
-         * @var array<mixed>|null
+         * @var list<mixed>|null
          */
         public ?array $arguments = null
     ) {}

@@ -18,7 +18,7 @@ class HoverClientCapabilities implements ArrayDeserializable
          * Client supports the following content formats for the content
          * property. The order describes the preferred format of the client.
          *
-         * @var array<MarkupKind::*>|null
+         * @var list<MarkupKind::*>|null
          */
         public ?array $contentFormat = null
     ) {}

@@ -42,7 +42,7 @@ class WorkspaceEdit implements ArrayDeserializable
          * If a client neither supports `documentChanges` nor `workspace.workspaceEdit.resourceOperations` then
          * only plain `TextEdit`s using the `changes` property are supported.
          *
-         * @var array<(TextDocumentEdit|CreateFile|RenameFile|DeleteFile)>|null
+         * @var list<(TextDocumentEdit|CreateFile|RenameFile|DeleteFile)>|null
          */
         public ?array $documentChanges = null,
         /**

@@ -18,7 +18,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          * The resource operations the client supports. Clients should at least
          * support 'create', 'rename' and 'delete' files and folders.
          *
-         * @var array<'create'|'rename'|'delete'>|null
+         * @var list<'create'|'rename'|'delete'>|null
          */
         public ?array $resourceOperations = null,
         /**
@@ -40,7 +40,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          * Whether the client in general supports change annotations on text edits,
          * create file, rename file and delete file changes.
          *
-         * @var array{groupsOnLabel:bool}|null
+         * @var array{groupsOnLabel: bool}|null
          */
         public ?array $changeAnnotationSupport = null
     ) {}

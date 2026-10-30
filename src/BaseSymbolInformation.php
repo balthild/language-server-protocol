@@ -26,7 +26,7 @@ class BaseSymbolInformation implements ArrayDeserializable
         /**
          * Tags for this symbol.
          *
-         * @var array<SymbolTag::*>|null
+         * @var list<SymbolTag::*>|null
          */
         public ?array $tags = null,
         /**

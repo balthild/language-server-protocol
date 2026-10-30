@@ -20,7 +20,7 @@ class SelectionRangeParams extends WorkDoneProgressParams
         /**
          * The positions inside the text document.
          *
-         * @var array<Position>
+         * @var list<Position>
          */
         #[Deserialize(Position::class, iterable: true)]
         public array $positions,

@@ -77,14 +77,14 @@ class WorkspaceClientCapabilities implements ArrayDeserializable
          * Capabilities specific to the inline values requests scoped to the
          * workspace.
          *
-         * @var array{refreshSupport:bool}|null
+         * @var array{refreshSupport: bool}|null
          */
         public ?array $inlineValue = null,
         /**
          * Capabilities specific to the inlay hint requests scoped to the
          * workspace.
          *
-         * @var array{refreshSupport:bool}|null
+         * @var array{refreshSupport: bool}|null
          */
         public ?array $inlayHint = null,
         /**

@@ -157,13 +157,13 @@ class TextDocumentClientCapabilities implements ArrayDeserializable
         /**
          * Capabilities specific to the `textDocument/inlineValue` request.
          *
-         * @var array{dynamicRegistration:bool}|null
+         * @var array{dynamicRegistration: bool}|null
          */
         public ?array $inlineValue = null,
         /**
          * Capabilities specific to the `textDocument/inlayHint` request.
          *
-         * @var array{dynamicRegistration:bool,resolveSupport:array{properties:array<string>}}|null
+         * @var array{dynamicRegistration: bool, resolveSupport: array{properties: list<string>}}|null
          */
         public ?array $inlayHint = null,
         /**

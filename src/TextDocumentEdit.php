@@ -25,7 +25,7 @@ class TextDocumentEdit implements ArrayDeserializable
         /**
          * The edits to be applied.
          *
-         * @var array<(TextEdit|AnnotatedTextEdit)>
+         * @var list<(TextEdit|AnnotatedTextEdit)>
          */
         public array $edits
     ) {}

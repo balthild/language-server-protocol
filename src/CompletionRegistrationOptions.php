@@ -14,7 +14,7 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
          * A document selector to identify the scope of the registration. If set to null
          * the document selector provided on the client side will be used.
          *
-         * @var array<(string|array{language:string,scheme:string,pattern:string}|array{language:string,scheme:string,pattern:string}|array{language:string,scheme:string,pattern:string}|array{notebook:string|array{notebookType:string,scheme:string,pattern:string}|array{notebookType:string,scheme:string,pattern:string}|array{notebookType:string,scheme:string,pattern:string},language:string})>|null
+         * @var list<(string|array{language: string, scheme: string, pattern: string}|array{language: string, scheme: string, pattern: string}|array{language: string, scheme: string, pattern: string}|array{notebook: string|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}|array{notebookType: string, scheme: string, pattern: string}, language: string})>|null
          */
         public $documentSelector = null,
         /**
@@ -27,7 +27,7 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
          * If code complete should automatically be trigger on characters not being valid inside
          * an identifier (for example `.` in JavaScript) list them in `triggerCharacters`.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $triggerCharacters = null,
         /**
@@ -38,7 +38,7 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
          * If a server provides both `allCommitCharacters` and commit characters on an individual
          * completion item the ones on the completion item win.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $allCommitCharacters = null,
         /**
@@ -50,7 +50,7 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
          * The server supports the following `CompletionItem` specific
          * capabilities.
          *
-         * @var array{labelDetailsSupport:bool}|null
+         * @var array{labelDetailsSupport: bool}|null
          */
         public ?array $completionItem = null,
         public ?bool $workDoneProgress = null

@@ -23,7 +23,7 @@ class CallHierarchyIncomingCall implements ArrayDeserializable
          * The ranges at which the calls appear. This is relative to the caller
          * denoted by [`this.from`](#CallHierarchyIncomingCall.from).
          *
-         * @var array<Range>
+         * @var list<Range>
          */
         #[Deserialize(Range::class, iterable: true)]
         public array $fromRanges

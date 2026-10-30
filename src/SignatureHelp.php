@@ -19,7 +19,7 @@ class SignatureHelp implements ArrayDeserializable
         /**
          * One or more signatures.
          *
-         * @var array<SignatureInformation>
+         * @var list<SignatureInformation>
          */
         #[Deserialize(SignatureInformation::class, iterable: true)]
         public array $signatures,

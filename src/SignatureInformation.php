@@ -32,7 +32,7 @@ class SignatureInformation implements ArrayDeserializable
         /**
          * The parameters of this signature.
          *
-         * @var array<ParameterInformation>|null
+         * @var list<ParameterInformation>|null
          */
         #[Deserialize(ParameterInformation::class, iterable: true)]
         public ?array $parameters = null,

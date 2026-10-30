@@ -20,7 +20,7 @@ class DocumentOnTypeFormattingOptions implements ArrayDeserializable
         /**
          * More trigger characters.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $moreTriggerCharacter = null
     ) {}

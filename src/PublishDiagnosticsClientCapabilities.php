@@ -21,7 +21,7 @@ class PublishDiagnosticsClientCapabilities implements ArrayDeserializable
          * Client supports the tag property to provide meta data about a diagnostic.
          * Clients supporting tags have to handle unknown tags gracefully.
          *
-         * @var array{valueSet:array<DiagnosticTag::*>}|null
+         * @var array{valueSet: list<DiagnosticTag::*>}|null
          */
         public ?array $tagSupport = null,
         /**

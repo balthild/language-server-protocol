@@ -12,7 +12,7 @@ class UnregistrationParams implements ArrayDeserializable
 
     public function __construct(
         /**
-         * @var array<Unregistration>
+         * @var list<Unregistration>
          */
         #[Deserialize(Unregistration::class, iterable: true)]
         public array $unregisterations

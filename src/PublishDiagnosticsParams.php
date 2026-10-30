@@ -21,7 +21,7 @@ class PublishDiagnosticsParams implements ArrayDeserializable
         /**
          * An array of diagnostic information items.
          *
-         * @var array<Diagnostic>
+         * @var list<Diagnostic>
          */
         #[Deserialize(Diagnostic::class, iterable: true)]
         public array $diagnostics,

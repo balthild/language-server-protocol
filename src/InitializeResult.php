@@ -22,7 +22,7 @@ class InitializeResult implements ArrayDeserializable
         /**
          * Information about the server.
          *
-         * @var array{name:string,version:string}|null
+         * @var array{name: string, version: string}|null
          */
         public ?array $serverInfo = null
     ) {}

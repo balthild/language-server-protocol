@@ -25,7 +25,7 @@ class MarkdownClientCapabilities implements ArrayDeserializable
          * A list of HTML tags that the client allows / supports in
          * Markdown.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $allowedTags = null
     ) {}

@@ -12,7 +12,7 @@ class RegistrationParams implements ArrayDeserializable
 
     public function __construct(
         /**
-         * @var array<Registration>
+         * @var list<Registration>
          */
         #[Deserialize(Registration::class, iterable: true)]
         public array $registrations

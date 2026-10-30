@@ -24,7 +24,7 @@ class CallHierarchyOutgoingCall implements ArrayDeserializable
          * passed to [`provideCallHierarchyOutgoingCalls`](#CallHierarchyItemProvider.provideCallHierarchyOutgoingCalls)
          * and not [`this.to`](#CallHierarchyOutgoingCall.to).
          *
-         * @var array<Range>
+         * @var list<Range>
          */
         #[Deserialize(Range::class, iterable: true)]
         public array $fromRanges

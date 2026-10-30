@@ -17,7 +17,7 @@ class DidChangeWatchedFilesParams implements ArrayDeserializable
         /**
          * The actual file events.
          *
-         * @var array<FileEvent>
+         * @var list<FileEvent>
          */
         #[Deserialize(FileEvent::class, iterable: true)]
         public array $changes

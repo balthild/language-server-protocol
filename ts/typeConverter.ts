@@ -135,7 +135,9 @@ export class TypeConverter {
 	private phpTypeArray(type: ts.ArrayTypeNode): PhpType {
 		const elementType = this.phpType(type.elementType);
 
-		return new PhpType('array', `array<${elementType.documented}>`, elementType.classNames, true);
+		// A TypeScript array is dense and zero-indexed, which is `list`, not
+		// `array`: the latter admits string keys.
+		return new PhpType('array', `list<${elementType.documented}>`, elementType.classNames, true);
 	}
 
 	private phpTypeUnion(type: ts.UnionTypeNode): PhpType {
@@ -158,16 +160,16 @@ export class TypeConverter {
 	}
 
 	private phpTypeTuple(type: ts.TupleTypeNode): PhpType {
-		const elements = type.elements.map((element) => this.phpType(element).documented).join(',');
+		const elements = type.elements.map((element) => this.phpType(element).documented);
 
-		return new PhpType('array', `array{${elements}}`);
+		return new PhpType('array', `array{${elements.join(', ')}}`);
 	}
 
 	private phpTypeLiteral(type: ts.TypeLiteralNode): PhpType {
 		const members = type.members
 			.filter(ts.isPropertySignature)
-			.map((member) => `${member.name.getText()}:${this.phpType(member.type).documented}`);
+			.map((member) => `${member.name.getText()}: ${this.phpType(member.type).documented}`);
 
-		return new PhpType('array', `array{${members.join(',')}}`);
+		return new PhpType('array', `array{${members.join(', ')}}`);
 	}
 }

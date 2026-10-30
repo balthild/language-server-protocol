@@ -13,13 +13,13 @@ class SemanticTokensLegend implements ArrayDeserializable
         /**
          * The token types a server uses.
          *
-         * @var array<string>
+         * @var list<string>
          */
         public array $tokenTypes,
         /**
          * The token modifiers a server uses.
          *
-         * @var array<string>
+         * @var list<string>
          */
         public array $tokenModifiers
     ) {}

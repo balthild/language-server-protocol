@@ -16,7 +16,7 @@ class CodeActionOptions extends WorkDoneProgressOptions
          * The list of kinds may be generic, such as `CodeActionKind.Refactor`, or the server
          * may list out every specific kind they provide.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $codeActionKinds = null,
         /**

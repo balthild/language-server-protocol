@@ -24,7 +24,7 @@ class ShowMessageRequestParams implements ArrayDeserializable
         /**
          * The message action items to present.
          *
-         * @var array<MessageActionItem>|null
+         * @var list<MessageActionItem>|null
          */
         #[Deserialize(MessageActionItem::class, iterable: true)]
         public ?array $actions = null

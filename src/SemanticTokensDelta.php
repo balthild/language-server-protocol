@@ -14,7 +14,7 @@ class SemanticTokensDelta implements ArrayDeserializable
         /**
          * The semantic token edits to transform a previous result into a new result.
          *
-         * @var array<SemanticTokensEdit>
+         * @var list<SemanticTokensEdit>
          */
         #[Deserialize(SemanticTokensEdit::class, iterable: true)]
         public array $edits,

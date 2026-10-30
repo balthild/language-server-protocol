@@ -40,7 +40,7 @@ class CompletionItem implements ArrayDeserializable
         /**
          * Tags for this completion item.
          *
-         * @var array<CompletionItemTag::*>|null
+         * @var list<CompletionItemTag::*>|null
          */
         public ?array $tags = null,
         /**
@@ -156,7 +156,7 @@ class CompletionItem implements ArrayDeserializable
          * (for example adding an import statement at the top of the file if the completion item will
          * insert an unqualified type).
          *
-         * @var array<TextEdit>|null
+         * @var list<TextEdit>|null
          */
         #[Deserialize(TextEdit::class, iterable: true)]
         public ?array $additionalTextEdits = null,
@@ -165,7 +165,7 @@ class CompletionItem implements ArrayDeserializable
          * then type that character. *Note* that all commit characters should have `length=1` and that superfluous
          * characters will be ignored.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $commitCharacters = null,
         /**

@@ -48,7 +48,7 @@ class DocumentSymbol implements ArrayDeserializable
         /**
          * Tags for this document symbol.
          *
-         * @var array<SymbolTag::*>|null
+         * @var list<SymbolTag::*>|null
          */
         public ?array $tags = null,
         /**
@@ -58,7 +58,7 @@ class DocumentSymbol implements ArrayDeserializable
         /**
          * Children of this symbol, e.g. properties of a class.
          *
-         * @var array<DocumentSymbol>|null
+         * @var list<DocumentSymbol>|null
          */
         #[Deserialize(DocumentSymbol::class, iterable: true)]
         public ?array $children = null

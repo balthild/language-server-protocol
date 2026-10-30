@@ -32,7 +32,7 @@ class InitializeParams implements ArrayDeserializable
         /**
          * Information about the client
          *
-         * @var array{name:string,version:string}|null
+         * @var array{name: string, version: string}|null
          */
         public ?array $clientInfo = null,
         /**
@@ -84,7 +84,7 @@ class InitializeParams implements ArrayDeserializable
          * It can be `null` if the client supports workspace folders but none are
          * configured.
          *
-         * @var array<WorkspaceFolder>|null
+         * @var list<WorkspaceFolder>|null
          */
         public $workspaceFolders = null
     ) {}

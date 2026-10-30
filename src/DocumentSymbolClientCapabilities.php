@@ -21,7 +21,7 @@ class DocumentSymbolClientCapabilities implements ArrayDeserializable
          * Specific capabilities for the `SymbolKind` in the
          * `textDocument/documentSymbol` request.
          *
-         * @var array{valueSet:array<SymbolKind::*>}|null
+         * @var array{valueSet: list<SymbolKind::*>}|null
          */
         public ?array $symbolKind = null,
         /**
@@ -33,7 +33,7 @@ class DocumentSymbolClientCapabilities implements ArrayDeserializable
          * `DocumentSymbol` if `hierarchicalDocumentSymbolSupport` is set to true.
          * Clients supporting tags have to handle unknown tags gracefully.
          *
-         * @var array{valueSet:array<SymbolTag::*>}|null
+         * @var array{valueSet: list<SymbolTag::*>}|null
          */
         public ?array $tagSupport = null,
         /**

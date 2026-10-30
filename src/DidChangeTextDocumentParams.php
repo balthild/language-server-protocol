@@ -34,7 +34,7 @@ class DidChangeTextDocumentParams implements ArrayDeserializable
          * - apply the `TextDocumentContentChangeEvent`s in a single notification in the order
          *   you receive them.
          *
-         * @var array<TextDocumentContentChangeIncrementalEvent|TextDocumentContentChangeFullEvent>
+         * @var list<TextDocumentContentChangeIncrementalEvent|TextDocumentContentChangeFullEvent>
          */
         #[Deserialize(
             [TextDocumentContentChangeIncrementalEvent::class, TextDocumentContentChangeFullEvent::class],

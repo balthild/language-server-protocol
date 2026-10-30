@@ -19,7 +19,7 @@ class RenameFilesParams implements ArrayDeserializable
          * An array of all files/folders renamed in this operation. When a folder is renamed, only
          * the folder will be included, and not its children.
          *
-         * @var array<FileRename>
+         * @var list<FileRename>
          */
         #[Deserialize(FileRename::class, iterable: true)]
         public array $files

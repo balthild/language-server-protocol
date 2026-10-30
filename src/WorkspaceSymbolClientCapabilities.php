@@ -20,14 +20,14 @@ class WorkspaceSymbolClientCapabilities implements ArrayDeserializable
         /**
          * Specific capabilities for the `SymbolKind` in the `workspace/symbol` request.
          *
-         * @var array{valueSet:array<SymbolKind::*>}|null
+         * @var array{valueSet: list<SymbolKind::*>}|null
          */
         public ?array $symbolKind = null,
         /**
          * The client supports tags on `SymbolInformation`.
          * Clients supporting tags have to handle unknown tags gracefully.
          *
-         * @var array{valueSet:array<SymbolTag::*>}|null
+         * @var array{valueSet: list<SymbolTag::*>}|null
          */
         public ?array $tagSupport = null,
         /**
@@ -35,7 +35,7 @@ class WorkspaceSymbolClientCapabilities implements ArrayDeserializable
          * request `workspaceSymbol/resolve` to the server to resolve additional
          * properties.
          *
-         * @var array{properties:array<string>}|null
+         * @var array{properties: list<string>}|null
          */
         public ?array $resolveSupport = null
     ) {}

@@ -25,7 +25,7 @@ class ParameterInformation implements ArrayDeserializable
          * *Note*: a label of type string should be a substring of its containing signature label.
          * Its intended use case is to highlight the parameter label part in the `SignatureInformation.label`.
          *
-         * @var string|array{int,int}
+         * @var string|array{int, int}
          */
         public $label,
         /**

@@ -13,7 +13,7 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
         /**
          * List of characters that trigger signature help automatically.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $triggerCharacters = null,
         /**
@@ -22,7 +22,7 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
          * These trigger characters are only active when signature help is already showing. All trigger characters
          * are also counted as re-trigger characters.
          *
-         * @var array<string>|null
+         * @var list<string>|null
          */
         public ?array $retriggerCharacters = null,
         public ?bool $workDoneProgress = null

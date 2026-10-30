@@ -18,7 +18,7 @@ class DeleteFilesParams implements ArrayDeserializable
         /**
          * An array of all files/folders deleted in this operation.
          *
-         * @var array<FileDelete>
+         * @var list<FileDelete>
          */
         #[Deserialize(FileDelete::class, iterable: true)]
         public array $files

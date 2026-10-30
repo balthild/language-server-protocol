@@ -25,7 +25,7 @@ class CompletionList implements ArrayDeserializable
         /**
          * The completion items.
          *
-         * @var array<CompletionItem>
+         * @var list<CompletionItem>
          */
         #[Deserialize(CompletionItem::class, iterable: true)]
         public array $items,
@@ -42,7 +42,7 @@ class CompletionList implements ArrayDeserializable
          * signals support for this via the `completionList.itemDefaults`
          * capability.
          *
-         * @var array{commitCharacters:array<string>,editRange:Range|array{insert:Range,replace:Range},insertTextFormat:InsertTextFormat::*,insertTextMode:InsertTextMode::*,data:mixed}|null
+         * @var array{commitCharacters: list<string>, editRange: Range|array{insert: Range, replace: Range}, insertTextFormat: InsertTextFormat::*, insertTextMode: InsertTextMode::*, data: mixed}|null
          */
         public ?array $itemDefaults = null
     ) {}

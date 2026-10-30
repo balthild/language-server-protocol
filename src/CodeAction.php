@@ -30,7 +30,7 @@ class CodeAction implements ArrayDeserializable
         /**
          * The diagnostics that this code action resolves.
          *
-         * @var array<Diagnostic>|null
+         * @var list<Diagnostic>|null
          */
         #[Deserialize(Diagnostic::class, iterable: true)]
         public ?array $diagnostics = null,
@@ -57,7 +57,7 @@ class CodeAction implements ArrayDeserializable
          *     that auto applies a code action and only disabled code actions are returned, the client should show the user an
          *     error message with `reason` in the editor.
          *
-         * @var array{reason:string}|null
+         * @var array{reason: string}|null
          */
         public ?array $disabled = null,
         /**

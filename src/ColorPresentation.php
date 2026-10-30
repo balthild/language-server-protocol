@@ -28,7 +28,7 @@ class ColorPresentation implements ArrayDeserializable
          * An optional array of additional [text edits](#TextEdit) that are applied when
          * selecting this color presentation. Edits must not overlap with the main [edit](#ColorPresentation.textEdit) nor with themselves.
          *
-         * @var array<TextEdit>|null
+         * @var list<TextEdit>|null
          */
         #[Deserialize(TextEdit::class, iterable: true)]
         public ?array $additionalTextEdits = null

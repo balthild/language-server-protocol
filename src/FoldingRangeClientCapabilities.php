@@ -32,13 +32,13 @@ class FoldingRangeClientCapabilities implements ArrayDeserializable
         /**
          * Specific options for the folding range kind.
          *
-         * @var array{valueSet:array<string>}|null
+         * @var array{valueSet: list<string>}|null
          */
         public ?array $foldingRangeKind = null,
         /**
          * Specific options for the folding range.
          *
-         * @var array{collapsedText:bool}|null
+         * @var array{collapsedText: bool}|null
          */
         public ?array $foldingRange = null
     ) {}

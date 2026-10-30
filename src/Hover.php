@@ -17,7 +17,7 @@ class Hover implements ArrayDeserializable
         /**
          * The hover's content
          *
-         * @var MarkupContent|string|array<string>
+         * @var MarkupContent|string|list<string>
          */
         #[Deserialize(MarkupContent::class)]
         public $contents,

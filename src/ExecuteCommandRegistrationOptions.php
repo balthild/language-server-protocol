@@ -13,7 +13,7 @@ class ExecuteCommandRegistrationOptions extends ExecuteCommandOptions
         /**
          * The commands to be executed on the server
          *
-         * @var array<string>
+         * @var list<string>
          */
         public array $commands,
         public ?bool $workDoneProgress = null
