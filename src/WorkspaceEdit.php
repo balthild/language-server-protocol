@@ -27,7 +27,7 @@ class WorkspaceEdit implements ArrayDeserializable
         /**
          * Holds changes to existing resources.
          *
-         * @var array{}|null
+         * @var array<string, list<TextEdit>>|null
          */
         public ?array $changes = null,
         /**
@@ -51,7 +51,7 @@ class WorkspaceEdit implements ArrayDeserializable
          *
          * Whether clients honor this property depends on the client capability `workspace.changeAnnotationSupport`.
          *
-         * @var array{}|null
+         * @var array<string, ChangeAnnotation>|null
          */
         public ?array $changeAnnotations = null
     ) {}

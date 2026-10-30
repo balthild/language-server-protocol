@@ -166,9 +166,26 @@ export class TypeConverter {
 	}
 
 	private phpTypeLiteral(type: ts.TypeLiteralNode): PhpType {
-		const members = type.members
-			.filter(ts.isPropertySignature)
-			.map((member) => `${member.name.getText()}: ${this.phpType(member.type).documented}`);
+		const properties = type.members.filter(ts.isPropertySignature);
+		const indexSignatures = type.members.filter(ts.isIndexSignatureDeclaration);
+
+		// A literal holding nothing but an index signature is a map, not a record
+		// with fixed keys: `{ [uri: string]: TextEdit[] }` is
+		// `array<string, list<TextEdit>>`.
+		if (properties.length === 0 && indexSignatures.length > 0) {
+			const signature = indexSignatures[0];
+			const keyType = signature.parameters[0]?.type;
+			const key = keyType === undefined ? 'string' : this.phpType(keyType).documented;
+			const value = this.phpType(signature.type).documented;
+
+			// `classNames` is deliberately not carried over: the elements to
+			// hydrate sit one level deeper than `iterable` can express.
+			return new PhpType('array', `array<${key}, ${value}>`);
+		}
+
+		const members = properties.map(
+			(member) => `${member.name.getText()}: ${this.phpType(member.type).documented}`,
+		);
 
 		return new PhpType('array', `array{${members.join(', ')}}`);
 	}
