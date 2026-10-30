@@ -20,23 +20,23 @@ class TextDocument implements ArrayDeserializable
          * represent files on disk. However, some documents may have other schemes indicating that they are not
          * available on disk.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri,
         /**
          * The identifier of the language associated with this document.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $languageId,
         /**
          * The version number of this document (it will increase after each
          * change, including undo/redo).
          */
-        #[Shape(['scalar' => 'int'])]
+        #[Shape(new Shape\Scalar('int'))]
         public int $version,
         /**
          * The number of lines in this document.
          */
-        #[Shape(['scalar' => 'int'])]
+        #[Shape(new Shape\Scalar('int'))]
         public int $lineCount
     ) {
         $this->uri = urldecode($uri);

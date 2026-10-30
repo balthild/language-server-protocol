@@ -17,40 +17,40 @@ class Moniker implements ArrayDeserializable
         /**
          * The scheme of the moniker. For example tsc or .Net
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $scheme,
         /**
          * The identifier of the moniker. The value is opaque in LSIF however
          * schema owners are allowed to define the structure if they want.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $identifier,
         /**
          * The scope in which the moniker is unique
          *
          * @var UniquenessLevel::*
          */
-        #[Shape([
-            'union' => [
-                ['literal' => 'document'],
-                ['literal' => 'project'],
-                ['literal' => 'group'],
-                ['literal' => 'scheme'],
-                ['literal' => 'global'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Literal('document'),
+                new Shape\Literal('project'),
+                new Shape\Literal('group'),
+                new Shape\Literal('scheme'),
+                new Shape\Literal('global'),
+            ),
+        )]
         public $unique,
         /**
          * The moniker kind if known.
          *
          * @var MonikerKind::*|null
          */
-        #[Shape([
-            'union' => [
-                ['union' => [['literal' => 'import'], ['literal' => 'export'], ['literal' => 'local']]],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Literal('import'), new Shape\Literal('export'), new Shape\Literal('local')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $kind = null
     ) {}
 }

@@ -20,14 +20,14 @@ class TextDocumentEdit implements ArrayDeserializable
         /**
          * The text document to change.
          */
-        #[Shape(['class' => OptionalVersionedTextDocumentIdentifier::class])]
+        #[Shape(OptionalVersionedTextDocumentIdentifier::class)]
         public OptionalVersionedTextDocumentIdentifier $textDocument,
         /**
          * The edits to be applied.
          *
          * @var list<(TextEdit|AnnotatedTextEdit)>
          */
-        #[Shape(['list' => ['union' => [['class' => TextEdit::class], ['class' => AnnotatedTextEdit::class]]]])]
+        #[Shape(new Shape\Sequence(new Shape\Union(TextEdit::class, AnnotatedTextEdit::class)))]
         public array $edits
     ) {}
 }

@@ -24,7 +24,7 @@ class FileOperationPattern implements ArrayDeserializable
          * - `[]` to declare a range of characters to match in a path segment (e.g., `example.[0-9]` to match on `example.0`, `example.1`, …)
          * - `[!...]` to negate a range of characters to match in a path segment (e.g., `example.[!0-9]` to match on `example.a`, `example.b`, but not `example.0`)
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $glob,
         /**
          * Whether to match files or folders with this pattern.
@@ -33,12 +33,17 @@ class FileOperationPattern implements ArrayDeserializable
          *
          * @var FileOperationPatternKind::*|null
          */
-        #[Shape(['union' => [['union' => [['literal' => 'file'], ['literal' => 'folder']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Literal('file'), new Shape\Literal('folder')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $matches = null,
         /**
          * Additional options used during matching.
          */
-        #[Shape(['union' => [['class' => FileOperationPatternOptions::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(FileOperationPatternOptions::class, new Shape\Scalar('null')))]
         public ?FileOperationPatternOptions $options = null
     ) {}
 }

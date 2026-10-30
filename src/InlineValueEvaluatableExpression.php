@@ -15,12 +15,12 @@ class InlineValueEvaluatableExpression implements ArrayDeserializable
          * The document range for which the inline value applies.
          * The range is used to extract the evaluatable expression from the underlying document.
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range,
         /**
          * If specified the expression overrides the extracted expression.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $expression = null
     ) {}
 }

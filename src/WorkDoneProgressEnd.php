@@ -14,13 +14,13 @@ class WorkDoneProgressEnd implements ArrayDeserializable
         /**
          * @var 'end'
          */
-        #[Shape(['literal' => 'end'])]
+        #[Shape(new Shape\Literal('end'))]
         public $kind,
         /**
          * Optional, a final message indicating to for example indicate the outcome
          * of the operation.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $message = null
     ) {}
 }

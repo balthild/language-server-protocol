@@ -17,9 +17,9 @@ class ExecuteCommandOptions extends WorkDoneProgressOptions
          *
          * @var list<string>
          */
-        #[Shape(['list' => ['scalar' => 'string']])]
+        #[Shape(new Shape\Sequence(new Shape\Scalar('string')))]
         public array $commands,
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}
 }

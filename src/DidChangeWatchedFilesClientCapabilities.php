@@ -16,13 +16,13 @@ class DidChangeWatchedFilesClientCapabilities implements ArrayDeserializable
          * that the current protocol doesn't support static configuration for file changes
          * from the server side.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
         /**
          * Whether the client has support for {@link RelativePattern relative pattern}
          * or not.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $relativePatternSupport = null
     ) {}
 }

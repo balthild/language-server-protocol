@@ -17,13 +17,13 @@ class DidSaveTextDocumentParams implements ArrayDeserializable
         /**
          * The document that was saved.
          */
-        #[Shape(['class' => TextDocumentIdentifier::class])]
+        #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
         /**
          * Optional the content when saved. Depends on the includeText value
          * when the save notification was requested.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $text = null
     ) {}
 }

@@ -18,12 +18,12 @@ class Diagnostic implements ArrayDeserializable
         /**
          * The range at which the message applies
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range,
         /**
          * The diagnostic's message. It usually appears in the user interface
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $message,
         /**
          * The diagnostic's severity. Can be omitted. If omitted it is up to the
@@ -31,39 +31,49 @@ class Diagnostic implements ArrayDeserializable
          *
          * @var DiagnosticSeverity::*|null
          */
-        #[Shape([
-            'union' => [
-                ['union' => [['literal' => 1], ['literal' => 2], ['literal' => 3], ['literal' => 4]]],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Literal(1), new Shape\Literal(2), new Shape\Literal(3), new Shape\Literal(4)),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $severity = null,
         /**
          * The diagnostic's code, which usually appear in the user interface.
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $code = null,
         /**
          * An optional property to describe the error code.
          * Requires the code field (above) to be present/not null.
          */
-        #[Shape(['union' => [['class' => CodeDescription::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(CodeDescription::class, new Shape\Scalar('null')))]
         public ?CodeDescription $codeDescription = null,
         /**
          * A human-readable string describing the source of this
          * diagnostic, e.g. 'typescript' or 'super lint'. It usually
          * appears in the user interface.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $source = null,
         /**
          * Additional metadata about the diagnostic.
          *
          * @var list<DiagnosticTag::*>|null
          */
-        #[Shape(['union' => [['list' => ['union' => [['literal' => 1], ['literal' => 2]]]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Sequence(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2))),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public ?array $tags = null,
         /**
          * An array of related diagnostic information, e.g. when symbol-names within
@@ -71,7 +81,7 @@ class Diagnostic implements ArrayDeserializable
          *
          * @var list<DiagnosticRelatedInformation>|null
          */
-        #[Shape(['union' => [['list' => ['class' => DiagnosticRelatedInformation::class]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(DiagnosticRelatedInformation::class), new Shape\Scalar('null')))]
         public ?array $relatedInformation = null,
         /**
          * A data entry field that is preserved between a `textDocument/publishDiagnostics`
@@ -79,7 +89,7 @@ class Diagnostic implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        #[Shape(['union' => [['scalar' => 'mixed'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('mixed'), new Shape\Scalar('null')))]
         public $data = null
     ) {}
 }

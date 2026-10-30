@@ -20,12 +20,12 @@ class Command implements ArrayDeserializable
         /**
          * Title of the command, like `save`.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $title,
         /**
          * The identifier of the actual command handler.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $command,
         /**
          * Arguments that the command handler should be
@@ -33,7 +33,7 @@ class Command implements ArrayDeserializable
          *
          * @var list<mixed>|null
          */
-        #[Shape(['union' => [['list' => ['scalar' => 'mixed']], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('mixed')), new Shape\Scalar('null')))]
         public ?array $arguments = null
     ) {}
 }

@@ -21,14 +21,14 @@ class CompletionList implements ArrayDeserializable
          * Recomputed lists have all their items replaced (not appended) in the
          * incomplete completion sessions.
          */
-        #[Shape(['scalar' => 'bool'])]
+        #[Shape(new Shape\Scalar('bool'))]
         public bool $isIncomplete,
         /**
          * The completion items.
          *
          * @var list<CompletionItem>
          */
-        #[Shape(['list' => ['class' => CompletionItem::class]])]
+        #[Shape(new Shape\Sequence(CompletionItem::class))]
         public array $items,
         /**
          * In many cases the items of an actual completion result share the same
@@ -45,30 +45,16 @@ class CompletionList implements ArrayDeserializable
          *
          * @var array{commitCharacters?: list<string>, editRange?: Range|array{insert: Range, replace: Range}, insertTextFormat?: InsertTextFormat::*, insertTextMode?: InsertTextMode::*, data?: mixed}|null
          */
-        #[Shape([
-            'union' => [
-                [
-                    'shape' => [
-                        'commitCharacters?' => ['list' => ['scalar' => 'string']],
-                        'editRange?' => [
-                            'union' => [
-                                ['class' => Range::class],
-                                [
-                                    'shape' => [
-                                        'insert' => ['class' => Range::class],
-                                        'replace' => ['class' => Range::class],
-                                    ],
-                                ],
-                            ],
-                        ],
-                        'insertTextFormat?' => ['union' => [['literal' => 1], ['literal' => 2]]],
-                        'insertTextMode?' => ['union' => [['literal' => 1], ['literal' => 2]]],
-                        'data?' => ['scalar' => 'mixed'],
-                    ],
-                ],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(new Shape\Union(new Shape\Struct([
+            'commitCharacters?' => new Shape\Sequence(new Shape\Scalar('string')),
+            'editRange?' => new Shape\Union(Range::class, new Shape\Struct([
+                'insert' => Range::class,
+                'replace' => Range::class,
+            ])),
+            'insertTextFormat?' => new Shape\Union(new Shape\Literal(1), new Shape\Literal(2)),
+            'insertTextMode?' => new Shape\Union(new Shape\Literal(1), new Shape\Literal(2)),
+            'data?' => new Shape\Scalar('mixed'),
+        ]), new Shape\Scalar('null')))]
         public ?array $itemDefaults = null
     ) {}
 }

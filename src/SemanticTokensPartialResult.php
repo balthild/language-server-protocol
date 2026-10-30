@@ -14,7 +14,7 @@ class SemanticTokensPartialResult implements ArrayDeserializable
         /**
          * @var list<int>
          */
-        #[Shape(['list' => ['scalar' => 'int']])]
+        #[Shape(new Shape\Sequence(new Shape\Scalar('int')))]
         public array $data
     ) {}
 }

@@ -20,17 +20,17 @@ class WindowClientCapabilities implements ArrayDeserializable
          * `workDoneProgress` property in the request specific server
          * capabilities.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null,
         /**
          * Capabilities specific to the showMessage request.
          */
-        #[Shape(['union' => [['class' => ShowMessageRequestClientCapabilities::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(ShowMessageRequestClientCapabilities::class, new Shape\Scalar('null')))]
         public ?ShowMessageRequestClientCapabilities $showMessage = null,
         /**
          * Capabilities specific to the showDocument request.
          */
-        #[Shape(['union' => [['class' => ShowDocumentClientCapabilities::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(ShowDocumentClientCapabilities::class, new Shape\Scalar('null')))]
         public ?ShowDocumentClientCapabilities $showDocument = null
     ) {}
 }

@@ -19,14 +19,14 @@ class WorkspaceFoldersChangeEvent implements ArrayDeserializable
          *
          * @var list<WorkspaceFolder>
          */
-        #[Shape(['list' => ['class' => WorkspaceFolder::class]])]
+        #[Shape(new Shape\Sequence(WorkspaceFolder::class))]
         public array $added,
         /**
          * The array of the removed workspace folders
          *
          * @var list<WorkspaceFolder>
          */
-        #[Shape(['list' => ['class' => WorkspaceFolder::class]])]
+        #[Shape(new Shape\Sequence(WorkspaceFolder::class))]
         public array $removed
     ) {}
 }

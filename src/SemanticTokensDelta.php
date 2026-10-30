@@ -16,9 +16,9 @@ class SemanticTokensDelta implements ArrayDeserializable
          *
          * @var list<SemanticTokensEdit>
          */
-        #[Shape(['list' => ['class' => SemanticTokensEdit::class]])]
+        #[Shape(new Shape\Sequence(SemanticTokensEdit::class))]
         public array $edits,
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $resultId = null
     ) {}
 }

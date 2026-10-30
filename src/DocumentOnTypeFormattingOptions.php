@@ -17,14 +17,14 @@ class DocumentOnTypeFormattingOptions implements ArrayDeserializable
         /**
          * A character on which formatting should be triggered, like `{`.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $firstTriggerCharacter,
         /**
          * More trigger characters.
          *
          * @var list<string>|null
          */
-        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $moreTriggerCharacter = null
     ) {}
 }

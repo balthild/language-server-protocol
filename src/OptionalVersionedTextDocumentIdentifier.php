@@ -15,7 +15,7 @@ class OptionalVersionedTextDocumentIdentifier extends TextDocumentIdentifier
         /**
          * The text document's uri.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri,
         /**
          * The version number of this document. If a versioned text document identifier
@@ -26,7 +26,7 @@ class OptionalVersionedTextDocumentIdentifier extends TextDocumentIdentifier
          *
          * @var int|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['literal' => null]]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public $version = null
     ) {
         $this->uri = urldecode($uri);

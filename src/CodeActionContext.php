@@ -24,7 +24,7 @@ class CodeActionContext implements ArrayDeserializable
          *
          * @var list<Diagnostic>
          */
-        #[Shape(['list' => ['class' => Diagnostic::class]])]
+        #[Shape(new Shape\Sequence(Diagnostic::class))]
         public array $diagnostics,
         /**
          * Requested kind of actions to return.
@@ -34,14 +34,14 @@ class CodeActionContext implements ArrayDeserializable
          *
          * @var list<string>|null
          */
-        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $only = null,
         /**
          * The reason why code actions were requested.
          *
          * @var CodeActionTriggerKind::*|null
          */
-        #[Shape(['union' => [['union' => [['literal' => 1], ['literal' => 2]]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2)), new Shape\Scalar('null')))]
         public $triggerKind = null
     ) {}
 }

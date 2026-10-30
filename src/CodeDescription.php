@@ -17,7 +17,7 @@ class CodeDescription implements ArrayDeserializable
         /**
          * An URI to open with more information about the diagnostic error.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $href
     ) {}
 }

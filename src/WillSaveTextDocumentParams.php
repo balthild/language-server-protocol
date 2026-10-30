@@ -17,14 +17,14 @@ class WillSaveTextDocumentParams implements ArrayDeserializable
         /**
          * The document that will be saved.
          */
-        #[Shape(['class' => TextDocumentIdentifier::class])]
+        #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
         /**
          * The 'TextDocumentSaveReason'.
          *
          * @var TextDocumentSaveReason::*
          */
-        #[Shape(['union' => [['literal' => 1], ['literal' => 2], ['literal' => 3]]])]
+        #[Shape(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2), new Shape\Literal(3)))]
         public $reason
     ) {}
 }

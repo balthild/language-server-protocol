@@ -17,12 +17,12 @@ class DeleteFileOptions implements ArrayDeserializable
         /**
          * Delete the content recursively if a folder is denoted.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $recursive = null,
         /**
          * Ignore the operation if the file doesn't exist.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $ignoreIfNotExists = null
     ) {}
 }

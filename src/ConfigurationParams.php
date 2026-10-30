@@ -17,7 +17,7 @@ class ConfigurationParams implements ArrayDeserializable
         /**
          * @var list<ConfigurationItem>
          */
-        #[Shape(['list' => ['class' => ConfigurationItem::class]])]
+        #[Shape(new Shape\Sequence(ConfigurationItem::class))]
         public array $items
     ) {}
 }

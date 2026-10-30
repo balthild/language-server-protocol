@@ -15,22 +15,22 @@ class DeleteFile extends ResourceOperation
         /**
          * The resource operation kind.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $kind,
         /**
          * The file to delete.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri,
         /**
          * Delete options.
          */
-        #[Shape(['union' => [['class' => DeleteFileOptions::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(DeleteFileOptions::class, new Shape\Scalar('null')))]
         public ?DeleteFileOptions $options = null,
         /**
          * An optional annotation identifier describing the operation.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $annotationId = null
     ) {
         $this->uri = urldecode($uri);

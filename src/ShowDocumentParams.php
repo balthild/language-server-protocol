@@ -17,14 +17,14 @@ class ShowDocumentParams implements ArrayDeserializable
         /**
          * The document uri to show.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri,
         /**
          * Indicates to show the resource in an external program.
          * To show for example `https://code.visualstudio.com/`
          * in the default WEB browser set `external` to `true`.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $external = null,
         /**
          * An optional property to indicate whether the editor
@@ -32,7 +32,7 @@ class ShowDocumentParams implements ArrayDeserializable
          * Clients might ignore this property if an external
          * program is started.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $takeFocus = null,
         /**
          * An optional selection range if the document is a text
@@ -40,7 +40,7 @@ class ShowDocumentParams implements ArrayDeserializable
          * external program is started or the file is not a text
          * file.
          */
-        #[Shape(['union' => [['class' => Range::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(Range::class, new Shape\Scalar('null')))]
         public ?Range $selection = null
     ) {}
 }

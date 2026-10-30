@@ -20,20 +20,20 @@ class DiagnosticOptions implements ArrayDeserializable
          * set in another file. Inter file dependencies are common for
          * most programming languages and typically uncommon for linters.
          */
-        #[Shape(['scalar' => 'bool'])]
+        #[Shape(new Shape\Scalar('bool'))]
         public bool $interFileDependencies,
         /**
          * The server provides support for workspace diagnostics as well.
          */
-        #[Shape(['scalar' => 'bool'])]
+        #[Shape(new Shape\Scalar('bool'))]
         public bool $workspaceDiagnostics,
         /**
          * An optional identifier under which the diagnostics are
          * managed by the client.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $identifier = null,
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}
 }

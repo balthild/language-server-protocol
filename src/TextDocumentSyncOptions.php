@@ -15,7 +15,7 @@ class TextDocumentSyncOptions implements ArrayDeserializable
          * Open and close notifications are sent to the server. If omitted open close notification should not
          * be sent.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $openClose = null,
         /**
          * Change notifications are sent to the server. See TextDocumentSyncKind.None, TextDocumentSyncKind.Full
@@ -23,21 +23,24 @@ class TextDocumentSyncOptions implements ArrayDeserializable
          *
          * @var TextDocumentSyncKind::*|null
          */
-        #[Shape([
-            'union' => [['union' => [['literal' => 0], ['literal' => 1], ['literal' => 2]]], ['scalar' => 'null']],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Literal(0), new Shape\Literal(1), new Shape\Literal(2)),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $change = null,
         /**
          * If present will save notifications are sent to the server. If omitted the notification should not be
          * sent.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $willSave = null,
         /**
          * If present will save wait until requests are sent to the server. If omitted the request should not be
          * sent.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $willSaveWaitUntil = null,
         /**
          * If present save notifications are sent to the server. If omitted the notification should not be
@@ -45,9 +48,9 @@ class TextDocumentSyncOptions implements ArrayDeserializable
          *
          * @var bool|SaveOptions|null
          */
-        #[Shape([
-            'union' => [['union' => [['scalar' => 'bool'], ['class' => SaveOptions::class]]], ['scalar' => 'null']],
-        ])]
+        #[Shape(
+            new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), SaveOptions::class), new Shape\Scalar('null')),
+        )]
         public $save = null
     ) {}
 }

@@ -21,12 +21,12 @@ class CodeLens implements ArrayDeserializable
         /**
          * The range in which this code lens is valid. Should only span a single line.
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range,
         /**
          * The command this code lens represents.
          */
-        #[Shape(['union' => [['class' => Command::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(Command::class, new Shape\Scalar('null')))]
         public ?Command $command = null,
         /**
          * A data entry field that is preserved on a code lens item between
@@ -35,7 +35,7 @@ class CodeLens implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        #[Shape(['union' => [['scalar' => 'mixed'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('mixed'), new Shape\Scalar('null')))]
         public $data = null
     ) {}
 }

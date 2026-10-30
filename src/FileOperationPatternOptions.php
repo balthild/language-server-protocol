@@ -17,7 +17,7 @@ class FileOperationPatternOptions implements ArrayDeserializable
         /**
          * The pattern should be matched ignoring casing.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $ignoreCase = null
     ) {}
 }

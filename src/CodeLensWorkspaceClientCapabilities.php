@@ -20,7 +20,7 @@ class CodeLensWorkspaceClientCapabilities implements ArrayDeserializable
          * useful for situation where a server for example detect a project wide
          * change that requires such a calculation.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $refreshSupport = null
     ) {}
 }

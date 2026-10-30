@@ -21,7 +21,7 @@ class InitializeError implements ArrayDeserializable
          * (2) user selects retry or cancel
          * (3) if user selected retry the initialize method is sent again.
          */
-        #[Shape(['scalar' => 'bool'])]
+        #[Shape(new Shape\Scalar('bool'))]
         public bool $retry
     ) {}
 }

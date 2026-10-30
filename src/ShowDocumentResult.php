@@ -17,7 +17,7 @@ class ShowDocumentResult implements ArrayDeserializable
         /**
          * A boolean indicating if the show was successful.
          */
-        #[Shape(['scalar' => 'bool'])]
+        #[Shape(new Shape\Scalar('bool'))]
         public bool $success
     ) {}
 }

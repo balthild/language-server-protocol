@@ -17,7 +17,7 @@ class FileCreate implements ArrayDeserializable
         /**
          * A file:// URI for the location of the file/folder being created.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri
     ) {}
 }

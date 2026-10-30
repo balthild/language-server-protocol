@@ -14,12 +14,12 @@ class InlineValueText implements ArrayDeserializable
         /**
          * The document range for which the inline value applies.
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range,
         /**
          * The text of the inline value.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $text
     ) {}
 }

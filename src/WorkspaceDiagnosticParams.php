@@ -20,19 +20,24 @@ class WorkspaceDiagnosticParams implements ArrayDeserializable
          *
          * @var list<array{uri: string, value: string}>
          */
-        #[Shape(['list' => ['any' => null]])]
+        #[Shape(new Shape\Sequence(new Shape\Any()))]
         public array $previousResultIds,
         /**
          * The additional identifier provided during registration.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $identifier = null,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $workDoneToken = null,
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
@@ -40,7 +45,12 @@ class WorkspaceDiagnosticParams implements ArrayDeserializable
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $partialResultToken = null
     ) {}
 }

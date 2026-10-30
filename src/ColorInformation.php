@@ -17,12 +17,12 @@ class ColorInformation implements ArrayDeserializable
         /**
          * The range in the document where this color appears.
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range,
         /**
          * The actual color value for this color range.
          */
-        #[Shape(['class' => Color::class])]
+        #[Shape(Color::class)]
         public Color $color
     ) {}
 }

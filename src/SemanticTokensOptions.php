@@ -13,7 +13,7 @@ class SemanticTokensOptions extends WorkDoneProgressOptions
         /**
          * The legend used by the server
          */
-        #[Shape(['class' => SemanticTokensLegend::class])]
+        #[Shape(SemanticTokensLegend::class)]
         public SemanticTokensLegend $legend,
         /**
          * Server supports providing semantic tokens for a specific range
@@ -21,16 +21,16 @@ class SemanticTokensOptions extends WorkDoneProgressOptions
          *
          * @var bool|array{}|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'bool'], ['any' => null]]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Any()), new Shape\Scalar('null')))]
         public $range = null,
         /**
          * Server supports providing semantic tokens for a full document.
          *
          * @var bool|array{delta?: bool}|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'bool'], ['any' => null]]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Union(new Shape\Scalar('bool'), new Shape\Any()), new Shape\Scalar('null')))]
         public $full = null,
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}
 }

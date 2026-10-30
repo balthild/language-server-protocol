@@ -26,27 +26,20 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
          *
          * @var list<(string|DocumentFilter)>|null
          */
-        #[Shape([
-            'union' => [
-                [
-                    'union' => [
-                        [
-                            'list' => [
-                                'union' => [
-                                    ['scalar' => 'string'],
-                                    ['any' => null],
-                                    ['any' => null],
-                                    ['any' => null],
-                                    ['any' => null],
-                                ],
-                            ],
-                        ],
-                        ['literal' => null],
-                    ],
-                ],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Sequence(
+                    new Shape\Union(
+                        new Shape\Scalar('string'),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                    ),
+                ),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $documentSelector = null,
         /**
          * Most tools trigger completion request automatically without explicitly requesting
@@ -60,7 +53,7 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
          *
          * @var list<string>|null
          */
-        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $triggerCharacters = null,
         /**
          * The list of all possible characters that commit a completion. This field can be used
@@ -72,13 +65,13 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
          *
          * @var list<string>|null
          */
-        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $allCommitCharacters = null,
         /**
          * The server provides support to resolve additional
          * information for a completion item.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $resolveProvider = null,
         /**
          * The server supports the following `CompletionItem` specific
@@ -86,9 +79,9 @@ class CompletionRegistrationOptions extends TextDocumentRegistrationOptions
          *
          * @var array{labelDetailsSupport?: bool}|null
          */
-        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $completionItem = null,
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}
 }

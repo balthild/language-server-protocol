@@ -17,7 +17,7 @@ class DidChangeWorkspaceFoldersParams implements ArrayDeserializable
         /**
          * The actual workspace folder change event.
          */
-        #[Shape(['class' => WorkspaceFoldersChangeEvent::class])]
+        #[Shape(WorkspaceFoldersChangeEvent::class)]
         public WorkspaceFoldersChangeEvent $event
     ) {}
 }

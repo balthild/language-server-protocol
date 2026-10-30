@@ -17,24 +17,29 @@ class DocumentDiagnosticParams implements ArrayDeserializable
         /**
          * The text document.
          */
-        #[Shape(['class' => TextDocumentIdentifier::class])]
+        #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
         /**
          * The additional identifier  provided during registration.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $identifier = null,
         /**
          * The result id of a previous response if provided.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $previousResultId = null,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $workDoneToken = null,
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
@@ -42,7 +47,12 @@ class DocumentDiagnosticParams implements ArrayDeserializable
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $partialResultToken = null
     ) {}
 }

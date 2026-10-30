@@ -15,24 +15,29 @@ class CodeActionParams extends WorkDoneProgressParams
         /**
          * The document in which the command was invoked.
          */
-        #[Shape(['class' => TextDocumentIdentifier::class])]
+        #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
         /**
          * The range for which the command was invoked.
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range,
         /**
          * Context carrying additional information.
          */
-        #[Shape(['class' => CodeActionContext::class])]
+        #[Shape(CodeActionContext::class)]
         public CodeActionContext $context,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $workDoneToken = null,
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
@@ -40,7 +45,12 @@ class CodeActionParams extends WorkDoneProgressParams
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $partialResultToken = null
     ) {}
 }

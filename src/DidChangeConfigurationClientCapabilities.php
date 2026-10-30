@@ -14,7 +14,7 @@ class DidChangeConfigurationClientCapabilities implements ArrayDeserializable
         /**
          * Did change configuration notification supports dynamic registration.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null
     ) {}
 }

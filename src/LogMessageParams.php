@@ -19,12 +19,14 @@ class LogMessageParams implements ArrayDeserializable
          *
          * @var MessageType::*
          */
-        #[Shape(['union' => [['literal' => 1], ['literal' => 2], ['literal' => 3], ['literal' => 4]]])]
+        #[Shape(
+            new Shape\Union(new Shape\Literal(1), new Shape\Literal(2), new Shape\Literal(3), new Shape\Literal(4)),
+        )]
         public $type,
         /**
          * The actual message.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $message
     ) {}
 }

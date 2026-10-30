@@ -16,7 +16,7 @@ class WorkDoneProgressCancelParams implements ArrayDeserializable
          *
          * @var int|string
          */
-        #[Shape(['union' => [['scalar' => 'int'], ['scalar' => 'string']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')))]
         public $token
     ) {}
 }

@@ -21,21 +21,21 @@ class RelatedFullDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var "full"
          */
-        #[Shape(['literal' => 'full'])]
+        #[Shape(new Shape\Literal('full'))]
         public $kind,
         /**
          * The actual items.
          *
          * @var list<Diagnostic>
          */
-        #[Shape(['list' => ['class' => Diagnostic::class]])]
+        #[Shape(new Shape\Sequence(Diagnostic::class))]
         public array $items,
         /**
          * An optional result id. If provided it will
          * be sent on the next diagnostic request for the
          * same document.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $resultId = null,
         /**
          * Diagnostics of related documents. This information is useful
@@ -46,28 +46,19 @@ class RelatedFullDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var array<string, FullDocumentDiagnosticReport|UnchangedDocumentDiagnosticReport>|null
          */
-        #[Shape([
-            'union' => [
-                [
-                    'map' => [
-                        ['scalar' => 'string'],
-                        [
-                            'union' => [
-                                [
-                                    'shape' => [
-                                        'kind' => ['literal' => 'full'],
-                                        'resultId?' => ['scalar' => 'string'],
-                                        'items' => ['list' => ['class' => Diagnostic::class]],
-                                    ],
-                                ],
-                                ['any' => null],
-                            ],
-                        ],
-                    ],
-                ],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Map(
+                    new Shape\Scalar('string'),
+                    new Shape\Union(new Shape\Struct([
+                        'kind' => new Shape\Literal('full'),
+                        'resultId?' => new Shape\Scalar('string'),
+                        'items' => new Shape\Sequence(Diagnostic::class),
+                    ]), new Shape\Any()),
+                ),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public ?array $relatedDocuments = null
     ) {}
 }

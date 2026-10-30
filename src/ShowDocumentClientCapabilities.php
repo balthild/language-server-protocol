@@ -18,7 +18,7 @@ class ShowDocumentClientCapabilities implements ArrayDeserializable
          * The client has support for the showDocument
          * request.
          */
-        #[Shape(['scalar' => 'bool'])]
+        #[Shape(new Shape\Scalar('bool'))]
         public bool $support
     ) {}
 }

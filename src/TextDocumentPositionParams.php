@@ -18,12 +18,12 @@ class TextDocumentPositionParams implements ArrayDeserializable
         /**
          * The text document.
          */
-        #[Shape(['class' => TextDocumentIdentifier::class])]
+        #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
         /**
          * The position inside the text document.
          */
-        #[Shape(['class' => Position::class])]
+        #[Shape(Position::class)]
         public Position $position
     ) {}
 }

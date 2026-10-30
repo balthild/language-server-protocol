@@ -14,7 +14,7 @@ class RegistrationParams implements ArrayDeserializable
         /**
          * @var list<Registration>
          */
-        #[Shape(['list' => ['class' => Registration::class]])]
+        #[Shape(new Shape\Sequence(Registration::class))]
         public array $registrations
     ) {}
 }

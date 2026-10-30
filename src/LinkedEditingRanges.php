@@ -20,14 +20,14 @@ class LinkedEditingRanges implements ArrayDeserializable
          *
          * @var list<Range>
          */
-        #[Shape(['list' => ['class' => Range::class]])]
+        #[Shape(new Shape\Sequence(Range::class))]
         public array $ranges,
         /**
          * An optional word pattern (regular expression) that describes valid contents for
          * the given ranges. If no pattern is provided, the client configuration's word
          * pattern will be used.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $wordPattern = null
     ) {}
 }

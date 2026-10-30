@@ -16,14 +16,14 @@ class SemanticTokensLegend implements ArrayDeserializable
          *
          * @var list<string>
          */
-        #[Shape(['list' => ['scalar' => 'string']])]
+        #[Shape(new Shape\Sequence(new Shape\Scalar('string')))]
         public array $tokenTypes,
         /**
          * The token modifiers a server uses.
          *
          * @var list<string>
          */
-        #[Shape(['list' => ['scalar' => 'string']])]
+        #[Shape(new Shape\Sequence(new Shape\Scalar('string')))]
         public array $tokenModifiers
     ) {}
 }

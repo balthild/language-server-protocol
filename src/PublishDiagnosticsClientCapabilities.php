@@ -17,7 +17,7 @@ class PublishDiagnosticsClientCapabilities implements ArrayDeserializable
         /**
          * Whether the clients accepts diagnostics with related information.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $relatedInformation = null,
         /**
          * Client supports the tag property to provide meta data about a diagnostic.
@@ -25,25 +25,25 @@ class PublishDiagnosticsClientCapabilities implements ArrayDeserializable
          *
          * @var array{valueSet: list<DiagnosticTag::*>}|null
          */
-        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $tagSupport = null,
         /**
          * Whether the client interprets the version property of the
          * `textDocument/publishDiagnostics` notification's parameter.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $versionSupport = null,
         /**
          * Client supports a codeDescription property
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $codeDescriptionSupport = null,
         /**
          * Whether code action supports the `data` property which is
          * preserved between a `textDocument/publishDiagnostics` and
          * `textDocument/codeAction` request.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dataSupport = null
     ) {}
 }

@@ -19,15 +19,19 @@ class Hover implements ArrayDeserializable
          *
          * @var MarkupContent|string|list<string>
          */
-        #[Shape([
-            'union' => [['class' => MarkupContent::class], ['scalar' => 'string'], ['list' => ['scalar' => 'string']]],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                MarkupContent::class,
+                new Shape\Scalar('string'),
+                new Shape\Sequence(new Shape\Scalar('string')),
+            ),
+        )]
         public $contents,
         /**
          * An optional range inside the text document that is used to
          * visualize the hover, e.g. by changing the background color.
          */
-        #[Shape(['union' => [['class' => Range::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(Range::class, new Shape\Scalar('null')))]
         public ?Range $range = null
     ) {}
 }

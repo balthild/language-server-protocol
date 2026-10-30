@@ -25,7 +25,7 @@ class TextDocumentChangeRegistrationOptions extends TextDocumentRegistrationOpti
          *
          * @var TextDocumentSyncKind::*
          */
-        #[Shape(['union' => [['literal' => 0], ['literal' => 1], ['literal' => 2]]])]
+        #[Shape(new Shape\Union(new Shape\Literal(0), new Shape\Literal(1), new Shape\Literal(2)))]
         public $syncKind,
         /**
          * A document selector to identify the scope of the registration. If set to null
@@ -33,27 +33,20 @@ class TextDocumentChangeRegistrationOptions extends TextDocumentRegistrationOpti
          *
          * @var list<(string|DocumentFilter)>|null
          */
-        #[Shape([
-            'union' => [
-                [
-                    'union' => [
-                        [
-                            'list' => [
-                                'union' => [
-                                    ['scalar' => 'string'],
-                                    ['any' => null],
-                                    ['any' => null],
-                                    ['any' => null],
-                                    ['any' => null],
-                                ],
-                            ],
-                        ],
-                        ['literal' => null],
-                    ],
-                ],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Sequence(
+                    new Shape\Union(
+                        new Shape\Scalar('string'),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                    ),
+                ),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $documentSelector = null
     ) {}
 }

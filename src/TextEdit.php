@@ -18,13 +18,13 @@ class TextEdit implements ArrayDeserializable
          * The range of the text document to be manipulated. To insert
          * text into a document create a range where start === end.
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range,
         /**
          * The string to be inserted. For delete operations use an
          * empty string.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $newText
     ) {}
 }

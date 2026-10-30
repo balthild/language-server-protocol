@@ -17,12 +17,12 @@ class CreateFileOptions implements ArrayDeserializable
         /**
          * Overwrite existing file. Overwrite wins over `ignoreIfExists`
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $overwrite = null,
         /**
          * Ignore if exists.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $ignoreIfExists = null
     ) {}
 }

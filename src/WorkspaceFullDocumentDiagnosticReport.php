@@ -16,26 +16,26 @@ class WorkspaceFullDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var "full"
          */
-        #[Shape(['literal' => 'full'])]
+        #[Shape(new Shape\Literal('full'))]
         public $kind,
         /**
          * The actual items.
          *
          * @var list<Diagnostic>
          */
-        #[Shape(['list' => ['class' => Diagnostic::class]])]
+        #[Shape(new Shape\Sequence(Diagnostic::class))]
         public array $items,
         /**
          * The URI for which diagnostic information is reported.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri,
         /**
          * An optional result id. If provided it will
          * be sent on the next diagnostic request for the
          * same document.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $resultId = null,
         /**
          * The version number for which the diagnostics are reported.
@@ -43,7 +43,7 @@ class WorkspaceFullDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var int|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['literal' => null]]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public $version = null
     ) {
         $this->uri = urldecode($uri);

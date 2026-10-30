@@ -199,6 +199,13 @@ export class TypeConverter {
 		}
 
 		if (ts.isLiteralTypeNode(type)) {
+			// `null` parses as a literal type, but it is a scalar here, not a
+			// literal: the two spellings would otherwise describe the same value
+			// as both `Scalar('null')` and `Literal(null)`.
+			if (type.literal.kind === ts.SyntaxKind.NullKeyword) {
+				return new PhpType(undefined, 'null', { kind: 'scalar', name: 'null' });
+			}
+
 			return new PhpType(undefined, type.getText(), { kind: 'literal', value: type.getText() });
 		}
 

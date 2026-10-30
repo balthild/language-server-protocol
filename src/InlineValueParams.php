@@ -19,12 +19,12 @@ class InlineValueParams implements ArrayDeserializable
         /**
          * The text document.
          */
-        #[Shape(['class' => TextDocumentIdentifier::class])]
+        #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
         /**
          * The document range for which inline values should be computed.
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range,
         /**
          * Additional information about the context in which inline values were
@@ -32,14 +32,19 @@ class InlineValueParams implements ArrayDeserializable
          *
          * @var InlineValueContext
          */
-        #[Shape(['shape' => ['frameId' => ['scalar' => 'int'], 'stoppedLocation' => ['class' => Range::class]]])]
+        #[Shape(new Shape\Struct(['frameId' => new Shape\Scalar('int'), 'stoppedLocation' => Range::class]))]
         public array $context,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $workDoneToken = null
     ) {}
 }

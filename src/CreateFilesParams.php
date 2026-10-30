@@ -20,7 +20,7 @@ class CreateFilesParams implements ArrayDeserializable
          *
          * @var list<FileCreate>
          */
-        #[Shape(['list' => ['class' => FileCreate::class]])]
+        #[Shape(new Shape\Sequence(FileCreate::class))]
         public array $files
     ) {}
 }

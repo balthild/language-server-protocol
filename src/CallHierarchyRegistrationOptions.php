@@ -26,35 +26,28 @@ class CallHierarchyRegistrationOptions extends TextDocumentRegistrationOptions
          *
          * @var list<(string|DocumentFilter)>|null
          */
-        #[Shape([
-            'union' => [
-                [
-                    'union' => [
-                        [
-                            'list' => [
-                                'union' => [
-                                    ['scalar' => 'string'],
-                                    ['any' => null],
-                                    ['any' => null],
-                                    ['any' => null],
-                                    ['any' => null],
-                                ],
-                            ],
-                        ],
-                        ['literal' => null],
-                    ],
-                ],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Sequence(
+                    new Shape\Union(
+                        new Shape\Scalar('string'),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                    ),
+                ),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $documentSelector = null,
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null,
         /**
          * The id used to register the request. The id can be used to deregister
          * the request again. See also Registration#id.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $id = null
     ) {}
 }

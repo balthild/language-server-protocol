@@ -22,12 +22,12 @@ class RelativePattern implements ArrayDeserializable
          *
          * @var WorkspaceFolder|string
          */
-        #[Shape(['union' => [['class' => WorkspaceFolder::class], ['scalar' => 'string']]])]
+        #[Shape(new Shape\Union(WorkspaceFolder::class, new Shape\Scalar('string')))]
         public $baseUri,
         /**
          * The actual glob pattern;
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $pattern
     ) {}
 }

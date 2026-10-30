@@ -27,9 +27,12 @@ class ParameterInformation implements ArrayDeserializable
          *
          * @var string|array{int, int}
          */
-        #[Shape([
-            'union' => [['scalar' => 'string'], ['shape' => ['0' => ['scalar' => 'int'], '1' => ['scalar' => 'int']]]],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Scalar('string'),
+                new Shape\Struct(['0' => new Shape\Scalar('int'), '1' => new Shape\Scalar('int')]),
+            ),
+        )]
         public $label,
         /**
          * The human-readable doc-comment of this parameter. Will be shown
@@ -37,9 +40,12 @@ class ParameterInformation implements ArrayDeserializable
          *
          * @var string|MarkupContent|null
          */
-        #[Shape([
-            'union' => [['union' => [['scalar' => 'string'], ['class' => MarkupContent::class]]], ['scalar' => 'null']],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('string'), MarkupContent::class),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $documentation = null
     ) {}
 }

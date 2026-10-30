@@ -19,13 +19,13 @@ class CompletionContext implements ArrayDeserializable
          *
          * @var CompletionTriggerKind::*
          */
-        #[Shape(['union' => [['literal' => 1], ['literal' => 2], ['literal' => 3]]])]
+        #[Shape(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2), new Shape\Literal(3)))]
         public $triggerKind,
         /**
          * The trigger character (a single character) that has trigger code complete.
          * Is undefined if `triggerKind !== CompletionTriggerKind.TriggerCharacter`
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $triggerCharacter = null
     ) {}
 }

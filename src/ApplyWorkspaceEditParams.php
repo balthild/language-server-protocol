@@ -17,14 +17,14 @@ class ApplyWorkspaceEditParams implements ArrayDeserializable
         /**
          * The edits to apply.
          */
-        #[Shape(['class' => WorkspaceEdit::class])]
+        #[Shape(WorkspaceEdit::class)]
         public WorkspaceEdit $edit,
         /**
          * An optional label of the workspace edit. This label is
          * presented in the user interface for example on an undo
          * stack to undo the workspace edit.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $label = null
     ) {}
 }

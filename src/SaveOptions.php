@@ -17,7 +17,7 @@ class SaveOptions implements ArrayDeserializable
         /**
          * The client is supposed to include the content on save.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $includeText = null
     ) {}
 }

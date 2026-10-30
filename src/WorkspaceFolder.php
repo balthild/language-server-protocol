@@ -17,13 +17,13 @@ class WorkspaceFolder implements ArrayDeserializable
         /**
          * The associated URI for this workspace folder.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri,
         /**
          * The name of the workspace folder. Used to refer to this
          * workspace folder in the user interface.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $name
     ) {}
 }

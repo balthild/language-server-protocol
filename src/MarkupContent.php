@@ -40,12 +40,12 @@ class MarkupContent implements ArrayDeserializable
          *
          * @var MarkupKind::*
          */
-        #[Shape(['union' => [['literal' => 'plaintext'], ['literal' => 'markdown']]])]
+        #[Shape(new Shape\Union(new Shape\Literal('plaintext'), new Shape\Literal('markdown')))]
         public $kind,
         /**
          * The content itself
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $value
     ) {}
 }

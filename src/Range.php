@@ -27,12 +27,12 @@ class Range implements ArrayDeserializable
         /**
          * The range's start position.
          */
-        #[Shape(['class' => Position::class])]
+        #[Shape(Position::class)]
         public Position $start,
         /**
          * The range's end position.
          */
-        #[Shape(['class' => Position::class])]
+        #[Shape(Position::class)]
         public Position $end
     ) {}
 }

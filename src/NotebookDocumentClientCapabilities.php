@@ -21,7 +21,7 @@ class NotebookDocumentClientCapabilities implements ArrayDeserializable
          *
          * @var NotebookDocumentSyncClientCapabilities
          */
-        #[Shape(['any' => null])]
+        #[Shape(new Shape\Any())]
         public array $synchronization
     ) {}
 }

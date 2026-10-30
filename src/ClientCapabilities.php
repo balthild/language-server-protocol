@@ -17,34 +17,34 @@ class ClientCapabilities implements ArrayDeserializable
         /**
          * Workspace specific client capabilities.
          */
-        #[Shape(['union' => [['class' => WorkspaceClientCapabilities::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(WorkspaceClientCapabilities::class, new Shape\Scalar('null')))]
         public ?WorkspaceClientCapabilities $workspace = null,
         /**
          * Text document specific client capabilities.
          */
-        #[Shape(['union' => [['class' => TextDocumentClientCapabilities::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(TextDocumentClientCapabilities::class, new Shape\Scalar('null')))]
         public ?TextDocumentClientCapabilities $textDocument = null,
         /**
          * Capabilities specific to the notebook document support.
          */
-        #[Shape(['union' => [['class' => NotebookDocumentClientCapabilities::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(NotebookDocumentClientCapabilities::class, new Shape\Scalar('null')))]
         public ?NotebookDocumentClientCapabilities $notebookDocument = null,
         /**
          * Window specific client capabilities.
          */
-        #[Shape(['union' => [['class' => WindowClientCapabilities::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(WindowClientCapabilities::class, new Shape\Scalar('null')))]
         public ?WindowClientCapabilities $window = null,
         /**
          * General client capabilities.
          */
-        #[Shape(['union' => [['class' => GeneralClientCapabilities::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(GeneralClientCapabilities::class, new Shape\Scalar('null')))]
         public ?GeneralClientCapabilities $general = null,
         /**
          * Experimental client capabilities.
          *
          * @var mixed|null
          */
-        #[Shape(['union' => [['scalar' => 'mixed'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('mixed'), new Shape\Scalar('null')))]
         public $experimental = null
     ) {}
 }

@@ -18,19 +18,19 @@ class Registration implements ArrayDeserializable
          * The id used to register the request. The id can be used to deregister
          * the request again.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $id,
         /**
          * The method / capability to register for.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $method,
         /**
          * Options necessary for the registration.
          *
          * @var mixed|null
          */
-        #[Shape(['union' => [['scalar' => 'mixed'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('mixed'), new Shape\Scalar('null')))]
         public $registerOptions = null
     ) {}
 }

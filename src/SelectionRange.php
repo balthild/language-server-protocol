@@ -18,12 +18,12 @@ class SelectionRange implements ArrayDeserializable
         /**
          * The [range](#Range) of this selection range.
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range,
         /**
          * The parent selection range containing this range. Therefore `parent.range` must contain `this.range`.
          */
-        #[Shape(['union' => [['class' => SelectionRange::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(SelectionRange::class, new Shape\Scalar('null')))]
         public ?SelectionRange $parent = null
     ) {}
 }

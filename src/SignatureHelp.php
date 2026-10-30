@@ -21,7 +21,7 @@ class SignatureHelp implements ArrayDeserializable
          *
          * @var list<SignatureInformation>
          */
-        #[Shape(['list' => ['class' => SignatureInformation::class]])]
+        #[Shape(new Shape\Sequence(SignatureInformation::class))]
         public array $signatures,
         /**
          * The active signature. If omitted or the value lies outside the
@@ -34,7 +34,7 @@ class SignatureHelp implements ArrayDeserializable
          * In future version of the protocol this property might become
          * mandatory to better express this.
          */
-        #[Shape(['union' => [['scalar' => 'int'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public ?int $activeSignature = null,
         /**
          * The active parameter of the active signature. If omitted or the value
@@ -45,7 +45,7 @@ class SignatureHelp implements ArrayDeserializable
          * mandatory to better express the active parameter if the
          * active signature does have any.
          */
-        #[Shape(['union' => [['scalar' => 'int'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public ?int $activeParameter = null
     ) {}
 }

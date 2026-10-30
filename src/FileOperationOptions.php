@@ -17,32 +17,32 @@ class FileOperationOptions implements ArrayDeserializable
         /**
          * The server is interested in receiving didCreateFiles notifications.
          */
-        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(FileOperationRegistrationOptions::class, new Shape\Scalar('null')))]
         public ?FileOperationRegistrationOptions $didCreate = null,
         /**
          * The server is interested in receiving willCreateFiles requests.
          */
-        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(FileOperationRegistrationOptions::class, new Shape\Scalar('null')))]
         public ?FileOperationRegistrationOptions $willCreate = null,
         /**
          * The server is interested in receiving didRenameFiles notifications.
          */
-        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(FileOperationRegistrationOptions::class, new Shape\Scalar('null')))]
         public ?FileOperationRegistrationOptions $didRename = null,
         /**
          * The server is interested in receiving willRenameFiles requests.
          */
-        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(FileOperationRegistrationOptions::class, new Shape\Scalar('null')))]
         public ?FileOperationRegistrationOptions $willRename = null,
         /**
          * The server is interested in receiving didDeleteFiles file notifications.
          */
-        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(FileOperationRegistrationOptions::class, new Shape\Scalar('null')))]
         public ?FileOperationRegistrationOptions $didDelete = null,
         /**
          * The server is interested in receiving willDeleteFiles file requests.
          */
-        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(FileOperationRegistrationOptions::class, new Shape\Scalar('null')))]
         public ?FileOperationRegistrationOptions $willDelete = null
     ) {}
 }

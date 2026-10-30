@@ -18,13 +18,13 @@ class CompletionItemLabelDetails implements ArrayDeserializable
          * An optional string which is rendered less prominently directly after {@link CompletionItem.label label},
          * without any spacing. Should be used for function signatures and type annotations.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $detail = null,
         /**
          * An optional string which is rendered less prominently after {@link CompletionItem.detail}. Should be used
          * for fully qualified names and file paths.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $description = null
     ) {}
 }

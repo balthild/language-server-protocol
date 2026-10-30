@@ -14,7 +14,7 @@ class SemanticTokensDeltaPartialResult implements ArrayDeserializable
         /**
          * @var list<SemanticTokensEdit>
          */
-        #[Shape(['list' => ['class' => SemanticTokensEdit::class]])]
+        #[Shape(new Shape\Sequence(SemanticTokensEdit::class))]
         public array $edits
     ) {}
 }

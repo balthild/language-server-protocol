@@ -17,12 +17,12 @@ class FileRename implements ArrayDeserializable
         /**
          * A file:// URI for the original location of the file/folder being renamed.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $oldUri,
         /**
          * A file:// URI for the new location of the file/folder being renamed.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $newUri
     ) {}
 }

@@ -17,14 +17,14 @@ class FileEvent implements ArrayDeserializable
         /**
          * The file's uri.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri,
         /**
          * The change type.
          *
          * @var FileChangeType::*
          */
-        #[Shape(['union' => [['literal' => 1], ['literal' => 2], ['literal' => 3]]])]
+        #[Shape(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2), new Shape\Literal(3)))]
         public $type
     ) {
         $this->uri = urldecode($uri);

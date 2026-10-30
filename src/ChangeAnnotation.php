@@ -18,19 +18,19 @@ class ChangeAnnotation implements ArrayDeserializable
          * A human-readable string describing the actual change. The string
          * is rendered prominent in the user interface.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $label,
         /**
          * A flag which indicates that user confirmation is needed
          * before applying the change.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $needsConfirmation = null,
         /**
          * A human-readable string which is rendered less prominent in
          * the user interface.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $description = null
     ) {}
 }

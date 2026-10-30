@@ -19,12 +19,12 @@ class DiagnosticRelatedInformation implements ArrayDeserializable
         /**
          * The location of this related diagnostic information.
          */
-        #[Shape(['class' => Location::class])]
+        #[Shape(Location::class)]
         public Location $location,
         /**
          * The message of this related diagnostic information.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $message
     ) {}
 }

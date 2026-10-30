@@ -17,19 +17,19 @@ class PublishDiagnosticsParams implements ArrayDeserializable
         /**
          * The URI for which diagnostic information is reported.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri,
         /**
          * An array of diagnostic information items.
          *
          * @var list<Diagnostic>
          */
-        #[Shape(['list' => ['class' => Diagnostic::class]])]
+        #[Shape(new Shape\Sequence(Diagnostic::class))]
         public array $diagnostics,
         /**
          * Optional the version number of the document the diagnostics are published for.
          */
-        #[Shape(['union' => [['scalar' => 'int'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public ?int $version = null
     ) {
         $this->uri = urldecode($uri);

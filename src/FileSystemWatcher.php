@@ -16,7 +16,7 @@ class FileSystemWatcher implements ArrayDeserializable
          *
          * @var string|RelativePattern
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['class' => RelativePattern::class]]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), RelativePattern::class))]
         public $globPattern,
         /**
          * The kind of events of interest. If omitted it defaults
@@ -25,7 +25,7 @@ class FileSystemWatcher implements ArrayDeserializable
          *
          * @var WatchKind::*|null
          */
-        #[Shape(['union' => [['scalar' => 'int'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public $kind = null
     ) {}
 }

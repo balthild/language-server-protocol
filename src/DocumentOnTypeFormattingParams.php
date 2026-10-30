@@ -17,14 +17,14 @@ class DocumentOnTypeFormattingParams implements ArrayDeserializable
         /**
          * The document to format.
          */
-        #[Shape(['class' => TextDocumentIdentifier::class])]
+        #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
         /**
          * The position around which the on type formatting should happen.
          * This is not necessarily the exact position where the character denoted
          * by the property `ch` got typed.
          */
-        #[Shape(['class' => Position::class])]
+        #[Shape(Position::class)]
         public Position $position,
         /**
          * The character that has been typed that triggered the formatting
@@ -32,12 +32,12 @@ class DocumentOnTypeFormattingParams implements ArrayDeserializable
          * got inserted into the document since the client could auto insert
          * characters as well (e.g. like automatic brace completion).
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $ch,
         /**
          * The formatting options.
          */
-        #[Shape(['class' => FormattingOptions::class])]
+        #[Shape(FormattingOptions::class)]
         public FormattingOptions $options
     ) {}
 }

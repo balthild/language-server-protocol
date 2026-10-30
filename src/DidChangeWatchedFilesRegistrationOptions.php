@@ -19,7 +19,7 @@ class DidChangeWatchedFilesRegistrationOptions implements ArrayDeserializable
          *
          * @var list<FileSystemWatcher>
          */
-        #[Shape(['list' => ['class' => FileSystemWatcher::class]])]
+        #[Shape(new Shape\Sequence(FileSystemWatcher::class))]
         public array $watchers
     ) {}
 }

@@ -14,12 +14,12 @@ class ConfigurationItem implements ArrayDeserializable
         /**
          * The scope to get the configuration section for.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $scopeUri = null,
         /**
          * The configuration section asked for.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $section = null
     ) {}
 }

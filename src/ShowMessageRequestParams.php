@@ -16,19 +16,21 @@ class ShowMessageRequestParams implements ArrayDeserializable
          *
          * @var MessageType::*
          */
-        #[Shape(['union' => [['literal' => 1], ['literal' => 2], ['literal' => 3], ['literal' => 4]]])]
+        #[Shape(
+            new Shape\Union(new Shape\Literal(1), new Shape\Literal(2), new Shape\Literal(3), new Shape\Literal(4)),
+        )]
         public $type,
         /**
          * The actual message.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $message,
         /**
          * The message action items to present.
          *
          * @var list<MessageActionItem>|null
          */
-        #[Shape(['union' => [['list' => ['class' => MessageActionItem::class]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(MessageActionItem::class), new Shape\Scalar('null')))]
         public ?array $actions = null
     ) {}
 }

@@ -14,17 +14,17 @@ class TextDocumentContentChangeIncrementalEvent implements ArrayDeserializable
         /**
          * The range of the document that changed.
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range,
         /**
          * The new text for the provided range.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $text,
         /**
          * The optional length of the range that got replaced.
          */
-        #[Shape(['union' => [['scalar' => 'int'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public ?int $rangeLength = null
     ) {}
 }

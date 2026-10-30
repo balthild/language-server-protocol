@@ -15,27 +15,27 @@ class RenameFile extends ResourceOperation
         /**
          * The resource operation kind.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $kind,
         /**
          * The old (existing) location.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $oldUri,
         /**
          * The new location.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $newUri,
         /**
          * Rename options.
          */
-        #[Shape(['union' => [['class' => RenameFileOptions::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(RenameFileOptions::class, new Shape\Scalar('null')))]
         public ?RenameFileOptions $options = null,
         /**
          * An optional annotation identifier describing the operation.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $annotationId = null
     ) {
         $this->oldUri = urldecode($oldUri);

@@ -16,14 +16,14 @@ class ColorPresentation implements ArrayDeserializable
          * picker header. By default this is also the text that is inserted when selecting
          * this color presentation.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $label,
         /**
          * An [edit](#TextEdit) which is applied to a document when selecting
          * this presentation for the color.  When `falsy` the [label](#ColorPresentation.label)
          * is used.
          */
-        #[Shape(['union' => [['class' => TextEdit::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(TextEdit::class, new Shape\Scalar('null')))]
         public ?TextEdit $textEdit = null,
         /**
          * An optional array of additional [text edits](#TextEdit) that are applied when
@@ -31,7 +31,7 @@ class ColorPresentation implements ArrayDeserializable
          *
          * @var list<TextEdit>|null
          */
-        #[Shape(['union' => [['list' => ['class' => TextEdit::class]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(TextEdit::class), new Shape\Scalar('null')))]
         public ?array $additionalTextEdits = null
     ) {}
 }

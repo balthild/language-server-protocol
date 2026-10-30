@@ -17,17 +17,17 @@ class InsertReplaceEdit implements ArrayDeserializable
         /**
          * The string to be inserted.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $newText,
         /**
          * The range if the insert is requested
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $insert,
         /**
          * The range if the replace is requested.
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $replace
     ) {}
 }

@@ -22,17 +22,17 @@ class GeneralClientCapabilities implements ArrayDeserializable
          *
          * @var array{cancel: bool, retryOnContentModified: list<string>}|null
          */
-        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $staleRequestSupport = null,
         /**
          * Client capabilities specific to regular expressions.
          */
-        #[Shape(['union' => [['class' => RegularExpressionsClientCapabilities::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(RegularExpressionsClientCapabilities::class, new Shape\Scalar('null')))]
         public ?RegularExpressionsClientCapabilities $regularExpressions = null,
         /**
          * Client capabilities specific to the client's markdown parser.
          */
-        #[Shape(['union' => [['class' => MarkdownClientCapabilities::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(MarkdownClientCapabilities::class, new Shape\Scalar('null')))]
         public ?MarkdownClientCapabilities $markdown = null,
         /**
          * The position encodings supported by the client. Client and server
@@ -54,7 +54,7 @@ class GeneralClientCapabilities implements ArrayDeserializable
          *
          * @var list<string>|null
          */
-        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $positionEncodings = null
     ) {}
 }

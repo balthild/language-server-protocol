@@ -12,14 +12,19 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 class CallHierarchyIncomingCallsParams extends WorkDoneProgressParams
 {
     public function __construct(
-        #[Shape(['class' => CallHierarchyItem::class])]
+        #[Shape(CallHierarchyItem::class)]
         public CallHierarchyItem $item,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $workDoneToken = null,
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
@@ -27,7 +32,12 @@ class CallHierarchyIncomingCallsParams extends WorkDoneProgressParams
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $partialResultToken = null
     ) {}
 }

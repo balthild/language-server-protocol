@@ -26,34 +26,27 @@ class CodeLensRegistrationOptions extends TextDocumentRegistrationOptions
          *
          * @var list<(string|DocumentFilter)>|null
          */
-        #[Shape([
-            'union' => [
-                [
-                    'union' => [
-                        [
-                            'list' => [
-                                'union' => [
-                                    ['scalar' => 'string'],
-                                    ['any' => null],
-                                    ['any' => null],
-                                    ['any' => null],
-                                    ['any' => null],
-                                ],
-                            ],
-                        ],
-                        ['literal' => null],
-                    ],
-                ],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Sequence(
+                    new Shape\Union(
+                        new Shape\Scalar('string'),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                    ),
+                ),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $documentSelector = null,
         /**
          * Code lens has a resolve provider as well.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $resolveProvider = null,
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}
 }

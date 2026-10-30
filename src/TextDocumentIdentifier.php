@@ -17,7 +17,7 @@ class TextDocumentIdentifier implements ArrayDeserializable
         /**
          * The text document's uri.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri
     ) {
         $this->uri = urldecode($uri);

@@ -17,12 +17,12 @@ class RegularExpressionsClientCapabilities implements ArrayDeserializable
         /**
          * The engine's name.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $engine,
         /**
          * The engine's version.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $version = null
     ) {}
 }

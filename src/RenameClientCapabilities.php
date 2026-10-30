@@ -14,13 +14,13 @@ class RenameClientCapabilities implements ArrayDeserializable
         /**
          * Whether rename supports dynamic registration.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
         /**
          * Client supports testing for validity of rename operations
          * before execution.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $prepareSupport = null,
         /**
          * Client supports the default behavior result.
@@ -30,7 +30,7 @@ class RenameClientCapabilities implements ArrayDeserializable
          *
          * @var PrepareSupportDefaultBehavior::*|null
          */
-        #[Shape(['union' => [['literal' => 1], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Literal(1), new Shape\Scalar('null')))]
         public $prepareSupportDefaultBehavior = null,
         /**
          * Whether the client honors the change annotations in
@@ -39,7 +39,7 @@ class RenameClientCapabilities implements ArrayDeserializable
          * the workspace edit in the user interface and asking
          * for confirmation.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $honorsChangeAnnotations = null
     ) {}
 }

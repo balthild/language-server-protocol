@@ -17,22 +17,22 @@ class Color implements ArrayDeserializable
         /**
          * The red component of this color in the range [0-1].
          */
-        #[Shape(['scalar' => 'int'])]
+        #[Shape(new Shape\Scalar('int'))]
         public int $red,
         /**
          * The green component of this color in the range [0-1].
          */
-        #[Shape(['scalar' => 'int'])]
+        #[Shape(new Shape\Scalar('int'))]
         public int $green,
         /**
          * The blue component of this color in the range [0-1].
          */
-        #[Shape(['scalar' => 'int'])]
+        #[Shape(new Shape\Scalar('int'))]
         public int $blue,
         /**
          * The alpha component of this color in the range [0-1].
          */
-        #[Shape(['scalar' => 'int'])]
+        #[Shape(new Shape\Scalar('int'))]
         public int $alpha
     ) {}
 }

@@ -14,7 +14,7 @@ class TextDocumentContentChangeFullEvent implements ArrayDeserializable
         /**
          * The new text of the whole document.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $text
     ) {}
 }

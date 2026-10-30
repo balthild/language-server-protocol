@@ -19,7 +19,7 @@ class SignatureHelpContext implements ArrayDeserializable
          *
          * @var SignatureHelpTriggerKind::*
          */
-        #[Shape(['union' => [['literal' => 1], ['literal' => 2], ['literal' => 3]]])]
+        #[Shape(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2), new Shape\Literal(3)))]
         public $triggerKind,
         /**
          * `true` if signature help was already showing when it was triggered.
@@ -27,14 +27,14 @@ class SignatureHelpContext implements ArrayDeserializable
          * Retriggers occurs when the signature help is already active and can be caused by actions such as
          * typing a trigger character, a cursor move, or document content changes.
          */
-        #[Shape(['scalar' => 'bool'])]
+        #[Shape(new Shape\Scalar('bool'))]
         public bool $isRetrigger,
         /**
          * Character that caused signature help to be triggered.
          *
          * This is undefined when `triggerKind !== SignatureHelpTriggerKind.TriggerCharacter`
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $triggerCharacter = null,
         /**
          * The currently active `SignatureHelp`.
@@ -42,7 +42,7 @@ class SignatureHelpContext implements ArrayDeserializable
          * The `activeSignatureHelp` has its `SignatureHelp.activeSignature` field updated based on
          * the user navigating through available signatures.
          */
-        #[Shape(['union' => [['class' => SignatureHelp::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(SignatureHelp::class, new Shape\Scalar('null')))]
         public ?SignatureHelp $activeSignatureHelp = null
     ) {}
 }

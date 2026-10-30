@@ -17,14 +17,14 @@ class InitializeResult implements ArrayDeserializable
         /**
          * The capabilities the language server provides.
          */
-        #[Shape(['class' => ServerCapabilities::class])]
+        #[Shape(ServerCapabilities::class)]
         public ServerCapabilities $capabilities,
         /**
          * Information about the server.
          *
          * @var array{name: string, version?: string}|null
          */
-        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $serverInfo = null
     ) {}
 }

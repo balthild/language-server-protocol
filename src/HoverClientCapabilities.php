@@ -14,7 +14,7 @@ class HoverClientCapabilities implements ArrayDeserializable
         /**
          * Whether hover supports dynamic registration.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
         /**
          * Client supports the following content formats for the content
@@ -22,12 +22,12 @@ class HoverClientCapabilities implements ArrayDeserializable
          *
          * @var list<MarkupKind::*>|null
          */
-        #[Shape([
-            'union' => [
-                ['list' => ['union' => [['literal' => 'plaintext'], ['literal' => 'markdown']]]],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Sequence(new Shape\Union(new Shape\Literal('plaintext'), new Shape\Literal('markdown'))),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public ?array $contentFormat = null
     ) {}
 }

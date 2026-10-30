@@ -17,12 +17,12 @@ class ResourceOperation implements ArrayDeserializable
         /**
          * The resource operation kind.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $kind,
         /**
          * An optional annotation identifier describing the operation.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $annotationId = null
     ) {}
 }

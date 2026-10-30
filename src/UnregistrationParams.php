@@ -14,7 +14,7 @@ class UnregistrationParams implements ArrayDeserializable
         /**
          * @var list<Unregistration>
          */
-        #[Shape(['list' => ['class' => Unregistration::class]])]
+        #[Shape(new Shape\Sequence(Unregistration::class))]
         public array $unregisterations
     ) {}
 }

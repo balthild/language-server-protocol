@@ -82,23 +82,42 @@ trait FromArray
     /**
      * Returns the value as described by the node, hydrating objects on the way,
      * or throws when the value does not fit.
-     *
-     * @param array<string, mixed> $node
      */
-    private static function conform(array $node, mixed $value, bool $allowUnknownKeys): mixed
-    {
-        $kind = array_key_first($node);
+    private static function conform(
+        Shape\Node|string $node,
+        mixed $value,
+        bool $allowUnknownKeys
+    ): mixed {
+        // A bare class-string is the common case: an object of that class.
+        if (is_string($node)) {
+            if (!is_a($node, ArrayDeserializable::class, true)) {
+                throw new RuntimeException(sprintf('%s is not deserializable', $node));
+            }
 
-        return match ($kind) {
-            'any' => $value,
-            'class' => self::conformClass($node['class'], $value, $allowUnknownKeys),
-            'scalar' => self::conformScalar($node['scalar'], $value),
-            'literal' => self::conformLiteral($node['literal'], $value),
-            'list' => self::conformList($node['list'], $value, $allowUnknownKeys),
-            'map' => self::conformMap($node['map'], $value, $allowUnknownKeys),
-            'shape' => self::conformShape($node['shape'], $value, $allowUnknownKeys),
-            'union' => self::conformUnion($node['union'], $value, $allowUnknownKeys),
-            default => throw new RuntimeException(sprintf('Unknown shape node "%s"', $kind)),
+            return self::conformClass($node, $value, $allowUnknownKeys);
+        }
+
+        return match (true) {
+            $node instanceof Shape\Any => $value,
+            $node instanceof Shape\Scalar => self::conformScalar($node->name, $value),
+            $node instanceof Shape\Literal => self::conformLiteral($node->value, $value),
+            $node instanceof Shape\Sequence => self::conformSequence(
+                $node->element,
+                $value,
+                $allowUnknownKeys,
+            ),
+            $node instanceof Shape\Map => self::conformMap($node, $value, $allowUnknownKeys),
+            $node instanceof Shape\Struct => self::conformStruct(
+                $node->members,
+                $value,
+                $allowUnknownKeys,
+            ),
+            $node instanceof Shape\Union => self::conformUnion(
+                $node->branches,
+                $value,
+                $allowUnknownKeys,
+            ),
+            default => throw new RuntimeException(sprintf('Unknown shape node %s', $node::class)),
         };
     }
 
@@ -147,11 +166,13 @@ trait FromArray
     }
 
     /**
-     * @param array<string, mixed> $element
      * @return array<array-key, mixed>
      */
-    private static function conformList(array $element, mixed $value, bool $allowUnknownKeys): array
-    {
+    private static function conformSequence(
+        Shape\Node|string $element,
+        mixed $value,
+        bool $allowUnknownKeys
+    ): array {
         if (!is_array($value) || !array_is_list($value)) {
             throw self::mismatch('list', $value);
         }
@@ -164,37 +185,34 @@ trait FromArray
     }
 
     /**
-     * @param array{0: array<string, mixed>, 1: array<string, mixed>} $types
      * @return array<array-key, mixed>
      */
-    private static function conformMap(array $types, mixed $value, bool $allowUnknownKeys): array
+    private static function conformMap(Shape\Map $map, mixed $value, bool $allowUnknownKeys): array
     {
         if (!is_array($value)) {
             throw self::mismatch('map', $value);
         }
 
-        [$keyNode, $valueNode] = $types;
-
         foreach ($value as $key => $item) {
-            self::conform($keyNode, $key, $allowUnknownKeys);
-            $value[$key] = self::conform($valueNode, $item, $allowUnknownKeys);
+            self::conform($map->key, $key, $allowUnknownKeys);
+            $value[$key] = self::conform($map->value, $item, $allowUnknownKeys);
         }
 
         return $value;
     }
 
     /**
-     * @param array<string, array<string, mixed>> $members
+     * @param array<array-key, Shape\Node|string> $members
      * @return array<array-key, mixed>
      */
-    private static function conformShape(array $members, mixed $value, bool $allowUnknownKeys): array
+    private static function conformStruct(array $members, mixed $value, bool $allowUnknownKeys): array
     {
         if (!is_array($value)) {
             throw self::mismatch('array', $value);
         }
 
         foreach ($members as $key => $node) {
-            $optional = str_ends_with($key, '?');
+            $optional = is_string($key) && str_ends_with($key, '?');
             $name = $optional ? substr($key, 0, -1) : $key;
 
             if (!array_key_exists($name, $value)) {
@@ -212,7 +230,7 @@ trait FromArray
     }
 
     /**
-     * @param list<array<string, mixed>> $branches
+     * @param array<array-key, Shape\Node|string> $branches
      */
     private static function conformUnion(array $branches, mixed $value, bool $allowUnknownKeys): mixed
     {

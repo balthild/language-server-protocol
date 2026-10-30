@@ -20,7 +20,7 @@ class DeleteFilesParams implements ArrayDeserializable
          *
          * @var list<FileDelete>
          */
-        #[Shape(['list' => ['class' => FileDelete::class]])]
+        #[Shape(new Shape\Sequence(FileDelete::class))]
         public array $files
     ) {}
 }

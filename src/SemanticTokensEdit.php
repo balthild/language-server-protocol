@@ -14,19 +14,19 @@ class SemanticTokensEdit implements ArrayDeserializable
         /**
          * The start offset of the edit.
          */
-        #[Shape(['scalar' => 'int'])]
+        #[Shape(new Shape\Scalar('int'))]
         public int $start,
         /**
          * The count of elements to remove.
          */
-        #[Shape(['scalar' => 'int'])]
+        #[Shape(new Shape\Scalar('int'))]
         public int $deleteCount,
         /**
          * The elements to insert.
          *
          * @var list<int>|null
          */
-        #[Shape(['union' => [['list' => ['scalar' => 'int']], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('int')), new Shape\Scalar('null')))]
         public ?array $data = null
     ) {}
 }

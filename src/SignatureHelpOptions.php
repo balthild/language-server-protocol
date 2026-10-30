@@ -17,7 +17,7 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
          *
          * @var list<string>|null
          */
-        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $triggerCharacters = null,
         /**
          * List of characters that re-trigger signature help.
@@ -27,9 +27,9 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
          *
          * @var list<string>|null
          */
-        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $retriggerCharacters = null,
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $workDoneProgress = null
     ) {}
 }

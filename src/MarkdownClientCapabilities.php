@@ -17,12 +17,12 @@ class MarkdownClientCapabilities implements ArrayDeserializable
         /**
          * The name of the parser.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $parser,
         /**
          * The version of the parser.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $version = null,
         /**
          * A list of HTML tags that the client allows / supports in
@@ -30,7 +30,7 @@ class MarkdownClientCapabilities implements ArrayDeserializable
          *
          * @var list<string>|null
          */
-        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Scalar('string')), new Shape\Scalar('null')))]
         public ?array $allowedTags = null
     ) {}
 }

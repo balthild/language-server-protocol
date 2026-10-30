@@ -18,7 +18,7 @@ class ReferenceContext implements ArrayDeserializable
         /**
          * Include the declaration of the current symbol.
          */
-        #[Shape(['scalar' => 'bool'])]
+        #[Shape(new Shape\Scalar('bool'))]
         public bool $includeDeclaration
     ) {}
 }

@@ -20,12 +20,7 @@ class WorkspaceFoldersInitializeParams implements ArrayDeserializable
          *
          * @var list<WorkspaceFolder>|null
          */
-        #[Shape([
-            'union' => [
-                ['union' => [['list' => ['class' => WorkspaceFolder::class]], ['literal' => null]]],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(new Shape\Union(new Shape\Sequence(WorkspaceFolder::class), new Shape\Scalar('null')))]
         public $workspaceFolders = null
     ) {}
 }

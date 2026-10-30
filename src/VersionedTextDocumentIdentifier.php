@@ -15,12 +15,12 @@ class VersionedTextDocumentIdentifier extends TextDocumentIdentifier
         /**
          * The version number of this document.
          */
-        #[Shape(['scalar' => 'int'])]
+        #[Shape(new Shape\Scalar('int'))]
         public int $version,
         /**
          * The text document's uri.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri
     ) {
         $this->uri = urldecode($uri);

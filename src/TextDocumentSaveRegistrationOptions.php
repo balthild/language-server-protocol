@@ -26,32 +26,25 @@ class TextDocumentSaveRegistrationOptions extends TextDocumentRegistrationOption
          *
          * @var list<(string|DocumentFilter)>|null
          */
-        #[Shape([
-            'union' => [
-                [
-                    'union' => [
-                        [
-                            'list' => [
-                                'union' => [
-                                    ['scalar' => 'string'],
-                                    ['any' => null],
-                                    ['any' => null],
-                                    ['any' => null],
-                                    ['any' => null],
-                                ],
-                            ],
-                        ],
-                        ['literal' => null],
-                    ],
-                ],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Sequence(
+                    new Shape\Union(
+                        new Shape\Scalar('string'),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                        new Shape\Any(),
+                    ),
+                ),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $documentSelector = null,
         /**
          * The client is supposed to include the content on save.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $includeText = null
     ) {}
 }

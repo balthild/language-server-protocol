@@ -15,9 +15,9 @@ class Location implements ArrayDeserializable
     use FromArray;
 
     public function __construct(
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri,
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range
     ) {
         $this->uri = urldecode($uri);

@@ -17,7 +17,7 @@ class DidOpenTextDocumentParams implements ArrayDeserializable
         /**
          * The document that was opened.
          */
-        #[Shape(['class' => TextDocumentItem::class])]
+        #[Shape(TextDocumentItem::class)]
         public TextDocumentItem $textDocument
     ) {}
 }

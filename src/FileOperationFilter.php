@@ -18,12 +18,12 @@ class FileOperationFilter implements ArrayDeserializable
         /**
          * The actual file operation pattern.
          */
-        #[Shape(['class' => FileOperationPattern::class])]
+        #[Shape(FileOperationPattern::class)]
         public FileOperationPattern $pattern,
         /**
          * A Uri scheme like `file` or `untitled`.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $scheme = null
     ) {}
 }

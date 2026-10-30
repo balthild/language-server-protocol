@@ -19,7 +19,7 @@ class StaticRegistrationOptions implements ArrayDeserializable
          * The id used to register the request. The id can be used to deregister
          * the request again. See also Registration#id.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $id = null
     ) {}
 }

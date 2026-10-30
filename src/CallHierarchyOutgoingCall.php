@@ -17,7 +17,7 @@ class CallHierarchyOutgoingCall implements ArrayDeserializable
         /**
          * The item that is called.
          */
-        #[Shape(['class' => CallHierarchyItem::class])]
+        #[Shape(CallHierarchyItem::class)]
         public CallHierarchyItem $to,
         /**
          * The range at which this item is called. This is the range relative to the caller, e.g the item
@@ -26,7 +26,7 @@ class CallHierarchyOutgoingCall implements ArrayDeserializable
          *
          * @var list<Range>
          */
-        #[Shape(['list' => ['class' => Range::class]])]
+        #[Shape(new Shape\Sequence(Range::class))]
         public array $fromRanges
     ) {}
 }

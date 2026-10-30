@@ -17,50 +17,50 @@ class BaseSymbolInformation implements ArrayDeserializable
         /**
          * The name of this symbol.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $name,
         /**
          * The kind of this symbol.
          *
          * @var SymbolKind::*
          */
-        #[Shape([
-            'union' => [
-                ['literal' => 1],
-                ['literal' => 2],
-                ['literal' => 3],
-                ['literal' => 4],
-                ['literal' => 5],
-                ['literal' => 6],
-                ['literal' => 7],
-                ['literal' => 8],
-                ['literal' => 9],
-                ['literal' => 10],
-                ['literal' => 11],
-                ['literal' => 12],
-                ['literal' => 13],
-                ['literal' => 14],
-                ['literal' => 15],
-                ['literal' => 16],
-                ['literal' => 17],
-                ['literal' => 18],
-                ['literal' => 19],
-                ['literal' => 20],
-                ['literal' => 21],
-                ['literal' => 22],
-                ['literal' => 23],
-                ['literal' => 24],
-                ['literal' => 25],
-                ['literal' => 26],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Literal(1),
+                new Shape\Literal(2),
+                new Shape\Literal(3),
+                new Shape\Literal(4),
+                new Shape\Literal(5),
+                new Shape\Literal(6),
+                new Shape\Literal(7),
+                new Shape\Literal(8),
+                new Shape\Literal(9),
+                new Shape\Literal(10),
+                new Shape\Literal(11),
+                new Shape\Literal(12),
+                new Shape\Literal(13),
+                new Shape\Literal(14),
+                new Shape\Literal(15),
+                new Shape\Literal(16),
+                new Shape\Literal(17),
+                new Shape\Literal(18),
+                new Shape\Literal(19),
+                new Shape\Literal(20),
+                new Shape\Literal(21),
+                new Shape\Literal(22),
+                new Shape\Literal(23),
+                new Shape\Literal(24),
+                new Shape\Literal(25),
+                new Shape\Literal(26),
+            ),
+        )]
         public $kind,
         /**
          * Tags for this symbol.
          *
          * @var list<SymbolTag::*>|null
          */
-        #[Shape(['union' => [['list' => ['literal' => 1]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(new Shape\Literal(1)), new Shape\Scalar('null')))]
         public ?array $tags = null,
         /**
          * The name of the symbol containing this symbol. This information is for
@@ -68,7 +68,7 @@ class BaseSymbolInformation implements ArrayDeserializable
          * if necessary). It can't be used to re-infer a hierarchy for the document
          * symbols.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $containerName = null
     ) {}
 }

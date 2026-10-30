@@ -17,27 +17,27 @@ class FormattingOptions implements ArrayDeserializable
         /**
          * Size of a tab in spaces.
          */
-        #[Shape(['scalar' => 'int'])]
+        #[Shape(new Shape\Scalar('int'))]
         public int $tabSize,
         /**
          * Prefer spaces over tabs.
          */
-        #[Shape(['scalar' => 'bool'])]
+        #[Shape(new Shape\Scalar('bool'))]
         public bool $insertSpaces,
         /**
          * Trim trailing whitespace on a line.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $trimTrailingWhitespace = null,
         /**
          * Insert a newline character at the end of the file if one does not exist.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $insertFinalNewline = null,
         /**
          * Trim all newlines after the final newline at the end of the file.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $trimFinalNewlines = null
     ) {}
 }

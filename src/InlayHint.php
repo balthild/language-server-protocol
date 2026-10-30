@@ -17,7 +17,7 @@ class InlayHint implements ArrayDeserializable
         /**
          * The position of this hint.
          */
-        #[Shape(['class' => Position::class])]
+        #[Shape(Position::class)]
         public Position $position,
         /**
          * The label of this hint. A human readable string or an array of
@@ -27,21 +27,17 @@ class InlayHint implements ArrayDeserializable
          *
          * @var string|list<InlayHintLabelPart>
          */
-        #[Shape([
-            'union' => [
-                ['scalar' => 'string'],
-                [
-                    'list' => [
-                        'shape' => [
-                            'value' => ['scalar' => 'string'],
-                            'tooltip?' => ['union' => [['scalar' => 'string'], ['class' => MarkupContent::class]]],
-                            'location?' => ['class' => Location::class],
-                            'command?' => ['class' => Command::class],
-                        ],
-                    ],
-                ],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Scalar('string'),
+                new Shape\Sequence(new Shape\Struct([
+                    'value' => new Shape\Scalar('string'),
+                    'tooltip?' => new Shape\Union(new Shape\Scalar('string'), MarkupContent::class),
+                    'location?' => Location::class,
+                    'command?' => Command::class,
+                ])),
+            ),
+        )]
         public $label,
         /**
          * The kind of this hint. Can be omitted in which case the client
@@ -49,7 +45,7 @@ class InlayHint implements ArrayDeserializable
          *
          * @var InlayHintKind::*|null
          */
-        #[Shape(['union' => [['union' => [['literal' => 1], ['literal' => 2]]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Union(new Shape\Literal(1), new Shape\Literal(2)), new Shape\Scalar('null')))]
         public $kind = null,
         /**
          * Optional text edits that are performed when accepting this inlay hint.
@@ -60,16 +56,19 @@ class InlayHint implements ArrayDeserializable
          *
          * @var list<TextEdit>|null
          */
-        #[Shape(['union' => [['list' => ['class' => TextEdit::class]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(TextEdit::class), new Shape\Scalar('null')))]
         public ?array $textEdits = null,
         /**
          * The tooltip text when you hover over this item.
          *
          * @var string|MarkupContent|null
          */
-        #[Shape([
-            'union' => [['union' => [['scalar' => 'string'], ['class' => MarkupContent::class]]], ['scalar' => 'null']],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('string'), MarkupContent::class),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $tooltip = null,
         /**
          * Render padding before the hint.
@@ -78,7 +77,7 @@ class InlayHint implements ArrayDeserializable
          * background color of the hint itself. That means padding can be used
          * to visually align/separate an inlay hint.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $paddingLeft = null,
         /**
          * Render padding after the hint.
@@ -87,7 +86,7 @@ class InlayHint implements ArrayDeserializable
          * background color of the hint itself. That means padding can be used
          * to visually align/separate an inlay hint.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $paddingRight = null,
         /**
          * A data entry field that is preserved on an inlay hint between
@@ -95,7 +94,7 @@ class InlayHint implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        #[Shape(['union' => [['scalar' => 'mixed'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('mixed'), new Shape\Scalar('null')))]
         public $data = null
     ) {}
 }

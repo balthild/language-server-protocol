@@ -15,25 +15,30 @@ class CompletionParams extends TextDocumentPositionParams
         /**
          * The text document.
          */
-        #[Shape(['class' => TextDocumentIdentifier::class])]
+        #[Shape(TextDocumentIdentifier::class)]
         public TextDocumentIdentifier $textDocument,
         /**
          * The position inside the text document.
          */
-        #[Shape(['class' => Position::class])]
+        #[Shape(Position::class)]
         public Position $position,
         /**
          * The completion context. This is only available it the client specifies
          * to send this using the client capability `textDocument.completion.contextSupport === true`
          */
-        #[Shape(['union' => [['class' => CompletionContext::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(CompletionContext::class, new Shape\Scalar('null')))]
         public ?CompletionContext $context = null,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $workDoneToken = null,
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
@@ -41,7 +46,12 @@ class CompletionParams extends TextDocumentPositionParams
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $partialResultToken = null
     ) {}
 }

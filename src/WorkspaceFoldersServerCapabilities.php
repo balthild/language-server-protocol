@@ -14,7 +14,7 @@ class WorkspaceFoldersServerCapabilities implements ArrayDeserializable
         /**
          * The server has support for workspace folders
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $supported = null,
         /**
          * Whether the server wants to receive workspace folder
@@ -27,7 +27,12 @@ class WorkspaceFoldersServerCapabilities implements ArrayDeserializable
          *
          * @var string|bool|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'string'], ['scalar' => 'bool']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('bool')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $changeNotifications = null
     ) {}
 }

@@ -16,7 +16,7 @@ class CallHierarchyClientCapabilities implements ArrayDeserializable
          * the client supports the new `(TextDocumentRegistrationOptions & StaticRegistrationOptions)`
          * return value for the corresponding server capability as well.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null
     ) {}
 }

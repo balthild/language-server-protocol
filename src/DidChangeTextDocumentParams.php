@@ -19,7 +19,7 @@ class DidChangeTextDocumentParams implements ArrayDeserializable
          * to the version after all provided content changes have
          * been applied.
          */
-        #[Shape(['class' => VersionedTextDocumentIdentifier::class])]
+        #[Shape(VersionedTextDocumentIdentifier::class)]
         public VersionedTextDocumentIdentifier $textDocument,
         /**
          * The actual content changes. The content changes describe single state changes
@@ -36,14 +36,10 @@ class DidChangeTextDocumentParams implements ArrayDeserializable
          *
          * @var list<TextDocumentContentChangeIncrementalEvent|TextDocumentContentChangeFullEvent>
          */
-        #[Shape([
-            'list' => [
-                'union' => [
-                    ['class' => TextDocumentContentChangeIncrementalEvent::class],
-                    ['class' => TextDocumentContentChangeFullEvent::class],
-                ],
-            ],
-        ])]
+        #[Shape(new Shape\Sequence(new Shape\Union(
+            TextDocumentContentChangeIncrementalEvent::class,
+            TextDocumentContentChangeFullEvent::class,
+        )))]
         public array $contentChanges
     ) {}
 }

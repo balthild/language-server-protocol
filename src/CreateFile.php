@@ -15,22 +15,22 @@ class CreateFile extends ResourceOperation
         /**
          * The resource operation kind.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $kind,
         /**
          * The resource to create.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $uri,
         /**
          * Additional options
          */
-        #[Shape(['union' => [['class' => CreateFileOptions::class], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(CreateFileOptions::class, new Shape\Scalar('null')))]
         public ?CreateFileOptions $options = null,
         /**
          * An optional annotation identifier describing the operation.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $annotationId = null
     ) {
         $this->uri = urldecode($uri);

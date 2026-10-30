@@ -18,12 +18,12 @@ class Unregistration implements ArrayDeserializable
          * The id used to unregister the request or notification. Usually an id
          * provided during the register request.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $id,
         /**
          * The method to unregister for.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $method
     ) {}
 }

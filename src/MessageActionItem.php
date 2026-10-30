@@ -14,7 +14,7 @@ class MessageActionItem implements ArrayDeserializable
         /**
          * A short title like 'Retry', 'Open Log' etc.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $title
     ) {}
 }

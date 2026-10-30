@@ -14,12 +14,12 @@ class DidChangeConfigurationRegistrationOptions implements ArrayDeserializable
         /**
          * @var string|list<string>|null
          */
-        #[Shape([
-            'union' => [
-                ['union' => [['scalar' => 'string'], ['list' => ['scalar' => 'string']]]],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('string'), new Shape\Sequence(new Shape\Scalar('string'))),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $section = null
     ) {}
 }

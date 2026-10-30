@@ -58,31 +58,31 @@ function collectAliases(properties: readonly Property[]): AliasRef[] {
 }
 
 /**
- * Renders a shape node as the PHP array literal the {@see Shape} attribute takes.
+ * Renders a shape node as the PHP expression the {@see Shape} attribute takes.
  */
 function renderShape(node: ShapeNode): string {
 	switch (node.kind) {
 		case 'any':
-			return `['any' => null]`;
+			return 'new Shape\\Any()';
 		case 'class':
-			return `['class' => ${node.name}::class]`;
+			return `${node.name}::class`;
 		case 'scalar':
-			return `['scalar' => '${node.name}']`;
+			return `new Shape\\Scalar('${node.name}')`;
 		case 'literal':
-			return `['literal' => ${node.value}]`;
+			return `new Shape\\Literal(${node.value})`;
 		case 'list':
-			return `['list' => ${renderShape(node.element)}]`;
+			return `new Shape\\Sequence(${renderShape(node.element)})`;
 		case 'map':
-			return `['map' => [${renderShape(node.key)}, ${renderShape(node.value)}]]`;
+			return `new Shape\\Map(${renderShape(node.key)}, ${renderShape(node.value)})`;
 		case 'shape': {
 			const members = node.members.map(
 				(member) => `'${member.name}${member.optional ? '?' : ''}' => ${renderShape(member.node)}`,
 			);
 
-			return `['shape' => [${members.join(', ')}]]`;
+			return `new Shape\\Struct([${members.join(', ')}])`;
 		}
 		case 'union':
-			return `['union' => [${node.members.map(renderShape).join(', ')}]]`;
+			return `new Shape\\Union(${node.members.map(renderShape).join(', ')})`;
 	}
 }
 

@@ -15,7 +15,7 @@ class _InitializeParams extends WorkDoneProgressParams
         /**
          * The capabilities provided by the client (editor or tool)
          */
-        #[Shape(['class' => ClientCapabilities::class])]
+        #[Shape(ClientCapabilities::class)]
         public ClientCapabilities $capabilities,
         /**
          * The process Id of the parent process that started
@@ -26,14 +26,14 @@ class _InitializeParams extends WorkDoneProgressParams
          *
          * @var int|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['literal' => null]]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public $processId = null,
         /**
          * Information about the client
          *
          * @var array{name: string, version?: string}|null
          */
-        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Any(), new Shape\Scalar('null')))]
         public ?array $clientInfo = null,
         /**
          * The locale the client is currently showing the user interface
@@ -43,7 +43,7 @@ class _InitializeParams extends WorkDoneProgressParams
          * Uses IETF language tags as the value's syntax
          * (See https://en.wikipedia.org/wiki/IETF_language_tag)
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $locale = null,
         /**
          * The rootPath of the workspace. Is null
@@ -51,7 +51,7 @@ class _InitializeParams extends WorkDoneProgressParams
          *
          * @var string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'string'], ['literal' => null]]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public $rootPath = null,
         /**
          * The rootUri of the workspace. Is null if no
@@ -60,40 +60,43 @@ class _InitializeParams extends WorkDoneProgressParams
          *
          * @var string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'string'], ['literal' => null]]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public $rootUri = null,
         /**
          * User provided initialization options.
          *
          * @var mixed|null
          */
-        #[Shape(['union' => [['scalar' => 'mixed'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('mixed'), new Shape\Scalar('null')))]
         public $initializationOptions = null,
         /**
          * The initial trace setting. If omitted trace is disabled ('off').
          *
          * @var 'off'|'messages'|'compact'|'verbose'|null
          */
-        #[Shape([
-            'union' => [
-                [
-                    'union' => [
-                        ['literal' => 'off'],
-                        ['literal' => 'messages'],
-                        ['literal' => 'compact'],
-                        ['literal' => 'verbose'],
-                    ],
-                ],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(
+                    new Shape\Literal('off'),
+                    new Shape\Literal('messages'),
+                    new Shape\Literal('compact'),
+                    new Shape\Literal('verbose'),
+                ),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $trace = null,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
-        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('string')),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $workDoneToken = null
     ) {}
 }

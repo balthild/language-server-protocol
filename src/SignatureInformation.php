@@ -20,7 +20,7 @@ class SignatureInformation implements ArrayDeserializable
          * The label of this signature. Will be shown in
          * the UI.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $label,
         /**
          * The human-readable doc-comment of this signature. Will be shown
@@ -28,23 +28,26 @@ class SignatureInformation implements ArrayDeserializable
          *
          * @var string|MarkupContent|null
          */
-        #[Shape([
-            'union' => [['union' => [['scalar' => 'string'], ['class' => MarkupContent::class]]], ['scalar' => 'null']],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Scalar('string'), MarkupContent::class),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $documentation = null,
         /**
          * The parameters of this signature.
          *
          * @var list<ParameterInformation>|null
          */
-        #[Shape(['union' => [['list' => ['class' => ParameterInformation::class]], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Sequence(ParameterInformation::class), new Shape\Scalar('null')))]
         public ?array $parameters = null,
         /**
          * The index of the active parameter.
          *
          * If provided, this is used in place of `SignatureHelp.activeParameter`.
          */
-        #[Shape(['union' => [['scalar' => 'int'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public ?int $activeParameter = null
     ) {}
 }

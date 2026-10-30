@@ -19,16 +19,19 @@ class DocumentHighlight implements ArrayDeserializable
         /**
          * The range this highlight applies to.
          */
-        #[Shape(['class' => Range::class])]
+        #[Shape(Range::class)]
         public Range $range,
         /**
          * The highlight kind, default is [text](#DocumentHighlightKind.Text).
          *
          * @var DocumentHighlightKind::*|null
          */
-        #[Shape([
-            'union' => [['union' => [['literal' => 1], ['literal' => 2], ['literal' => 3]]], ['scalar' => 'null']],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Union(new Shape\Literal(1), new Shape\Literal(2), new Shape\Literal(3)),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public $kind = null
     ) {}
 }

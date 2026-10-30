@@ -16,12 +16,12 @@ class ImplementationClientCapabilities implements ArrayDeserializable
          * the client supports the new `ImplementationRegistrationOptions` return value
          * for the corresponding server capability as well.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $dynamicRegistration = null,
         /**
          * The client supports additional metadata in the form of definition links.
          */
-        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('bool'), new Shape\Scalar('null')))]
         public ?bool $linkSupport = null
     ) {}
 }

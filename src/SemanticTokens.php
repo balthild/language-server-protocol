@@ -16,7 +16,7 @@ class SemanticTokens implements ArrayDeserializable
          *
          * @var list<int>
          */
-        #[Shape(['list' => ['scalar' => 'int']])]
+        #[Shape(new Shape\Sequence(new Shape\Scalar('int')))]
         public array $data,
         /**
          * An optional result id. If provided and clients support delta updating
@@ -24,7 +24,7 @@ class SemanticTokens implements ArrayDeserializable
          * A server can then instead of computing all semantic tokens again simply
          * send a delta.
          */
-        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
+        #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $resultId = null
     ) {}
 }

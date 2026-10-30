@@ -24,13 +24,13 @@ class RelatedUnchangedDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var "unchanged"
          */
-        #[Shape(['literal' => 'unchanged'])]
+        #[Shape(new Shape\Literal('unchanged'))]
         public $kind,
         /**
          * A result id which will be sent on the next
          * diagnostic request for the same document.
          */
-        #[Shape(['scalar' => 'string'])]
+        #[Shape(new Shape\Scalar('string'))]
         public string $resultId,
         /**
          * Diagnostics of related documents. This information is useful
@@ -41,28 +41,19 @@ class RelatedUnchangedDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var array<string, FullDocumentDiagnosticReport|UnchangedDocumentDiagnosticReport>|null
          */
-        #[Shape([
-            'union' => [
-                [
-                    'map' => [
-                        ['scalar' => 'string'],
-                        [
-                            'union' => [
-                                [
-                                    'shape' => [
-                                        'kind' => ['literal' => 'full'],
-                                        'resultId?' => ['scalar' => 'string'],
-                                        'items' => ['list' => ['class' => Diagnostic::class]],
-                                    ],
-                                ],
-                                ['any' => null],
-                            ],
-                        ],
-                    ],
-                ],
-                ['scalar' => 'null'],
-            ],
-        ])]
+        #[Shape(
+            new Shape\Union(
+                new Shape\Map(
+                    new Shape\Scalar('string'),
+                    new Shape\Union(new Shape\Struct([
+                        'kind' => new Shape\Literal('full'),
+                        'resultId?' => new Shape\Scalar('string'),
+                        'items' => new Shape\Sequence(Diagnostic::class),
+                    ]), new Shape\Any()),
+                ),
+                new Shape\Scalar('null'),
+            ),
+        )]
         public ?array $relatedDocuments = null
     ) {}
 }
