@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters sent in notifications/requests for user-initiated renames of
@@ -21,7 +21,7 @@ class RenameFilesParams implements ArrayDeserializable
          *
          * @var list<FileRename>
          */
-        #[Deserialize(FileRename::class, at: '[]')]
+        #[Shape(['list' => ['class' => FileRename::class]])]
         public array $files
     ) {}
 }

@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents a reference to a command. Provides a title which
@@ -19,10 +20,12 @@ class Command implements ArrayDeserializable
         /**
          * Title of the command, like `save`.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $title,
         /**
          * The identifier of the actual command handler.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $command,
         /**
          * Arguments that the command handler should be
@@ -30,6 +33,7 @@ class Command implements ArrayDeserializable
          *
          * @var list<mixed>|null
          */
+        #[Shape(['union' => [['list' => ['scalar' => 'mixed']], ['scalar' => 'null']]])]
         public ?array $arguments = null
     ) {}
 }

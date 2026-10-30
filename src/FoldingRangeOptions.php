@@ -2,12 +2,15 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Mixins (implemented TS interfaces): WorkDoneProgressOptions
  */
 class FoldingRangeOptions extends WorkDoneProgressOptions
 {
     public function __construct(
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

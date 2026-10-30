@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters sent in an open text document notification
@@ -17,7 +17,7 @@ class DidOpenTextDocumentParams implements ArrayDeserializable
         /**
          * The document that was opened.
          */
-        #[Deserialize(TextDocumentItem::class)]
+        #[Shape(['class' => TextDocumentItem::class])]
         public TextDocumentItem $textDocument
     ) {}
 }

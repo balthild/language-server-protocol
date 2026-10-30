@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Defines the capabilities provided by a language
@@ -28,6 +28,7 @@ class ServerCapabilities implements ArrayDeserializable
          *
          * If omitted it defaults to 'utf-16'.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $positionEncoding = null,
         /**
          * Defines how text documents are synced. Is either a detailed structure
@@ -36,80 +37,152 @@ class ServerCapabilities implements ArrayDeserializable
          *
          * @var TextDocumentSyncOptions|TextDocumentSyncKind::*|null
          */
-        #[Deserialize(TextDocumentSyncOptions::class)]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['class' => TextDocumentSyncOptions::class],
+                        ['literal' => 0],
+                        ['literal' => 1],
+                        ['literal' => 2],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $textDocumentSync = null,
         /**
          * Defines how notebook documents are synced.
          *
          * @var NotebookDocumentSyncOptions|NotebookDocumentSyncRegistrationOptions|null
          */
-        #[Deserialize(NotebookDocumentSyncRegistrationOptions::class)]
+        #[Shape([
+            'union' => [
+                ['union' => [['any' => null], ['class' => NotebookDocumentSyncRegistrationOptions::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $notebookDocumentSync = null,
         /**
          * The server provides completion support.
          */
-        #[Deserialize(CompletionOptions::class)]
+        #[Shape(['union' => [['class' => CompletionOptions::class], ['scalar' => 'null']]])]
         public ?CompletionOptions $completionProvider = null,
         /**
          * The server provides hover support.
          *
          * @var bool|HoverOptions|null
          */
-        #[Deserialize(HoverOptions::class)]
+        #[Shape([
+            'union' => [['union' => [['scalar' => 'bool'], ['class' => HoverOptions::class]]], ['scalar' => 'null']],
+        ])]
         public $hoverProvider = null,
         /**
          * The server provides signature help support.
          */
-        #[Deserialize(SignatureHelpOptions::class)]
+        #[Shape(['union' => [['class' => SignatureHelpOptions::class], ['scalar' => 'null']]])]
         public ?SignatureHelpOptions $signatureHelpProvider = null,
         /**
          * The server provides Goto Declaration support.
          *
          * @var bool|DeclarationOptions|DeclarationRegistrationOptions|null
          */
-        #[Deserialize([DeclarationOptions::class, DeclarationRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => DeclarationOptions::class],
+                        ['class' => DeclarationRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $declarationProvider = null,
         /**
          * The server provides goto definition support.
          *
          * @var bool|DefinitionOptions|null
          */
-        #[Deserialize(DefinitionOptions::class)]
+        #[Shape([
+            'union' => [
+                ['union' => [['scalar' => 'bool'], ['class' => DefinitionOptions::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $definitionProvider = null,
         /**
          * The server provides Goto Type Definition support.
          *
          * @var bool|TypeDefinitionOptions|TypeDefinitionRegistrationOptions|null
          */
-        #[Deserialize([TypeDefinitionOptions::class, TypeDefinitionRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => TypeDefinitionOptions::class],
+                        ['class' => TypeDefinitionRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $typeDefinitionProvider = null,
         /**
          * The server provides Goto Implementation support.
          *
          * @var bool|ImplementationOptions|ImplementationRegistrationOptions|null
          */
-        #[Deserialize([ImplementationOptions::class, ImplementationRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => ImplementationOptions::class],
+                        ['class' => ImplementationRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $implementationProvider = null,
         /**
          * The server provides find references support.
          *
          * @var bool|ReferenceOptions|null
          */
-        #[Deserialize(ReferenceOptions::class)]
+        #[Shape([
+            'union' => [
+                ['union' => [['scalar' => 'bool'], ['class' => ReferenceOptions::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $referencesProvider = null,
         /**
          * The server provides document highlight support.
          *
          * @var bool|DocumentHighlightOptions|null
          */
-        #[Deserialize(DocumentHighlightOptions::class)]
+        #[Shape([
+            'union' => [
+                ['union' => [['scalar' => 'bool'], ['class' => DocumentHighlightOptions::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $documentHighlightProvider = null,
         /**
          * The server provides document symbol support.
          *
          * @var bool|DocumentSymbolOptions|null
          */
-        #[Deserialize(DocumentSymbolOptions::class)]
+        #[Shape([
+            'union' => [
+                ['union' => [['scalar' => 'bool'], ['class' => DocumentSymbolOptions::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $documentSymbolProvider = null,
         /**
          * The server provides code actions. CodeActionOptions may only be
@@ -118,50 +191,81 @@ class ServerCapabilities implements ArrayDeserializable
          *
          * @var bool|CodeActionOptions|null
          */
-        #[Deserialize(CodeActionOptions::class)]
+        #[Shape([
+            'union' => [
+                ['union' => [['scalar' => 'bool'], ['class' => CodeActionOptions::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $codeActionProvider = null,
         /**
          * The server provides code lens.
          */
-        #[Deserialize(CodeLensOptions::class)]
+        #[Shape(['union' => [['class' => CodeLensOptions::class], ['scalar' => 'null']]])]
         public ?CodeLensOptions $codeLensProvider = null,
         /**
          * The server provides document link support.
          */
-        #[Deserialize(DocumentLinkOptions::class)]
+        #[Shape(['union' => [['class' => DocumentLinkOptions::class], ['scalar' => 'null']]])]
         public ?DocumentLinkOptions $documentLinkProvider = null,
         /**
          * The server provides color provider support.
          *
          * @var bool|DocumentColorOptions|DocumentColorRegistrationOptions|null
          */
-        #[Deserialize([DocumentColorOptions::class, DocumentColorRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => DocumentColorOptions::class],
+                        ['class' => DocumentColorRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $colorProvider = null,
         /**
          * The server provides workspace symbol support.
          *
          * @var bool|WorkspaceSymbolOptions|null
          */
-        #[Deserialize(WorkspaceSymbolOptions::class)]
+        #[Shape([
+            'union' => [
+                ['union' => [['scalar' => 'bool'], ['class' => WorkspaceSymbolOptions::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $workspaceSymbolProvider = null,
         /**
          * The server provides document formatting.
          *
          * @var bool|DocumentFormattingOptions|null
          */
-        #[Deserialize(DocumentFormattingOptions::class)]
+        #[Shape([
+            'union' => [
+                ['union' => [['scalar' => 'bool'], ['class' => DocumentFormattingOptions::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $documentFormattingProvider = null,
         /**
          * The server provides document range formatting.
          *
          * @var bool|DocumentRangeFormattingOptions|null
          */
-        #[Deserialize(DocumentRangeFormattingOptions::class)]
+        #[Shape([
+            'union' => [
+                ['union' => [['scalar' => 'bool'], ['class' => DocumentRangeFormattingOptions::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $documentRangeFormattingProvider = null,
         /**
          * The server provides document formatting on typing.
          */
-        #[Deserialize(DocumentOnTypeFormattingOptions::class)]
+        #[Shape(['union' => [['class' => DocumentOnTypeFormattingOptions::class], ['scalar' => 'null']]])]
         public ?DocumentOnTypeFormattingOptions $documentOnTypeFormattingProvider = null,
         /**
          * The server provides rename support. RenameOptions may only be
@@ -170,96 +274,211 @@ class ServerCapabilities implements ArrayDeserializable
          *
          * @var bool|RenameOptions|null
          */
-        #[Deserialize(RenameOptions::class)]
+        #[Shape([
+            'union' => [['union' => [['scalar' => 'bool'], ['class' => RenameOptions::class]]], ['scalar' => 'null']],
+        ])]
         public $renameProvider = null,
         /**
          * The server provides folding provider support.
          *
          * @var bool|FoldingRangeOptions|FoldingRangeRegistrationOptions|null
          */
-        #[Deserialize([FoldingRangeOptions::class, FoldingRangeRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => FoldingRangeOptions::class],
+                        ['class' => FoldingRangeRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $foldingRangeProvider = null,
         /**
          * The server provides selection range support.
          *
          * @var bool|SelectionRangeOptions|SelectionRangeRegistrationOptions|null
          */
-        #[Deserialize([SelectionRangeOptions::class, SelectionRangeRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => SelectionRangeOptions::class],
+                        ['class' => SelectionRangeRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $selectionRangeProvider = null,
         /**
          * The server provides execute command support.
          */
-        #[Deserialize(ExecuteCommandOptions::class)]
+        #[Shape(['union' => [['class' => ExecuteCommandOptions::class], ['scalar' => 'null']]])]
         public ?ExecuteCommandOptions $executeCommandProvider = null,
         /**
          * The server provides call hierarchy support.
          *
          * @var bool|CallHierarchyOptions|CallHierarchyRegistrationOptions|null
          */
-        #[Deserialize([CallHierarchyOptions::class, CallHierarchyRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => CallHierarchyOptions::class],
+                        ['class' => CallHierarchyRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $callHierarchyProvider = null,
         /**
          * The server provides linked editing range support.
          *
          * @var bool|LinkedEditingRangeOptions|LinkedEditingRangeRegistrationOptions|null
          */
-        #[Deserialize([LinkedEditingRangeOptions::class, LinkedEditingRangeRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => LinkedEditingRangeOptions::class],
+                        ['class' => LinkedEditingRangeRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $linkedEditingRangeProvider = null,
         /**
          * The server provides semantic tokens support.
          *
          * @var SemanticTokensOptions|SemanticTokensRegistrationOptions|null
          */
-        #[Deserialize([SemanticTokensOptions::class, SemanticTokensRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['class' => SemanticTokensOptions::class],
+                        ['class' => SemanticTokensRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $semanticTokensProvider = null,
         /**
          * The server provides moniker support.
          *
          * @var bool|MonikerOptions|MonikerRegistrationOptions|null
          */
-        #[Deserialize([MonikerOptions::class, MonikerRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => MonikerOptions::class],
+                        ['class' => MonikerRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $monikerProvider = null,
         /**
          * The server provides type hierarchy support.
          *
          * @var bool|WorkDoneProgressOptions|TypeHierarchyRegistrationOptions|null
          */
-        #[Deserialize([WorkDoneProgressOptions::class, TypeHierarchyRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => WorkDoneProgressOptions::class],
+                        ['class' => TypeHierarchyRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $typeHierarchyProvider = null,
         /**
          * The server provides inline values.
          *
          * @var bool|WorkDoneProgressOptions|InlineValueRegistrationOptions|null
          */
-        #[Deserialize([WorkDoneProgressOptions::class, InlineValueRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => WorkDoneProgressOptions::class],
+                        ['class' => InlineValueRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $inlineValueProvider = null,
         /**
          * The server provides inlay hints.
          *
          * @var bool|InlayHintOptions|InlayHintRegistrationOptions|null
          */
-        #[Deserialize([InlayHintOptions::class, InlayHintRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['scalar' => 'bool'],
+                        ['class' => InlayHintOptions::class],
+                        ['class' => InlayHintRegistrationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $inlayHintProvider = null,
         /**
          * The server has support for pull model diagnostics.
          *
          * @var DiagnosticOptions|DiagnosticRegistrationOptions|null
          */
-        #[Deserialize([DiagnosticOptions::class, DiagnosticRegistrationOptions::class])]
+        #[Shape([
+            'union' => [
+                ['union' => [['class' => DiagnosticOptions::class], ['class' => DiagnosticRegistrationOptions::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $diagnosticProvider = null,
         /**
          * Workspace specific server capabilities.
          *
          * @var array{workspaceFolders?: WorkspaceFoldersServerCapabilities, fileOperations?: FileOperationOptions}|null
          */
-        #[Deserialize(WorkspaceFoldersServerCapabilities::class, at: 'workspaceFolders')]
-        #[Deserialize(FileOperationOptions::class, at: 'fileOperations')]
+        #[Shape([
+            'union' => [
+                [
+                    'shape' => [
+                        'workspaceFolders?' => ['class' => WorkspaceFoldersServerCapabilities::class],
+                        'fileOperations?' => ['class' => FileOperationOptions::class],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public ?array $workspace = null,
         /**
          * Experimental server capabilities.
          *
          * @var mixed|null
          */
+        #[Shape(['union' => [['scalar' => 'mixed'], ['scalar' => 'null']]])]
         public $experimental = null
     ) {}
 }

@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The watched files change notification's parameters.
@@ -19,7 +19,7 @@ class DidChangeWatchedFilesParams implements ArrayDeserializable
          *
          * @var list<FileEvent>
          */
-        #[Deserialize(FileEvent::class, at: '[]')]
+        #[Shape(['list' => ['class' => FileEvent::class]])]
         public array $changes
     ) {}
 }

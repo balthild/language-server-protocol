@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * A text document identifier to optionally denote a specific version of a text document.
  *
@@ -13,6 +15,7 @@ class OptionalVersionedTextDocumentIdentifier extends TextDocumentIdentifier
         /**
          * The text document's uri.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $uri,
         /**
          * The version number of this document. If a versioned text document identifier
@@ -23,6 +26,7 @@ class OptionalVersionedTextDocumentIdentifier extends TextDocumentIdentifier
          *
          * @var int|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['literal' => null]]], ['scalar' => 'null']]])]
         public $version = null
     ) {
         $this->uri = urldecode($uri);

@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class DidChangeWatchedFilesClientCapabilities implements ArrayDeserializable
 {
@@ -15,11 +16,13 @@ class DidChangeWatchedFilesClientCapabilities implements ArrayDeserializable
          * that the current protocol doesn't support static configuration for file changes
          * from the server side.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $dynamicRegistration = null,
         /**
          * Whether the client has support for {@link RelativePattern relative pattern}
          * or not.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $relativePatternSupport = null
     ) {}
 }

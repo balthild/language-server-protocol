@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Capabilities specific to the notebook document support.
@@ -20,6 +21,7 @@ class NotebookDocumentClientCapabilities implements ArrayDeserializable
          *
          * @var NotebookDocumentSyncClientCapabilities
          */
+        #[Shape(['any' => null])]
         public array $synchronization
     ) {}
 }

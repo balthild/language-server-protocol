@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class ConfigurationItem implements ArrayDeserializable
 {
@@ -13,10 +14,12 @@ class ConfigurationItem implements ArrayDeserializable
         /**
          * The scope to get the configuration section for.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $scopeUri = null,
         /**
          * The configuration section asked for.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $section = null
     ) {}
 }

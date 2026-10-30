@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters sent in notifications/requests for user-initiated creation of
@@ -20,7 +20,7 @@ class CreateFilesParams implements ArrayDeserializable
          *
          * @var list<FileCreate>
          */
-        #[Deserialize(FileCreate::class, at: '[]')]
+        #[Shape(['list' => ['class' => FileCreate::class]])]
         public array $files
     ) {}
 }

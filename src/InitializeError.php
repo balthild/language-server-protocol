@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The data type of the ResponseError if the
@@ -20,6 +21,7 @@ class InitializeError implements ArrayDeserializable
          * (2) user selects retry or cancel
          * (3) if user selected retry the initialize method is sent again.
          */
+        #[Shape(['scalar' => 'bool'])]
         public bool $retry
     ) {}
 }

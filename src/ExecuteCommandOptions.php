@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * The server capabilities of a [ExecuteCommandRequest](#ExecuteCommandRequest).
  *
@@ -15,7 +17,9 @@ class ExecuteCommandOptions extends WorkDoneProgressOptions
          *
          * @var list<string>
          */
+        #[Shape(['list' => ['scalar' => 'string']])]
         public array $commands,
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

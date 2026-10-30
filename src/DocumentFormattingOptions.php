@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Provider options for a [DocumentFormattingRequest](#DocumentFormattingRequest).
  *
@@ -10,6 +12,7 @@ namespace Phpactor\LanguageServerProtocol;
 class DocumentFormattingOptions extends WorkDoneProgressOptions
 {
     public function __construct(
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

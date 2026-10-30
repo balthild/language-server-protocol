@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Params to show a document.
@@ -17,12 +17,14 @@ class ShowDocumentParams implements ArrayDeserializable
         /**
          * The document uri to show.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $uri,
         /**
          * Indicates to show the resource in an external program.
          * To show for example `https://code.visualstudio.com/`
          * in the default WEB browser set `external` to `true`.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $external = null,
         /**
          * An optional property to indicate whether the editor
@@ -30,6 +32,7 @@ class ShowDocumentParams implements ArrayDeserializable
          * Clients might ignore this property if an external
          * program is started.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $takeFocus = null,
         /**
          * An optional selection range if the document is a text
@@ -37,7 +40,7 @@ class ShowDocumentParams implements ArrayDeserializable
          * external program is started or the file is not a text
          * file.
          */
-        #[Deserialize(Range::class)]
+        #[Shape(['union' => [['class' => Range::class], ['scalar' => 'null']]])]
         public ?Range $selection = null
     ) {}
 }

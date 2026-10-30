@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Mixins (implemented TS interfaces): TextDocumentRegistrationOptions, WorkDoneProgressOptions, StaticRegistrationOptions
@@ -27,12 +28,35 @@ class TypeHierarchyRegistrationOptions implements ArrayDeserializable
          *
          * @var list<(string|DocumentFilter)>|null
          */
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        [
+                            'list' => [
+                                'union' => [
+                                    ['scalar' => 'string'],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                ],
+                            ],
+                        ],
+                        ['literal' => null],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $documentSelector = null,
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null,
         /**
          * The id used to register the request. The id can be used to deregister
          * the request again. See also Registration#id.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $id = null
     ) {}
 }

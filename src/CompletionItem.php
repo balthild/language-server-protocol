@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A completion item represents a text snippet that is
@@ -24,11 +24,12 @@ class CompletionItem implements ArrayDeserializable
          * If label details are provided the label itself should
          * be an unqualified name of the completion item.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $label,
         /**
          * Additional details for the label
          */
-        #[Deserialize(CompletionItemLabelDetails::class)]
+        #[Shape(['union' => [['class' => CompletionItemLabelDetails::class], ['scalar' => 'null']]])]
         public ?CompletionItemLabelDetails $labelDetails = null,
         /**
          * The kind of this completion item. Based of the kind
@@ -36,28 +37,67 @@ class CompletionItem implements ArrayDeserializable
          *
          * @var CompletionItemKind::*|null
          */
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['literal' => 1],
+                        ['literal' => 2],
+                        ['literal' => 3],
+                        ['literal' => 4],
+                        ['literal' => 5],
+                        ['literal' => 6],
+                        ['literal' => 7],
+                        ['literal' => 8],
+                        ['literal' => 9],
+                        ['literal' => 10],
+                        ['literal' => 11],
+                        ['literal' => 12],
+                        ['literal' => 13],
+                        ['literal' => 14],
+                        ['literal' => 15],
+                        ['literal' => 16],
+                        ['literal' => 17],
+                        ['literal' => 18],
+                        ['literal' => 19],
+                        ['literal' => 20],
+                        ['literal' => 21],
+                        ['literal' => 22],
+                        ['literal' => 23],
+                        ['literal' => 24],
+                        ['literal' => 25],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $kind = null,
         /**
          * Tags for this completion item.
          *
          * @var list<CompletionItemTag::*>|null
          */
+        #[Shape(['union' => [['list' => ['literal' => 1]], ['scalar' => 'null']]])]
         public ?array $tags = null,
         /**
          * A human-readable string with additional information
          * about this item, like type or symbol information.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $detail = null,
         /**
          * A human-readable string that represents a doc-comment.
          *
          * @var string|MarkupContent|null
          */
-        #[Deserialize(MarkupContent::class)]
+        #[Shape([
+            'union' => [['union' => [['scalar' => 'string'], ['class' => MarkupContent::class]]], ['scalar' => 'null']],
+        ])]
         public $documentation = null,
         /**
          * Indicates if this item is deprecated.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $deprecated = null,
         /**
          * Select this item when showing.
@@ -66,18 +106,21 @@ class CompletionItem implements ArrayDeserializable
          * tool / client decides which item that is. The rule is that the *first*
          * item of those that match best is selected.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $preselect = null,
         /**
          * A string that should be used when comparing this item
          * with other items. When `falsy` the [label](#CompletionItem.label)
          * is used.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $sortText = null,
         /**
          * A string that should be used when filtering a set of
          * completion items. When `falsy` the [label](#CompletionItem.label)
          * is used.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $filterText = null,
         /**
          * A string that should be inserted into a document when selecting
@@ -92,6 +135,7 @@ class CompletionItem implements ArrayDeserializable
          * recommended to use `textEdit` instead since it avoids additional client
          * side interpretation.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $insertText = null,
         /**
          * The format of the insert text. The format applies to both the
@@ -103,6 +147,7 @@ class CompletionItem implements ArrayDeserializable
          *
          * @var InsertTextFormat::*|null
          */
+        #[Shape(['union' => [['union' => [['literal' => 1], ['literal' => 2]]], ['scalar' => 'null']]])]
         public $insertTextFormat = null,
         /**
          * How whitespace and indentation is handled during completion
@@ -111,6 +156,7 @@ class CompletionItem implements ArrayDeserializable
          *
          * @var InsertTextMode::*|null
          */
+        #[Shape(['union' => [['union' => [['literal' => 1], ['literal' => 2]]], ['scalar' => 'null']]])]
         public $insertTextMode = null,
         /**
          * An [edit](#TextEdit) which is applied to a document when selecting
@@ -134,7 +180,12 @@ class CompletionItem implements ArrayDeserializable
          *
          * @var TextEdit|InsertReplaceEdit|null
          */
-        #[Deserialize([TextEdit::class, InsertReplaceEdit::class])]
+        #[Shape([
+            'union' => [
+                ['union' => [['class' => TextEdit::class], ['class' => InsertReplaceEdit::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $textEdit = null,
         /**
          * The edit text used if the completion item is part of a CompletionList and
@@ -146,6 +197,7 @@ class CompletionItem implements ArrayDeserializable
          * If not provided and a list's default range is provided the label
          * property is used as a text.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $textEditText = null,
         /**
          * An optional array of additional [text edits](#TextEdit) that are applied when
@@ -158,7 +210,7 @@ class CompletionItem implements ArrayDeserializable
          *
          * @var list<TextEdit>|null
          */
-        #[Deserialize(TextEdit::class, at: '[]')]
+        #[Shape(['union' => [['list' => ['class' => TextEdit::class]], ['scalar' => 'null']]])]
         public ?array $additionalTextEdits = null,
         /**
          * An optional set of characters that when pressed while this completion is active will accept it first and
@@ -167,13 +219,14 @@ class CompletionItem implements ArrayDeserializable
          *
          * @var list<string>|null
          */
+        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
         public ?array $commitCharacters = null,
         /**
          * An optional [command](#Command) that is executed *after* inserting this completion. *Note* that
          * additional modifications to the current document should be described with the
          * [additionalTextEdits](#CompletionItem.additionalTextEdits)-property.
          */
-        #[Deserialize(Command::class)]
+        #[Shape(['union' => [['class' => Command::class], ['scalar' => 'null']]])]
         public ?Command $command = null,
         /**
          * A data entry field that is preserved on a completion item between a
@@ -181,6 +234,7 @@ class CompletionItem implements ArrayDeserializable
          *
          * @var mixed|null
          */
+        #[Shape(['union' => [['scalar' => 'mixed'], ['scalar' => 'null']]])]
         public $data = null
     ) {}
 }

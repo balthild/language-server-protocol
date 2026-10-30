@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A code action represents a change that can be performed in code, e.g. to fix a problem or
@@ -20,19 +20,21 @@ class CodeAction implements ArrayDeserializable
         /**
          * A short, human-readable, title for this code action.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $title,
         /**
          * The kind of the code action.
          *
          * Used to filter code actions.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $kind = null,
         /**
          * The diagnostics that this code action resolves.
          *
          * @var list<Diagnostic>|null
          */
-        #[Deserialize(Diagnostic::class, at: '[]')]
+        #[Shape(['union' => [['list' => ['class' => Diagnostic::class]], ['scalar' => 'null']]])]
         public ?array $diagnostics = null,
         /**
          * Marks this as a preferred action. Preferred actions are used by the `auto fix` command and can be targeted
@@ -41,6 +43,7 @@ class CodeAction implements ArrayDeserializable
          * A quick fix should be marked preferred if it properly addresses the underlying error.
          * A refactoring should be marked preferred if it is the most reasonable choice of actions to take.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $isPreferred = null,
         /**
          * Marks that the code action cannot currently be applied.
@@ -59,18 +62,19 @@ class CodeAction implements ArrayDeserializable
          *
          * @var array{reason: string}|null
          */
+        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
         public ?array $disabled = null,
         /**
          * The workspace edit this code action performs.
          */
-        #[Deserialize(WorkspaceEdit::class)]
+        #[Shape(['union' => [['class' => WorkspaceEdit::class], ['scalar' => 'null']]])]
         public ?WorkspaceEdit $edit = null,
         /**
          * A command this code action executes. If a code action
          * provides an edit and a command, first the edit is
          * executed and then the command.
          */
-        #[Deserialize(Command::class)]
+        #[Shape(['union' => [['class' => Command::class], ['scalar' => 'null']]])]
         public ?Command $command = null,
         /**
          * A data entry field that is preserved on a code action between
@@ -78,6 +82,7 @@ class CodeAction implements ArrayDeserializable
          *
          * @var mixed|null
          */
+        #[Shape(['union' => [['scalar' => 'mixed'], ['scalar' => 'null']]])]
         public $data = null
     ) {}
 }

@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Mixins (implemented TS interfaces): _InitializeParams, WorkspaceFoldersInitializeParams
@@ -17,7 +17,7 @@ class InitializeParams implements ArrayDeserializable
         /**
          * The capabilities provided by the client (editor or tool)
          */
-        #[Deserialize(ClientCapabilities::class)]
+        #[Shape(['class' => ClientCapabilities::class])]
         public ClientCapabilities $capabilities,
         /**
          * The process Id of the parent process that started
@@ -28,12 +28,14 @@ class InitializeParams implements ArrayDeserializable
          *
          * @var int|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['literal' => null]]], ['scalar' => 'null']]])]
         public $processId = null,
         /**
          * Information about the client
          *
          * @var array{name: string, version?: string}|null
          */
+        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
         public ?array $clientInfo = null,
         /**
          * The locale the client is currently showing the user interface
@@ -43,6 +45,7 @@ class InitializeParams implements ArrayDeserializable
          * Uses IETF language tags as the value's syntax
          * (See https://en.wikipedia.org/wiki/IETF_language_tag)
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $locale = null,
         /**
          * The rootPath of the workspace. Is null
@@ -50,6 +53,7 @@ class InitializeParams implements ArrayDeserializable
          *
          * @var string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'string'], ['literal' => null]]], ['scalar' => 'null']]])]
         public $rootPath = null,
         /**
          * The rootUri of the workspace. Is null if no
@@ -58,24 +62,40 @@ class InitializeParams implements ArrayDeserializable
          *
          * @var string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'string'], ['literal' => null]]], ['scalar' => 'null']]])]
         public $rootUri = null,
         /**
          * User provided initialization options.
          *
          * @var mixed|null
          */
+        #[Shape(['union' => [['scalar' => 'mixed'], ['scalar' => 'null']]])]
         public $initializationOptions = null,
         /**
          * The initial trace setting. If omitted trace is disabled ('off').
          *
          * @var 'off'|'messages'|'compact'|'verbose'|null
          */
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['literal' => 'off'],
+                        ['literal' => 'messages'],
+                        ['literal' => 'compact'],
+                        ['literal' => 'verbose'],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $trace = null,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
         public $workDoneToken = null,
         /**
          * The workspace folders configured in the client when the server starts.
@@ -86,7 +106,12 @@ class InitializeParams implements ArrayDeserializable
          *
          * @var list<WorkspaceFolder>|null
          */
-        #[Deserialize(WorkspaceFolder::class, at: '[]')]
+        #[Shape([
+            'union' => [
+                ['union' => [['list' => ['class' => WorkspaceFolder::class]], ['literal' => null]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $workspaceFolders = null
     ) {}
 }

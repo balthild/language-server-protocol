@@ -2,7 +2,7 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameter of a `callHierarchy/outgoingCalls` request.
@@ -12,13 +12,14 @@ use Phpactor\LanguageServerProtocol\Support\Deserialize;
 class CallHierarchyOutgoingCallsParams extends WorkDoneProgressParams
 {
     public function __construct(
-        #[Deserialize(CallHierarchyItem::class)]
+        #[Shape(['class' => CallHierarchyItem::class])]
         public CallHierarchyItem $item,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
         public $workDoneToken = null,
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
@@ -26,6 +27,7 @@ class CallHierarchyOutgoingCallsParams extends WorkDoneProgressParams
          *
          * @var int|string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
         public $partialResultToken = null
     ) {}
 }

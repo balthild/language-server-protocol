@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class CallHierarchyClientCapabilities implements ArrayDeserializable
 {
@@ -15,6 +16,7 @@ class CallHierarchyClientCapabilities implements ArrayDeserializable
          * the client supports the new `(TextDocumentRegistrationOptions & StaticRegistrationOptions)`
          * return value for the corresponding server capability as well.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $dynamicRegistration = null
     ) {}
 }

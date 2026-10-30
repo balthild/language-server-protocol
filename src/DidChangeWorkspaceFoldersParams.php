@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters of a `workspace/didChangeWorkspaceFolders` notification.
@@ -17,7 +17,7 @@ class DidChangeWorkspaceFoldersParams implements ArrayDeserializable
         /**
          * The actual workspace folder change event.
          */
-        #[Deserialize(WorkspaceFoldersChangeEvent::class)]
+        #[Shape(['class' => WorkspaceFoldersChangeEvent::class])]
         public WorkspaceFoldersChangeEvent $event
     ) {}
 }

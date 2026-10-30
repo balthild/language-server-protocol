@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class RegistrationParams implements ArrayDeserializable
 {
@@ -14,7 +14,7 @@ class RegistrationParams implements ArrayDeserializable
         /**
          * @var list<Registration>
          */
-        #[Deserialize(Registration::class, at: '[]')]
+        #[Shape(['list' => ['class' => Registration::class]])]
         public array $registrations
     ) {}
 }

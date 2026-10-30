@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents the connection of two locations. Provides additional metadata over normal [locations](#Location),
@@ -18,19 +18,20 @@ class LocationLink implements ArrayDeserializable
         /**
          * The target resource identifier of this link.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $targetUri,
         /**
          * The full target range of this link. If the target for example is a symbol then target range is the
          * range enclosing this symbol not including leading/trailing whitespace but everything else
          * like comments. This information is typically used to highlight the range in the editor.
          */
-        #[Deserialize(Range::class)]
+        #[Shape(['class' => Range::class])]
         public Range $targetRange,
         /**
          * The range that should be selected and revealed when this link is being followed, e.g the name of a function.
          * Must be contained by the `targetRange`. See also `DocumentSymbol#range`
          */
-        #[Deserialize(Range::class)]
+        #[Shape(['class' => Range::class])]
         public Range $targetSelectionRange,
         /**
          * Span of the origin of this link.
@@ -38,7 +39,7 @@ class LocationLink implements ArrayDeserializable
          * Used as the underlined span for mouse interaction. Defaults to the word range at
          * the definition position.
          */
-        #[Deserialize(Range::class)]
+        #[Shape(['union' => [['class' => Range::class], ['scalar' => 'null']]])]
         public ?Range $originSelectionRange = null
     ) {
         $this->targetUri = urldecode($targetUri);

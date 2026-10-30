@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Describes textual changes on a text document. A TextDocumentEdit describes all changes
@@ -20,14 +20,14 @@ class TextDocumentEdit implements ArrayDeserializable
         /**
          * The text document to change.
          */
-        #[Deserialize(OptionalVersionedTextDocumentIdentifier::class)]
+        #[Shape(['class' => OptionalVersionedTextDocumentIdentifier::class])]
         public OptionalVersionedTextDocumentIdentifier $textDocument,
         /**
          * The edits to be applied.
          *
          * @var list<(TextEdit|AnnotatedTextEdit)>
          */
-        #[Deserialize([TextEdit::class, AnnotatedTextEdit::class], at: '[]')]
+        #[Shape(['list' => ['union' => [['class' => TextEdit::class], ['class' => AnnotatedTextEdit::class]]]])]
         public array $edits
     ) {}
 }

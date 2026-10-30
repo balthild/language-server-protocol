@@ -2,7 +2,7 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Create file operation.
@@ -15,19 +15,22 @@ class CreateFile extends ResourceOperation
         /**
          * The resource operation kind.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $kind,
         /**
          * The resource to create.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $uri,
         /**
          * Additional options
          */
-        #[Deserialize(CreateFileOptions::class)]
+        #[Shape(['union' => [['class' => CreateFileOptions::class], ['scalar' => 'null']]])]
         public ?CreateFileOptions $options = null,
         /**
          * An optional annotation identifier describing the operation.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $annotationId = null
     ) {
         $this->uri = urldecode($uri);

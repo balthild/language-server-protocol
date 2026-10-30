@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class InlineValueText implements ArrayDeserializable
 {
@@ -14,11 +14,12 @@ class InlineValueText implements ArrayDeserializable
         /**
          * The document range for which the inline value applies.
          */
-        #[Deserialize(Range::class)]
+        #[Shape(['class' => Range::class])]
         public Range $range,
         /**
          * The text of the inline value.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $text
     ) {}
 }

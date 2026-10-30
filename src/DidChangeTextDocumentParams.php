@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The change text document notification's parameters.
@@ -19,7 +19,7 @@ class DidChangeTextDocumentParams implements ArrayDeserializable
          * to the version after all provided content changes have
          * been applied.
          */
-        #[Deserialize(VersionedTextDocumentIdentifier::class)]
+        #[Shape(['class' => VersionedTextDocumentIdentifier::class])]
         public VersionedTextDocumentIdentifier $textDocument,
         /**
          * The actual content changes. The content changes describe single state changes
@@ -36,10 +36,14 @@ class DidChangeTextDocumentParams implements ArrayDeserializable
          *
          * @var list<TextDocumentContentChangeIncrementalEvent|TextDocumentContentChangeFullEvent>
          */
-        #[Deserialize(
-            [TextDocumentContentChangeIncrementalEvent::class, TextDocumentContentChangeFullEvent::class],
-            at: '[]',
-        )]
+        #[Shape([
+            'list' => [
+                'union' => [
+                    ['class' => TextDocumentContentChangeIncrementalEvent::class],
+                    ['class' => TextDocumentContentChangeFullEvent::class],
+                ],
+            ],
+        ])]
         public array $contentChanges
     ) {}
 }

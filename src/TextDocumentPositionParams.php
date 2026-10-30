@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A parameter literal used in requests to pass a text document and a position inside that
@@ -18,12 +18,12 @@ class TextDocumentPositionParams implements ArrayDeserializable
         /**
          * The text document.
          */
-        #[Deserialize(TextDocumentIdentifier::class)]
+        #[Shape(['class' => TextDocumentIdentifier::class])]
         public TextDocumentIdentifier $textDocument,
         /**
          * The position inside the text document.
          */
-        #[Deserialize(Position::class)]
+        #[Shape(['class' => Position::class])]
         public Position $position
     ) {}
 }

@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The result of a hover request.
@@ -19,13 +19,15 @@ class Hover implements ArrayDeserializable
          *
          * @var MarkupContent|string|list<string>
          */
-        #[Deserialize(MarkupContent::class)]
+        #[Shape([
+            'union' => [['class' => MarkupContent::class], ['scalar' => 'string'], ['list' => ['scalar' => 'string']]],
+        ])]
         public $contents,
         /**
          * An optional range inside the text document that is used to
          * visualize the hover, e.g. by changing the background color.
          */
-        #[Deserialize(Range::class)]
+        #[Shape(['union' => [['class' => Range::class], ['scalar' => 'null']]])]
         public ?Range $range = null
     ) {}
 }

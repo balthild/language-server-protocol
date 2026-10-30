@@ -8,8 +8,8 @@ use RuntimeException;
 use Throwable;
 
 /**
- * Provides {@see ArrayDeserializable::fromArray()} driven by the
- * {@see Deserialize} attributes of the constructor properties.
+ * Provides {@see ArrayDeserializable::fromArray()} driven by the {@see Shape}
+ * attributes of the constructor properties.
  */
 trait FromArray
 {
@@ -70,177 +70,171 @@ trait FromArray
         mixed $value,
         bool $allowUnknownKeys
     ): mixed {
-        $attributes = $parameter->getAttributes(Deserialize::class);
+        $attributes = $parameter->getAttributes(Shape::class);
 
-        // Scalars, nulls and already-built objects are taken as they are.
-        if ($attributes === [] || !is_array($value)) {
+        if ($attributes === []) {
             return $value;
         }
 
-        /** @var array<string, Throwable> $failures */
-        $failures = [];
-        /** @var list<string> $hydrated */
-        $hydrated = [];
+        return self::conform($attributes[0]->newInstance()->node, $value, $allowUnknownKeys);
+    }
 
-        foreach ($attributes as $attribute) {
-            $deserialize = $attribute->newInstance();
-            $didHydrate = false;
+    /**
+     * Returns the value as described by the node, hydrating objects on the way,
+     * or throws when the value does not fit.
+     *
+     * @param array<string, mixed> $node
+     */
+    private static function conform(array $node, mixed $value, bool $allowUnknownKeys): mixed
+    {
+        $kind = array_key_first($node);
 
-            try {
-                $value = self::hydrateAt(
-                    $deserialize->at,
-                    $deserialize->candidates,
-                    $value,
-                    $allowUnknownKeys,
-                    $didHydrate,
-                );
-            } catch (Throwable $exception) {
-                $failures[$deserialize->at] = $exception;
-            }
+        return match ($kind) {
+            'any' => $value,
+            'class' => self::conformClass($node['class'], $value, $allowUnknownKeys),
+            'scalar' => self::conformScalar($node['scalar'], $value),
+            'literal' => self::conformLiteral($node['literal'], $value),
+            'list' => self::conformList($node['list'], $value, $allowUnknownKeys),
+            'map' => self::conformMap($node['map'], $value, $allowUnknownKeys),
+            'shape' => self::conformShape($node['shape'], $value, $allowUnknownKeys),
+            'union' => self::conformUnion($node['union'], $value, $allowUnknownKeys),
+            default => throw new RuntimeException(sprintf('Unknown shape node "%s"', $kind)),
+        };
+    }
 
-            if ($didHydrate) {
-                $hydrated[] = $deserialize->at;
-            }
+    /**
+     * @param class-string<ArrayDeserializable> $class
+     */
+    private static function conformClass(string $class, mixed $value, bool $allowUnknownKeys): object
+    {
+        if ($value instanceof $class) {
+            return $value;
         }
 
-        foreach ($failures as $path => $failure) {
-            // Paths that nest inside one another describe the same slot: a
-            // `Range | {insert, replace}` union is written as `editRange`,
-            // `editRange.insert` and `editRange.replace`, and only one of them
-            // can match. Unrelated paths are separate slots, so a failure there
-            // is a real one.
-            if (self::isSameSlot($path, $hydrated)) {
-                continue;
-            }
+        if (!is_array($value)) {
+            throw self::mismatch($class, $value);
+        }
 
-            throw $failure;
+        return $class::fromArray($value, $allowUnknownKeys);
+    }
+
+    private static function conformScalar(string $scalar, mixed $value): mixed
+    {
+        $matches = match ($scalar) {
+            'mixed' => true,
+            'null' => $value === null,
+            'string' => is_string($value),
+            'int' => is_int($value),
+            'bool' => is_bool($value),
+            'float' => is_float($value) || is_int($value),
+            default => throw new RuntimeException(sprintf('Unknown scalar "%s"', $scalar)),
+        };
+
+        if (!$matches) {
+            throw self::mismatch($scalar, $value);
+        }
+
+        return $value;
+    }
+
+    private static function conformLiteral(string|int|bool $literal, mixed $value): mixed
+    {
+        if ($value !== $literal) {
+            throw self::mismatch(var_export($literal, true), $value);
         }
 
         return $value;
     }
 
     /**
-     * @param list<string> $hydrated
-     */
-    private static function isSameSlot(string $path, array $hydrated): bool
-    {
-        foreach ($hydrated as $other) {
-            if (
-                $path === $other ||
-                $path === '' ||
-                $other === '' ||
-                str_starts_with($path, $other . '.') ||
-                str_starts_with($other, $path . '.')
-            ) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @param list<class-string<ArrayDeserializable>> $candidates
-     */
-    private static function hydrateAt(
-        string $path,
-        array $candidates,
-        mixed $value,
-        bool $allowUnknownKeys,
-        bool &$hydrated
-    ): mixed {
-        if ($path === '') {
-            return self::hydrate($candidates, $value, $allowUnknownKeys, $hydrated);
-        }
-
-        if (!is_array($value)) {
-            return $value;
-        }
-
-        return self::walk(explode('.', $path), $candidates, $value, $allowUnknownKeys, $hydrated);
-    }
-
-    /**
-     * @param list<string> $segments
-     * @param list<class-string<ArrayDeserializable>> $candidates
-     * @param array<array-key, mixed> $value
+     * @param array<string, mixed> $element
      * @return array<array-key, mixed>
      */
-    private static function walk(
-        array $segments,
-        array $candidates,
-        array $value,
-        bool $allowUnknownKeys,
-        bool &$hydrated
-    ): array {
-        $segment = array_shift($segments);
+    private static function conformList(array $element, mixed $value, bool $allowUnknownKeys): array
+    {
+        if (!is_array($value) || !array_is_list($value)) {
+            throw self::mismatch('list', $value);
+        }
 
-        if ($segment === '[]') {
-            foreach ($value as $key => $item) {
-                if (!is_array($item)) {
+        foreach ($value as $index => $item) {
+            $value[$index] = self::conform($element, $item, $allowUnknownKeys);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param array{0: array<string, mixed>, 1: array<string, mixed>} $types
+     * @return array<array-key, mixed>
+     */
+    private static function conformMap(array $types, mixed $value, bool $allowUnknownKeys): array
+    {
+        if (!is_array($value)) {
+            throw self::mismatch('map', $value);
+        }
+
+        [$keyNode, $valueNode] = $types;
+
+        foreach ($value as $key => $item) {
+            self::conform($keyNode, $key, $allowUnknownKeys);
+            $value[$key] = self::conform($valueNode, $item, $allowUnknownKeys);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param array<string, array<string, mixed>> $members
+     * @return array<array-key, mixed>
+     */
+    private static function conformShape(array $members, mixed $value, bool $allowUnknownKeys): array
+    {
+        if (!is_array($value)) {
+            throw self::mismatch('array', $value);
+        }
+
+        foreach ($members as $key => $node) {
+            $optional = str_ends_with($key, '?');
+            $name = $optional ? substr($key, 0, -1) : $key;
+
+            if (!array_key_exists($name, $value)) {
+                if ($optional) {
                     continue;
                 }
 
-                $value[$key] = $segments === []
-                    ? self::hydrate($candidates, $item, $allowUnknownKeys, $hydrated)
-                    : self::walk($segments, $candidates, $item, $allowUnknownKeys, $hydrated);
+                throw new RuntimeException(sprintf('Missing key "%s"', $name));
             }
 
-            return $value;
+            $value[$name] = self::conform($node, $value[$name], $allowUnknownKeys);
         }
-
-        // A missing or non-array location is not an error: it is how a union
-        // branch announces that the data belongs to a different branch.
-        if (!isset($value[$segment]) || !is_array($value[$segment])) {
-            return $value;
-        }
-
-        $value[$segment] = $segments === []
-            ? self::hydrate($candidates, $value[$segment], $allowUnknownKeys, $hydrated)
-            : self::walk($segments, $candidates, $value[$segment], $allowUnknownKeys, $hydrated);
 
         return $value;
     }
 
     /**
-     * Replaces a slot with the first candidate that accepts it.
-     *
-     * All candidates are alternative classes for one slot, so a slot that none
-     * of them accepts is malformed and the last failure is rethrown. Callers that
-     * merely probe a location catch that and try their next branch.
-     *
-     * A candidate that needs keys the data does not have raises
-     * `ArgumentCountError`, which is an `Error` rather than an `Exception`.
-     *
-     * @param list<class-string<ArrayDeserializable>> $candidates
+     * @param list<array<string, mixed>> $branches
      */
-    private static function hydrate(
-        array $candidates,
-        mixed $value,
-        bool $allowUnknownKeys,
-        bool &$hydrated
-    ): mixed {
-        if (!is_array($value)) {
-            return $value;
-        }
-
+    private static function conformUnion(array $branches, mixed $value, bool $allowUnknownKeys): mixed
+    {
         $failure = null;
 
-        foreach ($candidates as $candidate) {
+        foreach ($branches as $branch) {
             try {
-                $object = $candidate::fromArray($value, $allowUnknownKeys);
-                $hydrated = true;
-
-                return $object;
+                return self::conform($branch, $value, $allowUnknownKeys);
             } catch (Throwable $exception) {
                 $failure = $exception;
             }
         }
 
-        throw $failure ?? new RuntimeException(sprintf(
-            'Cannot deserialize %s into any of "%s"',
-            json_encode($value),
-            implode('", "', $candidates),
+        throw $failure ?? new RuntimeException('Empty union');
+    }
+
+    private static function mismatch(string $expected, mixed $value): RuntimeException
+    {
+        return new RuntimeException(sprintf(
+            'Expected %s, got %s',
+            $expected,
+            get_debug_type($value),
         ));
     }
 }

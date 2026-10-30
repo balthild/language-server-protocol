@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class WindowClientCapabilities implements ArrayDeserializable
 {
@@ -20,16 +20,17 @@ class WindowClientCapabilities implements ArrayDeserializable
          * `workDoneProgress` property in the request specific server
          * capabilities.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null,
         /**
          * Capabilities specific to the showMessage request.
          */
-        #[Deserialize(ShowMessageRequestClientCapabilities::class)]
+        #[Shape(['union' => [['class' => ShowMessageRequestClientCapabilities::class], ['scalar' => 'null']]])]
         public ?ShowMessageRequestClientCapabilities $showMessage = null,
         /**
          * Capabilities specific to the showDocument request.
          */
-        #[Deserialize(ShowDocumentClientCapabilities::class)]
+        #[Shape(['union' => [['class' => ShowDocumentClientCapabilities::class], ['scalar' => 'null']]])]
         public ?ShowDocumentClientCapabilities $showDocument = null
     ) {}
 }

@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A `MarkupContent` literal represents a string value which content is interpreted base on its
@@ -39,10 +40,12 @@ class MarkupContent implements ArrayDeserializable
          *
          * @var MarkupKind::*
          */
+        #[Shape(['union' => [['literal' => 'plaintext'], ['literal' => 'markdown']]])]
         public $kind,
         /**
          * The content itself
          */
+        #[Shape(['scalar' => 'string'])]
         public string $value
     ) {}
 }

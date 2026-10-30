@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Signature help represents the signature of something
@@ -21,7 +21,7 @@ class SignatureHelp implements ArrayDeserializable
          *
          * @var list<SignatureInformation>
          */
-        #[Deserialize(SignatureInformation::class, at: '[]')]
+        #[Shape(['list' => ['class' => SignatureInformation::class]])]
         public array $signatures,
         /**
          * The active signature. If omitted or the value lies outside the
@@ -34,6 +34,7 @@ class SignatureHelp implements ArrayDeserializable
          * In future version of the protocol this property might become
          * mandatory to better express this.
          */
+        #[Shape(['union' => [['scalar' => 'int'], ['scalar' => 'null']]])]
         public ?int $activeSignature = null,
         /**
          * The active parameter of the active signature. If omitted or the value
@@ -44,6 +45,7 @@ class SignatureHelp implements ArrayDeserializable
          * mandatory to better express the active parameter if the
          * active signature does have any.
          */
+        #[Shape(['union' => [['scalar' => 'int'], ['scalar' => 'null']]])]
         public ?int $activeParameter = null
     ) {}
 }

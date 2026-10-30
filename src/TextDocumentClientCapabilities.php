@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Text document specific client capabilities.
@@ -21,157 +21,161 @@ class TextDocumentClientCapabilities implements ArrayDeserializable
         /**
          * Defines which synchronization capabilities the client supports.
          */
-        #[Deserialize(TextDocumentSyncClientCapabilities::class)]
+        #[Shape(['union' => [['class' => TextDocumentSyncClientCapabilities::class], ['scalar' => 'null']]])]
         public ?TextDocumentSyncClientCapabilities $synchronization = null,
         /**
          * Capabilities specific to the `textDocument/completion` request.
          */
-        #[Deserialize(CompletionClientCapabilities::class)]
+        #[Shape(['union' => [['class' => CompletionClientCapabilities::class], ['scalar' => 'null']]])]
         public ?CompletionClientCapabilities $completion = null,
         /**
          * Capabilities specific to the `textDocument/hover` request.
          */
-        #[Deserialize(HoverClientCapabilities::class)]
+        #[Shape(['union' => [['class' => HoverClientCapabilities::class], ['scalar' => 'null']]])]
         public ?HoverClientCapabilities $hover = null,
         /**
          * Capabilities specific to the `textDocument/signatureHelp` request.
          */
-        #[Deserialize(SignatureHelpClientCapabilities::class)]
+        #[Shape(['union' => [['class' => SignatureHelpClientCapabilities::class], ['scalar' => 'null']]])]
         public ?SignatureHelpClientCapabilities $signatureHelp = null,
         /**
          * Capabilities specific to the `textDocument/declaration` request.
          */
-        #[Deserialize(DeclarationClientCapabilities::class)]
+        #[Shape(['union' => [['class' => DeclarationClientCapabilities::class], ['scalar' => 'null']]])]
         public ?DeclarationClientCapabilities $declaration = null,
         /**
          * Capabilities specific to the `textDocument/definition` request.
          */
-        #[Deserialize(DefinitionClientCapabilities::class)]
+        #[Shape(['union' => [['class' => DefinitionClientCapabilities::class], ['scalar' => 'null']]])]
         public ?DefinitionClientCapabilities $definition = null,
         /**
          * Capabilities specific to the `textDocument/typeDefinition` request.
          */
-        #[Deserialize(TypeDefinitionClientCapabilities::class)]
+        #[Shape(['union' => [['class' => TypeDefinitionClientCapabilities::class], ['scalar' => 'null']]])]
         public ?TypeDefinitionClientCapabilities $typeDefinition = null,
         /**
          * Capabilities specific to the `textDocument/implementation` request.
          */
-        #[Deserialize(ImplementationClientCapabilities::class)]
+        #[Shape(['union' => [['class' => ImplementationClientCapabilities::class], ['scalar' => 'null']]])]
         public ?ImplementationClientCapabilities $implementation = null,
         /**
          * Capabilities specific to the `textDocument/references` request.
          */
-        #[Deserialize(ReferenceClientCapabilities::class)]
+        #[Shape(['union' => [['class' => ReferenceClientCapabilities::class], ['scalar' => 'null']]])]
         public ?ReferenceClientCapabilities $references = null,
         /**
          * Capabilities specific to the `textDocument/documentHighlight` request.
          */
-        #[Deserialize(DocumentHighlightClientCapabilities::class)]
+        #[Shape(['union' => [['class' => DocumentHighlightClientCapabilities::class], ['scalar' => 'null']]])]
         public ?DocumentHighlightClientCapabilities $documentHighlight = null,
         /**
          * Capabilities specific to the `textDocument/documentSymbol` request.
          */
-        #[Deserialize(DocumentSymbolClientCapabilities::class)]
+        #[Shape(['union' => [['class' => DocumentSymbolClientCapabilities::class], ['scalar' => 'null']]])]
         public ?DocumentSymbolClientCapabilities $documentSymbol = null,
         /**
          * Capabilities specific to the `textDocument/codeAction` request.
          */
-        #[Deserialize(CodeActionClientCapabilities::class)]
+        #[Shape(['union' => [['class' => CodeActionClientCapabilities::class], ['scalar' => 'null']]])]
         public ?CodeActionClientCapabilities $codeAction = null,
         /**
          * Capabilities specific to the `textDocument/codeLens` request.
          */
-        #[Deserialize(CodeLensClientCapabilities::class)]
+        #[Shape(['union' => [['class' => CodeLensClientCapabilities::class], ['scalar' => 'null']]])]
         public ?CodeLensClientCapabilities $codeLens = null,
         /**
          * Capabilities specific to the `textDocument/documentLink` request.
          */
-        #[Deserialize(DocumentLinkClientCapabilities::class)]
+        #[Shape(['union' => [['class' => DocumentLinkClientCapabilities::class], ['scalar' => 'null']]])]
         public ?DocumentLinkClientCapabilities $documentLink = null,
         /**
          * Capabilities specific to the `textDocument/documentColor` and the
          * `textDocument/colorPresentation` request.
          */
-        #[Deserialize(DocumentColorClientCapabilities::class)]
+        #[Shape(['union' => [['class' => DocumentColorClientCapabilities::class], ['scalar' => 'null']]])]
         public ?DocumentColorClientCapabilities $colorProvider = null,
         /**
          * Capabilities specific to the `textDocument/formatting` request.
          */
-        #[Deserialize(DocumentFormattingClientCapabilities::class)]
+        #[Shape(['union' => [['class' => DocumentFormattingClientCapabilities::class], ['scalar' => 'null']]])]
         public ?DocumentFormattingClientCapabilities $formatting = null,
         /**
          * Capabilities specific to the `textDocument/rangeFormatting` request.
          */
-        #[Deserialize(DocumentRangeFormattingClientCapabilities::class)]
+        #[Shape(['union' => [['class' => DocumentRangeFormattingClientCapabilities::class], ['scalar' => 'null']]])]
         public ?DocumentRangeFormattingClientCapabilities $rangeFormatting = null,
         /**
          * Capabilities specific to the `textDocument/onTypeFormatting` request.
          */
-        #[Deserialize(DocumentOnTypeFormattingClientCapabilities::class)]
+        #[Shape(['union' => [['class' => DocumentOnTypeFormattingClientCapabilities::class], ['scalar' => 'null']]])]
         public ?DocumentOnTypeFormattingClientCapabilities $onTypeFormatting = null,
         /**
          * Capabilities specific to the `textDocument/rename` request.
          */
-        #[Deserialize(RenameClientCapabilities::class)]
+        #[Shape(['union' => [['class' => RenameClientCapabilities::class], ['scalar' => 'null']]])]
         public ?RenameClientCapabilities $rename = null,
         /**
          * Capabilities specific to the `textDocument/foldingRange` request.
          */
-        #[Deserialize(FoldingRangeClientCapabilities::class)]
+        #[Shape(['union' => [['class' => FoldingRangeClientCapabilities::class], ['scalar' => 'null']]])]
         public ?FoldingRangeClientCapabilities $foldingRange = null,
         /**
          * Capabilities specific to the `textDocument/selectionRange` request.
          */
-        #[Deserialize(SelectionRangeClientCapabilities::class)]
+        #[Shape(['union' => [['class' => SelectionRangeClientCapabilities::class], ['scalar' => 'null']]])]
         public ?SelectionRangeClientCapabilities $selectionRange = null,
         /**
          * Capabilities specific to the `textDocument/publishDiagnostics` notification.
          */
-        #[Deserialize(PublishDiagnosticsClientCapabilities::class)]
+        #[Shape(['union' => [['class' => PublishDiagnosticsClientCapabilities::class], ['scalar' => 'null']]])]
         public ?PublishDiagnosticsClientCapabilities $publishDiagnostics = null,
         /**
          * Capabilities specific to the various call hierarchy requests.
          */
-        #[Deserialize(CallHierarchyClientCapabilities::class)]
+        #[Shape(['union' => [['class' => CallHierarchyClientCapabilities::class], ['scalar' => 'null']]])]
         public ?CallHierarchyClientCapabilities $callHierarchy = null,
         /**
          * Capabilities specific to the various semantic token request.
          */
-        #[Deserialize(SemanticTokensClientCapabilities::class)]
+        #[Shape(['union' => [['class' => SemanticTokensClientCapabilities::class], ['scalar' => 'null']]])]
         public ?SemanticTokensClientCapabilities $semanticTokens = null,
         /**
          * Capabilities specific to the `textDocument/linkedEditingRange` request.
          */
-        #[Deserialize(LinkedEditingRangeClientCapabilities::class)]
+        #[Shape(['union' => [['class' => LinkedEditingRangeClientCapabilities::class], ['scalar' => 'null']]])]
         public ?LinkedEditingRangeClientCapabilities $linkedEditingRange = null,
         /**
          * Client capabilities specific to the `textDocument/moniker` request.
          */
-        #[Deserialize(MonikerClientCapabilities::class)]
+        #[Shape(['union' => [['class' => MonikerClientCapabilities::class], ['scalar' => 'null']]])]
         public ?MonikerClientCapabilities $moniker = null,
         /**
          * Capabilities specific to the various type hierarchy requests.
          *
          * @var array{dynamicRegistration?: bool}|null
          */
+        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
         public ?array $typeHierarchy = null,
         /**
          * Capabilities specific to the `textDocument/inlineValue` request.
          *
          * @var array{dynamicRegistration?: bool}|null
          */
+        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
         public ?array $inlineValue = null,
         /**
          * Capabilities specific to the `textDocument/inlayHint` request.
          *
          * @var InlayHintClientCapabilities|null
          */
+        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
         public ?array $inlayHint = null,
         /**
          * Capabilities specific to the diagnostic pull model.
          *
          * @var DiagnosticClientCapabilities|null
          */
+        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
         public ?array $diagnostic = null
     ) {}
 }

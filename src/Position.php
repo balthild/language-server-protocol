@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Position in a text document expressed as zero-based line and character
@@ -43,6 +44,7 @@ class Position implements ArrayDeserializable
          * If a line number is greater than the number of lines in a document, it defaults back to the number of lines in the document.
          * If a line number is negative, it defaults to 0.
          */
+        #[Shape(['scalar' => 'int'])]
         public int $line,
         /**
          * Character offset on a line in a document (zero-based).
@@ -53,6 +55,7 @@ class Position implements ArrayDeserializable
          * If the character value is greater than the line length it defaults back to the
          * line length.
          */
+        #[Shape(['scalar' => 'int'])]
         public int $character
     ) {}
 }

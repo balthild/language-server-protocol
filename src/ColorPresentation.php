@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class ColorPresentation implements ArrayDeserializable
 {
@@ -16,13 +16,14 @@ class ColorPresentation implements ArrayDeserializable
          * picker header. By default this is also the text that is inserted when selecting
          * this color presentation.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $label,
         /**
          * An [edit](#TextEdit) which is applied to a document when selecting
          * this presentation for the color.  When `falsy` the [label](#ColorPresentation.label)
          * is used.
          */
-        #[Deserialize(TextEdit::class)]
+        #[Shape(['union' => [['class' => TextEdit::class], ['scalar' => 'null']]])]
         public ?TextEdit $textEdit = null,
         /**
          * An optional array of additional [text edits](#TextEdit) that are applied when
@@ -30,7 +31,7 @@ class ColorPresentation implements ArrayDeserializable
          *
          * @var list<TextEdit>|null
          */
-        #[Deserialize(TextEdit::class, at: '[]')]
+        #[Shape(['union' => [['list' => ['class' => TextEdit::class]], ['scalar' => 'null']]])]
         public ?array $additionalTextEdits = null
     ) {}
 }

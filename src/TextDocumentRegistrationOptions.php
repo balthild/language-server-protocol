@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * General text document registration options.
@@ -27,6 +28,27 @@ class TextDocumentRegistrationOptions implements ArrayDeserializable
          *
          * @var list<(string|DocumentFilter)>|null
          */
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        [
+                            'list' => [
+                                'union' => [
+                                    ['scalar' => 'string'],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                ],
+                            ],
+                        ],
+                        ['literal' => null],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $documentSelector = null
     ) {}
 }

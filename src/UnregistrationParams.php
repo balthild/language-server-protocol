@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class UnregistrationParams implements ArrayDeserializable
 {
@@ -14,7 +14,7 @@ class UnregistrationParams implements ArrayDeserializable
         /**
          * @var list<Unregistration>
          */
-        #[Deserialize(Unregistration::class, at: '[]')]
+        #[Shape(['list' => ['class' => Unregistration::class]])]
         public array $unregisterations
     ) {}
 }

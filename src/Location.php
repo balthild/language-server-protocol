@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents a location inside a resource, such as a line
@@ -15,8 +15,9 @@ class Location implements ArrayDeserializable
     use FromArray;
 
     public function __construct(
+        #[Shape(['scalar' => 'string'])]
         public string $uri,
-        #[Deserialize(Range::class)]
+        #[Shape(['class' => Range::class])]
         public Range $range
     ) {
         $this->uri = urldecode($uri);

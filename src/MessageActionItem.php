@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class MessageActionItem implements ArrayDeserializable
 {
@@ -13,6 +14,7 @@ class MessageActionItem implements ArrayDeserializable
         /**
          * A short title like 'Retry', 'Open Log' etc.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $title
     ) {}
 }

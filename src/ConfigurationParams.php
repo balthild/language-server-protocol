@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters of a configuration request.
@@ -17,7 +17,7 @@ class ConfigurationParams implements ArrayDeserializable
         /**
          * @var list<ConfigurationItem>
          */
-        #[Deserialize(ConfigurationItem::class, at: '[]')]
+        #[Shape(['list' => ['class' => ConfigurationItem::class]])]
         public array $items
     ) {}
 }

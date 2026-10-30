@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class WorkDoneProgressCancelParams implements ArrayDeserializable
 {
@@ -15,6 +16,7 @@ class WorkDoneProgressCancelParams implements ArrayDeserializable
          *
          * @var int|string
          */
+        #[Shape(['union' => [['scalar' => 'int'], ['scalar' => 'string']]])]
         public $token
     ) {}
 }

@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class FileSystemWatcher implements ArrayDeserializable
 {
@@ -16,7 +16,7 @@ class FileSystemWatcher implements ArrayDeserializable
          *
          * @var string|RelativePattern
          */
-        #[Deserialize(RelativePattern::class)]
+        #[Shape(['union' => [['scalar' => 'string'], ['class' => RelativePattern::class]]])]
         public $globPattern,
         /**
          * The kind of events of interest. If omitted it defaults
@@ -25,6 +25,7 @@ class FileSystemWatcher implements ArrayDeserializable
          *
          * @var WatchKind::*|null
          */
+        #[Shape(['union' => [['scalar' => 'int'], ['scalar' => 'null']]])]
         public $kind = null
     ) {}
 }

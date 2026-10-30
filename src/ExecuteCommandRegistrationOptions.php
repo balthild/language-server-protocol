@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Registration options for a [ExecuteCommandRequest](#ExecuteCommandRequest).
  *
@@ -15,7 +17,9 @@ class ExecuteCommandRegistrationOptions extends ExecuteCommandOptions
          *
          * @var list<string>
          */
+        #[Shape(['list' => ['scalar' => 'string']])]
         public array $commands,
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

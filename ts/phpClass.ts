@@ -1,7 +1,8 @@
 import ts from 'typescript';
 
 import type { NodeMap } from './nodeMap.ts';
-import type { AliasRef, PhpType, TypeConverter } from './typeConverter.ts';
+import type { AliasRef, PhpType, ShapeNode, TypeConverter } from './typeConverter.ts';
+import { nullableShape } from './typeConverter.ts';
 
 function forEachDescendant(node: ts.Node, callback: (node: ts.Node) => void): void {
 	callback(node);
@@ -118,6 +119,7 @@ export interface Property {
 	readonly docs: readonly string[];
 	readonly special: readonly string[];
 	readonly aliases: readonly AliasRef[];
+	readonly shape: ShapeNode | undefined;
 }
 
 export class PhpClassResolver {
@@ -240,14 +242,17 @@ export class PhpClassResolver {
 			}
 
 			const type = this.typeConverter.phpType(member.type);
+			const nullable = isNullable(member);
 
 			const property: Property = {
 				docs: jsDocs(member),
 				name: member.name.text,
 				type,
-				nullable: isNullable(member),
+				nullable,
 				special,
 				aliases: type.aliases,
+				shape:
+					type.shape === undefined ? undefined : nullable ? nullableShape(type.shape) : type.shape,
 			};
 
 			properties.set(property.name, property);

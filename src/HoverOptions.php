@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Hover options.
  *
@@ -10,6 +12,7 @@ namespace Phpactor\LanguageServerProtocol;
 class HoverOptions extends WorkDoneProgressOptions
 {
     public function __construct(
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

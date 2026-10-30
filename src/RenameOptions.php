@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Provider options for a [RenameRequest](#RenameRequest).
  *
@@ -13,7 +15,9 @@ class RenameOptions extends WorkDoneProgressOptions
         /**
          * Renames should be checked and tested before being executed.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $prepareProvider = null,
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters of a change configuration notification.
@@ -18,6 +19,7 @@ class DidChangeConfigurationParams implements ArrayDeserializable
          *
          * @var mixed
          */
+        #[Shape(['scalar' => 'mixed'])]
         public $settings
     ) {}
 }

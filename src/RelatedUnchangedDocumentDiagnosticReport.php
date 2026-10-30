@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * @phpstan-type FullDocumentDiagnosticReport array{kind: "full", resultId?: string, items: list<Diagnostic>}
@@ -23,11 +24,13 @@ class RelatedUnchangedDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var "unchanged"
          */
+        #[Shape(['literal' => 'unchanged'])]
         public $kind,
         /**
          * A result id which will be sent on the next
          * diagnostic request for the same document.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $resultId,
         /**
          * Diagnostics of related documents. This information is useful
@@ -38,6 +41,28 @@ class RelatedUnchangedDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var array<string, FullDocumentDiagnosticReport|UnchangedDocumentDiagnosticReport>|null
          */
+        #[Shape([
+            'union' => [
+                [
+                    'map' => [
+                        ['scalar' => 'string'],
+                        [
+                            'union' => [
+                                [
+                                    'shape' => [
+                                        'kind' => ['literal' => 'full'],
+                                        'resultId?' => ['scalar' => 'string'],
+                                        'items' => ['list' => ['class' => Diagnostic::class]],
+                                    ],
+                                ],
+                                ['any' => null],
+                            ],
+                        ],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public ?array $relatedDocuments = null
     ) {}
 }

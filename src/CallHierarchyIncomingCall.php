@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents an incoming call, e.g. a caller of a method or constructor.
@@ -17,7 +17,7 @@ class CallHierarchyIncomingCall implements ArrayDeserializable
         /**
          * The item that makes the call.
          */
-        #[Deserialize(CallHierarchyItem::class)]
+        #[Shape(['class' => CallHierarchyItem::class])]
         public CallHierarchyItem $from,
         /**
          * The ranges at which the calls appear. This is relative to the caller
@@ -25,7 +25,7 @@ class CallHierarchyIncomingCall implements ArrayDeserializable
          *
          * @var list<Range>
          */
-        #[Deserialize(Range::class, at: '[]')]
+        #[Shape(['list' => ['class' => Range::class]])]
         public array $fromRanges
     ) {}
 }

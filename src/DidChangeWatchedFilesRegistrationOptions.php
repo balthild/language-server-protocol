@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Describe options to be used when registered for text document change events.
@@ -19,7 +19,7 @@ class DidChangeWatchedFilesRegistrationOptions implements ArrayDeserializable
          *
          * @var list<FileSystemWatcher>
          */
-        #[Deserialize(FileSystemWatcher::class, at: '[]')]
+        #[Shape(['list' => ['class' => FileSystemWatcher::class]])]
         public array $watchers
     ) {}
 }

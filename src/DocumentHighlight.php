@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A document highlight is a range inside a text document which deserves
@@ -19,13 +19,16 @@ class DocumentHighlight implements ArrayDeserializable
         /**
          * The range this highlight applies to.
          */
-        #[Deserialize(Range::class)]
+        #[Shape(['class' => Range::class])]
         public Range $range,
         /**
          * The highlight kind, default is [text](#DocumentHighlightKind.Text).
          *
          * @var DocumentHighlightKind::*|null
          */
+        #[Shape([
+            'union' => [['union' => [['literal' => 1], ['literal' => 2], ['literal' => 3]]], ['scalar' => 'null']],
+        ])]
         public $kind = null
     ) {}
 }

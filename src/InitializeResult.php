@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The result returned from an initialize request.
@@ -17,13 +17,14 @@ class InitializeResult implements ArrayDeserializable
         /**
          * The capabilities the language server provides.
          */
-        #[Deserialize(ServerCapabilities::class)]
+        #[Shape(['class' => ServerCapabilities::class])]
         public ServerCapabilities $capabilities,
         /**
          * Information about the server.
          *
          * @var array{name: string, version?: string}|null
          */
+        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
         public ?array $serverInfo = null
     ) {}
 }

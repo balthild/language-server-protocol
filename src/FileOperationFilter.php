@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A filter to describe in which file operation requests or notifications
@@ -18,11 +18,12 @@ class FileOperationFilter implements ArrayDeserializable
         /**
          * The actual file operation pattern.
          */
-        #[Deserialize(FileOperationPattern::class)]
+        #[Shape(['class' => FileOperationPattern::class])]
         public FileOperationPattern $pattern,
         /**
          * A Uri scheme like `file` or `untitled`.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $scheme = null
     ) {}
 }

@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Value-object that contains additional information when
@@ -17,6 +18,7 @@ class ReferenceContext implements ArrayDeserializable
         /**
          * Include the declaration of the current symbol.
          */
+        #[Shape(['scalar' => 'bool'])]
         public bool $includeDeclaration
     ) {}
 }

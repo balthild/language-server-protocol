@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Registration options for a [SignatureHelpRequest](#SignatureHelpRequest).
  *
@@ -24,12 +26,34 @@ class SignatureHelpRegistrationOptions extends TextDocumentRegistrationOptions
          *
          * @var list<(string|DocumentFilter)>|null
          */
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        [
+                            'list' => [
+                                'union' => [
+                                    ['scalar' => 'string'],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                ],
+                            ],
+                        ],
+                        ['literal' => null],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $documentSelector = null,
         /**
          * List of characters that trigger signature help automatically.
          *
          * @var list<string>|null
          */
+        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
         public ?array $triggerCharacters = null,
         /**
          * List of characters that re-trigger signature help.
@@ -39,7 +63,9 @@ class SignatureHelpRegistrationOptions extends TextDocumentRegistrationOptions
          *
          * @var list<string>|null
          */
+        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
         public ?array $retriggerCharacters = null,
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A selection range represents a part of a selection hierarchy. A selection range
@@ -18,12 +18,12 @@ class SelectionRange implements ArrayDeserializable
         /**
          * The [range](#Range) of this selection range.
          */
-        #[Deserialize(Range::class)]
+        #[Shape(['class' => Range::class])]
         public Range $range,
         /**
          * The parent selection range containing this range. Therefore `parent.range` must contain `this.range`.
          */
-        #[Deserialize(SelectionRange::class)]
+        #[Shape(['union' => [['class' => SelectionRange::class], ['scalar' => 'null']]])]
         public ?SelectionRange $parent = null
     ) {}
 }

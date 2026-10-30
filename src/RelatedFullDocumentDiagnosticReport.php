@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * @phpstan-type FullDocumentDiagnosticReport array{kind: "full", resultId?: string, items: list<Diagnostic>}
@@ -21,19 +21,21 @@ class RelatedFullDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var "full"
          */
+        #[Shape(['literal' => 'full'])]
         public $kind,
         /**
          * The actual items.
          *
          * @var list<Diagnostic>
          */
-        #[Deserialize(Diagnostic::class, at: '[]')]
+        #[Shape(['list' => ['class' => Diagnostic::class]])]
         public array $items,
         /**
          * An optional result id. If provided it will
          * be sent on the next diagnostic request for the
          * same document.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $resultId = null,
         /**
          * Diagnostics of related documents. This information is useful
@@ -44,6 +46,28 @@ class RelatedFullDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var array<string, FullDocumentDiagnosticReport|UnchangedDocumentDiagnosticReport>|null
          */
+        #[Shape([
+            'union' => [
+                [
+                    'map' => [
+                        ['scalar' => 'string'],
+                        [
+                            'union' => [
+                                [
+                                    'shape' => [
+                                        'kind' => ['literal' => 'full'],
+                                        'resultId?' => ['scalar' => 'string'],
+                                        'items' => ['list' => ['class' => Diagnostic::class]],
+                                    ],
+                                ],
+                                ['any' => null],
+                            ],
+                        ],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public ?array $relatedDocuments = null
     ) {}
 }

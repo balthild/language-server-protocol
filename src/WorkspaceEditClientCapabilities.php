@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * @phpstan-type FailureHandlingKind 'abort'|'transactional'|'undo'|'textOnlyTransactional'
@@ -16,6 +17,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
         /**
          * The client supports versioned document changes in `WorkspaceEdit`s
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $documentChanges = null,
         /**
          * The resource operations the client supports. Clients should at least
@@ -23,6 +25,12 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          *
          * @var list<'create'|'rename'|'delete'>|null
          */
+        #[Shape([
+            'union' => [
+                ['list' => ['union' => [['literal' => 'create'], ['literal' => 'rename'], ['literal' => 'delete']]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public ?array $resourceOperations = null,
         /**
          * The failure handling strategy of a client if applying the workspace edit
@@ -30,6 +38,19 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          *
          * @var FailureHandlingKind|null
          */
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        ['literal' => 'abort'],
+                        ['literal' => 'transactional'],
+                        ['literal' => 'undo'],
+                        ['literal' => 'textOnlyTransactional'],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $failureHandling = null,
         /**
          * Whether the client normalizes line endings to the client specific
@@ -38,6 +59,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          * in a workspace edit to the client-specified new line
          * character.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $normalizesLineEndings = null,
         /**
          * Whether the client in general supports change annotations on text edits,
@@ -45,6 +67,7 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          *
          * @var array{groupsOnLabel?: bool}|null
          */
+        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
         public ?array $changeAnnotationSupport = null
     ) {}
 }

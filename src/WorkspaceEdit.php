@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A workspace edit represents changes to many resources managed in the workspace. The edit
@@ -30,6 +30,12 @@ class WorkspaceEdit implements ArrayDeserializable
          *
          * @var array<string, list<TextEdit>>|null
          */
+        #[Shape([
+            'union' => [
+                ['map' => [['scalar' => 'string'], ['list' => ['class' => TextEdit::class]]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public ?array $changes = null,
         /**
          * Depending on the client capability `workspace.workspaceEdit.resourceOperations` document changes
@@ -45,7 +51,21 @@ class WorkspaceEdit implements ArrayDeserializable
          *
          * @var list<(TextDocumentEdit|CreateFile|RenameFile|DeleteFile)>|null
          */
-        #[Deserialize([TextDocumentEdit::class, CreateFile::class, RenameFile::class, DeleteFile::class], at: '[]')]
+        #[Shape([
+            'union' => [
+                [
+                    'list' => [
+                        'union' => [
+                            ['class' => TextDocumentEdit::class],
+                            ['class' => CreateFile::class],
+                            ['class' => RenameFile::class],
+                            ['class' => DeleteFile::class],
+                        ],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public ?array $documentChanges = null,
         /**
          * A map of change annotations that can be referenced in `AnnotatedTextEdit`s or create, rename and
@@ -55,6 +75,12 @@ class WorkspaceEdit implements ArrayDeserializable
          *
          * @var array<string, ChangeAnnotation>|null
          */
+        #[Shape([
+            'union' => [
+                ['map' => [['scalar' => 'string'], ['class' => ChangeAnnotation::class]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public ?array $changeAnnotations = null
     ) {}
 }

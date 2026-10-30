@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Registration options for a [DocumentFormattingRequest](#DocumentFormattingRequest).
  *
@@ -24,7 +26,29 @@ class DocumentFormattingRegistrationOptions extends TextDocumentRegistrationOpti
          *
          * @var list<(string|DocumentFilter)>|null
          */
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        [
+                            'list' => [
+                                'union' => [
+                                    ['scalar' => 'string'],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                ],
+                            ],
+                        ],
+                        ['literal' => null],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $documentSelector = null,
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

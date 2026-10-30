@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class HoverClientCapabilities implements ArrayDeserializable
 {
@@ -13,6 +14,7 @@ class HoverClientCapabilities implements ArrayDeserializable
         /**
          * Whether hover supports dynamic registration.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $dynamicRegistration = null,
         /**
          * Client supports the following content formats for the content
@@ -20,6 +22,12 @@ class HoverClientCapabilities implements ArrayDeserializable
          *
          * @var list<MarkupKind::*>|null
          */
+        #[Shape([
+            'union' => [
+                ['list' => ['union' => [['literal' => 'plaintext'], ['literal' => 'markdown']]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public ?array $contentFormat = null
     ) {}
 }

@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Contains additional diagnostic information about the context in which
@@ -24,7 +24,7 @@ class CodeActionContext implements ArrayDeserializable
          *
          * @var list<Diagnostic>
          */
-        #[Deserialize(Diagnostic::class, at: '[]')]
+        #[Shape(['list' => ['class' => Diagnostic::class]])]
         public array $diagnostics,
         /**
          * Requested kind of actions to return.
@@ -34,12 +34,14 @@ class CodeActionContext implements ArrayDeserializable
          *
          * @var list<string>|null
          */
+        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
         public ?array $only = null,
         /**
          * The reason why code actions were requested.
          *
          * @var CodeActionTriggerKind::*|null
          */
+        #[Shape(['union' => [['union' => [['literal' => 1], ['literal' => 2]]], ['scalar' => 'null']]])]
         public $triggerKind = null
     ) {}
 }

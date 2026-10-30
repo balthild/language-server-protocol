@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client capabilities for the showDocument request.
@@ -17,6 +18,7 @@ class ShowDocumentClientCapabilities implements ArrayDeserializable
          * The client has support for the showDocument
          * request.
          */
+        #[Shape(['scalar' => 'bool'])]
         public bool $support
     ) {}
 }

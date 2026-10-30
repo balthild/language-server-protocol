@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Defines the capabilities provided by the client.
@@ -17,33 +17,34 @@ class ClientCapabilities implements ArrayDeserializable
         /**
          * Workspace specific client capabilities.
          */
-        #[Deserialize(WorkspaceClientCapabilities::class)]
+        #[Shape(['union' => [['class' => WorkspaceClientCapabilities::class], ['scalar' => 'null']]])]
         public ?WorkspaceClientCapabilities $workspace = null,
         /**
          * Text document specific client capabilities.
          */
-        #[Deserialize(TextDocumentClientCapabilities::class)]
+        #[Shape(['union' => [['class' => TextDocumentClientCapabilities::class], ['scalar' => 'null']]])]
         public ?TextDocumentClientCapabilities $textDocument = null,
         /**
          * Capabilities specific to the notebook document support.
          */
-        #[Deserialize(NotebookDocumentClientCapabilities::class)]
+        #[Shape(['union' => [['class' => NotebookDocumentClientCapabilities::class], ['scalar' => 'null']]])]
         public ?NotebookDocumentClientCapabilities $notebookDocument = null,
         /**
          * Window specific client capabilities.
          */
-        #[Deserialize(WindowClientCapabilities::class)]
+        #[Shape(['union' => [['class' => WindowClientCapabilities::class], ['scalar' => 'null']]])]
         public ?WindowClientCapabilities $window = null,
         /**
          * General client capabilities.
          */
-        #[Deserialize(GeneralClientCapabilities::class)]
+        #[Shape(['union' => [['class' => GeneralClientCapabilities::class], ['scalar' => 'null']]])]
         public ?GeneralClientCapabilities $general = null,
         /**
          * Experimental client capabilities.
          *
          * @var mixed|null
          */
+        #[Shape(['union' => [['scalar' => 'mixed'], ['scalar' => 'null']]])]
         public $experimental = null
     ) {}
 }

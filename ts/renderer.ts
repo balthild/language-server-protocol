@@ -2,7 +2,7 @@ import { constantCase } from 'change-case';
 
 import { PhpClass, PhpClassLike, PhpInterface } from './phpClass.ts';
 import type { PhpConstant, Property } from './phpClass.ts';
-import type { AliasRef } from './typeConverter.ts';
+import type { AliasRef, ShapeNode } from './typeConverter.ts';
 
 /**
  * `class` is a reserved word in PHP, so a constant derived from it needs a
@@ -57,17 +57,41 @@ function collectAliases(properties: readonly Property[]): AliasRef[] {
 	return [...merged.values()];
 }
 
-function renderAttributes(property: Property): string[] {
-	return property.type.hydrations.map((hydration) => {
-		const candidates =
-			hydration.candidates.length === 1
-				? `${hydration.candidates[0]}::class`
-				: `[${hydration.candidates.map((name) => `${name}::class`).join(', ')}]`;
+/**
+ * Renders a shape node as the PHP array literal the {@see Shape} attribute takes.
+ */
+function renderShape(node: ShapeNode): string {
+	switch (node.kind) {
+		case 'any':
+			return `['any' => null]`;
+		case 'class':
+			return `['class' => ${node.name}::class]`;
+		case 'scalar':
+			return `['scalar' => '${node.name}']`;
+		case 'literal':
+			return `['literal' => ${node.value}]`;
+		case 'list':
+			return `['list' => ${renderShape(node.element)}]`;
+		case 'map':
+			return `['map' => [${renderShape(node.key)}, ${renderShape(node.value)}]]`;
+		case 'shape': {
+			const members = node.members.map(
+				(member) => `'${member.name}${member.optional ? '?' : ''}' => ${renderShape(member.node)}`,
+			);
 
-		return hydration.path === ''
-			? `#[Deserialize(${candidates})]`
-			: `#[Deserialize(${candidates}, at: '${hydration.path}')]`;
-	});
+			return `['shape' => [${members.join(', ')}]]`;
+		}
+		case 'union':
+			return `['union' => [${node.members.map(renderShape).join(', ')}]]`;
+	}
+}
+
+function renderAttributes(property: Property): string[] {
+	if (property.shape === undefined) {
+		return [];
+	}
+
+	return [`#[Shape(${renderShape(property.shape)})]`];
 }
 
 export class Renderer {
@@ -106,7 +130,7 @@ export class Renderer {
 	private renderClass(phpClass: PhpClass): string {
 		const properties = orderedProperties(phpClass);
 		const isRoot = phpClass.extends === undefined;
-		const usesDeserialize = properties.some((property) => property.type.hydrations.length > 0);
+		const usesShape = properties.some((property) => property.shape !== undefined);
 
 		const source = [
 			'<?php // Auto-generated from vscode-languageserver-protocol (typescript)',
@@ -119,8 +143,8 @@ export class Renderer {
 		if (isRoot) {
 			imports.push('ArrayDeserializable');
 		}
-		if (usesDeserialize) {
-			imports.push('Deserialize');
+		if (usesShape) {
+			imports.push('Shape');
 		}
 		if (isRoot) {
 			imports.push('FromArray');

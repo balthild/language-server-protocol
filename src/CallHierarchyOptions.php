@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Call hierarchy options used during static registration.
  *
@@ -10,6 +12,7 @@ namespace Phpactor\LanguageServerProtocol;
 class CallHierarchyOptions extends WorkDoneProgressOptions
 {
     public function __construct(
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

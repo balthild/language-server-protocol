@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Show message request client capabilities
@@ -18,6 +19,7 @@ class ShowMessageRequestClientCapabilities implements ArrayDeserializable
          *
          * @var array{additionalPropertiesSupport?: bool}|null
          */
+        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
         public ?array $messageActionItem = null
     ) {}
 }

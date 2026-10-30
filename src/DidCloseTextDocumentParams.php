@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters sent in a close text document notification
@@ -17,7 +17,7 @@ class DidCloseTextDocumentParams implements ArrayDeserializable
         /**
          * The document that was closed.
          */
-        #[Deserialize(TextDocumentIdentifier::class)]
+        #[Shape(['class' => TextDocumentIdentifier::class])]
         public TextDocumentIdentifier $textDocument
     ) {}
 }

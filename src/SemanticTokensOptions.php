@@ -2,7 +2,7 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Mixins (implemented TS interfaces): WorkDoneProgressOptions
@@ -13,7 +13,7 @@ class SemanticTokensOptions extends WorkDoneProgressOptions
         /**
          * The legend used by the server
          */
-        #[Deserialize(SemanticTokensLegend::class)]
+        #[Shape(['class' => SemanticTokensLegend::class])]
         public SemanticTokensLegend $legend,
         /**
          * Server supports providing semantic tokens for a specific range
@@ -21,13 +21,16 @@ class SemanticTokensOptions extends WorkDoneProgressOptions
          *
          * @var bool|array{}|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'bool'], ['any' => null]]], ['scalar' => 'null']]])]
         public $range = null,
         /**
          * Server supports providing semantic tokens for a full document.
          *
          * @var bool|array{delta?: bool}|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'bool'], ['any' => null]]], ['scalar' => 'null']]])]
         public $full = null,
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

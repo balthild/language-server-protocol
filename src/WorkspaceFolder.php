@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A workspace folder inside a client.
@@ -16,11 +17,13 @@ class WorkspaceFolder implements ArrayDeserializable
         /**
          * The associated URI for this workspace folder.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $uri,
         /**
          * The name of the workspace folder. Used to refer to this
          * workspace folder in the user interface.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $name
     ) {}
 }

@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Registration options for a [WorkspaceSymbolRequest](#WorkspaceSymbolRequest).
  *
@@ -14,7 +16,9 @@ class WorkspaceSymbolRegistrationOptions extends WorkspaceSymbolOptions
          * The server provides support to resolve additional
          * information for a workspace symbol.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $resolveProvider = null,
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

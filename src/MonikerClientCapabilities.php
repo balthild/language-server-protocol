@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client capabilities specific to the moniker request.
@@ -18,6 +19,7 @@ class MonikerClientCapabilities implements ArrayDeserializable
          * the client supports the new `MonikerRegistrationOptions` return value
          * for the corresponding server capability as well.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $dynamicRegistration = null
     ) {}
 }

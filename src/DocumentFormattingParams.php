@@ -2,7 +2,7 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters of a [DocumentFormattingRequest](#DocumentFormattingRequest).
@@ -15,18 +15,19 @@ class DocumentFormattingParams extends WorkDoneProgressParams
         /**
          * The document to format.
          */
-        #[Deserialize(TextDocumentIdentifier::class)]
+        #[Shape(['class' => TextDocumentIdentifier::class])]
         public TextDocumentIdentifier $textDocument,
         /**
          * The format options.
          */
-        #[Deserialize(FormattingOptions::class)]
+        #[Shape(['class' => FormattingOptions::class])]
         public FormattingOptions $options,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
         public $workDoneToken = null
     ) {}
 }

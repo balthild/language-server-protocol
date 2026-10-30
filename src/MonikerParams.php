@@ -2,7 +2,7 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Mixins (implemented TS interfaces): TextDocumentPositionParams, WorkDoneProgressParams, PartialResultParams
@@ -13,18 +13,19 @@ class MonikerParams extends TextDocumentPositionParams
         /**
          * The text document.
          */
-        #[Deserialize(TextDocumentIdentifier::class)]
+        #[Shape(['class' => TextDocumentIdentifier::class])]
         public TextDocumentIdentifier $textDocument,
         /**
          * The position inside the text document.
          */
-        #[Deserialize(Position::class)]
+        #[Shape(['class' => Position::class])]
         public Position $position,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
         public $workDoneToken = null,
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
@@ -32,6 +33,7 @@ class MonikerParams extends TextDocumentPositionParams
          *
          * @var int|string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
         public $partialResultToken = null
     ) {}
 }

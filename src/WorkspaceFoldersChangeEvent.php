@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The workspace folder change event.
@@ -19,14 +19,14 @@ class WorkspaceFoldersChangeEvent implements ArrayDeserializable
          *
          * @var list<WorkspaceFolder>
          */
-        #[Deserialize(WorkspaceFolder::class, at: '[]')]
+        #[Shape(['list' => ['class' => WorkspaceFolder::class]])]
         public array $added,
         /**
          * The array of the removed workspace folders
          *
          * @var list<WorkspaceFolder>
          */
-        #[Deserialize(WorkspaceFolder::class, at: '[]')]
+        #[Shape(['list' => ['class' => WorkspaceFolder::class]])]
         public array $removed
     ) {}
 }

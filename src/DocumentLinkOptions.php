@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Provider options for a [DocumentLinkRequest](#DocumentLinkRequest).
  *
@@ -13,7 +15,9 @@ class DocumentLinkOptions extends WorkDoneProgressOptions
         /**
          * Document links have a resolve provider as well.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $resolveProvider = null,
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

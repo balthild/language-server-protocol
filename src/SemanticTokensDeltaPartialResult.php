@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class SemanticTokensDeltaPartialResult implements ArrayDeserializable
 {
@@ -14,7 +14,7 @@ class SemanticTokensDeltaPartialResult implements ArrayDeserializable
         /**
          * @var list<SemanticTokensEdit>
          */
-        #[Deserialize(SemanticTokensEdit::class, at: '[]')]
+        #[Shape(['list' => ['class' => SemanticTokensEdit::class]])]
         public array $edits
     ) {}
 }

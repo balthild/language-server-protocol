@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class TextDocumentSyncClientCapabilities implements ArrayDeserializable
 {
@@ -13,20 +14,24 @@ class TextDocumentSyncClientCapabilities implements ArrayDeserializable
         /**
          * Whether text document synchronization supports dynamic registration.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $dynamicRegistration = null,
         /**
          * The client supports sending will save notifications.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $willSave = null,
         /**
          * The client supports sending a will save request and
          * waits for a response providing text edits which will
          * be applied to the document before it is saved.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $willSaveWaitUntil = null,
         /**
          * The client supports did save notifications.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $didSave = null
     ) {}
 }

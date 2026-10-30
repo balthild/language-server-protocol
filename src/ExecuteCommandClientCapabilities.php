@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The client capabilities of a [ExecuteCommandRequest](#ExecuteCommandRequest).
@@ -16,6 +17,7 @@ class ExecuteCommandClientCapabilities implements ArrayDeserializable
         /**
          * Execute command supports dynamic registration.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $dynamicRegistration = null
     ) {}
 }

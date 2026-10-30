@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client Capabilities for a [SignatureHelpRequest](#SignatureHelpRequest).
@@ -16,6 +17,7 @@ class SignatureHelpClientCapabilities implements ArrayDeserializable
         /**
          * Whether signature help supports dynamic registration.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $dynamicRegistration = null,
         /**
          * The client supports the following `SignatureInformation`
@@ -23,6 +25,7 @@ class SignatureHelpClientCapabilities implements ArrayDeserializable
          *
          * @var array{documentationFormat?: list<MarkupKind::*>, parameterInformation?: array{labelOffsetSupport?: bool}, activeParameterSupport?: bool}|null
          */
+        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
         public ?array $signatureInformation = null,
         /**
          * The client supports to send additional context information for a
@@ -30,6 +33,7 @@ class SignatureHelpClientCapabilities implements ArrayDeserializable
          * contextSupport will also support the `retriggerCharacters` on
          * `SignatureHelpOptions`.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $contextSupport = null
     ) {}
 }

@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class SemanticTokensPartialResult implements ArrayDeserializable
 {
@@ -13,6 +14,7 @@ class SemanticTokensPartialResult implements ArrayDeserializable
         /**
          * @var list<int>
          */
+        #[Shape(['list' => ['scalar' => 'int']])]
         public array $data
     ) {}
 }

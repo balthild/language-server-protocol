@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A range in a text document expressed as (zero-based) start and end positions.
@@ -27,12 +27,12 @@ class Range implements ArrayDeserializable
         /**
          * The range's start position.
          */
-        #[Deserialize(Position::class)]
+        #[Shape(['class' => Position::class])]
         public Position $start,
         /**
          * The range's end position.
          */
-        #[Deserialize(Position::class)]
+        #[Shape(['class' => Position::class])]
         public Position $end
     ) {}
 }

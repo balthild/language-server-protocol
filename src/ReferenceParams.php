@@ -2,7 +2,7 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Parameters for a [ReferencesRequest](#ReferencesRequest).
@@ -12,23 +12,24 @@ use Phpactor\LanguageServerProtocol\Support\Deserialize;
 class ReferenceParams extends TextDocumentPositionParams
 {
     public function __construct(
-        #[Deserialize(ReferenceContext::class)]
+        #[Shape(['class' => ReferenceContext::class])]
         public ReferenceContext $context,
         /**
          * The text document.
          */
-        #[Deserialize(TextDocumentIdentifier::class)]
+        #[Shape(['class' => TextDocumentIdentifier::class])]
         public TextDocumentIdentifier $textDocument,
         /**
          * The position inside the text document.
          */
-        #[Deserialize(Position::class)]
+        #[Shape(['class' => Position::class])]
         public Position $position,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
         public $workDoneToken = null,
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
@@ -36,6 +37,7 @@ class ReferenceParams extends TextDocumentPositionParams
          *
          * @var int|string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
         public $partialResultToken = null
     ) {}
 }

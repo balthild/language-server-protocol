@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client capabilities of a [DocumentRangeFormattingRequest](#DocumentRangeFormattingRequest).
@@ -16,6 +17,7 @@ class DocumentRangeFormattingClientCapabilities implements ArrayDeserializable
         /**
          * Whether range formatting supports dynamic registration.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $dynamicRegistration = null
     ) {}
 }

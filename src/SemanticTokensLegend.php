@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class SemanticTokensLegend implements ArrayDeserializable
 {
@@ -15,12 +16,14 @@ class SemanticTokensLegend implements ArrayDeserializable
          *
          * @var list<string>
          */
+        #[Shape(['list' => ['scalar' => 'string']])]
         public array $tokenTypes,
         /**
          * The token modifiers a server uses.
          *
          * @var list<string>
          */
+        #[Shape(['list' => ['scalar' => 'string']])]
         public array $tokenModifiers
     ) {}
 }

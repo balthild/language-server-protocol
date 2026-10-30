@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Describe options to be used when registered for text document change events.
  *
@@ -23,6 +25,7 @@ class TextDocumentChangeRegistrationOptions extends TextDocumentRegistrationOpti
          *
          * @var TextDocumentSyncKind::*
          */
+        #[Shape(['union' => [['literal' => 0], ['literal' => 1], ['literal' => 2]]])]
         public $syncKind,
         /**
          * A document selector to identify the scope of the registration. If set to null
@@ -30,6 +33,27 @@ class TextDocumentChangeRegistrationOptions extends TextDocumentRegistrationOpti
          *
          * @var list<(string|DocumentFilter)>|null
          */
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        [
+                            'list' => [
+                                'union' => [
+                                    ['scalar' => 'string'],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                ],
+                            ],
+                        ],
+                        ['literal' => null],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $documentSelector = null
     ) {}
 }

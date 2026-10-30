@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class WorkspaceFullDocumentDiagnosticReport implements ArrayDeserializable
 {
@@ -16,23 +16,26 @@ class WorkspaceFullDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var "full"
          */
+        #[Shape(['literal' => 'full'])]
         public $kind,
         /**
          * The actual items.
          *
          * @var list<Diagnostic>
          */
-        #[Deserialize(Diagnostic::class, at: '[]')]
+        #[Shape(['list' => ['class' => Diagnostic::class]])]
         public array $items,
         /**
          * The URI for which diagnostic information is reported.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $uri,
         /**
          * An optional result id. If provided it will
          * be sent on the next diagnostic request for the
          * same document.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $resultId = null,
         /**
          * The version number for which the diagnostics are reported.
@@ -40,6 +43,7 @@ class WorkspaceFullDocumentDiagnosticReport implements ArrayDeserializable
          *
          * @var int|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['literal' => null]]], ['scalar' => 'null']]])]
         public $version = null
     ) {
         $this->uri = urldecode($uri);

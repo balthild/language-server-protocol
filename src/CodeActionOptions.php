@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Provider options for a [CodeActionRequest](#CodeActionRequest).
  *
@@ -18,12 +20,15 @@ class CodeActionOptions extends WorkDoneProgressOptions
          *
          * @var list<string>|null
          */
+        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
         public ?array $codeActionKinds = null,
         /**
          * The server provides support to resolve additional
          * information for a code action.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $resolveProvider = null,
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

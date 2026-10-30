@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A relative pattern is a helper to construct glob patterns that are matched
@@ -22,11 +22,12 @@ class RelativePattern implements ArrayDeserializable
          *
          * @var WorkspaceFolder|string
          */
-        #[Deserialize(WorkspaceFolder::class)]
+        #[Shape(['union' => [['class' => WorkspaceFolder::class], ['scalar' => 'string']]])]
         public $baseUri,
         /**
          * The actual glob pattern;
          */
+        #[Shape(['scalar' => 'string'])]
         public string $pattern
     ) {}
 }

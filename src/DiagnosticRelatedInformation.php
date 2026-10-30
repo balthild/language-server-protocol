@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents a related message and source code location for a diagnostic. This should be
@@ -19,11 +19,12 @@ class DiagnosticRelatedInformation implements ArrayDeserializable
         /**
          * The location of this related diagnostic information.
          */
-        #[Deserialize(Location::class)]
+        #[Shape(['class' => Location::class])]
         public Location $location,
         /**
          * The message of this related diagnostic information.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $message
     ) {}
 }

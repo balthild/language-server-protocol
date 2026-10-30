@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Additional information that describes document changes.
@@ -17,16 +18,19 @@ class ChangeAnnotation implements ArrayDeserializable
          * A human-readable string describing the actual change. The string
          * is rendered prominent in the user interface.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $label,
         /**
          * A flag which indicates that user confirmation is needed
          * before applying the change.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $needsConfirmation = null,
         /**
          * A human-readable string which is rendered less prominent in
          * the user interface.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $description = null
     ) {}
 }

@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class DidChangeConfigurationRegistrationOptions implements ArrayDeserializable
 {
@@ -13,6 +14,12 @@ class DidChangeConfigurationRegistrationOptions implements ArrayDeserializable
         /**
          * @var string|list<string>|null
          */
+        #[Shape([
+            'union' => [
+                ['union' => [['scalar' => 'string'], ['list' => ['scalar' => 'string']]]],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $section = null
     ) {}
 }

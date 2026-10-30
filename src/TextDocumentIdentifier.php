@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A literal to identify a text document in the client.
@@ -16,6 +17,7 @@ class TextDocumentIdentifier implements ArrayDeserializable
         /**
          * The text document's uri.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $uri
     ) {
         $this->uri = urldecode($uri);

@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The options to register for file operations.
@@ -19,7 +19,7 @@ class FileOperationRegistrationOptions implements ArrayDeserializable
          *
          * @var list<FileOperationFilter>
          */
-        #[Deserialize(FileOperationFilter::class, at: '[]')]
+        #[Shape(['list' => ['class' => FileOperationFilter::class]])]
         public array $filters
     ) {}
 }

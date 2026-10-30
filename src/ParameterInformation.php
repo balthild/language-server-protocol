@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents a parameter of a callable-signature. A parameter can
@@ -27,6 +27,9 @@ class ParameterInformation implements ArrayDeserializable
          *
          * @var string|array{int, int}
          */
+        #[Shape([
+            'union' => [['scalar' => 'string'], ['shape' => ['0' => ['scalar' => 'int'], '1' => ['scalar' => 'int']]]],
+        ])]
         public $label,
         /**
          * The human-readable doc-comment of this parameter. Will be shown
@@ -34,7 +37,9 @@ class ParameterInformation implements ArrayDeserializable
          *
          * @var string|MarkupContent|null
          */
-        #[Deserialize(MarkupContent::class)]
+        #[Shape([
+            'union' => [['union' => [['scalar' => 'string'], ['class' => MarkupContent::class]]], ['scalar' => 'null']],
+        ])]
         public $documentation = null
     ) {}
 }

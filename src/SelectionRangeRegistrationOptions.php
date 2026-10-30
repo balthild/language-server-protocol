@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Mixins (implemented TS interfaces): SelectionRangeOptions, TextDocumentRegistrationOptions, StaticRegistrationOptions
  *
@@ -16,6 +18,7 @@ namespace Phpactor\LanguageServerProtocol;
 class SelectionRangeRegistrationOptions extends SelectionRangeOptions
 {
     public function __construct(
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null,
         /**
          * A document selector to identify the scope of the registration. If set to null
@@ -23,11 +26,33 @@ class SelectionRangeRegistrationOptions extends SelectionRangeOptions
          *
          * @var list<(string|DocumentFilter)>|null
          */
+        #[Shape([
+            'union' => [
+                [
+                    'union' => [
+                        [
+                            'list' => [
+                                'union' => [
+                                    ['scalar' => 'string'],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                    ['any' => null],
+                                ],
+                            ],
+                        ],
+                        ['literal' => null],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public $documentSelector = null,
         /**
          * The id used to register the request. The id can be used to deregister
          * the request again. See also Registration#id.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $id = null
     ) {}
 }

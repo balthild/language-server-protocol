@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents a collection of [completion items](#CompletionItem) to be presented
@@ -21,13 +21,14 @@ class CompletionList implements ArrayDeserializable
          * Recomputed lists have all their items replaced (not appended) in the
          * incomplete completion sessions.
          */
+        #[Shape(['scalar' => 'bool'])]
         public bool $isIncomplete,
         /**
          * The completion items.
          *
          * @var list<CompletionItem>
          */
-        #[Deserialize(CompletionItem::class, at: '[]')]
+        #[Shape(['list' => ['class' => CompletionItem::class]])]
         public array $items,
         /**
          * In many cases the items of an actual completion result share the same
@@ -44,9 +45,30 @@ class CompletionList implements ArrayDeserializable
          *
          * @var array{commitCharacters?: list<string>, editRange?: Range|array{insert: Range, replace: Range}, insertTextFormat?: InsertTextFormat::*, insertTextMode?: InsertTextMode::*, data?: mixed}|null
          */
-        #[Deserialize(Range::class, at: 'editRange')]
-        #[Deserialize(Range::class, at: 'editRange.insert')]
-        #[Deserialize(Range::class, at: 'editRange.replace')]
+        #[Shape([
+            'union' => [
+                [
+                    'shape' => [
+                        'commitCharacters?' => ['list' => ['scalar' => 'string']],
+                        'editRange?' => [
+                            'union' => [
+                                ['class' => Range::class],
+                                [
+                                    'shape' => [
+                                        'insert' => ['class' => Range::class],
+                                        'replace' => ['class' => Range::class],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'insertTextFormat?' => ['union' => [['literal' => 1], ['literal' => 2]]],
+                        'insertTextMode?' => ['union' => [['literal' => 1], ['literal' => 2]]],
+                        'data?' => ['scalar' => 'mixed'],
+                    ],
+                ],
+                ['scalar' => 'null'],
+            ],
+        ])]
         public ?array $itemDefaults = null
     ) {}
 }

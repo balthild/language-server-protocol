@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Options for notifications/requests for user operations on files.
@@ -17,32 +17,32 @@ class FileOperationOptions implements ArrayDeserializable
         /**
          * The server is interested in receiving didCreateFiles notifications.
          */
-        #[Deserialize(FileOperationRegistrationOptions::class)]
+        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
         public ?FileOperationRegistrationOptions $didCreate = null,
         /**
          * The server is interested in receiving willCreateFiles requests.
          */
-        #[Deserialize(FileOperationRegistrationOptions::class)]
+        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
         public ?FileOperationRegistrationOptions $willCreate = null,
         /**
          * The server is interested in receiving didRenameFiles notifications.
          */
-        #[Deserialize(FileOperationRegistrationOptions::class)]
+        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
         public ?FileOperationRegistrationOptions $didRename = null,
         /**
          * The server is interested in receiving willRenameFiles requests.
          */
-        #[Deserialize(FileOperationRegistrationOptions::class)]
+        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
         public ?FileOperationRegistrationOptions $willRename = null,
         /**
          * The server is interested in receiving didDeleteFiles file notifications.
          */
-        #[Deserialize(FileOperationRegistrationOptions::class)]
+        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
         public ?FileOperationRegistrationOptions $didDelete = null,
         /**
          * The server is interested in receiving willDeleteFiles file requests.
          */
-        #[Deserialize(FileOperationRegistrationOptions::class)]
+        #[Shape(['union' => [['class' => FileOperationRegistrationOptions::class], ['scalar' => 'null']]])]
         public ?FileOperationRegistrationOptions $willDelete = null
     ) {}
 }

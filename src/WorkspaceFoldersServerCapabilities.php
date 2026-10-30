@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class WorkspaceFoldersServerCapabilities implements ArrayDeserializable
 {
@@ -13,6 +14,7 @@ class WorkspaceFoldersServerCapabilities implements ArrayDeserializable
         /**
          * The server has support for workspace folders
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $supported = null,
         /**
          * Whether the server wants to receive workspace folder
@@ -25,6 +27,7 @@ class WorkspaceFoldersServerCapabilities implements ArrayDeserializable
          *
          * @var string|bool|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'string'], ['scalar' => 'bool']]], ['scalar' => 'null']]])]
         public $changeNotifications = null
     ) {}
 }

@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A pattern to describe in which file operation requests or notifications
@@ -24,6 +24,7 @@ class FileOperationPattern implements ArrayDeserializable
          * - `[]` to declare a range of characters to match in a path segment (e.g., `example.[0-9]` to match on `example.0`, `example.1`, …)
          * - `[!...]` to negate a range of characters to match in a path segment (e.g., `example.[!0-9]` to match on `example.a`, `example.b`, but not `example.0`)
          */
+        #[Shape(['scalar' => 'string'])]
         public string $glob,
         /**
          * Whether to match files or folders with this pattern.
@@ -32,11 +33,12 @@ class FileOperationPattern implements ArrayDeserializable
          *
          * @var FileOperationPatternKind::*|null
          */
+        #[Shape(['union' => [['union' => [['literal' => 'file'], ['literal' => 'folder']]], ['scalar' => 'null']]])]
         public $matches = null,
         /**
          * Additional options used during matching.
          */
-        #[Deserialize(FileOperationPatternOptions::class)]
+        #[Shape(['union' => [['class' => FileOperationPatternOptions::class], ['scalar' => 'null']]])]
         public ?FileOperationPatternOptions $options = null
     ) {}
 }

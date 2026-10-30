@@ -2,7 +2,7 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Delete file operation
@@ -15,19 +15,22 @@ class DeleteFile extends ResourceOperation
         /**
          * The resource operation kind.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $kind,
         /**
          * The file to delete.
          */
+        #[Shape(['scalar' => 'string'])]
         public string $uri,
         /**
          * Delete options.
          */
-        #[Deserialize(DeleteFileOptions::class)]
+        #[Shape(['union' => [['class' => DeleteFileOptions::class], ['scalar' => 'null']]])]
         public ?DeleteFileOptions $options = null,
         /**
          * An optional annotation identifier describing the operation.
          */
+        #[Shape(['union' => [['scalar' => 'string'], ['scalar' => 'null']]])]
         public ?string $annotationId = null
     ) {
         $this->uri = urldecode($uri);

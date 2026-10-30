@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class SemanticTokensClientCapabilities implements ArrayDeserializable
 {
@@ -22,38 +23,45 @@ class SemanticTokensClientCapabilities implements ArrayDeserializable
          *
          * @var array{range?: bool|array{}, full?: bool|array{delta?: bool}}
          */
+        #[Shape(['any' => null])]
         public array $requests,
         /**
          * The token types that the client supports.
          *
          * @var list<string>
          */
+        #[Shape(['list' => ['scalar' => 'string']])]
         public array $tokenTypes,
         /**
          * The token modifiers that the client supports.
          *
          * @var list<string>
          */
+        #[Shape(['list' => ['scalar' => 'string']])]
         public array $tokenModifiers,
         /**
          * The token formats the clients supports.
          *
          * @var list<TokenFormat::*>
          */
+        #[Shape(['list' => ['literal' => 'relative']])]
         public array $formats,
         /**
          * Whether implementation supports dynamic registration. If this is set to `true`
          * the client supports the new `(TextDocumentRegistrationOptions & StaticRegistrationOptions)`
          * return value for the corresponding server capability as well.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $dynamicRegistration = null,
         /**
          * Whether the client supports tokens that can overlap each other.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $overlappingTokenSupport = null,
         /**
          * Whether the client supports tokens that can span multiple lines.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $multilineTokenSupport = null,
         /**
          * Whether the client allows the server to actively cancel a
@@ -61,6 +69,7 @@ class SemanticTokensClientCapabilities implements ArrayDeserializable
          * LSPErrorCodes.ServerCancelled. If a server does the client
          * needs to retrigger the request.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $serverCancelSupport = null,
         /**
          * Whether the client uses semantic tokens to augment existing
@@ -72,6 +81,7 @@ class SemanticTokensClientCapabilities implements ArrayDeserializable
          * If the value is `undefined` then the client behavior is not
          * specified.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $augmentsSyntaxTokens = null
     ) {}
 }

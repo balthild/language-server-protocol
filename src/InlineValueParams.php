@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Mixins (implemented TS interfaces): WorkDoneProgressParams
@@ -19,12 +19,12 @@ class InlineValueParams implements ArrayDeserializable
         /**
          * The text document.
          */
-        #[Deserialize(TextDocumentIdentifier::class)]
+        #[Shape(['class' => TextDocumentIdentifier::class])]
         public TextDocumentIdentifier $textDocument,
         /**
          * The document range for which inline values should be computed.
          */
-        #[Deserialize(Range::class)]
+        #[Shape(['class' => Range::class])]
         public Range $range,
         /**
          * Additional information about the context in which inline values were
@@ -32,13 +32,14 @@ class InlineValueParams implements ArrayDeserializable
          *
          * @var InlineValueContext
          */
-        #[Deserialize(Range::class, at: 'stoppedLocation')]
+        #[Shape(['shape' => ['frameId' => ['scalar' => 'int'], 'stoppedLocation' => ['class' => Range::class]]])]
         public array $context,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
         public $workDoneToken = null
     ) {}
 }

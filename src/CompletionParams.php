@@ -2,7 +2,7 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Completion parameters
@@ -15,24 +15,25 @@ class CompletionParams extends TextDocumentPositionParams
         /**
          * The text document.
          */
-        #[Deserialize(TextDocumentIdentifier::class)]
+        #[Shape(['class' => TextDocumentIdentifier::class])]
         public TextDocumentIdentifier $textDocument,
         /**
          * The position inside the text document.
          */
-        #[Deserialize(Position::class)]
+        #[Shape(['class' => Position::class])]
         public Position $position,
         /**
          * The completion context. This is only available it the client specifies
          * to send this using the client capability `textDocument.completion.contextSupport === true`
          */
-        #[Deserialize(CompletionContext::class)]
+        #[Shape(['union' => [['class' => CompletionContext::class], ['scalar' => 'null']]])]
         public ?CompletionContext $context = null,
         /**
          * An optional token that a server can use to report work done progress.
          *
          * @var int|string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
         public $workDoneToken = null,
         /**
          * An optional token that a server can use to report partial results (e.g. streaming) to
@@ -40,6 +41,7 @@ class CompletionParams extends TextDocumentPositionParams
          *
          * @var int|string|null
          */
+        #[Shape(['union' => [['union' => [['scalar' => 'int'], ['scalar' => 'string']]], ['scalar' => 'null']]])]
         public $partialResultToken = null
     ) {}
 }

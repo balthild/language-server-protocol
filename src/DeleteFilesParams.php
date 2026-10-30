@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters sent in notifications/requests for user-initiated deletes of
@@ -20,7 +20,7 @@ class DeleteFilesParams implements ArrayDeserializable
          *
          * @var list<FileDelete>
          */
-        #[Deserialize(FileDelete::class, at: '[]')]
+        #[Shape(['list' => ['class' => FileDelete::class]])]
         public array $files
     ) {}
 }

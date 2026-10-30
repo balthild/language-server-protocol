@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Server Capabilities for a [SignatureHelpRequest](#SignatureHelpRequest).
  *
@@ -15,6 +17,7 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
          *
          * @var list<string>|null
          */
+        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
         public ?array $triggerCharacters = null,
         /**
          * List of characters that re-trigger signature help.
@@ -24,7 +27,9 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
          *
          * @var list<string>|null
          */
+        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
         public ?array $retriggerCharacters = null,
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

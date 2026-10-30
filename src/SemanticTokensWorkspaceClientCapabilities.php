@@ -4,6 +4,7 @@ namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 class SemanticTokensWorkspaceClientCapabilities implements ArrayDeserializable
 {
@@ -19,6 +20,7 @@ class SemanticTokensWorkspaceClientCapabilities implements ArrayDeserializable
          * and is useful for situation where a server for example detects a project
          * wide change that requires such a calculation.
          */
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $refreshSupport = null
     ) {}
 }

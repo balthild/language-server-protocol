@@ -2,6 +2,8 @@
 
 namespace Phpactor\LanguageServerProtocol;
 
+use Phpactor\LanguageServerProtocol\Support\Shape;
+
 /**
  * Server Capabilities for a [DefinitionRequest](#DefinitionRequest).
  *
@@ -10,6 +12,7 @@ namespace Phpactor\LanguageServerProtocol;
 class DefinitionOptions extends WorkDoneProgressOptions
 {
     public function __construct(
+        #[Shape(['union' => [['scalar' => 'bool'], ['scalar' => 'null']]])]
         public ?bool $workDoneProgress = null
     ) {}
 }

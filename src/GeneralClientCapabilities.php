@@ -3,8 +3,8 @@
 namespace Phpactor\LanguageServerProtocol;
 
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
-use Phpactor\LanguageServerProtocol\Support\Deserialize;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
+use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * General client capabilities.
@@ -22,16 +22,17 @@ class GeneralClientCapabilities implements ArrayDeserializable
          *
          * @var array{cancel: bool, retryOnContentModified: list<string>}|null
          */
+        #[Shape(['union' => [['any' => null], ['scalar' => 'null']]])]
         public ?array $staleRequestSupport = null,
         /**
          * Client capabilities specific to regular expressions.
          */
-        #[Deserialize(RegularExpressionsClientCapabilities::class)]
+        #[Shape(['union' => [['class' => RegularExpressionsClientCapabilities::class], ['scalar' => 'null']]])]
         public ?RegularExpressionsClientCapabilities $regularExpressions = null,
         /**
          * Client capabilities specific to the client's markdown parser.
          */
-        #[Deserialize(MarkdownClientCapabilities::class)]
+        #[Shape(['union' => [['class' => MarkdownClientCapabilities::class], ['scalar' => 'null']]])]
         public ?MarkdownClientCapabilities $markdown = null,
         /**
          * The position encodings supported by the client. Client and server
@@ -53,6 +54,7 @@ class GeneralClientCapabilities implements ArrayDeserializable
          *
          * @var list<string>|null
          */
+        #[Shape(['union' => [['list' => ['scalar' => 'string']], ['scalar' => 'null']]])]
         public ?array $positionEncodings = null
     ) {}
 }
