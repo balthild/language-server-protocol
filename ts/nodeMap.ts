@@ -24,10 +24,21 @@ export class NodeMap {
 	readonly interfaces: InterfaceMap = new Map();
 	readonly modules: ModuleMap = new Map();
 	readonly typeLiterals: TypeLiteralMap = new Map();
+	readonly typeParameters: Set<string> = new Set();
 
 	hasIntersectionOrInterface(name: string): boolean {
 		return this.intersections.has(name) || this.interfaces.has(name);
 	}
+}
+
+/**
+ * Generic type parameters such as the `T` of `InitializeResult<T = any>` have no
+ * PHP counterpart, so they are collected to be resolved to `mixed`.
+ */
+function isDeclarationWithTypeParameters(
+	node: ts.Node,
+): node is ts.Node & { typeParameters: ts.NodeArray<ts.TypeParameterDeclaration> } {
+	return 'typeParameters' in node && Array.isArray(node.typeParameters);
 }
 
 export function createNodeMap(nodes: readonly ts.Node[], filter?: RegExp): NodeMap {
@@ -37,6 +48,12 @@ export function createNodeMap(nodes: readonly ts.Node[], filter?: RegExp): NodeM
 		node.forEachChild((child) => {
 			if (filter !== undefined && !filter.test(child.getText())) {
 				return;
+			}
+
+			if (isDeclarationWithTypeParameters(child)) {
+				for (const parameter of child.typeParameters) {
+					map.typeParameters.add(parameter.name.text);
+				}
 			}
 
 			if (ts.isTypeAliasDeclaration(child)) {

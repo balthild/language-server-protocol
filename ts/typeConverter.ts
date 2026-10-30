@@ -128,6 +128,12 @@ export class TypeConverter {
 			return new PhpType(typeName, typeName, [typeName]);
 		}
 
+		// A generic type parameter is erased: `InitializeResult<T = any>` keeps
+		// `T` where PHP would need `mixed`.
+		if (this.nodeMap.typeParameters.has(typeName)) {
+			return new PhpType(undefined, 'mixed');
+		}
+
 		console.warn(`Unknown type ${typeName}`);
 		return new PhpType(undefined, 'mixed');
 	}
