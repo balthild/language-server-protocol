@@ -20,7 +20,6 @@ class ResourceOperation implements ArrayDeserializable
         /**
          * An optional annotation identifier describing the operation.
          */
-        public ?string $annotationId = null,
-    ) {
-    }
+        public ?string $annotationId = null
+    ) {}
 }

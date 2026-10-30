@@ -27,7 +27,6 @@ class TextDocumentSyncClientCapabilities implements ArrayDeserializable
         /**
          * The client supports did save notifications.
          */
-        public ?bool $didSave = null,
-    ) {
-    }
+        public ?bool $didSave = null
+    ) {}
 }

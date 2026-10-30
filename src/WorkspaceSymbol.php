@@ -6,7 +6,7 @@ use Phpactor\LanguageServerProtocol\Support\Deserialize;
 
 /**
  * A special workspace symbol that supports locations without a range.
- * 
+ *
  * See also SymbolInformation.
  *
  * Mixins (implemented TS interfaces): BaseSymbolInformation
@@ -18,7 +18,7 @@ class WorkspaceSymbol extends BaseSymbolInformation
          * The location of the symbol. Whether a server is allowed to
          * return a location without a range depends on the client
          * capability `workspace.symbol.resolveSupport`.
-         * 
+         *
          * See SymbolInformation#location for more details.
          *
          * @var Location|array{uri:string}
@@ -54,7 +54,6 @@ class WorkspaceSymbol extends BaseSymbolInformation
          * if necessary). It can't be used to re-infer a hierarchy for the document
          * symbols.
          */
-        public ?string $containerName = null,
-    ) {
-    }
+        public ?string $containerName = null
+    ) {}
 }

@@ -20,7 +20,6 @@ class DeleteFileOptions implements ArrayDeserializable
         /**
          * Ignore the operation if the file doesn't exist.
          */
-        public ?bool $ignoreIfNotExists = null,
-    ) {
-    }
+        public ?bool $ignoreIfNotExists = null
+    ) {}
 }

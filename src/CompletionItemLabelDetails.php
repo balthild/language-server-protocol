@@ -22,7 +22,6 @@ class CompletionItemLabelDetails implements ArrayDeserializable
          * An optional string which is rendered less prominently after {@link CompletionItem.detail}. Should be used
          * for fully qualified names and file paths.
          */
-        public ?string $description = null,
-    ) {
-    }
+        public ?string $description = null
+    ) {}
 }

@@ -15,7 +15,6 @@ class WorkDoneProgressParams implements ArrayDeserializable
          *
          * @var int|string|null
          */
-        public $workDoneToken = null,
-    ) {
-    }
+        public $workDoneToken = null
+    ) {}
 }

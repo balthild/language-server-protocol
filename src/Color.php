@@ -28,7 +28,6 @@ class Color implements ArrayDeserializable
         /**
          * The alpha component of this color in the range [0-1].
          */
-        public int $alpha,
-    ) {
-    }
+        public int $alpha
+    ) {}
 }

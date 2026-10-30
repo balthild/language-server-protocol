@@ -27,7 +27,6 @@ class RelativePattern implements ArrayDeserializable
         /**
          * The actual glob pattern;
          */
-        public string $pattern,
-    ) {
-    }
+        public string $pattern
+    ) {}
 }

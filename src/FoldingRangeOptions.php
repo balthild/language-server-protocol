@@ -8,7 +8,6 @@ namespace Phpactor\LanguageServerProtocol;
 class FoldingRangeOptions extends WorkDoneProgressOptions
 {
     public function __construct(
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

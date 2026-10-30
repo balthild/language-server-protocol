@@ -18,7 +18,6 @@ class NotebookDocumentClientCapabilities implements ArrayDeserializable
          *
          * @var mixed
          */
-        public $synchronization,
-    ) {
-    }
+        public $synchronization
+    ) {}
 }

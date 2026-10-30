@@ -69,7 +69,6 @@ class Diagnostic implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        public $data = null,
-    ) {
-    }
+        public $data = null
+    ) {}
 }

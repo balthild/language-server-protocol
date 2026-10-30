@@ -16,7 +16,6 @@ class DocumentOnTypeFormattingClientCapabilities implements ArrayDeserializable
         /**
          * Whether on type formatting supports dynamic registration.
          */
-        public ?bool $dynamicRegistration = null,
-    ) {
-    }
+        public ?bool $dynamicRegistration = null
+    ) {}
 }

@@ -25,7 +25,6 @@ class ExecuteCommandParams extends WorkDoneProgressParams
          *
          * @var int|string|null
          */
-        public $workDoneToken = null,
-    ) {
-    }
+        public $workDoneToken = null
+    ) {}
 }

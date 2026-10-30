@@ -10,7 +10,6 @@ namespace Phpactor\LanguageServerProtocol;
 class DocumentFormattingOptions extends WorkDoneProgressOptions
 {
     public function __construct(
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

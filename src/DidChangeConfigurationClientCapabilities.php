@@ -13,7 +13,6 @@ class DidChangeConfigurationClientCapabilities implements ArrayDeserializable
         /**
          * Did change configuration notification supports dynamic registration.
          */
-        public ?bool $dynamicRegistration = null,
-    ) {
-    }
+        public ?bool $dynamicRegistration = null
+    ) {}
 }

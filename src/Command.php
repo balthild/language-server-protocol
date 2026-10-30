@@ -30,7 +30,6 @@ class Command implements ArrayDeserializable
          *
          * @var array<mixed>|null
          */
-        public ?array $arguments = null,
-    ) {
-    }
+        public ?array $arguments = null
+    ) {}
 }

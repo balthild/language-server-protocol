@@ -23,7 +23,6 @@ class ColorInformation implements ArrayDeserializable
          * The actual color value for this color range.
          */
         #[Deserialize(Color::class)]
-        public Color $color,
-    ) {
-    }
+        public Color $color
+    ) {}
 }

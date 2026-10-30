@@ -44,7 +44,6 @@ class ClientCapabilities implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        public $experimental = null,
-    ) {
-    }
+        public $experimental = null
+    ) {}
 }

@@ -32,7 +32,6 @@ class FormattingOptions implements ArrayDeserializable
         /**
          * Trim all newlines after the final newline at the end of the file.
          */
-        public ?bool $trimFinalNewlines = null,
-    ) {
-    }
+        public ?bool $trimFinalNewlines = null
+    ) {}
 }

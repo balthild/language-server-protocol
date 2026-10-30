@@ -24,7 +24,6 @@ class DiagnosticRelatedInformation implements ArrayDeserializable
         /**
          * The message of this related diagnostic information.
          */
-        public string $message,
-    ) {
-    }
+        public string $message
+    ) {}
 }

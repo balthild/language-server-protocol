@@ -15,7 +15,6 @@ class SelectionRangeClientCapabilities implements ArrayDeserializable
          * the client supports the new `SelectionRangeRegistrationOptions` return value for the corresponding server
          * capability as well.
          */
-        public ?bool $dynamicRegistration = null,
-    ) {
-    }
+        public ?bool $dynamicRegistration = null
+    ) {}
 }

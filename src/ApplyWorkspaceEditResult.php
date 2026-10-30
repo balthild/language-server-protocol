@@ -28,7 +28,6 @@ class ApplyWorkspaceEditResult implements ArrayDeserializable
          * contain the index of the change that failed. This property is only available
          * if the client signals a `failureHandlingStrategy` in its client capabilities.
          */
-        public ?int $failedChange = null,
-    ) {
-    }
+        public ?int $failedChange = null
+    ) {}
 }

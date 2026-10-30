@@ -27,7 +27,6 @@ class Registration implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        public $registerOptions = null,
-    ) {
-    }
+        public $registerOptions = null
+    ) {}
 }

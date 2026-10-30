@@ -18,14 +18,13 @@ class SignatureHelpOptions extends WorkDoneProgressOptions
         public ?array $triggerCharacters = null,
         /**
          * List of characters that re-trigger signature help.
-         * 
+         *
          * These trigger characters are only active when signature help is already showing. All trigger characters
          * are also counted as re-trigger characters.
          *
          * @var array<string>|null
          */
         public ?array $retriggerCharacters = null,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

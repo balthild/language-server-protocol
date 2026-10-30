@@ -16,7 +16,6 @@ class ReferenceClientCapabilities implements ArrayDeserializable
         /**
          * Whether references supports dynamic registration.
          */
-        public ?bool $dynamicRegistration = null,
-    ) {
-    }
+        public ?bool $dynamicRegistration = null
+    ) {}
 }

@@ -15,7 +15,6 @@ class UnregistrationParams implements ArrayDeserializable
          * @var array<Unregistration>
          */
         #[Deserialize(Unregistration::class, iterable: true)]
-        public array $unregisterations,
-    ) {
-    }
+        public array $unregisterations
+    ) {}
 }

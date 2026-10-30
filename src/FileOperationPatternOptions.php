@@ -16,7 +16,6 @@ class FileOperationPatternOptions implements ArrayDeserializable
         /**
          * The pattern should be matched ignoring casing.
          */
-        public ?bool $ignoreCase = null,
-    ) {
-    }
+        public ?bool $ignoreCase = null
+    ) {}
 }

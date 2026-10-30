@@ -21,7 +21,6 @@ class Unregistration implements ArrayDeserializable
         /**
          * The method to unregister for.
          */
-        public string $method,
-    ) {
-    }
+        public string $method
+    ) {}
 }

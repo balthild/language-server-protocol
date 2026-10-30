@@ -22,7 +22,7 @@ class FileEvent implements ArrayDeserializable
          *
          * @var FileChangeType::*
          */
-        public $type,
+        public $type
     ) {
         $this->uri = urldecode($uri);
     }

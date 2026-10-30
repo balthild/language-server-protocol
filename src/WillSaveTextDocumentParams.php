@@ -24,7 +24,6 @@ class WillSaveTextDocumentParams implements ArrayDeserializable
          *
          * @var TextDocumentSaveReason::*
          */
-        public $reason,
-    ) {
-    }
+        public $reason
+    ) {}
 }

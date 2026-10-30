@@ -16,7 +16,6 @@ class DocumentHighlightClientCapabilities implements ArrayDeserializable
         /**
          * Whether document highlight supports dynamic registration.
          */
-        public ?bool $dynamicRegistration = null,
-    ) {
-    }
+        public ?bool $dynamicRegistration = null
+    ) {}
 }

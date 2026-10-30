@@ -20,7 +20,6 @@ class CreateFileOptions implements ArrayDeserializable
         /**
          * Ignore if exists.
          */
-        public ?bool $ignoreIfExists = null,
-    ) {
-    }
+        public ?bool $ignoreIfExists = null
+    ) {}
 }

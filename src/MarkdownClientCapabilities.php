@@ -27,7 +27,6 @@ class MarkdownClientCapabilities implements ArrayDeserializable
          *
          * @var array<string>|null
          */
-        public ?array $allowedTags = null,
-    ) {
-    }
+        public ?array $allowedTags = null
+    ) {}
 }

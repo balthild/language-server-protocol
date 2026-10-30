@@ -16,7 +16,6 @@ class CodeLensClientCapabilities implements ArrayDeserializable
         /**
          * Whether code lens supports dynamic registration.
          */
-        public ?bool $dynamicRegistration = null,
-    ) {
-    }
+        public ?bool $dynamicRegistration = null
+    ) {}
 }

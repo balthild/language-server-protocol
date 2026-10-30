@@ -43,7 +43,6 @@ class FileOperationOptions implements ArrayDeserializable
          * The server is interested in receiving willDeleteFiles file requests.
          */
         #[Deserialize(FileOperationRegistrationOptions::class)]
-        public ?FileOperationRegistrationOptions $willDelete = null,
-    ) {
-    }
+        public ?FileOperationRegistrationOptions $willDelete = null
+    ) {}
 }

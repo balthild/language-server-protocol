@@ -40,7 +40,6 @@ class TextDocumentSyncOptions implements ArrayDeserializable
          * @var bool|SaveOptions|null
          */
         #[Deserialize(SaveOptions::class)]
-        public $save = null,
-    ) {
-    }
+        public $save = null
+    ) {}
 }

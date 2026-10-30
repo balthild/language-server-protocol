@@ -27,7 +27,6 @@ class CallHierarchyPrepareParams extends TextDocumentPositionParams
          *
          * @var int|string|null
          */
-        public $workDoneToken = null,
-    ) {
-    }
+        public $workDoneToken = null
+    ) {}
 }

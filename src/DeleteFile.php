@@ -28,7 +28,7 @@ class DeleteFile extends ResourceOperation
         /**
          * An optional annotation identifier describing the operation.
          */
-        public ?string $annotationId = null,
+        public ?string $annotationId = null
     ) {
         $this->uri = urldecode($uri);
     }

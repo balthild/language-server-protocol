@@ -171,7 +171,6 @@ class TextDocumentClientCapabilities implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        public $diagnostic = null,
-    ) {
-    }
+        public $diagnostic = null
+    ) {}
 }

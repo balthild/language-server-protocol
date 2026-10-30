@@ -28,7 +28,7 @@ class CodeActionContext implements ArrayDeserializable
         public array $diagnostics,
         /**
          * Requested kind of actions to return.
-         * 
+         *
          * Actions not of this kind are filtered out by the client before being shown. So servers
          * can omit computing them.
          *
@@ -40,7 +40,6 @@ class CodeActionContext implements ArrayDeserializable
          *
          * @var CodeActionTriggerKind::*|null
          */
-        public $triggerKind = null,
-    ) {
-    }
+        public $triggerKind = null
+    ) {}
 }

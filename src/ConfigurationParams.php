@@ -18,7 +18,6 @@ class ConfigurationParams implements ArrayDeserializable
          * @var array<ConfigurationItem>
          */
         #[Deserialize(ConfigurationItem::class, iterable: true)]
-        public array $items,
-    ) {
-    }
+        public array $items
+    ) {}
 }

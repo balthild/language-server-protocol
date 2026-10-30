@@ -21,10 +21,9 @@ class TypeDefinitionClientCapabilities implements ArrayDeserializable
         public ?bool $dynamicRegistration = null,
         /**
          * The client supports additional metadata in the form of definition links.
-         * 
+         *
          * Since 3.14.0
          */
-        public ?bool $linkSupport = null,
-    ) {
-    }
+        public ?bool $linkSupport = null
+    ) {}
 }

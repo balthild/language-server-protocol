@@ -27,7 +27,6 @@ class CallHierarchyOutgoingCall implements ArrayDeserializable
          * @var array<Range>
          */
         #[Deserialize(Range::class, iterable: true)]
-        public array $fromRanges,
-    ) {
-    }
+        public array $fromRanges
+    ) {}
 }

@@ -19,7 +19,7 @@ class SymbolInformation extends BaseSymbolInformation
          * tool the range's start information is used to position the cursor. So
          * the range usually spans more than the actual symbol's name and does
          * normally include things like visibility modifiers.
-         * 
+         *
          * The range doesn't have to denote a node range in the sense of an abstract
          * syntax tree. It can therefore not be used to re-construct a hierarchy of
          * the symbols.
@@ -52,7 +52,6 @@ class SymbolInformation extends BaseSymbolInformation
          * if necessary). It can't be used to re-infer a hierarchy for the document
          * symbols.
          */
-        public ?string $containerName = null,
-    ) {
-    }
+        public ?string $containerName = null
+    ) {}
 }

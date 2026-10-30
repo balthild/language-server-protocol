@@ -23,7 +23,6 @@ class FileOperationFilter implements ArrayDeserializable
         /**
          * A Uri scheme like `file` or `untitled`.
          */
-        public ?string $scheme = null,
-    ) {
-    }
+        public ?string $scheme = null
+    ) {}
 }

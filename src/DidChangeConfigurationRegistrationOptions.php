@@ -13,7 +13,6 @@ class DidChangeConfigurationRegistrationOptions implements ArrayDeserializable
         /**
          * @var string|array<string>|null
          */
-        public $section = null,
-    ) {
-    }
+        public $section = null
+    ) {}
 }

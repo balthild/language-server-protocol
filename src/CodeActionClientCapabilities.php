@@ -53,7 +53,6 @@ class CodeActionClientCapabilities implements ArrayDeserializable
          * the workspace edit in the user interface and asking
          * for confirmation.
          */
-        public ?bool $honorsChangeAnnotations = null,
-    ) {
-    }
+        public ?bool $honorsChangeAnnotations = null
+    ) {}
 }

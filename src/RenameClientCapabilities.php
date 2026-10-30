@@ -21,7 +21,7 @@ class RenameClientCapabilities implements ArrayDeserializable
         public ?bool $prepareSupport = null,
         /**
          * Client supports the default behavior result.
-         * 
+         *
          * The value indicates the default behavior used by the
          * client.
          *
@@ -35,7 +35,6 @@ class RenameClientCapabilities implements ArrayDeserializable
          * the workspace edit in the user interface and asking
          * for confirmation.
          */
-        public ?bool $honorsChangeAnnotations = null,
-    ) {
-    }
+        public ?bool $honorsChangeAnnotations = null
+    ) {}
 }

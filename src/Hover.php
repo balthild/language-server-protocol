@@ -26,7 +26,6 @@ class Hover implements ArrayDeserializable
          * visualize the hover, e.g. by changing the background color.
          */
         #[Deserialize(Range::class)]
-        public ?Range $range = null,
-    ) {
-    }
+        public ?Range $range = null
+    ) {}
 }

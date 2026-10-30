@@ -20,7 +20,6 @@ class RegularExpressionsClientCapabilities implements ArrayDeserializable
         /**
          * The engine's version.
          */
-        public ?string $version = null,
-    ) {
-    }
+        public ?string $version = null
+    ) {}
 }

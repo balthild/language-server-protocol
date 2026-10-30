@@ -13,7 +13,6 @@ class MessageActionItem implements ArrayDeserializable
         /**
          * A short title like 'Retry', 'Open Log' etc.
          */
-        public string $title,
-    ) {
-    }
+        public string $title
+    ) {}
 }

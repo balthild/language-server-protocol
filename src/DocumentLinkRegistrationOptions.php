@@ -21,7 +21,6 @@ class DocumentLinkRegistrationOptions extends TextDocumentRegistrationOptions
          * Document links have a resolve provider as well.
          */
         public ?bool $resolveProvider = null,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

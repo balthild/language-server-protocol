@@ -10,7 +10,7 @@
 	],
 	"type": "module",
 	"scripts": {
-		"build": "node ts/transpile.ts",
+		"build": "node ./ts/transpile.ts && dprint fmt ./src",
 		"lint": "oxlint",
 		"lint:fix": "oxlint --fix",
 		"format": "dprint fmt"

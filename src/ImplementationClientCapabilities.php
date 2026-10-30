@@ -19,7 +19,6 @@ class ImplementationClientCapabilities implements ArrayDeserializable
         /**
          * The client supports additional metadata in the form of definition links.
          */
-        public ?bool $linkSupport = null,
-    ) {
-    }
+        public ?bool $linkSupport = null
+    ) {}
 }

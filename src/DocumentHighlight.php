@@ -26,7 +26,6 @@ class DocumentHighlight implements ArrayDeserializable
          *
          * @var DocumentHighlightKind::*|null
          */
-        public $kind = null,
-    ) {
-    }
+        public $kind = null
+    ) {}
 }

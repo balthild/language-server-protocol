@@ -16,7 +16,7 @@ class TextDocumentIdentifier implements ArrayDeserializable
         /**
          * The text document's uri.
          */
-        public string $uri,
+        public string $uri
     ) {
         $this->uri = urldecode($uri);
     }

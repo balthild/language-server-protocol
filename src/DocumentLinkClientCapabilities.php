@@ -20,7 +20,6 @@ class DocumentLinkClientCapabilities implements ArrayDeserializable
         /**
          * Whether the client supports the `tooltip` property on `DocumentLink`.
          */
-        public ?bool $tooltipSupport = null,
-    ) {
-    }
+        public ?bool $tooltipSupport = null
+    ) {}
 }

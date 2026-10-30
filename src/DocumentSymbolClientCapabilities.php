@@ -40,7 +40,6 @@ class DocumentSymbolClientCapabilities implements ArrayDeserializable
          * The client supports an additional label presented in the UI when
          * registering a document symbol provider.
          */
-        public ?bool $labelSupport = null,
-    ) {
-    }
+        public ?bool $labelSupport = null
+    ) {}
 }

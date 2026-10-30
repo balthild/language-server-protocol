@@ -25,7 +25,6 @@ class InlineValueRegistrationOptions implements ArrayDeserializable
          * The id used to register the request. The id can be used to deregister
          * the request again. See also Registration#id.
          */
-        public ?string $id = null,
-    ) {
-    }
+        public ?string $id = null
+    ) {}
 }

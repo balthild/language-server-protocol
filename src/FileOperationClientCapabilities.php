@@ -7,7 +7,7 @@ use Phpactor\LanguageServerProtocol\Support\FromArray;
 
 /**
  * Capabilities relating to events from file operations by the user in the client.
- * 
+ *
  * These events do not come from the file system, they come from user operations
  * like renaming a file in the UI.
  */
@@ -43,7 +43,6 @@ class FileOperationClientCapabilities implements ArrayDeserializable
         /**
          * The client has support for sending willDeleteFiles requests.
          */
-        public ?bool $willDelete = null,
-    ) {
-    }
+        public ?bool $willDelete = null
+    ) {}
 }

@@ -23,7 +23,6 @@ class CompletionContext implements ArrayDeserializable
          * The trigger character (a single character) that has trigger code complete.
          * Is undefined if `triggerKind !== CompletionTriggerKind.TriggerCharacter`
          */
-        public ?string $triggerCharacter = null,
-    ) {
-    }
+        public ?string $triggerCharacter = null
+    ) {}
 }

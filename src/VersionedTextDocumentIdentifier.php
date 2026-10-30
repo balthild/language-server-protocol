@@ -17,7 +17,7 @@ class VersionedTextDocumentIdentifier extends TextDocumentIdentifier
         /**
          * The text document's uri.
          */
-        public string $uri,
+        public string $uri
     ) {
         $this->uri = urldecode($uri);
     }

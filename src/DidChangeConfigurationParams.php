@@ -18,7 +18,6 @@ class DidChangeConfigurationParams implements ArrayDeserializable
          *
          * @var mixed
          */
-        public $settings,
-    ) {
-    }
+        public $settings
+    ) {}
 }

@@ -20,7 +20,6 @@ class HoverClientCapabilities implements ArrayDeserializable
          *
          * @var array<MarkupKind::*>|null
          */
-        public ?array $contentFormat = null,
-    ) {
-    }
+        public ?array $contentFormat = null
+    ) {}
 }

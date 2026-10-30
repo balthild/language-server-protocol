@@ -16,7 +16,6 @@ class CodeDescription implements ArrayDeserializable
         /**
          * An URI to open with more information about the diagnostic error.
          */
-        public string $href,
-    ) {
-    }
+        public string $href
+    ) {}
 }

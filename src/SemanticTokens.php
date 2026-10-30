@@ -22,7 +22,6 @@ class SemanticTokens implements ArrayDeserializable
          * A server can then instead of computing all semantic tokens again simply
          * send a delta.
          */
-        public ?string $resultId = null,
-    ) {
-    }
+        public ?string $resultId = null
+    ) {}
 }

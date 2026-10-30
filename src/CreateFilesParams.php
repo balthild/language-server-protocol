@@ -21,7 +21,6 @@ class CreateFilesParams implements ArrayDeserializable
          * @var array<FileCreate>
          */
         #[Deserialize(FileCreate::class, iterable: true)]
-        public array $files,
-    ) {
-    }
+        public array $files
+    ) {}
 }

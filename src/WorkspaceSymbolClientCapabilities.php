@@ -37,7 +37,6 @@ class WorkspaceSymbolClientCapabilities implements ArrayDeserializable
          *
          * @var array{properties:array<string>}|null
          */
-        public ?array $resolveSupport = null,
-    ) {
-    }
+        public ?array $resolveSupport = null
+    ) {}
 }

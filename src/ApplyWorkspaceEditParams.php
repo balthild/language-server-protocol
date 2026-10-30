@@ -24,7 +24,6 @@ class ApplyWorkspaceEditParams implements ArrayDeserializable
          * presented in the user interface for example on an undo
          * stack to undo the workspace edit.
          */
-        public ?string $label = null,
-    ) {
-    }
+        public ?string $label = null
+    ) {}
 }

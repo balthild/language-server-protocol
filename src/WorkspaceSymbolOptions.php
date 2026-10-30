@@ -15,7 +15,6 @@ class WorkspaceSymbolOptions extends WorkDoneProgressOptions
          * information for a workspace symbol.
          */
         public ?bool $resolveProvider = null,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

@@ -18,7 +18,6 @@ class DidOpenTextDocumentParams implements ArrayDeserializable
          * The document that was opened.
          */
         #[Deserialize(TextDocumentItem::class)]
-        public TextDocumentItem $textDocument,
-    ) {
-    }
+        public TextDocumentItem $textDocument
+    ) {}
 }

@@ -24,7 +24,6 @@ class SelectionRange implements ArrayDeserializable
          * The parent selection range containing this range. Therefore `parent.range` must contain `this.range`.
          */
         #[Deserialize(SelectionRange::class)]
-        public ?SelectionRange $parent = null,
-    ) {
-    }
+        public ?SelectionRange $parent = null
+    ) {}
 }

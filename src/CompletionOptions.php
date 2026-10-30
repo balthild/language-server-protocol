@@ -16,7 +16,7 @@ class CompletionOptions extends WorkDoneProgressOptions
          * starts to type an identifier. For example if the user types `c` in a JavaScript file
          * code complete will automatically pop up present `console` besides others as a
          * completion item. Characters that make up identifiers don't need to be listed here.
-         * 
+         *
          * If code complete should automatically be trigger on characters not being valid inside
          * an identifier (for example `.` in JavaScript) list them in `triggerCharacters`.
          *
@@ -27,7 +27,7 @@ class CompletionOptions extends WorkDoneProgressOptions
          * The list of all possible characters that commit a completion. This field can be used
          * if clients don't support individual commit characters per completion item. See
          * `ClientCapabilities.textDocument.completion.completionItem.commitCharactersSupport`
-         * 
+         *
          * If a server provides both `allCommitCharacters` and commit characters on an individual
          * completion item the ones on the completion item win.
          *
@@ -46,7 +46,6 @@ class CompletionOptions extends WorkDoneProgressOptions
          * @var array{labelDetailsSupport:bool}|null
          */
         public ?array $completionItem = null,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

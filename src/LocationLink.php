@@ -34,12 +34,12 @@ class LocationLink implements ArrayDeserializable
         public Range $targetSelectionRange,
         /**
          * Span of the origin of this link.
-         * 
+         *
          * Used as the underlined span for mouse interaction. Defaults to the word range at
          * the definition position.
          */
         #[Deserialize(Range::class)]
-        public ?Range $originSelectionRange = null,
+        public ?Range $originSelectionRange = null
     ) {
         $this->targetUri = urldecode($targetUri);
     }

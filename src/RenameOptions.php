@@ -14,7 +14,6 @@ class RenameOptions extends WorkDoneProgressOptions
          * Renames should be checked and tested before being executed.
          */
         public ?bool $prepareProvider = null,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

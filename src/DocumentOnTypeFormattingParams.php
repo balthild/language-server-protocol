@@ -37,7 +37,6 @@ class DocumentOnTypeFormattingParams implements ArrayDeserializable
          * The formatting options.
          */
         #[Deserialize(FormattingOptions::class)]
-        public FormattingOptions $options,
-    ) {
-    }
+        public FormattingOptions $options
+    ) {}
 }

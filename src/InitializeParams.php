@@ -22,7 +22,7 @@ class InitializeParams implements ArrayDeserializable
         /**
          * The process Id of the parent process that started
          * the server.
-         * 
+         *
          * Is `null` if the process has not been started by another process.
          * If the parent process is not alive then the server should exit.
          *
@@ -39,7 +39,7 @@ class InitializeParams implements ArrayDeserializable
          * The locale the client is currently showing the user interface
          * in. This must not necessarily be the locale of the operating
          * system.
-         * 
+         *
          * Uses IETF language tags as the value's syntax
          * (See https://en.wikipedia.org/wiki/IETF_language_tag)
          */
@@ -79,14 +79,13 @@ class InitializeParams implements ArrayDeserializable
         public $workDoneToken = null,
         /**
          * The workspace folders configured in the client when the server starts.
-         * 
+         *
          * This property is only available if the client supports workspace folders.
          * It can be `null` if the client supports workspace folders but none are
          * configured.
          *
          * @var array<WorkspaceFolder>|null
          */
-        public $workspaceFolders = null,
-    ) {
-    }
+        public $workspaceFolders = null
+    ) {}
 }

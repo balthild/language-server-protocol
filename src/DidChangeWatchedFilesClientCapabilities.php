@@ -20,7 +20,6 @@ class DidChangeWatchedFilesClientCapabilities implements ArrayDeserializable
          * Whether the client has support for {@link RelativePattern relative pattern}
          * or not.
          */
-        public ?bool $relativePatternSupport = null,
-    ) {
-    }
+        public ?bool $relativePatternSupport = null
+    ) {}
 }

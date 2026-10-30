@@ -17,10 +17,10 @@ class CompletionItem implements ArrayDeserializable
     public function __construct(
         /**
          * The label of this completion item.
-         * 
+         *
          * The label property is also by default the text that
          * is inserted when selecting this completion.
-         * 
+         *
          * If label details are provided the label itself should
          * be an unqualified name of the completion item.
          */
@@ -61,7 +61,7 @@ class CompletionItem implements ArrayDeserializable
         public ?bool $deprecated = null,
         /**
          * Select this item when showing.
-         * 
+         *
          * *Note* that only one completion item can be selected and that the
          * tool / client decides which item that is. The rule is that the *first*
          * item of those that match best is selected.
@@ -83,7 +83,7 @@ class CompletionItem implements ArrayDeserializable
          * A string that should be inserted into a document when selecting
          * this completion. When `falsy` the [label](#CompletionItem.label)
          * is used.
-         * 
+         *
          * The `insertText` is subject to interpretation by the client side.
          * Some tools might not take the string literally. For example
          * VS Code when code complete is requested in this example
@@ -97,7 +97,7 @@ class CompletionItem implements ArrayDeserializable
          * The format of the insert text. The format applies to both the
          * `insertText` property and the `newText` property of a provided
          * `textEdit`. If omitted defaults to `InsertTextFormat.PlainText`.
-         * 
+         *
          * Please note that the insertTextFormat doesn't apply to
          * `additionalTextEdits`.
          *
@@ -116,7 +116,7 @@ class CompletionItem implements ArrayDeserializable
          * An [edit](#TextEdit) which is applied to a document when selecting
          * this completion. When an edit is provided the value of
          * [insertText](#CompletionItem.insertText) is ignored.
-         * 
+         *
          * Most editors support two different operations when accepting a completion
          * item. One is to insert a completion text and the other is to replace an
          * existing text with a completion text. Since this can usually not be
@@ -124,7 +124,7 @@ class CompletionItem implements ArrayDeserializable
          * signal support for `InsertReplaceEdits` via the
          * `textDocument.completion.insertReplaceSupport` client capability
          * property.
-         * 
+         *
          * *Note 1:* The text edit's range as well as both ranges from an insert
          * replace edit must be a [single line] and they must contain the position
          * at which completion has been requested.
@@ -139,10 +139,10 @@ class CompletionItem implements ArrayDeserializable
         /**
          * The edit text used if the completion item is part of a CompletionList and
          * CompletionList defines an item default for the text edit range.
-         * 
+         *
          * Clients will only honor this property if they opt into completion list
          * item defaults using the capability `completionList.itemDefaults`.
-         * 
+         *
          * If not provided and a list's default range is provided the label
          * property is used as a text.
          */
@@ -151,7 +151,7 @@ class CompletionItem implements ArrayDeserializable
          * An optional array of additional [text edits](#TextEdit) that are applied when
          * selecting this completion. Edits must not overlap (including the same insert position)
          * with the main [edit](#CompletionItem.textEdit) nor with themselves.
-         * 
+         *
          * Additional text edits should be used to change text unrelated to the current cursor position
          * (for example adding an import statement at the top of the file if the completion item will
          * insert an unqualified type).
@@ -181,7 +181,6 @@ class CompletionItem implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        public $data = null,
-    ) {
-    }
+        public $data = null
+    ) {}
 }

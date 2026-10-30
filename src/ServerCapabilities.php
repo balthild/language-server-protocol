@@ -18,10 +18,10 @@ class ServerCapabilities implements ArrayDeserializable
         /**
          * The position encoding the server picked from the encodings offered
          * by the client via the client capability `general.positionEncodings`.
-         * 
+         *
          * If the client didn't provide any position encodings the only valid
          * value that a server can return is 'utf-16'.
-         * 
+         *
          * If omitted it defaults to 'utf-16'.
          */
         public ?string $positionEncoding = null,
@@ -248,7 +248,6 @@ class ServerCapabilities implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        public $experimental = null,
-    ) {
-    }
+        public $experimental = null
+    ) {}
 }

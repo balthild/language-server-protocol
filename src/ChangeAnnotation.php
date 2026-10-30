@@ -27,7 +27,6 @@ class ChangeAnnotation implements ArrayDeserializable
          * A human-readable string which is rendered less prominent in
          * the user interface.
          */
-        public ?string $description = null,
-    ) {
-    }
+        public ?string $description = null
+    ) {}
 }

@@ -29,7 +29,6 @@ class DocumentColorParams extends WorkDoneProgressParams
          *
          * @var int|string|null
          */
-        public $partialResultToken = null,
-    ) {
-    }
+        public $partialResultToken = null
+    ) {}
 }

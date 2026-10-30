@@ -28,7 +28,7 @@ class PublishDiagnosticsParams implements ArrayDeserializable
         /**
          * Optional the version number of the document the diagnostics are published for.
          */
-        public ?int $version = null,
+        public ?int $version = null
     ) {
         $this->uri = urldecode($uri);
     }

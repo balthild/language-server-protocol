@@ -19,7 +19,7 @@ class InlayHint implements ArrayDeserializable
         /**
          * The label of this hint. A human readable string or an array of
          * InlayHintLabelPart label parts.
-         * 
+         *
          * *Note* that neither the string nor the label part can be empty.
          *
          * @var string|array<array{value:string,tooltip:string|MarkupContent,location:Location,command:Command}>
@@ -34,7 +34,7 @@ class InlayHint implements ArrayDeserializable
         public $kind = null,
         /**
          * Optional text edits that are performed when accepting this inlay hint.
-         * 
+         *
          * *Note* that edits are expected to change the document so that the inlay
          * hint (or its nearest variant) is now part of the document and the inlay
          * hint itself is now obsolete.
@@ -52,7 +52,7 @@ class InlayHint implements ArrayDeserializable
         public $tooltip = null,
         /**
          * Render padding before the hint.
-         * 
+         *
          * Note: Padding should use the editor's background color, not the
          * background color of the hint itself. That means padding can be used
          * to visually align/separate an inlay hint.
@@ -60,7 +60,7 @@ class InlayHint implements ArrayDeserializable
         public ?bool $paddingLeft = null,
         /**
          * Render padding after the hint.
-         * 
+         *
          * Note: Padding should use the editor's background color, not the
          * background color of the hint itself. That means padding can be used
          * to visually align/separate an inlay hint.
@@ -72,7 +72,6 @@ class InlayHint implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        public $data = null,
-    ) {
-    }
+        public $data = null
+    ) {}
 }

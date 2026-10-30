@@ -47,7 +47,6 @@ class CompletionClientCapabilities implements ArrayDeserializable
          *
          * @var array{itemDefaults:array<string>}|null
          */
-        public ?array $completionList = null,
-    ) {
-    }
+        public ?array $completionList = null
+    ) {}
 }

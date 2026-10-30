@@ -22,7 +22,6 @@ class DocumentOnTypeFormattingOptions implements ArrayDeserializable
          *
          * @var array<string>|null
          */
-        public ?array $moreTriggerCharacter = null,
-    ) {
-    }
+        public ?array $moreTriggerCharacter = null
+    ) {}
 }

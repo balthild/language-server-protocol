@@ -23,7 +23,6 @@ class DidSaveTextDocumentParams implements ArrayDeserializable
          * Optional the content when saved. Depends on the includeText value
          * when the save notification was requested.
          */
-        public ?string $text = null,
-    ) {
-    }
+        public ?string $text = null
+    ) {}
 }

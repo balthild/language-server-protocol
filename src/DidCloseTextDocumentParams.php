@@ -18,7 +18,6 @@ class DidCloseTextDocumentParams implements ArrayDeserializable
          * The document that was closed.
          */
         #[Deserialize(TextDocumentIdentifier::class)]
-        public TextDocumentIdentifier $textDocument,
-    ) {
-    }
+        public TextDocumentIdentifier $textDocument
+    ) {}
 }

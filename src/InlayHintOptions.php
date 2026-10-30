@@ -18,7 +18,6 @@ class InlayHintOptions implements ArrayDeserializable
          * information for an inlay hint item.
          */
         public ?bool $resolveProvider = null,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

@@ -30,7 +30,6 @@ class SignatureHelpClientCapabilities implements ArrayDeserializable
          * contextSupport will also support the `retriggerCharacters` on
          * `SignatureHelpOptions`.
          */
-        public ?bool $contextSupport = null,
-    ) {
-    }
+        public ?bool $contextSupport = null
+    ) {}
 }

@@ -15,7 +15,6 @@ class WorkDoneProgressCancelParams implements ArrayDeserializable
          *
          * @var int|string
          */
-        public $token,
-    ) {
-    }
+        public $token
+    ) {}
 }

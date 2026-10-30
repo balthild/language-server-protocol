@@ -20,7 +20,6 @@ class DocumentColorRegistrationOptions extends TextDocumentRegistrationOptions
          * the request again. See also Registration#id.
          */
         public ?string $id = null,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

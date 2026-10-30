@@ -68,7 +68,7 @@ class WorkspaceClientCapabilities implements ArrayDeserializable
         public ?CodeLensWorkspaceClientCapabilities $codeLens = null,
         /**
          * The client has support for file notifications/requests for user operations on files.
-         * 
+         *
          * Since 3.16.0
          */
         #[Deserialize(FileOperationClientCapabilities::class)]
@@ -93,7 +93,6 @@ class WorkspaceClientCapabilities implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        public $diagnostics = null,
-    ) {
-    }
+        public $diagnostics = null
+    ) {}
 }

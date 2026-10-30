@@ -21,7 +21,6 @@ class WorkspaceFolder implements ArrayDeserializable
          * The name of the workspace folder. Used to refer to this
          * workspace folder in the user interface.
          */
-        public string $name,
-    ) {
-    }
+        public string $name
+    ) {}
 }

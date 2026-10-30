@@ -17,7 +17,6 @@ class ReferenceContext implements ArrayDeserializable
         /**
          * Include the declaration of the current symbol.
          */
-        public bool $includeDeclaration,
-    ) {
-    }
+        public bool $includeDeclaration
+    ) {}
 }

@@ -19,7 +19,6 @@ class InlineValueText implements ArrayDeserializable
         /**
          * The text of the inline value.
          */
-        public string $text,
-    ) {
-    }
+        public string $text
+    ) {}
 }

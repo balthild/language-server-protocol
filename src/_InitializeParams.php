@@ -20,7 +20,7 @@ class _InitializeParams extends WorkDoneProgressParams
         /**
          * The process Id of the parent process that started
          * the server.
-         * 
+         *
          * Is `null` if the process has not been started by another process.
          * If the parent process is not alive then the server should exit.
          *
@@ -37,7 +37,7 @@ class _InitializeParams extends WorkDoneProgressParams
          * The locale the client is currently showing the user interface
          * in. This must not necessarily be the locale of the operating
          * system.
-         * 
+         *
          * Uses IETF language tags as the value's syntax
          * (See https://en.wikipedia.org/wiki/IETF_language_tag)
          */
@@ -74,7 +74,6 @@ class _InitializeParams extends WorkDoneProgressParams
          *
          * @var int|string|null
          */
-        public $workDoneToken = null,
-    ) {
-    }
+        public $workDoneToken = null
+    ) {}
 }

@@ -22,7 +22,6 @@ class ShowMessageParams implements ArrayDeserializable
         /**
          * The actual message.
          */
-        public string $message,
-    ) {
-    }
+        public string $message
+    ) {}
 }

@@ -30,7 +30,7 @@ class TextDocumentItem implements ArrayDeserializable
         /**
          * The content of the opened text document.
          */
-        public string $text,
+        public string $text
     ) {
         $this->uri = urldecode($uri);
     }

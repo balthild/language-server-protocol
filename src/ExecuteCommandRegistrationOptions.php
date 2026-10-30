@@ -16,7 +16,6 @@ class ExecuteCommandRegistrationOptions extends ExecuteCommandOptions
          * @var array<string>
          */
         public array $commands,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

@@ -20,7 +20,6 @@ class InitializeError implements ArrayDeserializable
          * (2) user selects retry or cancel
          * (3) if user selected retry the initialize method is sent again.
          */
-        public bool $retry,
-    ) {
-    }
+        public bool $retry
+    ) {}
 }

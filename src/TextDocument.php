@@ -32,7 +32,7 @@ class TextDocument implements ArrayDeserializable
         /**
          * The number of lines in this document.
          */
-        public int $lineCount,
+        public int $lineCount
     ) {
         $this->uri = urldecode($uri);
     }

@@ -26,7 +26,6 @@ class AnnotatedTextEdit extends TextEdit
          * The string to be inserted. For delete operations use an
          * empty string.
          */
-        public string $newText,
-    ) {
-    }
+        public string $newText
+    ) {}
 }

@@ -26,7 +26,6 @@ class DocumentOnTypeFormattingRegistrationOptions extends TextDocumentRegistrati
          *
          * @var array<string>|null
          */
-        public ?array $moreTriggerCharacter = null,
-    ) {
-    }
+        public ?array $moreTriggerCharacter = null
+    ) {}
 }

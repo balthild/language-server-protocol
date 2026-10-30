@@ -27,7 +27,6 @@ class WorkspaceFoldersChangeEvent implements ArrayDeserializable
          * @var array<WorkspaceFolder>
          */
         #[Deserialize(WorkspaceFolder::class, iterable: true)]
-        public array $removed,
-    ) {
-    }
+        public array $removed
+    ) {}
 }

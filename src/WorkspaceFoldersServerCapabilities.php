@@ -17,7 +17,7 @@ class WorkspaceFoldersServerCapabilities implements ArrayDeserializable
         /**
          * Whether the server wants to receive workspace folder
          * change notifications.
-         * 
+         *
          * If a string is provided the string is treated as an ID
          * under which the notification is registered on the client
          * side. The ID can be used to unregister for these events
@@ -25,7 +25,6 @@ class WorkspaceFoldersServerCapabilities implements ArrayDeserializable
          *
          * @var string|bool|null
          */
-        public $changeNotifications = null,
-    ) {
-    }
+        public $changeNotifications = null
+    ) {}
 }

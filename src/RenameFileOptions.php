@@ -20,7 +20,6 @@ class RenameFileOptions implements ArrayDeserializable
         /**
          * Ignores if target exists.
          */
-        public ?bool $ignoreIfExists = null,
-    ) {
-    }
+        public ?bool $ignoreIfExists = null
+    ) {}
 }

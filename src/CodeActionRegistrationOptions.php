@@ -19,7 +19,7 @@ class CodeActionRegistrationOptions extends TextDocumentRegistrationOptions
         public $documentSelector = null,
         /**
          * CodeActionKinds that this server may return.
-         * 
+         *
          * The list of kinds may be generic, such as `CodeActionKind.Refactor`, or the server
          * may list out every specific kind they provide.
          *
@@ -31,7 +31,6 @@ class CodeActionRegistrationOptions extends TextDocumentRegistrationOptions
          * information for a code action.
          */
         public ?bool $resolveProvider = null,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

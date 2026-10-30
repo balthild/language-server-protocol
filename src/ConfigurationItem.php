@@ -17,7 +17,6 @@ class ConfigurationItem implements ArrayDeserializable
         /**
          * The configuration section asked for.
          */
-        public ?string $section = null,
-    ) {
-    }
+        public ?string $section = null
+    ) {}
 }

@@ -23,7 +23,6 @@ class TextDocumentContentChangeIncrementalEvent implements ArrayDeserializable
         /**
          * The optional length of the range that got replaced.
          */
-        public ?int $rangeLength = null,
-    ) {
-    }
+        public ?int $rangeLength = null
+    ) {}
 }

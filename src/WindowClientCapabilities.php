@@ -14,7 +14,7 @@ class WindowClientCapabilities implements ArrayDeserializable
         /**
          * It indicates whether the client supports server initiated
          * progress using the `window/workDoneProgress/create` request.
-         * 
+         *
          * The capability also controls Whether client supports handling
          * of progress notifications. If set servers are allowed to report a
          * `workDoneProgress` property in the request specific server
@@ -31,7 +31,6 @@ class WindowClientCapabilities implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        public $showDocument = null,
-    ) {
-    }
+        public $showDocument = null
+    ) {}
 }

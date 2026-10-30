@@ -24,7 +24,6 @@ class InlineValueVariableLookup implements ArrayDeserializable
         /**
          * If specified the name of the variable to look up.
          */
-        public ?string $variableName = null,
-    ) {
-    }
+        public ?string $variableName = null
+    ) {}
 }

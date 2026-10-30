@@ -20,7 +20,6 @@ class InlineValueEvaluatableExpression implements ArrayDeserializable
         /**
          * If specified the expression overrides the extracted expression.
          */
-        public ?string $expression = null,
-    ) {
-    }
+        public ?string $expression = null
+    ) {}
 }

@@ -14,7 +14,6 @@ class CodeLensOptions extends WorkDoneProgressOptions
          * Code lens has a resolve provider as well.
          */
         public ?bool $resolveProvider = null,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

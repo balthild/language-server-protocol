@@ -56,7 +56,7 @@ class CallHierarchyItem implements ArrayDeserializable
          *
          * @var mixed|null
          */
-        public $data = null,
+        public $data = null
     ) {
         $this->uri = urldecode($uri);
     }

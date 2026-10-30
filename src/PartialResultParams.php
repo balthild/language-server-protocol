@@ -16,7 +16,6 @@ class PartialResultParams implements ArrayDeserializable
          *
          * @var int|string|null
          */
-        public $partialResultToken = null,
-    ) {
-    }
+        public $partialResultToken = null
+    ) {}
 }

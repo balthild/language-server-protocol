@@ -21,7 +21,6 @@ class DeleteFilesParams implements ArrayDeserializable
          * @var array<FileDelete>
          */
         #[Deserialize(FileDelete::class, iterable: true)]
-        public array $files,
-    ) {
-    }
+        public array $files
+    ) {}
 }

@@ -15,7 +15,6 @@ class DocumentSymbolOptions extends WorkDoneProgressOptions
          * are shown for the same document.
          */
         public ?string $label = null,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

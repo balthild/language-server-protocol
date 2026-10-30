@@ -35,7 +35,6 @@ class BaseSymbolInformation implements ArrayDeserializable
          * if necessary). It can't be used to re-infer a hierarchy for the document
          * symbols.
          */
-        public ?string $containerName = null,
-    ) {
-    }
+        public ?string $containerName = null
+    ) {}
 }

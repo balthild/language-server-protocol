@@ -42,7 +42,6 @@ class WorkspaceEditClientCapabilities implements ArrayDeserializable
          *
          * @var array{groupsOnLabel:bool}|null
          */
-        public ?array $changeAnnotationSupport = null,
-    ) {
-    }
+        public ?array $changeAnnotationSupport = null
+    ) {}
 }

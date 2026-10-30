@@ -61,7 +61,6 @@ class DocumentSymbol implements ArrayDeserializable
          * @var array<DocumentSymbol>|null
          */
         #[Deserialize(DocumentSymbol::class, iterable: true)]
-        public ?array $children = null,
-    ) {
-    }
+        public ?array $children = null
+    ) {}
 }

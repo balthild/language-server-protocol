@@ -38,10 +38,9 @@ class SignatureInformation implements ArrayDeserializable
         public ?array $parameters = null,
         /**
          * The index of the active parameter.
-         * 
+         *
          * If provided, this is used in place of `SignatureHelp.activeParameter`.
          */
-        public ?int $activeParameter = null,
-    ) {
-    }
+        public ?int $activeParameter = null
+    ) {}
 }

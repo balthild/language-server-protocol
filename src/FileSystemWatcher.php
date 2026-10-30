@@ -25,7 +25,6 @@ class FileSystemWatcher implements ArrayDeserializable
          *
          * @var WatchKind::*|null
          */
-        public $kind = null,
-    ) {
-    }
+        public $kind = null
+    ) {}
 }

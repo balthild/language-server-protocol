@@ -8,7 +8,6 @@ namespace Phpactor\LanguageServerProtocol;
 class DocumentColorOptions extends WorkDoneProgressOptions
 {
     public function __construct(
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

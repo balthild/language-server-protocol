@@ -23,7 +23,6 @@ class SemanticTokensEdit implements ArrayDeserializable
          *
          * @var array<int>|null
          */
-        public ?array $data = null,
-    ) {
-    }
+        public ?array $data = null
+    ) {}
 }

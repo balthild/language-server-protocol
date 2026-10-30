@@ -27,7 +27,7 @@ class FileOperationPattern implements ArrayDeserializable
         public string $glob,
         /**
          * Whether to match files or folders with this pattern.
-         * 
+         *
          * Matches both if undefined.
          *
          * @var FileOperationPatternKind::*|null
@@ -37,7 +37,6 @@ class FileOperationPattern implements ArrayDeserializable
          * Additional options used during matching.
          */
         #[Deserialize(FileOperationPatternOptions::class)]
-        public ?FileOperationPatternOptions $options = null,
-    ) {
-    }
+        public ?FileOperationPatternOptions $options = null
+    ) {}
 }

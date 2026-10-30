@@ -16,7 +16,6 @@ class DocumentRangeFormattingClientCapabilities implements ArrayDeserializable
         /**
          * Whether range formatting supports dynamic registration.
          */
-        public ?bool $dynamicRegistration = null,
-    ) {
-    }
+        public ?bool $dynamicRegistration = null
+    ) {}
 }

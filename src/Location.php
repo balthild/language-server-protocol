@@ -17,7 +17,7 @@ class Location implements ArrayDeserializable
     public function __construct(
         public string $uri,
         #[Deserialize(Range::class)]
-        public Range $range,
+        public Range $range
     ) {
         $this->uri = urldecode($uri);
     }

@@ -40,7 +40,6 @@ class FoldingRangeClientCapabilities implements ArrayDeserializable
          *
          * @var array{collapsedText:bool}|null
          */
-        public ?array $foldingRange = null,
-    ) {
-    }
+        public ?array $foldingRange = null
+    ) {}
 }

@@ -22,7 +22,6 @@ class LogMessageParams implements ArrayDeserializable
         /**
          * The actual message.
          */
-        public string $message,
-    ) {
-    }
+        public string $message
+    ) {}
 }

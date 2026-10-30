@@ -21,7 +21,6 @@ class SemanticTokensLegend implements ArrayDeserializable
          *
          * @var array<string>
          */
-        public array $tokenModifiers,
-    ) {
-    }
+        public array $tokenModifiers
+    ) {}
 }

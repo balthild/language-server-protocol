@@ -43,7 +43,6 @@ class FoldingRange implements ArrayDeserializable
          * collapsed. If not defined or not supported by the client, a default
          * will be chosen by the client.
          */
-        public ?string $collapsedText = null,
-    ) {
-    }
+        public ?string $collapsedText = null
+    ) {}
 }

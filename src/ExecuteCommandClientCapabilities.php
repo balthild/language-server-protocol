@@ -16,7 +16,6 @@ class ExecuteCommandClientCapabilities implements ArrayDeserializable
         /**
          * Execute command supports dynamic registration.
          */
-        public ?bool $dynamicRegistration = null,
-    ) {
-    }
+        public ?bool $dynamicRegistration = null
+    ) {}
 }

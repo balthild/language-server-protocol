@@ -13,7 +13,6 @@ class TextDocumentContentChangeFullEvent implements ArrayDeserializable
         /**
          * The new text of the whole document.
          */
-        public string $text,
-    ) {
-    }
+        public string $text
+    ) {}
 }

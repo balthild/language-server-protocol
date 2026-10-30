@@ -24,7 +24,6 @@ class TextDocumentPositionParams implements ArrayDeserializable
          * The position inside the text document.
          */
         #[Deserialize(Position::class)]
-        public Position $position,
-    ) {
-    }
+        public Position $position
+    ) {}
 }

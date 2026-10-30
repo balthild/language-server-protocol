@@ -27,7 +27,6 @@ class InsertReplaceEdit implements ArrayDeserializable
          * The range if the replace is requested.
          */
         #[Deserialize(Range::class)]
-        public Range $replace,
-    ) {
-    }
+        public Range $replace
+    ) {}
 }

@@ -10,7 +10,6 @@ class WorkDoneProgressOptions implements ArrayDeserializable
     use FromArray;
 
     public function __construct(
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

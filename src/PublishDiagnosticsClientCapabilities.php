@@ -38,7 +38,6 @@ class PublishDiagnosticsClientCapabilities implements ArrayDeserializable
          * preserved between a `textDocument/publishDiagnostics` and
          * `textDocument/codeAction` request.
          */
-        public ?bool $dataSupport = null,
-    ) {
-    }
+        public ?bool $dataSupport = null
+    ) {}
 }

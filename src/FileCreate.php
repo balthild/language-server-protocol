@@ -16,7 +16,6 @@ class FileCreate implements ArrayDeserializable
         /**
          * A file:// URI for the location of the file/folder being created.
          */
-        public string $uri,
-    ) {
-    }
+        public string $uri
+    ) {}
 }

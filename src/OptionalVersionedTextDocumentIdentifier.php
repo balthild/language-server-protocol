@@ -23,7 +23,7 @@ class OptionalVersionedTextDocumentIdentifier extends TextDocumentIdentifier
          *
          * @var int|null
          */
-        public $version = null,
+        public $version = null
     ) {
         $this->uri = urldecode($uri);
     }

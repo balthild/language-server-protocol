@@ -12,7 +12,7 @@ class CodeActionOptions extends WorkDoneProgressOptions
     public function __construct(
         /**
          * CodeActionKinds that this server may return.
-         * 
+         *
          * The list of kinds may be generic, such as `CodeActionKind.Refactor`, or the server
          * may list out every specific kind they provide.
          *
@@ -24,7 +24,6 @@ class CodeActionOptions extends WorkDoneProgressOptions
          * information for a code action.
          */
         public ?bool $resolveProvider = null,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

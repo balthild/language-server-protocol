@@ -16,7 +16,6 @@ class ExecuteCommandOptions extends WorkDoneProgressOptions
          * @var array<string>
          */
         public array $commands,
-        public ?bool $workDoneProgress = null,
-    ) {
-    }
+        public ?bool $workDoneProgress = null
+    ) {}
 }

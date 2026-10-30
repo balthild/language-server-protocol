@@ -16,7 +16,6 @@ class SaveOptions implements ArrayDeserializable
         /**
          * The client is supposed to include the content on save.
          */
-        public ?bool $includeText = null,
-    ) {
-    }
+        public ?bool $includeText = null
+    ) {}
 }

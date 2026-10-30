@@ -32,7 +32,7 @@ class RenameFile extends ResourceOperation
         /**
          * An optional annotation identifier describing the operation.
          */
-        public ?string $annotationId = null,
+        public ?string $annotationId = null
     ) {
         $this->oldUri = urldecode($oldUri);
         $this->newUri = urldecode($newUri);

@@ -15,7 +15,6 @@ class RegistrationParams implements ArrayDeserializable
          * @var array<Registration>
          */
         #[Deserialize(Registration::class, iterable: true)]
-        public array $registrations,
-    ) {
-    }
+        public array $registrations
+    ) {}
 }

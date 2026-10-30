@@ -15,7 +15,6 @@ class WorkDoneProgressCreateParams implements ArrayDeserializable
          *
          * @var int|string
          */
-        public $token,
-    ) {
-    }
+        public $token
+    ) {}
 }

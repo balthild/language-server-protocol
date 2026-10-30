@@ -44,7 +44,7 @@ trait FromArray
     private static function assertKnownKeys(
         array $parameters,
         array $array,
-        bool $allowUnknownKeys,
+        bool $allowUnknownKeys
     ): void {
         $known = array_map(
             static fn (ReflectionParameter $parameter): string => $parameter->getName(),
@@ -68,7 +68,7 @@ trait FromArray
     private static function coerce(
         ReflectionParameter $parameter,
         mixed $value,
-        bool $allowUnknownKeys,
+        bool $allowUnknownKeys
     ): mixed {
         $attributes = $parameter->getAttributes(Deserialize::class);
 
@@ -98,7 +98,7 @@ trait FromArray
     private static function hydrate(
         array $candidates,
         array $object,
-        bool $allowUnknownKeys,
+        bool $allowUnknownKeys
     ): ?object {
         $lastException = null;
 

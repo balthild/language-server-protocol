@@ -18,7 +18,6 @@ class WorkDoneProgressEnd implements ArrayDeserializable
          * Optional, a final message indicating to for example indicate the outcome
          * of the operation.
          */
-        public ?string $message = null,
-    ) {
-    }
+        public ?string $message = null
+    ) {}
 }
