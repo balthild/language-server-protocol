@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * The parameters of a [CodeActionRequest](#CodeActionRequest).
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressParams, PartialResultParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class CodeActionParams extends WorkDoneProgressParams
 {

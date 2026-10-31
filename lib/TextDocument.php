@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * A simple text document. Not to be implemented. The document keeps the content
  * as string.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class TextDocument implements ArrayDeserializable
 {

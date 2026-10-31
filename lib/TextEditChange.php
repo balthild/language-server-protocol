@@ -9,6 +9,8 @@ use Phpactor\LanguageServerProtocol\Support\FromArray;
 
 /**
  * A change to capture text edits for existing resources.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class TextEditChange implements ArrayDeserializable
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Parameters for a [DefinitionRequest](#DefinitionRequest).
  *
  * Mixins (implemented TS interfaces): TextDocumentPositionParams, WorkDoneProgressParams, PartialResultParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class DefinitionParams extends TextDocumentPositionParams
 {

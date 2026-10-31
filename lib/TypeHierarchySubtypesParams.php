@@ -12,6 +12,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Mixins (implemented TS interfaces): WorkDoneProgressParams, PartialResultParams
  *
  * @phpstan-type TypeHierarchyItem array{name: string, kind: SymbolKind::*, tags?: list<SymbolTag::*>, detail?: string, uri: string, range: Range, selectionRange: Range, data?: mixed}
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.typeHierarchy.d.ts
  */
 class TypeHierarchySubtypesParams implements ArrayDeserializable
 {

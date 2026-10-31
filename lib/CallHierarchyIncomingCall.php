@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents an incoming call, e.g. a caller of a method or constructor.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class CallHierarchyIncomingCall implements ArrayDeserializable
 {

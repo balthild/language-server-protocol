@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Server Capabilities for a [DefinitionRequest](#DefinitionRequest).
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressOptions
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class DefinitionOptions extends WorkDoneProgressOptions
 {

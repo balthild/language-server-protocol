@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * A text document identifier to optionally denote a specific version of a text document.
  *
  * Mixins (implemented TS interfaces): TextDocumentIdentifier
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class OptionalVersionedTextDocumentIdentifier extends TextDocumentIdentifier
 {

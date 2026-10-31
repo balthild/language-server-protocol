@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Mixins (implemented TS interfaces): WorkDoneProgressOptions
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.diagnostic.d.ts
  */
 class DiagnosticOptions implements ArrayDeserializable
 {

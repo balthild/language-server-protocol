@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Parameters for a [DocumentColorRequest](#DocumentColorRequest).
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressParams, PartialResultParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.colorProvider.d.ts
  */
 class DocumentColorParams extends WorkDoneProgressParams
 {

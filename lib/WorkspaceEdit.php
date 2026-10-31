@@ -21,6 +21,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * An invalid sequence (e.g. (1) delete file a.txt and (2) insert text into file a.txt) will
  * cause failure of the operation. How the client recovers from the failure is described by
  * the client capability: `workspace.workspaceEdit.failureHandling`
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class WorkspaceEdit implements ArrayDeserializable
 {

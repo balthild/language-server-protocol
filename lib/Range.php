@@ -20,6 +20,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  *     end : { line 6, character : 0 }
  * }
  * ```
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class Range implements ArrayDeserializable
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Structure to capture a description for an error code.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class CodeDescription implements ArrayDeserializable
 {

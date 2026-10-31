@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Parameters for a [HoverRequest](#HoverRequest).
  *
  * Mixins (implemented TS interfaces): TextDocumentPositionParams, WorkDoneProgressParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class HoverParams extends TextDocumentPositionParams
 {

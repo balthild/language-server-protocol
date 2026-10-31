@@ -12,6 +12,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * See also SymbolInformation.
  *
  * Mixins (implemented TS interfaces): BaseSymbolInformation
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class WorkspaceSymbol extends BaseSymbolInformation
 {

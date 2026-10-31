@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * Represents a folding range. To be valid, start and end line must be bigger than zero and smaller
  * than the number of lines in the document. Clients are free to ignore invalid ranges.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class FoldingRange implements ArrayDeserializable
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * The parameters of a [DocumentFormattingRequest](#DocumentFormattingRequest).
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class DocumentFormattingParams extends WorkDoneProgressParams
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * A special text edit with an additional change annotation.
  *
  * Mixins (implemented TS interfaces): TextEdit
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class AnnotatedTextEdit extends TextEdit
 {

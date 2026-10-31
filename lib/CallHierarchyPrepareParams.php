@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * The parameter of a `textDocument/prepareCallHierarchy` request.
  *
  * Mixins (implemented TS interfaces): TextDocumentPositionParams, WorkDoneProgressParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.callHierarchy.d.ts
  */
 class CallHierarchyPrepareParams extends TextDocumentPositionParams
 {

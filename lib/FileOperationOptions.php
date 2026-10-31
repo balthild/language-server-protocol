@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Options for notifications/requests for user operations on files.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.fileOperations.d.ts
  */
 class FileOperationOptions implements ArrayDeserializable
 {

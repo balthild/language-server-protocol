@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * The parameters of a [CodeLensRequest](#CodeLensRequest).
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressParams, PartialResultParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class CodeLensParams extends WorkDoneProgressParams
 {

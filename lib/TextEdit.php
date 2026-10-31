@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A text edit applicable to a text document.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class TextEdit implements ArrayDeserializable
 {

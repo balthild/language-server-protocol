@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Completion client capabilities
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class CompletionClientCapabilities implements ArrayDeserializable
 {

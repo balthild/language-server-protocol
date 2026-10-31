@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client capabilities of a [DocumentOnTypeFormattingRequest](#DocumentOnTypeFormattingRequest).
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class DocumentOnTypeFormattingClientCapabilities implements ArrayDeserializable
 {

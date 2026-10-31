@@ -8,6 +8,9 @@ use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
 use Phpactor\LanguageServerProtocol\Support\Shape;
 
+/**
+ * @see vscode-languageserver-protocol/lib/common/protocol.configuration.d.ts
+ */
 class ConfigurationItem implements ArrayDeserializable
 {
     use FromArray;

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Params to show a document.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.showDocument.d.ts
  */
 class ShowDocumentParams implements ArrayDeserializable
 {

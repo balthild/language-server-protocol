@@ -14,6 +14,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  *
  * A code lens is _unresolved_ when no command is associated to it. For performance
  * reasons the creation of a code lens and resolving should be done in two stages.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class CodeLens implements ArrayDeserializable
 {

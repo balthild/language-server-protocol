@@ -31,6 +31,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  *
  * *Please Note* that clients might sanitize the return markdown. A client could decide to
  * remove HTML from the markdown to avoid script execution.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class MarkupContent implements ArrayDeserializable
 {

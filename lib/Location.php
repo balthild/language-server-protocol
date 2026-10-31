@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * Represents a location inside a resource, such as a line
  * inside a text file.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class Location implements ArrayDeserializable
 {

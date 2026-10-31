@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Registration options for a [ExecuteCommandRequest](#ExecuteCommandRequest).
  *
  * Mixins (implemented TS interfaces): ExecuteCommandOptions
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class ExecuteCommandRegistrationOptions extends ExecuteCommandOptions
 {

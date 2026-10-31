@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Moniker definition to match LSIF 0.5 moniker definition.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.moniker.d.ts
  */
 class Moniker implements ArrayDeserializable
 {

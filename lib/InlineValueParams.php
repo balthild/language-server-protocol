@@ -12,6 +12,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Mixins (implemented TS interfaces): WorkDoneProgressParams
  *
  * @phpstan-type InlineValueContext array{frameId: int, stoppedLocation: Range}
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.inlineValue.d.ts
  */
 class InlineValueParams implements ArrayDeserializable
 {

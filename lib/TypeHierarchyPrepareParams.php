@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Mixins (implemented TS interfaces): TextDocumentPositionParams, WorkDoneProgressParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.typeHierarchy.d.ts
  */
 class TypeHierarchyPrepareParams implements ArrayDeserializable
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Hover options.
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressOptions
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class HoverOptions extends WorkDoneProgressOptions
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Registration options for a [WorkspaceSymbolRequest](#WorkspaceSymbolRequest).
  *
  * Mixins (implemented TS interfaces): WorkspaceSymbolOptions
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class WorkspaceSymbolRegistrationOptions extends WorkspaceSymbolOptions
 {

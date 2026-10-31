@@ -16,6 +16,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * @phpstan-type NotebookCellTextDocumentFilter array{notebook: string|NotebookDocumentFilter, language?: string}
  *
  * @phpstan-type DocumentFilter TextDocumentFilter|NotebookCellTextDocumentFilter
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.selectionRange.d.ts
  */
 class SelectionRangeRegistrationOptions extends SelectionRangeOptions
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters sent in a close text document notification
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class DidCloseTextDocumentParams implements ArrayDeserializable
 {

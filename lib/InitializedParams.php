@@ -7,6 +7,9 @@ namespace Phpactor\LanguageServerProtocol;
 use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
 
+/**
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
+ */
 class InitializedParams implements ArrayDeserializable
 {
     use FromArray;

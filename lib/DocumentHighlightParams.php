@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Parameters for a [DocumentHighlightRequest](#DocumentHighlightRequest).
  *
  * Mixins (implemented TS interfaces): TextDocumentPositionParams, WorkDoneProgressParams, PartialResultParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class DocumentHighlightParams extends TextDocumentPositionParams
 {

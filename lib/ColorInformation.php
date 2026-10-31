@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents a color range from a document.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class ColorInformation implements ArrayDeserializable
 {

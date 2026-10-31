@@ -13,6 +13,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * that appear in a document. Document symbols can be hierarchical and they
  * have two ranges: one that encloses its definition and one that points to
  * its most interesting range, e.g. the range of an identifier.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class DocumentSymbol implements ArrayDeserializable
 {

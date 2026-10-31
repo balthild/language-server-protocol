@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters of a notification message.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class ShowMessageParams implements ArrayDeserializable
 {

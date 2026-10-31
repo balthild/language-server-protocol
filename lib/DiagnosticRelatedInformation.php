@@ -12,6 +12,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Represents a related message and source code location for a diagnostic. This should be
  * used to point to code locations that cause or related to a diagnostics, e.g when duplicating
  * a symbol in a scope.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class DiagnosticRelatedInformation implements ArrayDeserializable
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Matching options for the file operation pattern.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.fileOperations.d.ts
  */
 class FileOperationPatternOptions implements ArrayDeserializable
 {

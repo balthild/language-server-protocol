@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * Static registration options to be returned in the initialize
  * request.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class StaticRegistrationOptions implements ArrayDeserializable
 {

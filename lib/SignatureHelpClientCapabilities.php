@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client Capabilities for a [SignatureHelpRequest](#SignatureHelpRequest).
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class SignatureHelpClientCapabilities implements ArrayDeserializable
 {

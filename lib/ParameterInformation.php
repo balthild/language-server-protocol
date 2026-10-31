@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * Represents a parameter of a callable-signature. A parameter can
  * have a label and a doc-comment.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class ParameterInformation implements ArrayDeserializable
 {

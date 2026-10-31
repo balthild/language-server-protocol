@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client Capabilities for a [DocumentSymbolRequest](#DocumentSymbolRequest).
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class DocumentSymbolClientCapabilities implements ArrayDeserializable
 {

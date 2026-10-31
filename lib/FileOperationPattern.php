@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * A pattern to describe in which file operation requests or notifications
  * the server is interested in receiving.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.fileOperations.d.ts
  */
 class FileOperationPattern implements ArrayDeserializable
 {

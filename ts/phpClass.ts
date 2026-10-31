@@ -1,3 +1,5 @@
+import * as path from 'node:path';
+
 import ts from 'typescript';
 
 import type { NodeMap } from './nodeMap.ts';
@@ -9,6 +11,17 @@ function forEachDescendant(node: ts.Node, callback: (node: ts.Node) => void): vo
 	ts.forEachChild(node, (child) => {
 		forEachDescendant(child, callback);
 	});
+}
+
+/**
+ * The path is given relative to the repository root so that it can be opened
+ * directly, including the files taken from `node_modules`.
+ */
+function sourceFilePath(node: ts.Node): string {
+	return path.relative(
+		path.resolve(import.meta.dirname, '../node_modules'),
+		node.getSourceFile().fileName,
+	);
 }
 
 function jsDocs(node: ts.Node): string[] {
@@ -76,9 +89,11 @@ export function constantsFromModule(module: ts.ModuleDeclaration): PhpConstants 
 export abstract class PhpClassLike {
 	readonly name: string;
 	readonly docs: readonly string[];
+	readonly sourceFile: string;
 
-	constructor(name: string, docs: readonly string[] = []) {
+	constructor(name: string, sourceFile: string, docs: readonly string[] = []) {
 		this.name = name;
+		this.sourceFile = sourceFile;
 		this.docs = docs;
 	}
 }
@@ -86,8 +101,13 @@ export abstract class PhpClassLike {
 export class PhpInterface extends PhpClassLike {
 	readonly constants: PhpConstants;
 
-	constructor(name: string, docs: readonly string[] = [], constants: PhpConstants = new Map()) {
-		super(name, docs);
+	constructor(
+		name: string,
+		sourceFile: string,
+		docs: readonly string[] = [],
+		constants: PhpConstants = new Map(),
+	) {
+		super(name, sourceFile, docs);
 		this.constants = constants;
 	}
 }
@@ -158,14 +178,14 @@ export class PhpClassResolver {
 	}
 
 	private fromTypeLiteral(name: string, type: ts.TypeLiteralNode): PhpClass {
-		const phpClass = new PhpClass(name);
+		const phpClass = new PhpClass(name, sourceFilePath(type));
 		phpClass.properties = this.mapProperties(type.members);
 
 		return phpClass;
 	}
 
 	private fromIntersectionTypeNode(name: string, type: ts.IntersectionTypeNode): PhpClass {
-		const phpClass = new PhpClass(name);
+		const phpClass = new PhpClass(name, sourceFilePath(type));
 
 		for (const member of type.types) {
 			const literal = this.resolveLiteral(member);
@@ -207,7 +227,11 @@ export class PhpClassResolver {
 	}
 
 	private fromInterface(declaration: ts.InterfaceDeclaration): PhpClass {
-		const phpClass = new PhpClass(declaration.name.text, jsDocs(declaration));
+		const phpClass = new PhpClass(
+			declaration.name.text,
+			sourceFilePath(declaration),
+			jsDocs(declaration),
+		);
 		const mixins: string[] = [];
 
 		for (const clause of declaration.heritageClauses ?? []) {
@@ -271,7 +295,7 @@ export class PhpClassResolver {
 			return undefined;
 		}
 
-		return new PhpInterface(name, jsDocs(module), constants);
+		return new PhpInterface(name, sourceFilePath(module), jsDocs(module), constants);
 	}
 
 	private hydrateMixins(phpClass: PhpClass): PhpClass {

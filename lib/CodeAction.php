@@ -13,6 +13,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * to refactor code.
  *
  * A CodeAction must set either `edit` and/or a `command`. If both are supplied, the `edit` is applied first, then the `command` is executed.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class CodeAction implements ArrayDeserializable
 {

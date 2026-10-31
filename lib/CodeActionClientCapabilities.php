@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The Client Capabilities of a [CodeActionRequest](#CodeActionRequest).
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class CodeActionClientCapabilities implements ArrayDeserializable
 {

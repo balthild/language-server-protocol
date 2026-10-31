@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Additional information about the context in which a signature help request was triggered.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class SignatureHelpContext implements ArrayDeserializable
 {

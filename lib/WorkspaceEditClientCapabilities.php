@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * @phpstan-type FailureHandlingKind 'abort'|'transactional'|'undo'|'textOnlyTransactional'
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class WorkspaceEditClientCapabilities implements ArrayDeserializable
 {

@@ -8,6 +8,9 @@ use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
 use Phpactor\LanguageServerProtocol\Support\Shape;
 
+/**
+ * @see vscode-languageserver-protocol/lib/common/protocol.workspaceFolder.d.ts
+ */
 class WorkspaceFoldersServerCapabilities implements ArrayDeserializable
 {
     use FromArray;

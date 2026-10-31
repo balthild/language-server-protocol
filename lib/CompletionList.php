@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * Represents a collection of [completion items](#CompletionItem) to be presented
  * in the editor.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class CompletionList implements ArrayDeserializable
 {

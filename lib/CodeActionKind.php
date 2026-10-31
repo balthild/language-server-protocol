@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Phpactor\LanguageServerProtocol;
 
+/**
+ * A set of predefined code action kinds
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
+ */
 interface CodeActionKind
 {
     public const EMPTY = '';

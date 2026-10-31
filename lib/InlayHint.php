@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * @phpstan-type InlayHintLabelPart array{value: string, tooltip?: string|MarkupContent, location?: Location, command?: Command}
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class InlayHint implements ArrayDeserializable
 {

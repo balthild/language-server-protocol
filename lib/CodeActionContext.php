@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * Contains additional diagnostic information about the context in which
  * a [code action](#CodeActionProvider.provideCodeActions) is run.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class CodeActionContext implements ArrayDeserializable
 {

@@ -12,6 +12,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Represents the signature of something callable. A signature
  * can have a label, like a function-name, a doc-comment, and
  * a set of parameters.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class SignatureInformation implements ArrayDeserializable
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Rename file operation
  *
  * Mixins (implemented TS interfaces): ResourceOperation
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class RenameFile extends ResourceOperation
 {

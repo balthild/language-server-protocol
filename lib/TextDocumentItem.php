@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * An item to transfer a text document from the client to the
  * server.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class TextDocumentItem implements ArrayDeserializable
 {

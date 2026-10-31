@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Additional information that describes document changes.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class ChangeAnnotation implements ArrayDeserializable
 {

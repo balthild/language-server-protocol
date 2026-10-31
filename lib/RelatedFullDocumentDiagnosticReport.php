@@ -12,6 +12,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * @phpstan-type FullDocumentDiagnosticReport array{kind: "full", resultId?: string, items: list<Diagnostic>}
  *
  * @phpstan-type UnchangedDocumentDiagnosticReport array{kind: "unchanged", resultId: string}
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.diagnostic.d.ts
  */
 class RelatedFullDocumentDiagnosticReport implements ArrayDeserializable
 {

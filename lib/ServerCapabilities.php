@@ -15,6 +15,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * @phpstan-type NotebookDocumentFilter array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}
  *
  * @phpstan-type NotebookDocumentSyncOptions array{notebookSelector: list<(array{notebook: string|NotebookDocumentFilter, cells?: list<array{language: string}>}|array{notebook?: string|NotebookDocumentFilter, cells: list<array{language: string}>})>, save?: bool}
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class ServerCapabilities implements ArrayDeserializable
 {

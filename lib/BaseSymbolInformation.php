@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A base for all symbol information.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class BaseSymbolInformation implements ArrayDeserializable
 {

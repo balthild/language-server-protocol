@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * A parameter literal used in selection range requests.
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressParams, PartialResultParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.selectionRange.d.ts
  */
 class SelectionRangeParams extends WorkDoneProgressParams
 {

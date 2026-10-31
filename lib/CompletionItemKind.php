@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Phpactor\LanguageServerProtocol;
 
+/**
+ * The kind of a completion entry.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
+ */
 interface CompletionItemKind
 {
     public const TEXT = 1;

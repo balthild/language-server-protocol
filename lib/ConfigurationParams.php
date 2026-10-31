@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters of a configuration request.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.configuration.d.ts
  */
 class ConfigurationParams implements ArrayDeserializable
 {

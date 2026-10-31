@@ -8,6 +8,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Mixins (implemented TS interfaces): WorkDoneProgressOptions
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.semanticTokens.d.ts
  */
 class SemanticTokensOptions extends WorkDoneProgressOptions
 {

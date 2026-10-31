@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Workspace specific client capabilities.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class WorkspaceClientCapabilities implements ArrayDeserializable
 {

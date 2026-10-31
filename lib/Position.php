@@ -34,6 +34,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  *
  * Positions are line end character agnostic. So you can not specify a position
  * that denotes `\r|\n` or `\n|` where `|` represents the character offset.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class Position implements ArrayDeserializable
 {

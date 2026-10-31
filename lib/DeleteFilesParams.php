@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * The parameters sent in notifications/requests for user-initiated deletes of
  * files.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.fileOperations.d.ts
  */
 class DeleteFilesParams implements ArrayDeserializable
 {

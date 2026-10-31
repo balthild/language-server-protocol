@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Call hierarchy options used during static registration.
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressOptions
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.callHierarchy.d.ts
  */
 class CallHierarchyOptions extends WorkDoneProgressOptions
 {

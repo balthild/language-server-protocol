@@ -13,6 +13,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * on a document version Si and after they are applied move the document to version Si+1.
  * So the creator of a TextDocumentEdit doesn't need to sort the array of edits or do any
  * kind of ordering. However the edits must be non overlapping.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class TextDocumentEdit implements ArrayDeserializable
 {

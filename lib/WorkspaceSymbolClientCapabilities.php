@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client capabilities for a [WorkspaceSymbolRequest](#WorkspaceSymbolRequest).
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class WorkspaceSymbolClientCapabilities implements ArrayDeserializable
 {

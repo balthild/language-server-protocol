@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Additional details for a completion item label.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class CompletionItemLabelDetails implements ArrayDeserializable
 {

@@ -12,6 +12,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Capabilities specific to the notebook document support.
  *
  * @phpstan-type NotebookDocumentSyncClientCapabilities array{dynamicRegistration?: bool, executionSummarySupport?: bool}
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class NotebookDocumentClientCapabilities implements ArrayDeserializable
 {

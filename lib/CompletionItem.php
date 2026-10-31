@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * A completion item represents a text snippet that is
  * proposed to complete text that is being typed.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class CompletionItem implements ArrayDeserializable
 {

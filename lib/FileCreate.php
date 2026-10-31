@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents information on a file/folder create.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.fileOperations.d.ts
  */
 class FileCreate implements ArrayDeserializable
 {

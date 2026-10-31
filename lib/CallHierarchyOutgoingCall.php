@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents an outgoing call, e.g. calling a getter from a method or a method from a constructor etc.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class CallHierarchyOutgoingCall implements ArrayDeserializable
 {

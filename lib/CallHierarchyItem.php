@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * Represents programming constructs like functions or constructors in the context
  * of call hierarchy.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class CallHierarchyItem implements ArrayDeserializable
 {

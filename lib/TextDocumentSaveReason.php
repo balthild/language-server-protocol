@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Phpactor\LanguageServerProtocol;
 
+/**
+ * Represents reasons why a text document is saved.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
+ */
 interface TextDocumentSaveReason
 {
     public const MANUAL = 1;

@@ -8,6 +8,9 @@ use Phpactor\LanguageServerProtocol\Support\ArrayDeserializable;
 use Phpactor\LanguageServerProtocol\Support\FromArray;
 use Phpactor\LanguageServerProtocol\Support\Shape;
 
+/**
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
+ */
 class InlineValueEvaluatableExpression implements ArrayDeserializable
 {
     use FromArray;

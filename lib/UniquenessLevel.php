@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Phpactor\LanguageServerProtocol;
 
+/**
+ * Moniker uniqueness level to define scope of the moniker.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.moniker.d.ts
+ */
 interface UniquenessLevel
 {
     public const DOCUMENT = 'document';

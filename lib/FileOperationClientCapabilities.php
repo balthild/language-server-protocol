@@ -13,6 +13,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  *
  * These events do not come from the file system, they come from user operations
  * like renaming a file in the UI.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.fileOperations.d.ts
  */
 class FileOperationClientCapabilities implements ArrayDeserializable
 {

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Phpactor\LanguageServerProtocol;
 
+/**
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
+ */
 interface integer
 {
     public const MIN_VALUE = -2147483648;

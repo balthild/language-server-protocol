@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client capabilities specific to the moniker request.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.moniker.d.ts
  */
 class MonikerClientCapabilities implements ArrayDeserializable
 {

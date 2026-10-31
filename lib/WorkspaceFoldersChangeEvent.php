@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The workspace folder change event.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.workspaceFolder.d.ts
  */
 class WorkspaceFoldersChangeEvent implements ArrayDeserializable
 {

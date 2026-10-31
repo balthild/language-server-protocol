@@ -14,6 +14,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * @phpstan-type InlayHintClientCapabilities array{dynamicRegistration?: bool, resolveSupport?: array{properties: list<string>}}
  *
  * @phpstan-type DiagnosticClientCapabilities array{dynamicRegistration?: bool, relatedDocumentSupport?: bool}
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class TextDocumentClientCapabilities implements ArrayDeserializable
 {

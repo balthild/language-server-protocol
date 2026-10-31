@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * Represents the connection of two locations. Provides additional metadata over normal [locations](#Location),
  * including an origin range.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class LocationLink implements ArrayDeserializable
 {

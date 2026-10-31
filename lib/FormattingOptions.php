@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Value-object describing what options formatting should use.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class FormattingOptions implements ArrayDeserializable
 {

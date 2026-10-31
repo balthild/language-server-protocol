@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Phpactor\LanguageServerProtocol;
 
+/**
+ * @see vscode-languageserver-protocol/lib/common/protocol.notebook.d.ts
+ */
 interface NotebookDocumentSyncRegistrationType
 {
     public const METHOD = 'notebookDocument/sync';

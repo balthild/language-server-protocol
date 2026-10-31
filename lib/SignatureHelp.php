@@ -12,6 +12,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Signature help represents the signature of something
  * callable. There can be multiple signature but only one
  * active and only one active parameter.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class SignatureHelp implements ArrayDeserializable
 {

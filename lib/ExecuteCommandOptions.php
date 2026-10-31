@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * The server capabilities of a [ExecuteCommandRequest](#ExecuteCommandRequest).
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressOptions
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class ExecuteCommandOptions extends WorkDoneProgressOptions
 {

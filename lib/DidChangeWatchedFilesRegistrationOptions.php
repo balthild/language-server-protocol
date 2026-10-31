@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Describe options to be used when registered for text document change events.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class DidChangeWatchedFilesRegistrationOptions implements ArrayDeserializable
 {

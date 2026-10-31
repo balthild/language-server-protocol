@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The publish diagnostic client capabilities.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class PublishDiagnosticsClientCapabilities implements ArrayDeserializable
 {

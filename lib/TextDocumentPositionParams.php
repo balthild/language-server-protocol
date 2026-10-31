@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * A parameter literal used in requests to pass a text document and a position inside that
  * document.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class TextDocumentPositionParams implements ArrayDeserializable
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Represents a color in RGBA space.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class Color implements ArrayDeserializable
 {

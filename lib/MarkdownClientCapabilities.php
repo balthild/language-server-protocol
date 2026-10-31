@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client capabilities specific to the used markdown parser.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class MarkdownClientCapabilities implements ArrayDeserializable
 {

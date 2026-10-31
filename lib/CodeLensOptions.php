@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Code Lens provider options of a [CodeLensRequest](#CodeLensRequest).
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressOptions
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class CodeLensOptions extends WorkDoneProgressOptions
 {

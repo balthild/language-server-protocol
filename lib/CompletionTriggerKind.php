@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Phpactor\LanguageServerProtocol;
 
+/**
+ * How a completion was triggered
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
+ */
 interface CompletionTriggerKind
 {
     public const INVOKED = 1;

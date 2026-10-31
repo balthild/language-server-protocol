@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The change text document notification's parameters.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class DidChangeTextDocumentParams implements ArrayDeserializable
 {

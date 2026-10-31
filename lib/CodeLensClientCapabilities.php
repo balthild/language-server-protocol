@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The client capabilities  of a [CodeLensRequest](#CodeLensRequest).
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class CodeLensClientCapabilities implements ArrayDeserializable
 {

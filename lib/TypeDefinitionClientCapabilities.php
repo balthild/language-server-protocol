@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Since 3.6.0
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.typeDefinition.d.ts
  */
 class TypeDefinitionClientCapabilities implements ArrayDeserializable
 {

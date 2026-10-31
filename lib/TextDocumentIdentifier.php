@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A literal to identify a text document in the client.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class TextDocumentIdentifier implements ArrayDeserializable
 {

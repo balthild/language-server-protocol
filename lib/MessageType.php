@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Phpactor\LanguageServerProtocol;
 
+/**
+ * The message type
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
+ */
 interface MessageType
 {
     public const ERROR = 1;

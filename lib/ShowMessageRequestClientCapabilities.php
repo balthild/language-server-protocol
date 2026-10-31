@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Show message request client capabilities
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class ShowMessageRequestClientCapabilities implements ArrayDeserializable
 {

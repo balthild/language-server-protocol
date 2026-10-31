@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The result of a hover request.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class Hover implements ArrayDeserializable
 {

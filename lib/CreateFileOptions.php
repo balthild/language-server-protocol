@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Options to create a file.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class CreateFileOptions implements ArrayDeserializable
 {

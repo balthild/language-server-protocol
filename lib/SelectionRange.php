@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * A selection range represents a part of a selection hierarchy. A selection range
  * may have a parent selection range that contains it.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class SelectionRange implements ArrayDeserializable
 {

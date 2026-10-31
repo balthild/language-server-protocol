@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * The parameter of a `callHierarchy/outgoingCalls` request.
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressParams, PartialResultParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.callHierarchy.d.ts
  */
 class CallHierarchyOutgoingCallsParams extends WorkDoneProgressParams
 {

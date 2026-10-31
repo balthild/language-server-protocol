@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Phpactor\LanguageServerProtocol;
 
+/**
+ * A request to resolve the incoming calls for a given `CallHierarchyItem`.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.callHierarchy.d.ts
+ */
 interface CallHierarchyIncomingCallsRequest
 {
     public const METHOD = 'callHierarchy/incomingCalls';

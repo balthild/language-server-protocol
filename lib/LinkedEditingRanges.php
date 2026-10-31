@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The result of a linked editing range request.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.linkedEditingRange.d.ts
  */
 class LinkedEditingRanges implements ArrayDeserializable
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Contains additional information about the context in which a completion request is triggered.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class CompletionContext implements ArrayDeserializable
 {

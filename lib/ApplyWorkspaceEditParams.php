@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters passed via a apply workspace edit request.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class ApplyWorkspaceEditParams implements ArrayDeserializable
 {

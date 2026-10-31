@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client capabilities specific to regular expressions.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class RegularExpressionsClientCapabilities implements ArrayDeserializable
 {

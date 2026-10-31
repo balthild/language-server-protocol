@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A generic resource operation.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class ResourceOperation implements ArrayDeserializable
 {

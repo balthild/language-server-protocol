@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * An event describing a file change.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class FileEvent implements ArrayDeserializable
 {

@@ -12,6 +12,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Mixins (implemented TS interfaces): StaticRegistrationOptions
  *
  * @phpstan-type NotebookDocumentFilter array{notebookType: string, scheme?: string, pattern?: string}|array{notebookType?: string, scheme: string, pattern?: string}|array{notebookType?: string, scheme?: string, pattern: string}
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.notebook.d.ts
  */
 class NotebookDocumentSyncRegistrationOptions implements ArrayDeserializable
 {

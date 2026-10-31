@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * Value-object that contains additional information when
  * requesting references.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class ReferenceContext implements ArrayDeserializable
 {

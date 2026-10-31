@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Delete file options
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class DeleteFileOptions implements ArrayDeserializable
 {

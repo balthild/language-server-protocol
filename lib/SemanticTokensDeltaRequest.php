@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Phpactor\LanguageServerProtocol;
 
+/**
+ * @see vscode-languageserver-protocol/lib/common/protocol.semanticTokens.d.ts
+ */
 interface SemanticTokensDeltaRequest
 {
     public const METHOD = 'textDocument/semanticTokens/full/delta';

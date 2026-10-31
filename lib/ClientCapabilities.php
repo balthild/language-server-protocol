@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Defines the capabilities provided by the client.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class ClientCapabilities implements ArrayDeserializable
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * General parameters to unregister a request or notification.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class Unregistration implements ArrayDeserializable
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The parameters of a `workspace/didChangeWorkspaceFolders` notification.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.workspaceFolder.d.ts
  */
 class DidChangeWorkspaceFoldersParams implements ArrayDeserializable
 {

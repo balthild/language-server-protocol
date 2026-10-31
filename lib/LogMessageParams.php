@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The log message parameters.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class LogMessageParams implements ArrayDeserializable
 {

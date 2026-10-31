@@ -11,6 +11,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 /**
  * The data type of the ResponseError if the
  * initialize request fails.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class InitializeError implements ArrayDeserializable
 {

@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * General parameters to to register for an notification or to register a provider.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class Registration implements ArrayDeserializable
 {

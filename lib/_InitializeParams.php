@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * The initialize parameters
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class _InitializeParams extends WorkDoneProgressParams
 {

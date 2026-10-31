@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Mixins (implemented TS interfaces): WorkDoneProgressParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.inlayHint.d.ts
  */
 class InlayHintParams implements ArrayDeserializable
 {

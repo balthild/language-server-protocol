@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
  * Server capabilities for a [WorkspaceSymbolRequest](#WorkspaceSymbolRequest).
  *
  * Mixins (implemented TS interfaces): WorkDoneProgressOptions
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class WorkspaceSymbolOptions extends WorkDoneProgressOptions
 {

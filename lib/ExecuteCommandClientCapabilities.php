@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * The client capabilities of a [ExecuteCommandRequest](#ExecuteCommandRequest).
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class ExecuteCommandClientCapabilities implements ArrayDeserializable
 {

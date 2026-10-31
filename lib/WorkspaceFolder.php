@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A workspace folder inside a client.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class WorkspaceFolder implements ArrayDeserializable
 {

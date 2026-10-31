@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Client capabilities for the showDocument request.
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.showDocument.d.ts
  */
 class ShowDocumentClientCapabilities implements ArrayDeserializable
 {

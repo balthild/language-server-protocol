@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * A special text edit to provide an insert and a replace operation.
+ *
+ * @see vscode-languageserver-types/lib/esm/main.d.ts
  */
 class InsertReplaceEdit implements ArrayDeserializable
 {

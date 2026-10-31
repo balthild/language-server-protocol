@@ -10,6 +10,8 @@ use Phpactor\LanguageServerProtocol\Support\Shape;
 
 /**
  * Mixins (implemented TS interfaces): _InitializeParams, WorkspaceFoldersInitializeParams
+ *
+ * @see vscode-languageserver-protocol/lib/common/protocol.d.ts
  */
 class InitializeParams implements ArrayDeserializable
 {

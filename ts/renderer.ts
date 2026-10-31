@@ -117,6 +117,7 @@ export class Renderer {
 			'',
 			'namespace Phpactor\\LanguageServerProtocol;',
 			'',
+			...this.renderDocblock(phpClass, []),
 			`interface ${phpClass.name}`,
 			'{',
 		];
@@ -163,40 +164,8 @@ export class Renderer {
 		}
 
 		const aliases = collectAliases(properties);
-		const hasDocblock =
-			phpClass.mixins.length > 0 || phpClass.docs.length > 0 || aliases.length > 0;
 
-		if (hasDocblock) {
-			source.push('/**');
-			let hasBody = false;
-
-			for (const doc of phpClass.docs) {
-				for (const line of doc.split('\n')) {
-					source.push(` * ${line}`);
-				}
-				hasBody = true;
-			}
-
-			if (phpClass.mixins.length > 0) {
-				if (hasBody) {
-					source.push(' *');
-				}
-				source.push(` * Mixins (implemented TS interfaces): ${phpClass.mixins.join(', ')}`);
-				hasBody = true;
-			}
-
-			// Declared locally so a reader never has to jump to another file to see
-			// what the type means.
-			for (const alias of aliases) {
-				if (hasBody) {
-					source.push(' *');
-				}
-				source.push(` * @phpstan-type ${alias.name} ${alias.expansion}`);
-				hasBody = true;
-			}
-
-			source.push(' */');
-		}
+		source.push(...this.renderDocblock(phpClass, aliases));
 
 		const extendsClause = phpClass.extends ? ` extends ${phpClass.extends}` : '';
 		const implementsClause = isRoot ? ' implements ArrayDeserializable' : '';
@@ -239,6 +208,48 @@ export class Renderer {
 		source.push('}');
 
 		return source.join('\n');
+	}
+
+	/**
+	 * Generated unconditionally: the docblock is the only place that names the
+	 * TypeScript declaration the class was derived from.
+	 */
+	private renderDocblock(phpClass: PhpClassLike, aliases: readonly AliasRef[]): string[] {
+		const source = ['/**'];
+		let hasBody = false;
+
+		for (const doc of phpClass.docs) {
+			for (const line of doc.split('\n')) {
+				source.push(` * ${line}`);
+			}
+			hasBody = true;
+		}
+
+		if (phpClass instanceof PhpClass && phpClass.mixins.length > 0) {
+			if (hasBody) {
+				source.push(' *');
+			}
+			source.push(` * Mixins (implemented TS interfaces): ${phpClass.mixins.join(', ')}`);
+			hasBody = true;
+		}
+
+		// Declared locally so a reader never has to jump to another file to see
+		// what the type means.
+		for (const alias of aliases) {
+			if (hasBody) {
+				source.push(' *');
+			}
+			source.push(` * @phpstan-type ${alias.name} ${alias.expansion}`);
+			hasBody = true;
+		}
+
+		if (hasBody) {
+			source.push(' *');
+		}
+		source.push(` * @see ${phpClass.sourceFile}`);
+		source.push(' */');
+
+		return source;
 	}
 
 	private renderParameter(property: Property, source: string[]): void {
