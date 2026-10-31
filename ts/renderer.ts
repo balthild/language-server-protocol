@@ -229,7 +229,7 @@ export class Renderer {
 				// URIs are percent-decoded so the object holds the plain path.
 				// The property cannot be `readonly` because of this assignment.
 				if (property.special.includes('uri')) {
-					source.push(`        $this->${property.name} = urldecode($${property.name});`);
+					source.push(`        $this->${property.name} = \\urldecode($${property.name});`);
 				}
 			}
 

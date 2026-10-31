@@ -2,7 +2,7 @@
 php-version = "8.2"
 
 [source]
-paths = ["src/", "tests/"]
+paths = ["lib/", "src/", "tests/"]
 includes = ["vendor"]
 
 [linter.rules]
@@ -19,16 +19,13 @@ no-boolean-flag-parameter.enabled = false
 assert-description.enabled = false
 readable-literal.enabled = false
 
-readable-literal.min-digits = 6
-
-# TODO: move generated files to a separate dir
-too-many-methods.exclude = ["src/*.php"]
-excessive-parameter-list.exclude = ["src/*.php"]
-class-name.exclude = ["src/*.php"]
-interface-name.exclude = ["src/*.php"]
-function-name.exclude = ["src/*.php"]
-constant-name.exclude = ["src/*.php"]
-valid-docblock.exclude = ["src/*.php"]
+too-many-methods.exclude = ["lib"]
+excessive-parameter-list.exclude = ["lib"]
+class-name.exclude = ["lib"]
+interface-name.exclude = ["lib"]
+function-name.exclude = ["lib"]
+constant-name.exclude = ["lib"]
+valid-docblock.exclude = ["lib"]
 
 # https://github.com/carthage-software/mago/issues/2647
 sensitive-parameter.enabled = false

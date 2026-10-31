@@ -63,7 +63,7 @@ const typeConverter = new TypeConverter(nodeMap);
 const phpClasses = new PhpClassResolver(nodeMap, typeConverter).fromNodeMap();
 
 const transpiler = new Transpiler(
-	new Writer(path.resolve(import.meta.dirname, '..', 'src')),
+	new Writer(path.resolve(import.meta.dirname, '..', 'lib')),
 	new Renderer(),
 );
 

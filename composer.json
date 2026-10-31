@@ -23,7 +23,8 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Phpactor\\LanguageServerProtocol\\": "src/"
+			"Phpactor\\LanguageServerProtocol\\": "lib/",
+			"Phpactor\\LanguageServerProtocol\\Support\\": "src/Support"
 		}
 	},
 	"autoload-dev": {

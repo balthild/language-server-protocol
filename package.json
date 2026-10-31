@@ -1,5 +1,5 @@
 {
-	"name": "php-lanaguage-server-protocol",
+	"name": "php-language-server-protocol",
 	"version": "1.0.0",
 	"private": true,
 	"description": "Generate PHP protocol classes from typescript protocol",
@@ -10,7 +10,7 @@
 	],
 	"type": "module",
 	"scripts": {
-		"build": "node ./ts/transpile.ts && dprint fmt ./src",
+		"build": "node ./ts/transpile.ts && dprint fmt ./lib",
 		"lint": "oxlint",
 		"lint:fix": "oxlint --fix",
 		"format": "dprint fmt"

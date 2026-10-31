@@ -13,6 +13,7 @@ use Throwable;
  * Provides {@see ArrayDeserializable::fromArray()} driven by the {@see Shape}
  * attributes of the constructor properties.
  *
+ * @mago-expect lint:too-many-methods
  * @mago-expect lint:cyclomatic-complexity
  * @mago-expect lint:kan-defect
  */
@@ -112,7 +113,11 @@ trait FromArray
                 $value,
                 $allowUnknownKeys,
             ),
-            $node instanceof Shape\Map => self::conformMap($node, $value, $allowUnknownKeys),
+            $node instanceof Shape\Map => self::conformMap(
+                $node,
+                $value,
+                $allowUnknownKeys,
+            ),
             $node instanceof Shape\Struct => self::conformStruct(
                 $node->members,
                 $value,
