@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Phpactor\LanguageServerProtocol\Tests\Unit;
 
-use LanguageServerProtocol\WorkspaceEdit as LanguageServerProtocolWorkspaceEdit;
 use Phpactor\LanguageServerProtocol\ApplyWorkspaceEditParams;
 use Phpactor\LanguageServerProtocol\WorkspaceEdit;
 use PHPUnit\Framework\TestCase;

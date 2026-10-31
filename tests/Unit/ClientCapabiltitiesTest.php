@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Phpactor\LanguageServerProtocol\Tests\Unit;
 
 use Phpactor\LanguageServerProtocol\ClientCapabilities;
