@@ -36,6 +36,6 @@ class PublishDiagnosticsParams implements ArrayDeserializable
         #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public ?int $version = null
     ) {
-        $this->uri = urldecode($uri);
+        $this->uri = \urldecode($uri);
     }
 }

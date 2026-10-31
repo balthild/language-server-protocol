@@ -26,6 +26,6 @@ class VersionedTextDocumentIdentifier extends TextDocumentIdentifier
         #[Shape(new Shape\Scalar('string'))]
         public string $uri
     ) {
-        $this->uri = urldecode($uri);
+        $this->uri = \urldecode($uri);
     }
 }

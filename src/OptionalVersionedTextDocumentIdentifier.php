@@ -32,6 +32,6 @@ class OptionalVersionedTextDocumentIdentifier extends TextDocumentIdentifier
         #[Shape(new Shape\Union(new Shape\Scalar('int'), new Shape\Scalar('null')))]
         public $version = null
     ) {
-        $this->uri = urldecode($uri);
+        $this->uri = \urldecode($uri);
     }
 }

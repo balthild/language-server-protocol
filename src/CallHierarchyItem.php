@@ -102,6 +102,6 @@ class CallHierarchyItem implements ArrayDeserializable
         #[Shape(new Shape\Union(new Shape\Unknown(), new Shape\Scalar('null')))]
         public $data = null
     ) {
-        $this->uri = urldecode($uri);
+        $this->uri = \urldecode($uri);
     }
 }

@@ -44,6 +44,6 @@ class TextDocument implements ArrayDeserializable
         #[Shape(new Shape\Scalar('int'))]
         public int $lineCount
     ) {
-        $this->uri = urldecode($uri);
+        $this->uri = \urldecode($uri);
     }
 }

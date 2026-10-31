@@ -23,6 +23,6 @@ class Location implements ArrayDeserializable
         #[Shape(Range::class)]
         public Range $range
     ) {
-        $this->uri = urldecode($uri);
+        $this->uri = \urldecode($uri);
     }
 }

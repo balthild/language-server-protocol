@@ -12,6 +12,9 @@ use Throwable;
 /**
  * Provides {@see ArrayDeserializable::fromArray()} driven by the {@see Shape}
  * attributes of the constructor properties.
+ *
+ * @mago-expect lint:cyclomatic-complexity
+ * @mago-expect lint:kan-defect
  */
 trait FromArray
 {
@@ -28,7 +31,7 @@ trait FromArray
         foreach ($parameters as $parameter) {
             $name = $parameter->getName();
 
-            if (array_key_exists($name, $array)) {
+            if (\array_key_exists($name, $array)) {
                 $arguments[$name] = self::coerce($parameter, $array[$name], $allowUnknownKeys);
             }
         }
@@ -48,21 +51,21 @@ trait FromArray
         array $array,
         bool $allowUnknownKeys
     ): void {
-        $known = array_map(
+        $known = \array_map(
             static fn (ReflectionParameter $parameter): string => $parameter->getName(),
             $parameters,
         );
 
-        foreach (array_keys($array) as $key) {
-            if ($allowUnknownKeys || in_array($key, $known, true)) {
+        foreach (\array_keys($array) as $key) {
+            if ($allowUnknownKeys || \in_array($key, $known, true)) {
                 continue;
             }
 
-            throw new RuntimeException(sprintf(
+            throw new RuntimeException(\sprintf(
                 'Parameter "%s" on class "%s" not known, known parameters: "%s"',
                 $key,
                 static::class,
-                implode('", "', $known),
+                \implode('", "', $known),
             ));
         }
     }
@@ -91,9 +94,9 @@ trait FromArray
         bool $allowUnknownKeys
     ): mixed {
         // A bare class-string is the common case: an object of that class.
-        if (is_string($node)) {
-            if (!is_a($node, ArrayDeserializable::class, true)) {
-                throw new RuntimeException(sprintf('%s is not deserializable', $node));
+        if (\is_string($node)) {
+            if (!\is_a($node, ArrayDeserializable::class, true)) {
+                throw new RuntimeException(\sprintf('%s is not deserializable', $node));
             }
 
             return self::conformClass($node, $value, $allowUnknownKeys);
@@ -120,7 +123,7 @@ trait FromArray
                 $value,
                 $allowUnknownKeys,
             ),
-            default => throw new RuntimeException(sprintf('Unknown shape node %s', $node::class)),
+            default => throw new RuntimeException(\sprintf('Unknown shape node %s', $node::class)),
         };
     }
 
@@ -133,7 +136,7 @@ trait FromArray
             return $value;
         }
 
-        if (!is_array($value)) {
+        if (!\is_array($value)) {
             throw self::mismatch($class, $value);
         }
 
@@ -146,7 +149,7 @@ trait FromArray
      */
     private static function conformRecord(mixed $value): mixed
     {
-        if (!is_array($value)) {
+        if (!\is_array($value)) {
             throw self::mismatch('array', $value);
         }
 
@@ -157,11 +160,11 @@ trait FromArray
     {
         $matches = match ($scalar) {
             'null' => $value === null,
-            'string' => is_string($value),
-            'int' => is_int($value),
-            'bool' => is_bool($value),
-            'float' => is_float($value) || is_int($value),
-            default => throw new RuntimeException(sprintf('Unknown scalar "%s"', $scalar)),
+            'string' => \is_string($value),
+            'int' => \is_int($value),
+            'bool' => \is_bool($value),
+            'float' => \is_float($value) || \is_int($value),
+            default => throw new RuntimeException(\sprintf('Unknown scalar "%s"', $scalar)),
         };
 
         if (!$matches) {
@@ -174,7 +177,7 @@ trait FromArray
     private static function conformLiteral(string|int|bool $literal, mixed $value): mixed
     {
         if ($value !== $literal) {
-            throw self::mismatch(var_export($literal, true), $value);
+            throw self::mismatch(\var_export($literal, true), $value);
         }
 
         return $value;
@@ -188,7 +191,7 @@ trait FromArray
         mixed $value,
         bool $allowUnknownKeys
     ): array {
-        if (!is_array($value) || !array_is_list($value)) {
+        if (!\is_array($value) || !\array_is_list($value)) {
             throw self::mismatch('list', $value);
         }
 
@@ -204,7 +207,7 @@ trait FromArray
      */
     private static function conformMap(Shape\Map $map, mixed $value, bool $allowUnknownKeys): array
     {
-        if (!is_array($value)) {
+        if (!\is_array($value)) {
             throw self::mismatch('map', $value);
         }
 
@@ -222,20 +225,20 @@ trait FromArray
      */
     private static function conformStruct(array $members, mixed $value, bool $allowUnknownKeys): array
     {
-        if (!is_array($value)) {
+        if (!\is_array($value)) {
             throw self::mismatch('array', $value);
         }
 
         foreach ($members as $key => $node) {
-            $optional = is_string($key) && str_ends_with($key, '?');
-            $name = $optional ? substr($key, 0, -1) : $key;
+            $optional = \is_string($key) && \str_ends_with($key, '?');
+            $name = $optional ? \substr($key, 0, -1) : $key;
 
-            if (!array_key_exists($name, $value)) {
+            if (!\array_key_exists($name, $value)) {
                 if ($optional) {
                     continue;
                 }
 
-                throw new RuntimeException(sprintf('Missing key "%s"', $name));
+                throw new RuntimeException(\sprintf('Missing key "%s"', $name));
             }
 
             $value[$name] = self::conform($node, $value[$name], $allowUnknownKeys);
@@ -264,10 +267,10 @@ trait FromArray
 
     private static function mismatch(string $expected, mixed $value): RuntimeException
     {
-        return new RuntimeException(sprintf(
+        return new RuntimeException(\sprintf(
             'Expected %s, got %s',
             $expected,
-            get_debug_type($value),
+            \get_debug_type($value),
         ));
     }
 }

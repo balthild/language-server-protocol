@@ -44,7 +44,7 @@ class RenameFile extends ResourceOperation
         #[Shape(new Shape\Union(new Shape\Scalar('string'), new Shape\Scalar('null')))]
         public ?string $annotationId = null
     ) {
-        $this->oldUri = urldecode($oldUri);
-        $this->newUri = urldecode($newUri);
+        $this->oldUri = \urldecode($oldUri);
+        $this->newUri = \urldecode($newUri);
     }
 }

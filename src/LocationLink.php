@@ -47,6 +47,6 @@ class LocationLink implements ArrayDeserializable
         #[Shape(new Shape\Union(Range::class, new Shape\Scalar('null')))]
         public ?Range $originSelectionRange = null
     ) {
-        $this->targetUri = urldecode($targetUri);
+        $this->targetUri = \urldecode($targetUri);
     }
 }
